@@ -266,6 +266,7 @@ function methodtable.renderHeader( self, data )
 
 	titleItem:tag( 'div' )
 		:addClass( 'infobox__title' )
+        :addClass( 'plainlinks' ) -- !MODIFICATION  
 		:wikitext( data['title'] )
 
 	if data['subtitle'] then
@@ -604,6 +605,7 @@ function methodtable.renderInfobox( self, innerHtml, snippetText )
 			:done()
 			:tag( 'div' )
 			:addClass( 'infobox__desc' )
+            :addClass( 'plainlinks' ) -- !MODIFICATION
 			:wikitext( snippetText )
 
 		return tostring( html )
