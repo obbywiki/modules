@@ -522,6 +522,8 @@ function methodtable.renderItem( self, data, content )
 	-- Create base HTML structure
 	local html = mw.html.create( 'div' ):addClass( 'infobox__item' )
 
+	if data.plainlinks_enabled ~= nil then html:addClass('plainlinks') end -- !MODIFICATION
+
 	-- Add classes based on configuration
 	if data.class then html:addClass( data.class ) end
 	if data.row == true then html:addClass( 'infobox__grid--row' ) end

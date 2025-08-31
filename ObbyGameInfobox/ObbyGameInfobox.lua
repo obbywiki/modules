@@ -32,6 +32,49 @@ local function month_by_index(month)
 	end
 end
 
+
+
+local smm = {
+	twitter = {
+		icon = 'External Twitter White Small.png',
+		url = 'https://twitter.com/',
+		display = 'Twitter',
+	},
+	bsky = {
+		icon = 'External BlueSky White Small.png',
+		url = 'https://bsky.app/profile/',
+		display = 'BlueSky',
+	},
+	youtube = {
+		icon = 'External YouTube White Small.png',
+		url = 'https://youtube.com/c/',
+		display = 'YouTube',
+	},
+	discord = {
+		icon = 'External Discord White Small.png',
+		url = 'https://discord.com/invite/',
+		display = 'Discord',
+	},
+	guilded = {
+		icon = 'External Guilded White Small.png',
+		url = 'https://guilded.gg/',
+		display = 'Guilded',
+	},
+	roblox = {
+		icon = 'External Roblox White Small.png',
+		url = 'https://roblox.com/users/profile?username=',
+		display = 'Roblox',
+	},
+	wiki = {
+		icon = 'External MediaWiki White Small.png',
+		url = 'https://',
+		display = 'MediaWiki',
+	},
+}
+
+
+
+
 function ObbyGameInfobox.main( frame )
     local InfoboxNeue = require( 'Module:InfoboxNeue' )
 
@@ -112,8 +155,6 @@ function ObbyGameInfobox.main( frame )
 		subtitle = 'by \'\'\'[[' .. obby_developer .. ']]\'\'\'' .. (obby_creation_year ~= '' and (' - ' .. obby_creation_year) or '')
 	} )
 
-    test:renderItem( 'Publisher', affiliation )
-
     test:renderSection( {
 		title = 'Gameplay',
 		col = 2,
@@ -126,7 +167,7 @@ function ObbyGameInfobox.main( frame )
 				data = obby_tier == '0' and '0 - Unrated/Unknown' or obby_tier,
                 link = 'https://obbywiki.com/wiki/tiers#tier-'.. obby_tier
 			} ),
-			test:renderItem( 'Avatar Type', affiliation )
+			test:renderItem( 'Avatar Type', obby_avatar_type )
 		}
 	} )
 
@@ -153,6 +194,76 @@ function ObbyGameInfobox.main( frame )
 			test:renderItem( 'Obby System', obby_system ),
 		}
 	} )
+
+	local social_icons_wikitext = {}
+	local platform_icons_wikitext = {'[[File:Platform Computer White Small.png|24px|alt=PC|class=platform-icon]]'}
+
+	for i, v in pairs(smm) do
+		if args[i] then
+			local handle = args[i]
+			local full_url = v.url .. handle
+
+			local wikitext = string.format(
+				'[%s [[File:%s|24px|link=|alt=%s|class=social-icon %s-social-icon]]]',
+				full_url,
+				v.icon,
+				v.display .. ' icon',
+				string.lower(v.display)
+			)
+
+			table.insert(social_icons_wikitext, wikitext)
+		end
+	end
+
+	for _, i in pairs({'pc','tablet','phone','console','vr'}) do
+		if args[i] then
+			local wikitext = string.format(
+				'[[File:%s|24px|alt=%s|class=platform-icon]]',
+				(
+					i == 'pc' and
+						'Platform Computer White Small.png'
+					or i == 'tablet' and
+						'Platform Tablet White Small.png'
+					or i == 'phone' and
+						'Platform Phone White Small.png'
+					or i == 'console' and
+						'Platform Console White Small.png'
+					or i == 'vr' and
+						'Platform VR White Small.png'
+					or ''
+				),
+				i
+			)
+
+			table.insert(platform_icons_wikitext, wikitext)
+		end
+	end
+
+	if #social_icons_wikitext > 0 or #platform_icons_wikitext > 0 then
+		test:renderSection(
+			{
+				title = 'Presence',
+				content = {
+					test:renderItem(
+						{
+							label = 'Platforms',
+
+							data = table.concat(platform_icons_wikitext, ' ')
+						}
+					),
+					
+					test:renderItem(
+						{
+							label = 'Socials',
+							plainlinks_enabled = true,
+
+							data = table.concat(social_icons_wikitext, ' ')
+						}
+					)
+				}
+			}
+		)
+	end
 
     test:renderFooter( {
 		button = {
