@@ -598,7 +598,7 @@ function methodtable.renderInfobox( self, innerHtml, snippetText )
 			:done()
 			:tag( 'div' )
 			:addClass( 'infobox__data' )
-			:wikitext( string.format( '%s:', t( 'label_quick_facts' ) ) )
+			-- :wikitext( string.format( '%s:', t( 'label_quick_facts' ) ) ) -- !MODIFICATION
 			:done()
 			:tag( 'div' )
 			:addClass( 'infobox__desc' )

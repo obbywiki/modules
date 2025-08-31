@@ -1,5 +1,0 @@
-local Infobox = {}
-
-
-
-return Infobox
