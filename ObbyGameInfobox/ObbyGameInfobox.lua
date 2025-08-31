@@ -32,6 +32,19 @@ local function month_by_index(month)
 	end
 end
 
+local function get_comma_val(num)
+	local formatted = num
+	while true do  
+		local k;
+
+		formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
+		if (k==0) then
+			break
+		end
+	end
+	return formatted
+end
+
 
 
 local smm = {
@@ -119,6 +132,18 @@ function ObbyGameInfobox.main( frame )
 	local obby_stats_peak_ccu = args.peak_ccu or 'N/A'
 	local obby_stats_likes = args.likes or 'N/A'
 
+	if tonumber(obby_stats_visits) ~= nil then
+		obby_stats_visits = get_comma_val(args.visits)
+	end
+
+	if tonumber(obby_stats_peak_ccu) ~= nil then
+		obby_stats_peak_ccu = get_comma_val(args.peak_ccu)
+	end
+
+	if tonumber(obby_stats_likes) ~= nil then
+		obby_stats_likes = get_comma_val(args.likes)
+	end
+
     local obby_levels = args.levels or args.stages or 'N/A'
 	local obby_difficulties = args.difficulties or ''
 	local obby_towers = args.towers or ''
@@ -141,14 +166,9 @@ function ObbyGameInfobox.main( frame )
 
 	local obby_tier = args.tier or '0'
 	
-	local characterImage = args.image
-	local homeworld = args.homeworld
-	-- local homeworldPage = args.homeworld_page
-	local affiliation = args.affiliation
-	local height = args.height
-	local mass = args.mass
+	local thumb = args.image or args.thumbnail or args.thumb
 
-    test:renderImage( characterImage )
+    test:renderImage( thumb )
 
     test:renderHeader( {
 		title = '[https://roblox.com/games/' .. obby_starter_place_id .. '/ '  .. obby_name .. ']',
@@ -270,10 +290,10 @@ function ObbyGameInfobox.main( frame )
 			content = test:renderSection( {
 				content = {
 					test:renderItem( {
-						label = 'Fandom Wiki',
+						label = 'Roblox',
 						data = test:renderLinkButton( {
-							label = 'View on Fandom',
-							link = {'https://ext.wou.gg/'}
+							label = 'View on Roblox',
+							link = {'https://roblox.com/games/' .. obby_starter_place_id .. '/'}
 						} )
 					} )
 				}
