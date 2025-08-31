@@ -159,14 +159,10 @@ function ObbyGameInfobox.main( frame )
 		title = 'Gameplay',
 		col = 2,
 		content = {
-			test:renderItem( 'Levels', obby_levels ),
+			test:renderItem( 'Checkpoints (Stages)', obby_levels ),
 			test:renderItem( 'Difficulties', obby_difficulties ),
 			test:renderItem( 'Towers', obby_towers ),
-			test:renderItem( {
-				label = 'Tier',
-				data = obby_tier == '0' and '0 - Unrated/Unknown' or obby_tier,
-                link = 'https://obbywiki.com/wiki/tiers#tier-'.. obby_tier
-			} ),
+			test:renderItem( 'Tier', '[[Tiers|'.. (obby_tier == '0' and '0 - Unrated/Unknown' or obby_tier).. ']]' ),
 			test:renderItem( 'Avatar Type', obby_avatar_type )
 		}
 	} )
