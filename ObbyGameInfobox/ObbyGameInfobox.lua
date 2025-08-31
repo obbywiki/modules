@@ -45,6 +45,7 @@ function ObbyGameInfobox.main( frame )
     local obby_starter_place_id = args.root_place_id or args.start_place_id or 1818
 	local obby_subgenre = args.subgenre or args.sub_genre or 'N/A'
 	local obby_maturity = args.maturity or args.rating or 'na'
+	local obby_update_freq = args.update_freq or args.update_frequency or 'Unknown'
 
 	obby_maturity = string.lower(obby_maturity)
 
@@ -65,6 +66,9 @@ function ObbyGameInfobox.main( frame )
 
 	local obby_developer = args.developer or args.creator or 'Unknown'
     local obby_publisher = args.publisher or 'Self-Published'
+
+	local obby_system = args.system or args.obby_system or 'Unknown'
+
     local obby_creation_year = args.year or ''
 	local obby_creation_month = month_by_index(tonumber(args.month or '0') or 0)
 
@@ -73,10 +77,27 @@ function ObbyGameInfobox.main( frame )
 	local obby_stats_likes = args.likes or 'N/A'
 
     local obby_levels = args.levels or args.stages or 'N/A'
+	local obby_difficulties = args.difficulties or ''
+	local obby_towers = args.towers or ''
 
+	local obby_avatar_type = args.avatar_type or args.rig_type or 'N/A'
 
+	obby_avatar_type = string.lower(obby_avatar_type)
 
-	local characterSpecies = args.species
+	if obby_avatar_type == 'r6' then
+		obby_avatar_type = 'R6'
+	elseif obby_avatar_type == 'r15' then
+		obby_avatar_type = 'R15'
+	elseif obby_avatar_type == 'rthro' then
+		obby_avatar_type = 'Rthro'
+	elseif obby_maturity == 'choice' then
+		obby_maturity = 'Player Choice'
+	else
+		obby_maturity = 'N/A - Unknown'
+	end
+
+	local obby_tier = args.tier or '0'
+	
 	local characterImage = args.image
 	local homeworld = args.homeworld
 	-- local homeworldPage = args.homeworld_page
@@ -87,7 +108,7 @@ function ObbyGameInfobox.main( frame )
     test:renderImage( characterImage )
 
     test:renderHeader( {
-		title = obby_name,
+		title = '[https://roblox.com/games/' .. obby_starter_place_id .. '/ '  .. obby_name .. ']',
 		subtitle = 'by \'\'\'[[' .. obby_developer .. ']]\'\'\'' .. (obby_creation_year ~= '' and (' - ' .. obby_creation_year) or '')
 	} )
 
@@ -98,12 +119,14 @@ function ObbyGameInfobox.main( frame )
 		col = 2,
 		content = {
 			test:renderItem( 'Levels', obby_levels ),
+			test:renderItem( 'Difficulties', obby_difficulties ),
+			test:renderItem( 'Towers', obby_towers ),
 			test:renderItem( {
-				label = 'Homeworld',
-				data = homeworld,
-                link = 'https://ext.wou.gg/'
+				label = 'Tier',
+				data = obby_tier == '0' and '0 - Unrated/Unknown' or obby_tier,
+                link = 'https://obbywiki.com/wiki/tiers#tier-'.. obby_tier
 			} ),
-			test:renderItem( 'Affiliation', affiliation )
+			test:renderItem( 'Avatar Type', affiliation )
 		}
 	} )
 
@@ -118,14 +141,16 @@ function ObbyGameInfobox.main( frame )
 	} )
 
     test:renderSection( {
-		title = 'Publishing',
+		title = 'Publishing & Other',
 		col = 2,
 		content = {
 			test:renderItem( 'Released', obby_creation_month .. ' ' .. obby_creation_year ),
+			test:renderItem( 'Update Frequency', obby_update_freq ),
 			test:renderItem( 'Publisher', obby_publisher ),
 			test:renderItem( 'Genre', 'Obby & Platformer' ),
 			test:renderItem( 'Sub-genre', obby_subgenre ),
-			test:renderItem( 'Maturity', '' ),
+			test:renderItem( 'Maturity', obby_maturity ),
+			test:renderItem( 'Obby System', obby_system ),
 		}
 	} )
 
