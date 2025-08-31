@@ -196,7 +196,7 @@ function ObbyGameInfobox.main( frame )
 	} )
 
 	local social_icons_wikitext = {}
-	local platform_icons_wikitext = {'[[File:Platform Computer White Small.png|24px|alt=PC|class=platform-icon]]'}
+	local platform_icons_wikitext = {}
 
 	for i, v in pairs(smm) do
 		if args[i] then
@@ -246,18 +246,19 @@ function ObbyGameInfobox.main( frame )
 				content = {
 					test:renderItem(
 						{
-							label = 'Platforms',
-
-							data = table.concat(platform_icons_wikitext, ' ')
-						}
-					),
-					
-					test:renderItem(
-						{
 							label = 'Socials',
 							plainlinks_enabled = true,
 
 							data = table.concat(social_icons_wikitext, ' ')
+						}
+					),
+
+					test:renderItem(
+						{
+							label = 'Platforms',
+							plainlinks_enabled = true,
+
+							data = table.concat(platform_icons_wikitext, ' ')
 						}
 					)
 				}
