@@ -60,7 +60,7 @@ local smm = {
 	},
 	youtube = {
 		icon = 'External YouTube White Small.png',
-		url = 'https://youtube.com/c/',
+		url = 'https://youtube.com/@',
 		display = 'YouTube',
 	},
 	discord = {
@@ -99,9 +99,23 @@ function ObbyGameInfobox.main( frame )
 
     local obby_name = args.name or '{{PAGENAME}}'
     local obby_starter_place_id = args.root_place_id or args.start_place_id or 1818
-	local obby_subgenre = args.subgenre or args.sub_genre or 'N/A'
+	local obby_join_sharelink_id = args.play or args.sharelink or args.play_sharelink or ''
+	local obby_subgenre = args.subgenre or args.sub_genre or args.type or 'N/A'
 	local obby_maturity = args.maturity or args.rating or 'na'
 	local obby_update_freq = args.update_freq or args.update_frequency or 'Unknown'
+
+	local obby_subgenre_lower = string.lower(obby_subgenre)
+
+	if obby_subgenre_lower == 'dco' then
+		obby_subgenre = 'Difficulty Chart Obby'
+	elseif obby_subgenre_lower == 'st' then
+		obby_subgenre = 'Stage Tower Obby'
+	elseif obby_subgenre_lower == 't' then
+		obby_subgenre = 'Tower Obby'
+	elseif obby_subgenre_lower == 'so' then
+		obby_subgenre = 'Story Obby'
+	end
+
 
 	obby_maturity = string.lower(obby_maturity)
 
@@ -113,7 +127,7 @@ function ObbyGameInfobox.main( frame )
 		obby_maturity = 'Mature - Ages 13+'
 	elseif obby_maturity == 'restricted' then
 		obby_maturity = 'Restricted - Ages 18+'
-	elseif obby_maturity == 'unrated' or obby_maturity == 'na' then
+	elseif obby_maturity == 'unrated' or obby_maturity == 'none' then
 		obby_maturity = 'Unrated - Ages 18+'
 	else
 		obby_maturity = 'N/A - Unknown'
@@ -291,10 +305,29 @@ function ObbyGameInfobox.main( frame )
 				content = {
 					test:renderItem( {
 						label = 'Roblox',
-						data = test:renderLinkButton( {
+						data = {test:renderLinkButton( {
 							label = 'View on Roblox',
-							link = {'https://roblox.com/games/' .. obby_starter_place_id .. '/'}
-						} )
+							link = 'https://roblox.com/games/' .. obby_starter_place_id .. '/'
+						}),
+
+						test:renderLinkButton({
+							label = 'Play on Roblox',
+							link = (obby_join_sharelink_id ~= '' and 'https://roblox.com/join/' .. obby_join_sharelink_id) or 'https://roblox.com/start?placeId=' .. obby_starter_place_id .. '&launchData=obbywiki'
+						})
+					}					
+					} ),
+
+					test:renderItem( {
+						label = 'Analytics (not affiliated)',
+						data = {test:renderLinkButton( {
+							label = 'View on RoMonitorStats',
+							link = 'https://romonitorstats.com/experience/' .. obby_starter_place_id .. '/'
+						}),
+						test:renderLinkButton( {
+							label = 'View on Rolimons',
+							link = 'https://rolimons.com/game/' .. obby_starter_place_id .. '/'
+						})
+					}					
 					} )
 				}
 			}, true )
