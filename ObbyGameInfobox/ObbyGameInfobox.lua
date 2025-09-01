@@ -49,7 +49,7 @@ end
 
 local smm = {
 	twitter = {
-		icon = 'External Twitter White Small.png',
+		icon = 'External Twitter Coloured Small.webp',
 		url = 'https://twitter.com/',
 		display = 'Twitter',
 	},
