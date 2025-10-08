@@ -208,9 +208,10 @@ function ObbyGameInfobox.main( frame )
 
 	if universe_id then
 		local s, game_res = mw.ext.externalData.getExternalData{
-			url = 'https://games.roblox.com/v1/games?universeIds=' .. universe_id,
+			url = 'https://games.roblox.com/v1/games?universeIds=' .. tostring(universe_id),
 			format = 'json'
 		}
+		
 		local game_json = game_res and game_res.__json
 		local row = game_json and game_json.data and game_json.data[1]
 
@@ -307,7 +308,6 @@ function ObbyGameInfobox.main( frame )
 			test:renderItem( 'Sub-genre', obby_subgenre ),
 			test:renderItem( 'Maturity', obby_maturity ),
 			test:renderItem( 'Obby System', obby_system ),
-			test:renderItem( 'TESTING (IGNORE)', tostring(universe_id) ),
 		}
 	} )
 
