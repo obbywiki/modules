@@ -108,11 +108,19 @@ function ObbyGameInfobox.main( frame )
 
 	if obby_subgenre_lower == 'dco' then
 		obby_subgenre = 'Difficulty Chart Obby'
+	elseif obby_subgenre_lower == 'difficulty_chart_obby' then
+		obby_subgenre = 'Difficulty Chart Obby'
 	elseif obby_subgenre_lower == 'st' then
+		obby_subgenre = 'Stage Tower Obby'
+	elseif obby_subgenre_lower == 'stage_tower_obby' then
 		obby_subgenre = 'Stage Tower Obby'
 	elseif obby_subgenre_lower == 't' then
 		obby_subgenre = 'Tower Obby'
+	elseif obby_subgenre_lower == 'tower_obby' then
+		obby_subgenre = 'Tower Obby'
 	elseif obby_subgenre_lower == 'so' then
+		obby_subgenre = 'Story Obby'
+	elseif obby_subgenre_lower == 'story_obby' then
 		obby_subgenre = 'Story Obby'
 	end
 
