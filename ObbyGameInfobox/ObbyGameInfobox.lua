@@ -181,9 +181,9 @@ function ObbyGameInfobox.main( frame )
 	elseif obby_avatar_type == 'rthro' then
 		obby_avatar_type = 'Rthro'
 	elseif obby_maturity == 'choice' then
-		obby_maturity = 'Player Choice'
+		obby_avatar_type = 'Player Choice'
 	else
-		obby_maturity = 'N/A - Unknown'
+		obby_avatar_type = 'N/A - Unknown'
 	end
 
 	local obby_tier = args.tier or '0'
@@ -194,39 +194,57 @@ function ObbyGameInfobox.main( frame )
 
 	local universe_id
 
-	local s, universe_id_data = pcall(function() 
+	local s, res = pcall(function() 
 		return mw.ext.externalData.getExternalData{
-			data = { id = 'json.universeId' },
 			url = 'https://apis.roblox.com/universes/v1/places/' .. obby_starter_place_id .. '/universe',
 			format = 'json'
 		};
 	 end)
 
-	universe_id = s and universe_id_data and universe_id_data.id
+	universe_id = res and res.__json and res.__json.universeId
 
 
 	---
 
-	local s2, universe_data = pcall(function()
-		return mw.ext.externalData.getExternalData{
-			data = {
-				creator_name = 'json.data[0].creator.name',
-				creator_id   = 'json.data[0].creator.id',
-				is_verified  = 'json.data[0].creator.hasVerifiedBadge'
-			},
+	if universe_id then
+		local s, game_res = mw.ext.externalData.getExternalData{
 			url = 'https://games.roblox.com/v1/games?universeIds=' .. universe_id,
-			format = 'json',
+			format = 'json'
 		}
-	end)
+		local game_json = game_res and game_res.__json
+		local row = game_json and game_json.data and game_json.data[1]
 
-	if s2 and universe_data then
-		if universe_data.creator_name then
-			obby_developer = universe_data.creator.name or obby_developer
-
-			if universe_data.is_verified == 'true' or universe_data.is_verified == true then obby_developer = obby_developer .. ' [[File:Roblox_Verification_Badge.svg|12px|link=|alt=Verified]]' end
+		if row and row.creator then
+			local c = row.creator
+			local base = (c.type == 'Group') and 'communities' or 'users'
+			obby_developer = string.format(
+				'[https://roblox.com/%s/%s/ %s]%s',
+				base, c.id, c.name,
+				(c.hasVerifiedBadge and ' [[File:Roblox_Verification_Badge.png|12px|alt=Verified]]') or ''
+			)
 		end
 	end
-	
+
+	-- local s2, universe_data = pcall(function()
+	-- 	return mw.ext.externalData.getExternalData{
+	-- 		data = {
+	-- 			creator_name = 'json.data[0].creator.name',
+	-- 			creator_id   = 'json.data[0].creator.id',
+	-- 			is_verified  = 'json.data[0].creator.hasVerifiedBadge'
+	-- 		},
+	-- 		url = 'https://games.roblox.com/v1/games?universeIds=' .. universe_id,
+	-- 		format = 'json',
+	-- 	}
+	-- end)
+
+	-- if s2 and universe_data then
+	-- 	if universe_data.creator_name then
+	-- 		obby_developer = universe_data.creator.name or obby_developer
+
+	-- 		if universe_data.is_verified == 'true' or universe_data.is_verified == true then obby_developer = obby_developer .. ' [[File:Roblox_Verification_Badge.svg|12px|link=|alt=Verified]]' end
+	-- 	end
+	-- end
+
 	-- local universe
 
 	-- if universe_id then
