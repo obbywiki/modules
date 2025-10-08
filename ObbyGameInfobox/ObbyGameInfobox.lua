@@ -349,7 +349,7 @@ function ObbyGameInfobox.main( frame )
 	for _, i in pairs({'pc','tablet','phone','console','vr'}) do
 		if args[i] then
 			local wikitext = string.format(
-				'[[File:%s|24px|alt=%s|class=platform-icon]]',
+				'[[File:%s|24px|alt=%s|class=platform-icon]|link=]',
 				(
 					i == 'pc' and
 						'Platform Computer White Small.png'
