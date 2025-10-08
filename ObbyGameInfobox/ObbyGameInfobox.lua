@@ -225,7 +225,7 @@ function ObbyGameInfobox.main( frame )
 			local base = (c.type == 'Group') and 'communities' or 'users'
 			
 			if page_exists(c.type == 'Group' and c.name or '@' .. c.name) then
-				obby_developer = obby_developer .. ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified]]'
+				obby_developer = obby_developer .. ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]'
 			else
 				obby_developer = string.format(
 					'[https://roblox.com/%s/%s/loading %s %s]',
@@ -306,9 +306,9 @@ function ObbyGameInfobox.main( frame )
 		title = 'Statistics',
 		col = 2,
 		content = {
-			test:renderItem( 'Visits', obby_stats_visits),
-			test:renderItem( 'Peak CCU', obby_stats_peak_ccu ),
-			test:renderItem( 'Likes', obby_stats_likes ),
+			test:renderItem( 'Visits', obby_stats_visits .. '+'),
+			test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
+			test:renderItem( 'Likes', obby_stats_likes .. '+' ),
 		}
 	} )
 
