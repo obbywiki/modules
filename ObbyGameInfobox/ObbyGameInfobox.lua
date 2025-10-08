@@ -228,14 +228,16 @@ function ObbyGameInfobox.main( frame )
 				obby_developer = obby_developer .. ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified]]'
 			else
 				obby_developer = string.format(
-					'[https://roblox.com/%s/%s/loading %s %s ]',
+					'[https://roblox.com/%s/%s/loading %s %s]',
 					base, c.id, c.name,
-					(c.hasVerifiedBadge and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified]]') or ''
+					(c.hasVerifiedBadge and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]') or ''
 				)
 	
 				obby_developer_was_corrected = true
 			end
 		end
+
+		obby_stats_visits = row.visits or obby_stats_visits
 	end
 
 	-- local s2, universe_data = pcall(function()
