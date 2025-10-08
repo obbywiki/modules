@@ -25,7 +25,7 @@ function p.main(frame)
     end
 
     local output = ''
-    local checkmark = '[[File:Roblox_Verification_Badge.svg|15px|link=|alt=Verified]]'
+    local checkmark = '[[File:Roblox_Verification_Badge.svg|12px|link=|alt=Verified]]'
 
     if page_exists(page_name) then
         output = '[[' .. page_name .. '|' .. page_name .. ']]'
