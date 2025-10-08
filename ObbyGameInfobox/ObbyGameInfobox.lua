@@ -194,7 +194,7 @@ function ObbyGameInfobox.main( frame )
 
 	local universe_id
 
-	local s, res = pcall(function() 
+	local _, res = pcall(function() 
 		return mw.ext.externalData.getExternalData{
 			url = 'https://apis.roblox.com/universes/v1/places/' .. obby_starter_place_id .. '/universe',
 			format = 'json'
@@ -207,13 +207,14 @@ function ObbyGameInfobox.main( frame )
 	---
 
 	if universe_id then
-		local s, game_res = mw.ext.externalData.getExternalData{
+		local game_res = mw.ext.externalData.getExternalData{
 			url = 'https://games.roblox.com/v1/games?universeIds=' .. tostring(universe_id),
 			format = 'json'
 		}
 		
 		local game_json = game_res and game_res.__json
 		local row = game_json and game_json.data and game_json.data[1]
+		mw.log(game_res, row)
 
 		if row and row.creator then
 			local c = row.creator
