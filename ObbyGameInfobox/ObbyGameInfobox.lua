@@ -228,8 +228,8 @@ function ObbyGameInfobox.main( frame )
 				obby_developer = obby_developer .. ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]'
 			else
 				obby_developer = string.format(
-					'[https://roblox.com/%s/%s/loading %s %s]',
-					base, c.id, c.name,
+					'[https://roblox.com/%s/%s/%s#!/about %s %s]',
+					base, c.id, c.name, c.name,
 					(c.hasVerifiedBadge and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]') or ''
 				)
 	
