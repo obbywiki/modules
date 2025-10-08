@@ -15,7 +15,7 @@ local function is_verified_group(page_title)
     return false
 end
 
-function p.main(frame)
+function p.link(frame)
     local args = frame:getParent().args
     local page_name = args[1] or args['name'] or ''
     local group_id = args[2] or args['id'] or nil
@@ -33,7 +33,7 @@ function p.main(frame)
             output = output .. ' ' .. checkmark
         end
     else
-        output = '[https://roblox.com/communities/' .. group_id or '0' .. '/' .. page_name .. '#!/about' .. page_name .. ' ' .. checkmark .. ']'
+        output = '[https://www.roblox.com/communities/' .. (group_id or '0') .. '/' .. page_name .. '#!/about ' .. page_name .. ' ' .. checkmark .. ']'
     end
 
     return output
