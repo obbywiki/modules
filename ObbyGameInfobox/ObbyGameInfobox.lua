@@ -192,32 +192,54 @@ function ObbyGameInfobox.main( frame )
 
 	--
 
-	local universe_id_data, universe_id
+	local universe_id
 
-	local _, _ = pcall(function() 
-		universe_id_data = mw.ext.externalData.getWebData{
+	local s, universe_id_data = pcall(function() 
+		return mw.ext.externalData.getExternalData{
+			data = { id = 'json.universeId' },
 			url = 'https://apis.roblox.com/universes/v1/places/' .. obby_starter_place_id .. '/universe',
 			format = 'json'
 		};
 	 end)
 
-	universe_id = universe_id_data and universe_id_data.universeId
+	universe_id = s and universe_id_data and universe_id_data.id
+
 
 	---
 
-	local universe
-
-	if universe_id then
-		local universe_data = mw.ext.externalData.getExternalData{
-			url = 'https://games.roblox.com/v1/games?universeIds=' .. universe_id
+	local s2, universe_data = pcall(function()
+		return mw.ext.externalData.getExternalData{
+			data = {
+				creator_name = 'json.data[0].creator.name',
+				creator_id   = 'json.data[0].creator.id',
+				is_verified  = 'json.data[0].creator.hasVerifiedBadge'
+			},
+			url = 'https://games.roblox.com/v1/games?universeIds=' .. universe_id,
+			format = 'json',
 		}
-	
-		universe = universe_data and universe_data[1]
-	
-		if universe then
-			obby_developer = universe.creator and universe.creator.name or obby_developer
+	end)
+
+	if s2 and universe_data then
+		if universe_data.creator_name then
+			obby_developer = universe_data.creator.name or obby_developer
+
+			if universe_data.is_verified == 'true' or universe_data.is_verified == true then obby_developer = obby_developer .. ' [[File:Roblox_Verification_Badge.svg|12px|link=|alt=Verified]]' end
 		end
 	end
+	
+	-- local universe
+
+	-- if universe_id then
+	-- 	local universe_data = mw.ext.externalData.getExternalData{
+	-- 		url = 'https://games.roblox.com/v1/games?universeIds=' .. universe_id
+	-- 	}
+	
+	-- 	universe = universe_data and universe_data[1]
+	
+	-- 	if universe then
+	-- 		obby_developer = universe.creator and universe.creator.name or obby_developer
+	-- 	end
+	-- end
 
 	---
 
