@@ -17,7 +17,8 @@ end
 
 function p.link(frame)
     local args = frame:getParent().args
-    local page_name = args[1] or ''
+    local page_name = args[1] or args['name'] or ''
+    local group_id = args[2] or args['id'] or nil
 
     if page_name == '' then
         return ''
@@ -32,7 +33,7 @@ function p.link(frame)
             output = output .. ' ' .. checkmark
         end
     else
-        output = '[https://roblox.com/communities/0/' .. page_name .. ' ' .. page_name .. ' ' .. checkmark .. ']'
+        output = '[https://roblox.com/communities/' .. group_id or '0' .. '/' .. page_name .. '#!/about' .. page_name .. ' ' .. checkmark .. ']'
     end
 
     return output
