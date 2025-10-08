@@ -238,6 +238,7 @@ function ObbyGameInfobox.main( frame )
 		end
 
 		obby_stats_visits = row.visits or obby_stats_visits
+		if row.visits and tonumber(obby_stats_visits) ~= nil then obby_stats_visits = get_comma_val(args.visits) end
 	end
 
 	-- local s2, universe_data = pcall(function()
