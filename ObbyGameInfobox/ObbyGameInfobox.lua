@@ -307,6 +307,7 @@ function ObbyGameInfobox.main( frame )
 			test:renderItem( 'Sub-genre', obby_subgenre ),
 			test:renderItem( 'Maturity', obby_maturity ),
 			test:renderItem( 'Obby System', obby_system ),
+			test:renderItem( 'TESTING (IGNORE)', tostring(universe_id) ),
 		}
 	} )
 
