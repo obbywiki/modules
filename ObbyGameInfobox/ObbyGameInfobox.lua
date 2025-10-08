@@ -287,7 +287,7 @@ function ObbyGameInfobox.main( frame )
 
     test:renderHeader( {
 		title = '[https://roblox.com/games/' .. obby_starter_place_id .. '/ '  .. obby_name .. ']',
-		subtitle = (obby_developer_was_corrected and ('by \'\'\''..obby_developer..'\'\'\'') or ('by \'\'\'[[' .. obby_developer .. ']]\'\'\'')) .. (obby_creation_year ~= '' and (' - ' .. obby_creation_year) or '')
+		subtitle = (obby_developer_was_corrected and ('by \'\'\''..obby_developer..'\'\'\'') or ('by \'\'\'[[' .. obby_developer .. ']]\'\'\'')) .. (obby_creation_year ~= '' and (' — ' .. obby_creation_year) or '')
 	} )
 
     test:renderSection( {
