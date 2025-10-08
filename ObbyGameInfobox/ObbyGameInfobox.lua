@@ -45,6 +45,10 @@ local function get_comma_val(num)
 	return formatted
 end
 
+local function page_exists(page_title)
+    local title = mw.title.new(page_title)
+    return title and title.exists
+end
 
 
 local smm = {
@@ -142,7 +146,7 @@ function ObbyGameInfobox.main( frame )
 	end
 
 
-	local obby_developer = args.developer or args.creator or 'Unknown'
+	local obby_developer, obby_developer_was_corrected = args.developer or args.creator or 'Unknown', false
     local obby_publisher = args.publisher or 'Self-Published'
 
 	local obby_system = args.system or args.obby_system or 'Unknown'
@@ -219,11 +223,18 @@ function ObbyGameInfobox.main( frame )
 		if row and row.creator then
 			local c = row.creator
 			local base = (c.type == 'Group') and 'communities' or 'users'
-			obby_developer = string.format(
-				'[https://roblox.com/%s/%s/ %s]%s',
-				base, c.id, c.name,
-				(c.hasVerifiedBadge and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified]]') or ''
-			)
+			
+			if page_exists(c.type == 'Group' and c.Name or '@' .. c.Name) then
+				obby_developer = obby_developer .. ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified]]'
+			else
+				obby_developer = string.format(
+					'[https://roblox.com/%s/%s/ %s %s]',
+					base, c.id, c.name,
+					(c.hasVerifiedBadge and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified]]') or ''
+				)
+	
+				obby_developer_was_corrected = true
+			end
 		end
 	end
 
@@ -273,7 +284,7 @@ function ObbyGameInfobox.main( frame )
 
     test:renderHeader( {
 		title = '[https://roblox.com/games/' .. obby_starter_place_id .. '/ '  .. obby_name .. ']',
-		subtitle = 'by \'\'\'[[' .. obby_developer .. ']]\'\'\'' .. (obby_creation_year ~= '' and (' - ' .. obby_creation_year) or '')
+		subtitle = (obby_developer_was_corrected and ('by \'\'\''..obby_developer..'\'\'\'') or ('by \'\'\'[[' .. obby_developer .. ']]\'\'\'')) .. (obby_creation_year ~= '' and (' - ' .. obby_creation_year) or '')
 	} )
 
     test:renderSection( {
