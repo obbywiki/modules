@@ -15,7 +15,7 @@ local function is_verified_group(page_title)
     return false
 end
 
-function p.link(frame)
+function p.main(frame)
     local args = frame:getParent().args
     local page_name = args[1] or args['name'] or ''
     local group_id = args[2] or args['id'] or nil
