@@ -190,6 +190,43 @@ function ObbyGameInfobox.main( frame )
 	
 	local thumb = args.image or args.thumbnail or args.thumb
 
+	--
+
+	local universe_id_data, universe_id
+
+	local _, _ = pcall(function() 
+		universe_id_data = mw.ext.externalData.getWebData{
+			url = 'https://apis.roblox.com/universes/v1/places/' .. obby_starter_place_id .. '/universe',
+			format = 'json'
+		};
+	 end)
+
+	universe_id = universe_id_data and universe_id_data.universeId
+
+	---
+
+	local universe
+
+	if universe_id then
+		local universe_data = mw.ext.externalData.getExternalData{
+			url = 'https://games.roblox.com/v1/games?universeIds=' .. universe_id
+		}
+	
+		universe = universe_data and universe_data[1]
+	
+		if universe then
+			obby_developer = universe.creator and universe.creator.name or obby_developer
+		end
+	end
+
+	---
+
+
+
+
+
+	--
+
     test:renderImage( thumb )
 
     test:renderHeader( {
