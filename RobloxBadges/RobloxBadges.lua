@@ -43,25 +43,31 @@ local function gather_badges(universe_id)
 	return all, nil
 end
 
-local function fetch_thumbnails(badges, size)
+local function fetch_thumbnails(badges, icon_px)
 	if #badges == 0 then return {} end
-	local ids = {}
-	for i, b in ipairs(badges) do ids[i] = tostring(b.id) end
-	local url = string.format(
-		"https://thumbnails.roblox.com/v1/badges/icons?badgeIds=%s&size=%dx%d&format=Png",
-		table.concat(ids, ","),
-		size, size
-	)
-	local json, err = fetch_json(url)
-	if not json then return {}, err end
+	
 	local map = {}
-	if json.data then
-		for _, item in ipairs(json.data) do
-			map[tonumber(item.targetId)] = item.imageUrl
+	local batch, n = {}, 0
+	for i, b in ipairs(badges) do
+		n = n + 1
+		batch[n] = tostring(b.id)
+		if n == 100 or i == #badges then
+			local url = ('https://thumbnails.roblox.com/v1/badges/icons?badgeIds=%s&size=150x150&format=Png&isCircular=false&returnPolicy=PlaceHolder')
+				:format(table.concat(batch, ','))
+			local json = ED.getExternalData{ url = url, cache = 3600 } -- is cache even a field?
+			if json and json.__json and json.__json.data then
+				for _, item in ipairs(json.__json.data) do
+					if item.state == 'Completed' or item.imageUrl then
+						map[tonumber(item.targetId)] = item.imageUrl
+					end
+				end
+			end
+			batch, n = {}, 0
 		end
 	end
-	return map, nil
+	return map
 end
+
 
 local function build_table(badges, thumb_map, icon_px)
 	local tbl = html.create("table")
