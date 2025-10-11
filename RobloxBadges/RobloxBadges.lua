@@ -97,7 +97,6 @@ local function build_table(badges, thumb_map, icon_px)
 end
 
 function p.render(frame)
-	mw.setTTL(3600)
 	local args = frame:getParent() and frame:getParent().args or frame.args
 	local universe_id = args.universe_id or args.universe or args.uid
 	if not universe_id or universe_id == "" then
