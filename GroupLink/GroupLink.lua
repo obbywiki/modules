@@ -33,7 +33,7 @@ function p.main(frame)
             output = output .. ' ' .. checkmark
         end
     else
-        output = '[https://www.roblox.com/communities/' .. (group_id or '0') .. '/' .. page_name .. '#!/about ' .. page_name .. ' ' .. checkmark .. ']'
+        output = '[https://www.roblox.com/communities/' .. (group_id or '0') .. '/' .. string.gsub(page_name, ' ', '_') .. '#!/about ' .. page_name .. ' ' .. checkmark .. ']'
     end
 
     return output
