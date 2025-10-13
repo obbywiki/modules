@@ -229,7 +229,7 @@ function ObbyGameInfobox.main( frame )
 			else
 				obby_developer = string.format(
 					'[https://roblox.com/%s/%s/%s %s%s]',
-					base, c.id, base == 'communities' and (string.gsub(c.name, ' ', '_') .. '#!/about') or 'profile', c.name,
+					base, c.id, base == 'communities' and (string.gsub(c.name, ' ', '_') .. '#!/about') or 'profile', (c.type == 'User' and '@' or '') .. c.name,
 					(c.hasVerifiedBadge and '  [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]') or ''
 				)
 	
