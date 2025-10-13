@@ -29,7 +29,7 @@ function p.main(frame)
 
     if page_exists(page_name) then
         output = '[[' .. page_name .. '|' .. page_name .. ']]'
-        if is_verified_group(display_text) then
+        if is_verified_group(page_name) then
             output = output .. ' ' .. checkmark
         end
     else
