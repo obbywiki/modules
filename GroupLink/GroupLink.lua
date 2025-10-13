@@ -7,7 +7,7 @@ local function page_exists(page_title)
 end
 
 local function is_verified_group(page_title)
-    for _, groupName in ipairs(vc.verified_groups) do
+    for _, groupName in ipairs(vc.verified_group_names) do
         if groupName == page_title then
             return true
         end
