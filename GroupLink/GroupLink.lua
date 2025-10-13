@@ -33,7 +33,10 @@ function p.main(frame)
             output = output .. ' ' .. checkmark
         end
     else
-        output = '[https://www.roblox.com/communities/' .. (group_id or '0') .. '/' .. string.gsub(page_name, ' ', '_') .. '#!/about ' .. page_name .. ' ' .. checkmark .. ']'
+        output = '[https://www.roblox.com/communities/' .. (group_id or '0') .. '/' .. string.gsub(page_name, ' ', '_') .. '#!/about ' .. page_name .. ']'
+        if is_verified_group(page_name) then
+            output = output .. ' ' .. checkmark
+        end
     end
 
     return output
