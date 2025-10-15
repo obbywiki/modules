@@ -82,6 +82,11 @@ local smm = {
 		url = 'https://roblox.com/users/profile?username=',
 		display = 'Roblox',
 	},
+	website = {
+		icon = 'GoogleMaterialIcons-Globe.svg',
+		url = 'https://',
+		display = 'Website',
+	},
 	wiki = {
 		icon = 'External MediaWiki White Small.png',
 		url = 'https://',
