@@ -302,8 +302,8 @@ function ObbyGameInfobox.main( frame )
 		col = 2,
 		content = {
 			test:renderItem( 'Checkpoints (Stages)', obby_levels ),
-			test:renderItem( 'Difficulties', (obby_difficulties and obby_difficulties .. (obby_difficulties_total and ' (of ' .. obby_difficulties_total .. ')')) or ''),
-			test:renderItem( 'Towers', (obby_towers and obby_towers .. (obby_towers_total and ' (of ' .. obby_towers_total .. ')')) or ''),
+			test:renderItem( 'Difficulties', obby_difficulties_total and obby_difficulties and (obby_difficulties .. (obby_difficulties_total and ' (of ' .. obby_difficulties_total .. ')')) or obby_difficulties or ''),
+			test:renderItem( 'Towers', obby_towers_total and obby_towers and (obby_towers .. (obby_towers_total and ' (of ' .. obby_towers_total .. ')')) or obby_towers and obby_towers or ''),
 			test:renderItem( 'Tier', '[[Tiers|'.. (obby_tier == '0' and '0 - Unrated/Unknown' or obby_tier).. ']]' ),
 			test:renderItem( 'Avatar Type', obby_avatar_type )
 		}
@@ -452,20 +452,21 @@ function ObbyGameInfobox.main( frame )
 	} )
 
 	local rendered = test:renderInfobox( nil, '[https://roblox.com/games/' .. obby_starter_place_id .. '/ '  .. obby_name .. ']' )
+	local parsed_month = month_by_index(tonumber(obby_creation_month))
 
 	local append_categories = {}
 
-	if obby_creation_year >= 2008 and obby_creation_year <= os.date('*t').year+2 then
+	if tonumber(obby_creation_year) >= 2008 and tonumber(obby_creation_year) <= os.date('*t').year+2 then
 		table.insert(append_categories, '[[Category:' .. tostring(obby_creation_year) .. ']]')
 
 
-		if month_by_index(obby_creation_month) ~= 'N/A' then
-			table.insert(append_categories, '[[Category:' .. month_by_index(obby_creation_month) .. ' ' .. tostring(obby_creation_year) .. ']]')
+		if parsed_month ~= 'N/A' then
+			table.insert(append_categories, '[[Category:' .. parsed_month .. ' ' .. tostring(obby_creation_year) .. ']]')
 		end
 	end
 
-	if month_by_index(obby_creation_month) ~= 'N/A' then
-		table.insert(append_categories, '[[Category:' .. month_by_index(obby_creation_month) .. ']]')
+	if parsed_month ~= 'N/A' then
+		table.insert(append_categories, '[[Category:' .. parsed_month .. ']]')
 	end
 
     return rendered .. '\n' .. table.concat(append_categories, '\n')
