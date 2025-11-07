@@ -103,7 +103,7 @@ local function build_table(badges, thumb_map, icon_px)
 				:attr("loading", "lazy")
 				:cssText(string.format("width:%dpx;height:%dpx;object-fit:contain", icon_px, icon_px))
 		else
-			icon_cell:wikitext("-")
+			icon_cell:wikitext("N/A")
 		end
 		row:tag("td"):wikitext('[https://www.roblox.com/badges/' .. (b.string_id or tostring(b.id or 0)) .. '/badge ' .. b.name .. ']')
 		row:tag("td"):wikitext(b.description ~= "" and b.description or "—")
