@@ -176,6 +176,7 @@ function ObbyGameInfobox.main( frame )
 	end
 
     local obby_levels = args.levels or args.stages or 'N/A'
+	local obby_levels_total = args.levels_total or args.stages_total or 'N/A'
 	local obby_difficulties = args.difficulties or ''
 	local obby_difficulties_total = args.difficulties_total or nil
 	local obby_towers = args.towers or ''
@@ -301,9 +302,9 @@ function ObbyGameInfobox.main( frame )
 		title = 'Gameplay',
 		col = 2,
 		content = {
-			test:renderItem( 'Checkpoints (Stages)', obby_levels ),
-			test:renderItem( 'Difficulties', obby_difficulties_total and obby_difficulties and (obby_difficulties .. (obby_difficulties_total and ' (of ' .. obby_difficulties_total .. ')')) or obby_difficulties or ''),
-			test:renderItem( 'Towers', obby_towers_total and obby_towers and (obby_towers .. (obby_towers_total and ' (of ' .. obby_towers_total .. ')')) or obby_towers and obby_towers or ''),
+			test:renderItem( 'Checkpoints (Stages)', obby_levels_total and obby_levels and (obby_levels .. (obby_levels_total and ' <small>(of ' .. obby_levels_total .. ')</small>')) or obby_levels or ''),
+			test:renderItem( 'Difficulties', obby_difficulties_total and obby_difficulties and (obby_difficulties .. (obby_difficulties_total and ' <small>(of ' .. obby_difficulties_total .. ')</small>')) or obby_difficulties or ''),
+			test:renderItem( 'Towers', obby_towers_total and obby_towers and (obby_towers .. (obby_towers_total and ' <small>(of ' .. obby_towers_total .. ')</small>')) or obby_towers and obby_towers or ''),
 			test:renderItem( 'Tier', '[[Tiers|'.. (obby_tier == '0' and '0 - Unrated/Unknown' or obby_tier).. ']]' ),
 			test:renderItem( 'Avatar Type', obby_avatar_type )
 		}
