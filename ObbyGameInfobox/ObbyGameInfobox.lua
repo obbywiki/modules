@@ -302,8 +302,8 @@ function ObbyGameInfobox.main( frame )
 		col = 2,
 		content = {
 			test:renderItem( 'Checkpoints (Stages)', obby_levels ),
-			test:renderItem( 'Difficulties', obby_difficulties .. (obby_difficulties_total and ' (of ' .. obby_difficulties_total .. ')') or ''),
-			test:renderItem( 'Towers', obby_towers .. (obby_towers_total and ' (of ' .. obby_towers_total .. ')') or ''),
+			test:renderItem( 'Difficulties', (obby_difficulties and obby_difficulties .. (obby_difficulties_total and ' (of ' .. obby_difficulties_total .. ')')) or ''),
+			test:renderItem( 'Towers', (obby_towers and obby_towers .. (obby_towers_total and ' (of ' .. obby_towers_total .. ')')) or ''),
 			test:renderItem( 'Tier', '[[Tiers|'.. (obby_tier == '0' and '0 - Unrated/Unknown' or obby_tier).. ']]' ),
 			test:renderItem( 'Avatar Type', obby_avatar_type )
 		}
