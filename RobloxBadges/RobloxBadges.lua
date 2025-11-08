@@ -120,7 +120,7 @@ function p.render(frame)
 		return "Error: universe_id is required."
 	end
 	local show_disabled = tostring(args.show_disabled or "no"):lower() ~= "no"
-	local icon_px = tonumber(args.icon_size) or 150
+	local icon_px = tonumber(args.icon_size) or 64
 
 	local badges, err = gather_badges(universe_id)
 	if not badges then
