@@ -152,6 +152,7 @@ function ObbyGameInfobox.main( frame )
 
 
 	local obby_developer, obby_developer_was_corrected = args.developer or args.creator or 'Unknown', false
+	local obby_developer_raw = obby_developer
     local obby_publisher = args.publisher or 'Self-Published'
 
 	local obby_system = args.system or args.obby_system or 'Unknown'
@@ -233,6 +234,7 @@ function ObbyGameInfobox.main( frame )
 			local base = (c.type == 'Group') and 'communities' or 'users'
 			
 			if page_exists(c.type == 'Group' and c.name or '@' .. c.name) then
+				obby_developer_raw = obby_developer
 				obby_developer = obby_developer .. (c.hasVerifiedBadge and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]' or '')
 			else
 				obby_developer = string.format(
@@ -295,7 +297,7 @@ function ObbyGameInfobox.main( frame )
 
     test:renderHeader( {
 		title = '[https://roblox.com/games/' .. obby_starter_place_id .. '/ '  .. obby_name .. ']',
-		subtitle = (obby_developer_was_corrected and ('by \'\'\''..obby_developer..'\'\'\'') or ('by \'\'\'[[' .. obby_developer .. ']]\'\'\'')) .. (obby_creation_year ~= '' and (' — ' .. obby_creation_year) or '')
+		subtitle = (obby_developer_was_corrected and ('by \'\'\''..obby_developer..'\'\'\'') or ('by \'\'\'[[' .. obby_developer_raw .. '|' .. obby_developer .. ']]\'\'\'')) .. (obby_creation_year ~= '' and (' — ' .. obby_creation_year) or '')
 	} )
 
     test:renderSection( {
