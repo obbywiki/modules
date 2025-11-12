@@ -236,7 +236,7 @@ function GroupInfobox.main( frame )
 			else
 				group_creator = string.format(
 					'[https://roblox.com/%s/%s/%s %s%s]',
-					base, base == 'users' and c.userId or c.id or c.groupId, base == 'communities' and (string.gsub(c.name, ' ', '_') .. '#!/about') or 'profile', (c.type == 'User' and '@' or '') .. c.name,
+					base, base == 'users' and c.userId or c.id or c.groupId, base == 'communities' and (string.gsub(c.name or c.groupName or c.username or 'Error', ' ', '_') .. '#!/about') or 'profile', (c.type == 'User' and '@' or '') .. (c.username or c.name),
 					(c.hasVerifiedBadge and '  [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]') or ''
 				)
 	
