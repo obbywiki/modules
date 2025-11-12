@@ -223,11 +223,11 @@ function GroupInfobox.main( frame )
 		}
 		
 		local group_json = group_res and group_res.__json
-		local row = group_json and group_json.data and group_json.data[1]
+		local row = group_json and group_json.data
 		mw.log(group_res, row)
 
-		if row and row.creator then
-			local c = row.creator
+		if row and row.owner then
+			local c = row.owner
 			local base = (c.type == 'Group') and 'communities' or 'users'
 			
 			if page_exists(c.type == 'Group' and c.name or '@' .. c.name) then
@@ -235,7 +235,7 @@ function GroupInfobox.main( frame )
 			else
 				group_creator = string.format(
 					'[https://roblox.com/%s/%s/%s %s%s]',
-					base, c.id, base == 'communities' and (string.gsub(c.name, ' ', '_') .. '#!/about') or 'profile', (c.type == 'User' and '@' or '') .. c.name,
+					base, base == 'users' and c.userId or c.id or c.groupId, base == 'communities' and (string.gsub(c.name, ' ', '_') .. '#!/about') or 'profile', (c.type == 'User' and '@' or '') .. c.name,
 					(c.hasVerifiedBadge and '  [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]') or ''
 				)
 	
@@ -243,8 +243,10 @@ function GroupInfobox.main( frame )
 			end
 		end
 
-		group_stats_members = row.memberCount or group_stats_members
-		if row.memberCount and tonumber(group_stats_members) ~= nil then group_stats_members = get_comma_val(group_stats_members) end
+		if row then
+			group_stats_members = row.memberCount or group_stats_members
+			if row.memberCount and tonumber(group_stats_members) ~= nil then group_stats_members = get_comma_val(group_stats_members) end
+		end
 	end
 
 	-- local s2, universe_data = pcall(function()
