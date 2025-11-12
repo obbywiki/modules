@@ -229,10 +229,10 @@ function GroupInfobox.main( frame )
 
 		if row and row.owner then
 			local c = row.owner
-			local base = (c.type == 'Group') and 'communities' or 'users'
+			local base = not c.type and 'users' or (c.type == 'Group') and 'communities' or 'users'
 			
-			if page_exists(c.type == 'Group' and c.name or '@' .. c.name) then
-				group_creator = group_creator .. ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]'
+			if page_exists(base == 'communities' and (c.name or c.groupName or c.username) or '@' .. (c.username or c.name or 'Unknown')) then
+				group_creator = group_creator .. (c.hasVerifiedBadge and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]' or '')
 			else
 				group_creator = string.format(
 					'[https://roblox.com/%s/%s/%s %s%s]',

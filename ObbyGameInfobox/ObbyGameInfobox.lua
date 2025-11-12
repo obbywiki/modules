@@ -233,7 +233,7 @@ function ObbyGameInfobox.main( frame )
 			local base = (c.type == 'Group') and 'communities' or 'users'
 			
 			if page_exists(c.type == 'Group' and c.name or '@' .. c.name) then
-				obby_developer = obby_developer .. ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]'
+				obby_developer = obby_developer .. (c.hasVerifiedBadge and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]' or '')
 			else
 				obby_developer = string.format(
 					'[https://roblox.com/%s/%s/%s %s%s]',
