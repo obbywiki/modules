@@ -153,6 +153,7 @@ function GroupInfobox.main( frame )
 
 	local group_creator, group_creator_was_corrected = args.developer or args.creator or args.owner or 'Unknown', false
     local group_relations = args.relations or 'Independant'
+	local group_obbies = args.obbies or args.games or 0
 
     local group_creation_year = args.year or ''
 	local group_creation_month = month_by_index(tonumber(args.month or '0') or 0)
@@ -223,7 +224,7 @@ function GroupInfobox.main( frame )
 		}
 		
 		local group_json = group_res and group_res.__json
-		local row = group_json and group_json.data
+		local row = group_json
 		mw.log(group_res, row)
 
 		if row and row.owner then
@@ -315,6 +316,7 @@ function GroupInfobox.main( frame )
 		col = 2,
 		content = {
 			test:renderItem( 'Members', group_stats_members .. '+'),
+			test:renderItem( 'Obbies', '~' .. group_obbies),
 			-- test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
 			-- test:renderItem( 'Likes', obby_stats_likes .. '+' ),
 		}
