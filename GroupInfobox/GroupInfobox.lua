@@ -335,7 +335,7 @@ function GroupInfobox.main( frame )
 	} )
 
 	local social_icons_wikitext = {}
-	local platform_icons_wikitext = {}
+	-- local platform_icons_wikitext = {}
 
 	for i, v in pairs(smm) do
 		if args[i] then
@@ -354,31 +354,31 @@ function GroupInfobox.main( frame )
 		end
 	end
 
-	for _, i in pairs({'pc','tablet','phone','console','vr'}) do
-		if args[i] then
-			local wikitext = string.format(
-				'[[File:%s|24px|alt=%s|class=platform-icon|link=]]',
-				(
-					i == 'pc' and
-						'Platform Computer White Small.png'
-					or i == 'tablet' and
-						'Platform Tablet White Small.png'
-					or i == 'phone' and
-						'Platform Phone White Small.png'
-					or i == 'console' and
-						'Platform Console White Small.png'
-					or i == 'vr' and
-						'Platform VR White Small.png'
-					or ''
-				),
-				i
-			)
+	-- for _, i in pairs({'pc','tablet','phone','console','vr'}) do
+	-- 	if args[i] then
+	-- 		local wikitext = string.format(
+	-- 			'[[File:%s|24px|alt=%s|class=platform-icon|link=]]',
+	-- 			(
+	-- 				i == 'pc' and
+	-- 					'Platform Computer White Small.png'
+	-- 				or i == 'tablet' and
+	-- 					'Platform Tablet White Small.png'
+	-- 				or i == 'phone' and
+	-- 					'Platform Phone White Small.png'
+	-- 				or i == 'console' and
+	-- 					'Platform Console White Small.png'
+	-- 				or i == 'vr' and
+	-- 					'Platform VR White Small.png'
+	-- 				or ''
+	-- 			),
+	-- 			i
+	-- 		)
 
-			table.insert(platform_icons_wikitext, wikitext)
-		end
-	end
+	-- 		table.insert(platform_icons_wikitext, wikitext)
+	-- 	end
+	-- end
 
-	if #social_icons_wikitext > 0 or #platform_icons_wikitext > 0 then
+	if #social_icons_wikitext > 0 then
 		test:renderSection(
 			{
 				title = 'Presence',
@@ -389,15 +389,6 @@ function GroupInfobox.main( frame )
 							plainlinks_enabled = true,
 
 							data = table.concat(social_icons_wikitext, ' ')
-						}
-					),
-
-					test:renderItem(
-						{
-							label = 'Platforms',
-							plainlinks_enabled = true,
-
-							data = table.concat(platform_icons_wikitext, ' ')
 						}
 					)
 				}
@@ -453,7 +444,7 @@ function GroupInfobox.main( frame )
 	-- } )
 
 	local rendered = test:renderInfobox( nil, '[https://roblox.com/groups/' .. group_id .. '/' .. group_name .. '#!/about '  .. group_name .. ']' )
-	local parsed_month = month_by_index(tonumber(group_creation_year))
+	-- local parsed_month = month_by_index(tonumber(group_creation_year))
 
 	-- local append_categories = {}
 
