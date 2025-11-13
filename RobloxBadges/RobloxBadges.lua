@@ -62,7 +62,7 @@ local function fetch_thumbnails(badges)
 
 		for _, item in ipairs(json.data) do
 			if item and item.targetId and item.imageUrl and item.state == "Completed" then
-				map[tonumber(item.targetId)] = item.imageUrl
+				map[item.targetId] = item.imageUrl
 			end
 		end
 	end
