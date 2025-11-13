@@ -409,15 +409,6 @@ function ObbyGameInfobox.main( frame )
 		)
 	end
 
-	test:renderSection( {
-		title = 'Advanced',
-		col = 2,
-		content = {
-			test:renderItem( 'Start Place ID', obby_starter_place_id == 1818 and 'Unlisted' or tostring(obby_starter_place_id) or 'Unknown' ),
-			test:renderItem( 'Universe ID', tostring(universe_id) or 'Unknown' ),
-		}
-	} )
-
 	if obby_is_verified then
 		test:renderSection({
 			title = 'Playability',
@@ -440,6 +431,15 @@ function ObbyGameInfobox.main( frame )
 			}
 		})
 	end
+
+	test:renderSection( {
+		title = 'Technical',
+		col = 2,
+		content = {
+			test:renderItem( 'Start Place ID', obby_starter_place_id == 1818 and 'Unlisted' or tostring(obby_starter_place_id) or 'Unknown' ),
+			test:renderItem( 'Universe ID', tostring(universe_id) or 'Unknown' ),
+		}
+	} )
 
     test:renderFooter( {
 		button = {
