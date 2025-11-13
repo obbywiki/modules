@@ -419,7 +419,26 @@ function ObbyGameInfobox.main( frame )
 	} )
 
 	if obby_is_verified then
-		test:renderImage( 'Verified-ow.svg' )
+		test:renderSection({
+			title = 'Playability',
+			col = 2,
+			content = {
+				test:renderItem(
+					{
+						label = 'Status',
+						plainlinks_enabled = true,
+						data = '[[File:Verified-check-green-96.webp|36px|alt=Verified|link=]]'
+					}
+				),
+				test:renderItem(
+					{
+						label = 'Info',
+
+						data = 'Verified - Fully Possible - All Devices'
+					}
+				)
+			}
+		})
 	end
 
     test:renderFooter( {
