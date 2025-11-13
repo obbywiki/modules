@@ -115,6 +115,8 @@ function ObbyGameInfobox.main( frame )
 
 	local obby_subgenre_lower = string.lower(obby_subgenre)
 
+	local obby_is_verified = (args.verified == 'true' or args.verified == 'full') and true or false
+
 	if obby_subgenre_lower == 'dco' then
 		obby_subgenre = 'Difficulty Chart Obby'
 	elseif obby_subgenre_lower == 'difficulty_chart_obby' then
@@ -415,6 +417,10 @@ function ObbyGameInfobox.main( frame )
 			test:renderItem( 'Universe ID', tostring(universe_id) or 'Unknown' ),
 		}
 	} )
+
+	if obby_is_verified then
+		test:renderImage( 'Verified-ow.svg' )
+	end
 
     test:renderFooter( {
 		button = {
