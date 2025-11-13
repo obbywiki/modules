@@ -21,7 +21,8 @@ local function gather_badges(universe_id)
 	repeat
 		tries = tries + 1
 		local url = string.format(
-			"https://badges.roblox.com/v1/universes/%s/badges?limit=100&sortOrder=Asc%s",
+			-- "https://badges.roblox.com/v1/universes/%s/badges?limit=100&sortOrder=Asc%s",
+			'https://oxalyl.apis.wolf1te.com/roblox.com/badges/v1/universes/%s/badges?limit=100&sortOrder=Asc%s&wlft_auth=public-key-obbywiki-14-11-25-Vx9q7VCbM2Srn38LVDDhMk58GKf5bxD14KpPkS5XFzNEcM2FRHEaXNMbran621QySY0ueSUXZL5y4pTwjZ55nyyHhBTBuJ9BFnCAHzFLyPB3CfB9k9FGxBhAFST9qygnqtjd3PfUYtEEd4BRvhPpdQ25bLDjmjNhfucKqfE1DWJ2qkGuDubMSCGCqJGyLSFY5t2dpmTg4ij8viyCbu5dunfJfuZ71pCiz1ia4MUNBHdaPDSkg6wvWd9AJZGcHUT9&oxalyl_convert_int=true',
 			tostring(universe_id),
 			cursor and ("&cursor=" .. mw.uri.encode(cursor)) or ""
 		)
