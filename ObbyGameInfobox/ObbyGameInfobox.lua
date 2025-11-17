@@ -386,28 +386,26 @@ function ObbyGameInfobox.main( frame )
 		)
 	end
 
-	-- if obby_verified_status then
-		test:renderSection({
-			title = 'Playability',
-			col = 2,
-			content = {
-				test:renderItem(
-					{
-						label = 'Status',
-						plainlinks_enabled = true,
-						data = obby_verified_status == 'verified' and '[[File:Verified-check-green-96.webp|36px|alt=Verified|link=]]' or obby_verified_status == 'unstable' and '[[File:Verified-dash-red-72.webp|36px|alt=Unstable|link=]]' or obby_verified_status == 'unknown' and '[[File:Verified-dash-orange-72.webp|36px|alt=Unknown|link=]]'
-					}
-				),
-				test:renderItem(
-					{
-						label = 'Info',
+	test:renderSection({
+		title = 'Playability',
+		col = 2,
+		content = {
+			test:renderItem(
+				{
+					label = 'Status',
+					plainlinks_enabled = true,
+					data = obby_verified_status == 'verified' and '[[File:Verified-check-green-96.webp|36px|alt=Verified|link=]]' or obby_verified_status == 'unstable' and '[[File:Verified-dash-red-72.webp|36px|alt=Unstable|link=]]' or obby_verified_status == 'unknown' and '[[File:Verified-dash-orange-72.webp|36px|alt=Unknown|link=]]'
+				}
+			),
+			test:renderItem(
+				{
+					label = 'Info',
 
-						data = obby_verified_status == 'verified' and 'Verified - Fully Possible - All Devices' or obby_verified_status == 'unstable' and 'Unstable - Partially Possible - Some Devices' or 'Unknown'
-					}
-				)
-			}
-		})
-	-- end
+					data = obby_verified_status == 'verified' and 'Verified - Fully Possible - All Devices' or obby_verified_status == 'unstable' and 'Unstable - Partially Possible - Some Devices' or 'Unknown'
+				}
+			)
+		}
+	})
 
 	test:renderSection( {
 		title = 'Technical',
