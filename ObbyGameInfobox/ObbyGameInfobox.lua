@@ -434,8 +434,8 @@ function ObbyGameInfobox.main( frame )
 		title = 'Technical',
 		col = 2,
 		content = {
-			test:renderItem( 'Start Place ID', '`' .. (obby_starter_place_id == 1818 and 'Unlisted' or tostring(obby_starter_place_id) or 'N/A') .. '`' ),
-			test:renderItem( 'Universe ID', '`' .. (tostring(universe_id) or 'N/A') .. '`' ),
+			test:renderItem( 'Start Place ID', '<code>' .. (obby_starter_place_id == 1818 and 'Unlisted' or tostring(obby_starter_place_id) or 'N/A') .. '</code>' ),
+			test:renderItem( 'Universe ID', '<code>' .. (tostring(universe_id) or 'N/A') .. '</code>' ),
 		}
 	} )
 
