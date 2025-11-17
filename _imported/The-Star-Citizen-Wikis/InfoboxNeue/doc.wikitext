@@ -1,0 +1,1 @@
+This module is imported from: https://github.com/The-Star-Citizen-Wikis/SharedModules/blob/master/InfoboxNeue/InfoboxNeue.lua. It may be slightly modified, modifications may be marked `!MODIFIED` or similar.
