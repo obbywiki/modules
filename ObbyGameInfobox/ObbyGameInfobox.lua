@@ -472,7 +472,9 @@ function ObbyGameInfobox.main( frame )
 		table.insert(append_categories, '[[Category:' .. parsed_month .. ']]')
 	end
 
-    return rendered .. '\n' .. table.concat(append_categories, '\n')
+	local shortdesc = ' {{SHORTDESC:' .. (obby_subgenre .. ' by ' .. obby_developer_raw .. ' - ' .. obby_creation_year) .. '}}'
+
+    return rendered .. '\n' .. table.concat(append_categories, '\n').. shortdesc
 end
 
 return ObbyGameInfobox
