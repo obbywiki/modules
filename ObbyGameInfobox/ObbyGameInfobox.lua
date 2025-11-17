@@ -179,7 +179,7 @@ function ObbyGameInfobox.main( frame )
 	end
 
     local obby_levels = args.levels or args.stages or 'N/A'
-	local obby_levels_total = args.levels_total or args.stages_total or 'N/A'
+	local obby_levels_total = args.levels_total or args.stages_total or nil -- [['N/A' -> nil]] modification untested
 	local obby_difficulties = args.difficulties or ''
 	local obby_difficulties_total = args.difficulties_total or nil
 	local obby_towers = args.towers or ''
