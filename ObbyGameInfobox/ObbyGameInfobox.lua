@@ -136,7 +136,7 @@ function ObbyGameInfobox.main( frame )
 	local obby_system = args.system or args.obby_system or 'Unknown'
 
     local obby_creation_year = args.year or ''
-	local obby_creation_month = month_by_index(tonumber(args.month or '0') or 0)
+	local obby_creation_month = month_by_index(args.month and tonumber(args.month) or 0)
 
 	local obby_stats_visits = args.visits or 'N/A'
 	local obby_stats_peak_ccu = args.peak_ccu or 'N/A'
@@ -368,7 +368,7 @@ function ObbyGameInfobox.main( frame )
 							label = 'Socials',
 							plainlinks_enabled = true,
 
-							data = table.concat(social_icons_wikitext, ' ')
+							data = table.concat(social_icons_wikitext, ' ')	
 						}
 					),
 
@@ -456,7 +456,7 @@ function ObbyGameInfobox.main( frame )
 	} )
 
 	local rendered = test:renderInfobox( nil, '[https://roblox.com/games/' .. obby_starter_place_id .. '/ '  .. obby_name .. ']' )
-	local parsed_month = month_by_index(tonumber(obby_creation_month))
+	local parsed_month = obby_creation_month
 
 	local append_categories = {}
 
