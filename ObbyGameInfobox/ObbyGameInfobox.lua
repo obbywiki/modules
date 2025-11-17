@@ -116,7 +116,7 @@ function ObbyGameInfobox.main( frame )
 	else
 		if obby_subgenre_lower == 'difficultychartobby' then
 			obby_subgenre = 'Difficulty Chart Obby'
-		elseif obby_subgenre_lower == 'stagetowerobby' then
+		elseif obby_subgenre_lower == 'stagetowerobby' or obby_subgenre_lower == 'towerstageobby' then
 			obby_subgenre = 'Stage Tower Obby'
 		elseif obby_subgenre_lower == 'towerobby' then
 			obby_subgenre = 'Tower Obby'
@@ -494,7 +494,7 @@ function ObbyGameInfobox.main( frame )
 		table.insert(append_categories, '[[Category:' .. parsed_month .. ']]')
 	end
 
-	local shortdesc = ' {{SHORTDESC:' .. (obby_subgenre .. ' by ' .. obby_developer_canonical .. ' - ' .. obby_creation_year) .. '}}'
+	local shortdesc = '\n{{SHORTDESC:' .. (obby_subgenre .. ' by ' .. obby_developer_canonical .. ' - ' .. obby_creation_year) .. '}}'
 
     return rendered .. '\n' .. table.concat(append_categories, '\n').. shortdesc
 end
