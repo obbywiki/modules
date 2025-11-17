@@ -2,7 +2,7 @@
 
 local ObbyGameInfobox = {}
 
-local months_full = {'January', 'Febrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'}
+local months_full = {'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'}
 
 local function month_by_index(month)
 	return months_full[month] or 'N/A'
