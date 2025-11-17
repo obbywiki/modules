@@ -2,34 +2,10 @@
 
 local ObbyGameInfobox = {}
 
+local months_full = {'January', 'Febrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'}
+
 local function month_by_index(month)
-	if month == 1 then
-		return 'January'
-	elseif month == 2 then
-		return 'Feburary'
-	elseif month == 3 then
-		return 'March'
-	elseif month == 4 then
-		return 'April'
-	elseif month == 5 then
-		return 'May'
-	elseif month == 6 then
-		return 'June'
-	elseif month == 7 then
-		return 'July'
-	elseif month == 8 then
-		return 'August'
-	elseif month == 9 then
-		return 'September'
-	elseif month == 10 then
-		return 'October'
-	elseif month == 11 then
-		return 'November'
-	elseif month == 12 then
-		return 'December'
-	else
-		return 'N/A'
-	end
+	return months_full[month] or 'N/A'
 end
 
 local function get_comma_val(num)
