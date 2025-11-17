@@ -90,6 +90,9 @@ function ObbyGameInfobox.main( frame )
 	local obby_update_freq = args.update_freq or args.update_frequency or 'Unknown'
 
 	local obby_subgenre_lower = string.lower(obby_subgenre)
+	obby_subgenre_lower = string.gsub(obby_subgenre_lower, ' ', '')
+	obby_subgenre_lower = string.gsub(obby_subgenre_lower, '-', '')
+	obby_subgenre_lower = string.gsub(obby_subgenre_lower, '_', '')
 
 	-- local obby_is_verified = (args.verified == 'true' or args.verified == 'full') and true or false
 	local obby_verified_status = (args.verified == 'true' or args.verified == 'full') and 'verified' or args.verified == 'false' and 'unstable' or 'unknown'
@@ -111,7 +114,21 @@ function ObbyGameInfobox.main( frame )
 	elseif obby_subgenre_lower == 'story_obby' then
 		obby_subgenre = 'Story Obby'
 	else
-		obby_subgenre = 'Unsupported sub-genre'
+		if obby_subgenre_lower == 'difficultychartobby' then
+			obby_subgenre = 'Difficulty Chart Obby'
+		elseif obby_subgenre_lower == 'stagetowerobby' then
+			obby_subgenre = 'Stage Tower Obby'
+		elseif obby_subgenre_lower == 'towerobby' then
+			obby_subgenre = 'Tower Obby'
+		elseif obby_subgenre_lower == 'storyobby' then
+			obby_subgenre = 'Story Obby'
+		elseif obby_subgenre_lower == 'coopobby' or obby_subgenre_lower == '2playerobby' then
+			obby_subgenre = 'Co-Op Obby'
+		elseif obby_subgenre_lower == 'multiplayer' or obby_subgenre_lower == '4playerobby' then
+			obby_subgenre = 'Multiplayer Obby'
+		else
+			obby_subgenre = 'Unsupported sub-genre'
+		end
 	end
 
 
