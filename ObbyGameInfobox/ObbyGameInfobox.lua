@@ -110,6 +110,8 @@ function ObbyGameInfobox.main( frame )
 		obby_subgenre = 'Story Obby'
 	elseif obby_subgenre_lower == 'story_obby' then
 		obby_subgenre = 'Story Obby'
+	else
+		obby_subgenre = 'Unsupported sub-genre'
 	end
 
 
@@ -132,6 +134,7 @@ function ObbyGameInfobox.main( frame )
 
 	local obby_developer, obby_developer_was_corrected = args.developer or args.creator or 'Unknown', false
 	local obby_developer_raw = obby_developer
+	local obby_developer_canonical--, obby_developer_verified
     local obby_publisher = args.publisher or 'Self-Published'
 
 	local obby_system = args.system or args.obby_system or 'Unknown'
@@ -212,18 +215,21 @@ function ObbyGameInfobox.main( frame )
 			local c = row.creator
 			local base = (c.type == 'Group') and 'communities' or 'users'
 			
+			obby_developer_raw = obby_developer -- TODO remove
+
 			if page_exists(c.type == 'Group' and c.name or '@' .. c.name) then
-				obby_developer_raw = obby_developer
-				obby_developer = '[[' .. obby_developer_raw .. ']]' .. (c.hasVerifiedBadge and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=' .. obby_developer_raw .. ']]' or '')
+				obby_developer = '[[' .. c.name .. ']]' .. (c.hasVerifiedBadge and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=' .. obby_developer_raw .. ']]' or '')
 			else
 				obby_developer = string.format(
 					'[https://roblox.com/%s/%s/%s %s%s]',
 					base, c.id, base == 'communities' and (string.gsub(c.name, ' ', '_') .. '#!/about') or 'profile', (c.type == 'User' and '@' or '') .. c.name,
 					(c.hasVerifiedBadge and '  [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]') or ''
 				)
-	
+
 				obby_developer_was_corrected = true
 			end
+
+			obby_developer_canonical = c.type == 'User' and '@'.. c.name or c.name
 		end
 
 		obby_stats_visits = row.visits or obby_stats_visits
@@ -461,8 +467,7 @@ function ObbyGameInfobox.main( frame )
 
 	if tonumber(obby_creation_year) >= 2008 and tonumber(obby_creation_year) <= os.date('*t').year+2 then
 		table.insert(append_categories, '[[Category:' .. tostring(obby_creation_year) .. ']]')
-
-
+		
 		if parsed_month ~= 'N/A' then
 			table.insert(append_categories, '[[Category:' .. parsed_month .. ' ' .. tostring(obby_creation_year) .. ']]')
 		end
@@ -472,7 +477,7 @@ function ObbyGameInfobox.main( frame )
 		table.insert(append_categories, '[[Category:' .. parsed_month .. ']]')
 	end
 
-	local shortdesc = ' {{SHORTDESC:' .. (obby_subgenre .. ' by ' .. obby_developer_raw .. ' - ' .. obby_creation_year) .. '}}'
+	local shortdesc = ' {{SHORTDESC:' .. (obby_subgenre .. ' by ' .. obby_developer_canonical .. ' - ' .. obby_creation_year) .. '}}'
 
     return rendered .. '\n' .. table.concat(append_categories, '\n').. shortdesc
 end
