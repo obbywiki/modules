@@ -93,13 +93,23 @@ function ObbyGameInfobox.main( frame )
 	obby_subgenre_lower = string.gsub(obby_subgenre_lower, ' ', '')
 	obby_subgenre_lower = string.gsub(obby_subgenre_lower, '-', '')
 	obby_subgenre_lower = string.gsub(obby_subgenre_lower, '_', '')
-	
+
 	local obby_verified_status = (args.verified == 'true' or args.verified == 'full') and 'verified' or args.verified == 'false' and 'unstable' or 'unknown'
 
 	if obby_subgenre_lower == 'dco' then
 		obby_subgenre = 'Difficulty Chart Obby'
-	elseif obby_subgenre_lower == 'difficulty_chart_obby' then
-		obby_subgenre = 'Difficulty Chart Obby'
+	elseif obby_subgenre_lower == 'jpdco' then
+		obby_subgenre = 'Jump Per Difficulty Chart Obby'
+	elseif obby_subgenre_lower == 'njpdco' then
+		obby_subgenre = 'No Jump Per Difficulty Chart Obby'
+	elseif obby_subgenre_lower == 'wpdco' then
+		obby_subgenre = 'Wrap-Around Per Difficulty Chart Obby'
+	elseif obby_subgenre_lower == 'wdco' then
+		obby_subgenre = 'Wrap-Around Difficulty Chart Obby'
+	elseif obby_subgenre_lower == 'njdco' then
+		obby_subgenre = 'No Jumping Difficulty Chart Obby'
+	elseif obby_subgenre_lower == 'spdco' then
+		obby_subgenre = 'Stick-Out Per Difficulty Chart Obby'
 	elseif obby_subgenre_lower == 'st' then
 		obby_subgenre = 'Stage Tower Obby'
 	elseif obby_subgenre_lower == 'stage_tower_obby' then
@@ -121,6 +131,12 @@ function ObbyGameInfobox.main( frame )
 			obby_subgenre = 'Tower Obby'
 		elseif obby_subgenre_lower == 'storyobby' then
 			obby_subgenre = 'Story Obby'
+		elseif obby_subgenre_lower == 'nojumpperdifficultychartobby' then
+			obby_subgenre = 'No Jump Per Difficulty Chart Obby'
+		elseif obby_subgenre_lower == 'wraparounddifficultychartobby' then
+			obby_subgenre = 'Wrap-Around Difficulty Chart Obby'
+		elseif obby_subgenre_lower == 'wraparoundperdifficultychartobby' then
+			obby_subgenre = 'Wrap-Around Per Difficulty Chart Obby'
 		elseif obby_subgenre_lower == 'coopobby' or obby_subgenre_lower == '2playerobby' then
 			obby_subgenre = 'Co-Op Obby'
 		elseif obby_subgenre_lower == 'multiplayer' or obby_subgenre_lower == '4playerobby' then
@@ -492,7 +508,7 @@ function ObbyGameInfobox.main( frame )
 		table.insert(append_categories, '[[Category:' .. parsed_month .. ']]')
 	end
 
-	local shortdesc = '{{SHORTDESC|' .. (obby_subgenre .. ' by ' .. obby_developer_canonical .. ' - ' .. obby_creation_year) .. '}}'
+	local shortdesc = '{{SHORTDESC:' .. (obby_subgenre .. ' by ' .. obby_developer_canonical .. ' - ' .. obby_creation_year) .. '}}'
 
     return rendered .. '\n' .. table.concat(append_categories, '\n').. '\n' .. shortdesc
 end
