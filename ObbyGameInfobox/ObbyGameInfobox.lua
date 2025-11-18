@@ -141,6 +141,8 @@ function ObbyGameInfobox.main( frame )
 			obby_subgenre = 'Co-Op Obby'
 		elseif obby_subgenre_lower == 'multiplayer' or obby_subgenre_lower == '4playerobby' then
 			obby_subgenre = 'Multiplayer Obby'
+			elseif obby_subgenre_lower == 'obby' or obby_subgenre_lower == 'classic' or obby_subgenre_lower == 'classicobby' then
+			obby_subgenre = 'Classic Obby'
 		else
 			obby_subgenre = 'Unsupported sub-genre'
 		end
