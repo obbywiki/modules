@@ -514,7 +514,7 @@ function ObbyGameInfobox.main( frame )
 
 	local shortdesc = '{{SHORTDESC:' .. (obby_subgenre .. ' by ' .. obby_developer_canonical .. ' - ' .. obby_creation_year) .. '}}'
 
-    return frame:preprocess(shortdesc) .. '\n' .. rendered .. '\n' .. table.concat(append_categories, '\n')
+    return frame:preprocess(shortdesc) .. rendered .. '\n' .. table.concat(append_categories, '\n')
 end
 
 return ObbyGameInfobox
