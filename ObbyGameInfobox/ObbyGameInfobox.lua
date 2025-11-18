@@ -93,8 +93,7 @@ function ObbyGameInfobox.main( frame )
 	obby_subgenre_lower = string.gsub(obby_subgenre_lower, ' ', '')
 	obby_subgenre_lower = string.gsub(obby_subgenre_lower, '-', '')
 	obby_subgenre_lower = string.gsub(obby_subgenre_lower, '_', '')
-
-	-- local obby_is_verified = (args.verified == 'true' or args.verified == 'full') and true or false
+	
 	local obby_verified_status = (args.verified == 'true' or args.verified == 'full') and 'verified' or args.verified == 'false' and 'unstable' or 'unknown'
 
 	if obby_subgenre_lower == 'dco' then
@@ -151,7 +150,7 @@ function ObbyGameInfobox.main( frame )
 
 	local obby_developer, obby_developer_was_corrected = args.developer or args.creator or 'Unknown', false
 	local obby_developer_raw = obby_developer
-	local obby_developer_canonical--, obby_developer_verified
+	local obby_developer_canonical
     local obby_publisher = args.publisher or 'Self-Published'
 
 	local obby_system = args.system or args.obby_system or 'Unknown'
@@ -176,14 +175,13 @@ function ObbyGameInfobox.main( frame )
 	end
 
     local obby_levels = args.levels or args.stages or 'N/A'
-	local obby_levels_total = args.levels_total or args.stages_total or nil -- [['N/A' -> nil]] modification untested
+	local obby_levels_total = args.levels_total or args.stages_total or nil
 	local obby_difficulties = args.difficulties or ''
 	local obby_difficulties_total = args.difficulties_total or nil
 	local obby_towers = args.towers or ''
 	local obby_towers_total = args.towers_total or nil
 
 	local obby_avatar_type = args.avatar_type or args.rig_type or 'N/A'
-
 	obby_avatar_type = string.lower(obby_avatar_type)
 
 	if obby_avatar_type == 'r6' then
