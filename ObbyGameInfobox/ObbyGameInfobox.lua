@@ -135,6 +135,8 @@ function ObbyGameInfobox.main( frame )
 			obby_subgenre = 'Story Obby'
 		elseif obby_subgenre_lower == 'trollobby' then
 			obby_subgenre = 'Troll Obby'
+		elseif obby_subgenre_lower == 'gimmickobby' then
+			obby_subgenre = 'Gimmick Obby'
 		elseif obby_subgenre_lower == 'nojumpperdifficultychartobby' then
 			obby_subgenre = 'No Jump Per Difficulty Chart Obby'
 		elseif obby_subgenre_lower == 'wraparounddifficultychartobby' then
