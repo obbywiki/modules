@@ -88,6 +88,8 @@ function ObbyGameInfobox.main( frame )
 	local obby_subgenre = args.subgenre or args.sub_genre or args.type or 'N/A'
 	local obby_maturity = args.maturity or args.rating or 'na'
 	local obby_update_freq = args.update_freq or args.update_frequency or 'Unknown'
+	local obby_genai = args.ai_generated_content_disclosure or args.genai or args.ai
+	local obby_ai_generated_content_disclosure = (obby_genai == 'branding' or obby_genai == 'thumbnails' or obby_genai == 'icon' or obby_genai == 'identity') and 'branding' or 'None'
 
 	local obby_subgenre_lower = string.lower(obby_subgenre)
 	obby_subgenre_lower = string.gsub(obby_subgenre_lower, ' ', '')
@@ -353,6 +355,7 @@ function ObbyGameInfobox.main( frame )
 			test:renderItem( 'Sub-genre', obby_subgenre ),
 			test:renderItem( 'Maturity', obby_maturity ),
 			test:renderItem( 'Obby System', obby_system ),
+			test:renderItem( 'AI Content', obby_ai_generated_content_disclosure == 'branding' and 'Use in branding, promotional images, or other' or 'None/Unknown' ),
 		}
 	} )
 
