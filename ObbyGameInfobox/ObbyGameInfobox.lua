@@ -351,9 +351,9 @@ function ObbyGameInfobox.main( frame )
 			test:renderItem( 'Released', obby_creation_month .. ' ' .. obby_creation_year ),
 			test:renderItem( 'Update Frequency', obby_update_freq ),
 			test:renderItem( 'Publisher', obby_publisher ),
+			test:renderItem( 'Maturity', obby_maturity ),
 			test:renderItem( 'Genre', 'Obby & Platformer' ),
 			test:renderItem( 'Sub-genre', obby_subgenre ),
-			test:renderItem( 'Maturity', obby_maturity ),
 			test:renderItem( 'Obby System', obby_system ),
 			test:renderItem( 'AI Content', obby_ai_generated_content_disclosure == 'branding' and 'Use in branding, promotional images, or other' or 'None/Unknown' ),
 		}
