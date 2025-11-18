@@ -94,7 +94,7 @@ function ObbyGameInfobox.main( frame )
 	obby_subgenre_lower = string.gsub(obby_subgenre_lower, '-', '')
 	obby_subgenre_lower = string.gsub(obby_subgenre_lower, '_', '')
 
-	local obby_verified_status = (args.verified == 'true' or args.verified == 'full') and 'verified' or args.verified == 'false' and 'unstable' or 'unknown'
+	local obby_verified_status = (args.verified == 'true' or args.verified == 'full') and 'verified' or args.verified == 'false' and 'unstable' or args.verified == 'broken' and 'broken' or (args.verified == 'broken2' or args.verified == 'does_not_load') and 'does_not_load' or 'unknown'
 
 	if obby_subgenre_lower == 'dco' then
 		obby_subgenre = 'Difficulty Chart Obby'
@@ -431,14 +431,14 @@ function ObbyGameInfobox.main( frame )
 				{
 					label = 'Status',
 					plainlinks_enabled = true,
-					data = obby_verified_status == 'verified' and '[[File:Verified-check-green-96.webp|36px|alt=Verified|link=]]' or obby_verified_status == 'unstable' and '[[File:Verified-dash-red-72.webp|36px|alt=Unstable|link=]]' or obby_verified_status == 'unknown' and '[[File:Verified-dash-orange-72.webp|36px|alt=Unknown|link=]]'
+					data = obby_verified_status == 'verified' and '[[File:Verified-check-green-96.webp|36px|alt=Verified|link=]]' or (obby_verified_status == 'unstable' or obby_verified_status == 'broken' or obby_verified_status == 'does_not_load') and '[[File:Verified-dash-red-72.webp|36px|alt=Unstable|link=]]' or obby_verified_status == 'unknown' and '[[File:Verified-dash-orange-72.webp|36px|alt=Unknown|link=]]'
 				}
 			),
 			test:renderItem(
 				{
 					label = 'Info',
 
-					data = obby_verified_status == 'verified' and 'Verified - Fully Possible - All Devices' or obby_verified_status == 'unstable' and 'Unstable - Partially Possible - Some Devices' or 'Unknown'
+					data = obby_verified_status == 'verified' and 'Verified - Fully Possible - All Devices' or obby_verified_status == 'unstable' and 'Unstable - Partially Possible - Some Devices' or obby_verified_status == 'broken' and 'Broken - Not Possible' or obby_verified_status == 'does_not_load' and 'Unplayable - Does not load' or 'Unknown'
 				}
 			)
 		}
