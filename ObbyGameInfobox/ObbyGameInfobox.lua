@@ -183,6 +183,7 @@ function ObbyGameInfobox.main( frame )
 	local obby_stats_visits = args.visits or 'N/A'
 	local obby_stats_peak_ccu = args.peak_ccu or 'N/A'
 	local obby_stats_likes = args.likes or 'N/A'
+	local obby_stats_favorites
 
 	if tonumber(obby_stats_visits) ~= nil then
 		obby_stats_visits = get_comma_val(args.visits)
@@ -270,7 +271,9 @@ function ObbyGameInfobox.main( frame )
 		end
 
 		obby_stats_visits = row.visits or obby_stats_visits
+		obby_stats_favorites = row.favoritedCount or 'N/A'
 		if row.visits and tonumber(obby_stats_visits) ~= nil then obby_stats_visits = get_comma_val(obby_stats_visits) end
+		if row.favoritedCount and tonumber(obby_stats_favorites) ~= nil then obby_stats_favorites = get_comma_val(obby_stats_favorites) end
 	end
 
 	-- local s2, universe_data = pcall(function()
@@ -341,6 +344,7 @@ function ObbyGameInfobox.main( frame )
 			test:renderItem( 'Visits', obby_stats_visits .. '+'),
 			test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
 			test:renderItem( 'Likes', obby_stats_likes .. '+' ),
+			test:renderItem( 'Favorites', obby_stats_favorites .. '+' ),
 		}
 	} )
 
