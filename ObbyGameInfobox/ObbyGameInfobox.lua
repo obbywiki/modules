@@ -181,6 +181,7 @@ function ObbyGameInfobox.main( frame )
 	local obby_creation_month = month_by_index(args.month and tonumber(args.month) or 0)
 
 	local obby_stats_visits = args.visits or 'N/A'
+	local obby_stats_visits_raw
 	local obby_stats_peak_ccu = args.peak_ccu or 'N/A'
 	local obby_stats_likes = args.likes or 'N/A'
 	local obby_stats_favorites
@@ -272,7 +273,7 @@ function ObbyGameInfobox.main( frame )
 
 		obby_stats_visits = row.visits or obby_stats_visits
 		obby_stats_favorites = row.favoritedCount or 'N/A'
-		if row.visits and tonumber(obby_stats_visits) ~= nil then obby_stats_visits = get_comma_val(obby_stats_visits) end
+		if row.visits and tonumber(obby_stats_visits) ~= nil then obby_stats_visits_raw = tonumber(obby_stats_visits); obby_stats_visits = get_comma_val(obby_stats_visits) end
 		if row.favoritedCount and tonumber(obby_stats_favorites) ~= nil then obby_stats_favorites = get_comma_val(obby_stats_favorites) end
 	end
 
@@ -521,6 +522,22 @@ function ObbyGameInfobox.main( frame )
 
 	if obby_subgenre then
 		table.insert(append_categories, '[[Category:' .. obby_subgenre .. ']]')
+	end
+
+	if obby_stats_visits_raw < 5000 then
+		table.insert(append_categories, '[[Category:' .. '0-5%27000_visits' .. ']]')
+	elseif obby_stats_visits_raw < 25000 then
+		table.insert(append_categories, '[[Category:' .. '5%27000-25%27000_visits' .. ']]')
+	elseif obby_stats_visits_raw < 50000 then
+		table.insert(append_categories, '[[Category:' .. '25%27000-50%27000_visits' .. ']]')
+	elseif obby_stats_visits_raw < 100000 then
+		table.insert(append_categories, '[[Category:' .. '50%27000-100%27000_visits' .. ']]')
+	elseif obby_stats_visits_raw < 500000 then
+		table.insert(append_categories, '[[Category:' .. '100%27000-500%27000_visits' .. ']]')
+	elseif obby_stats_visits_raw < 1000000 then
+		table.insert(append_categories, '[[Category:' .. '500%27000-1%27000%27000_visits' .. ']]')
+	else
+		table.insert(append_categories, '[[Category:' .. 'above_1%27000%27000_visits' .. ']]')
 	end
 
 	local shortdesc = '{{SHORTDESC:' .. (obby_subgenre .. ' by ' .. obby_developer_canonical .. ' - ' .. obby_creation_year) .. '}}'
