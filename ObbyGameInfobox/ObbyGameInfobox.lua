@@ -525,19 +525,19 @@ function ObbyGameInfobox.main( frame )
 	end
 
 	if obby_stats_visits_raw < 5000 then
-		table.insert(append_categories, '[[Category:' .. '0-5%27000_visits' .. ']]')
+		table.insert(append_categories, '[[Category:' .. '0-5%2C000_visits' .. ']]')
 	elseif obby_stats_visits_raw < 25000 then
-		table.insert(append_categories, '[[Category:' .. '5%27000-25%27000_visits' .. ']]')
+		table.insert(append_categories, '[[Category:' .. '5%2C000-25%2C000_visits' .. ']]')
 	elseif obby_stats_visits_raw < 50000 then
-		table.insert(append_categories, '[[Category:' .. '25%27000-50%27000_visits' .. ']]')
+		table.insert(append_categories, '[[Category:' .. '25%2C000-50%2C000_visits' .. ']]')
 	elseif obby_stats_visits_raw < 100000 then
-		table.insert(append_categories, '[[Category:' .. '50%27000-100%27000_visits' .. ']]')
+		table.insert(append_categories, '[[Category:' .. '50%2C000-100%2C000_visits' .. ']]')
 	elseif obby_stats_visits_raw < 500000 then
-		table.insert(append_categories, '[[Category:' .. '100%27000-500%27000_visits' .. ']]')
+		table.insert(append_categories, '[[Category:' .. '100%2C000-500%2C000_visits' .. ']]')
 	elseif obby_stats_visits_raw < 1000000 then
-		table.insert(append_categories, '[[Category:' .. '500%27000-1%27000%27000_visits' .. ']]')
+		table.insert(append_categories, '[[Category:' .. '500%2C000-1%2C000%2C000_visits' .. ']]')
 	else
-		table.insert(append_categories, '[[Category:' .. 'above_1%27000%27000_visits' .. ']]')
+		table.insert(append_categories, '[[Category:' .. 'above_1%2C000%2C000_visits' .. ']]')
 	end
 
 	local shortdesc = '{{SHORTDESC:' .. (obby_subgenre .. ' by ' .. obby_developer_canonical .. ' - ' .. obby_creation_year) .. '}}'
