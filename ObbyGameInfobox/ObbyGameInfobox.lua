@@ -143,6 +143,8 @@ function ObbyGameInfobox.main( frame )
 			obby_subgenre = 'Wrap-Around Per Difficulty Chart Obby'
 		elseif obby_subgenre_lower == 'coopobby' or obby_subgenre_lower == '2playerobby' then
 			obby_subgenre = 'Co-Op Obby'
+		elseif obby_subgenre_lower == 'tierobby' then
+			obby_subgenre = 'Tier Obby'
 		elseif obby_subgenre_lower == 'multiplayer' or obby_subgenre_lower == '4playerobby' then
 			obby_subgenre = 'Multiplayer Obby'
 			elseif obby_subgenre_lower == 'obby' or obby_subgenre_lower == 'classic' or obby_subgenre_lower == 'classicobby' then
