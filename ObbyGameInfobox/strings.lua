@@ -40,6 +40,10 @@ return {
 
             ['LABEL_NA'] = 'N/A';
             ['LABEL_UNLISTED'] = 'Unlisted';
+
+            ['LABEL_MATURTY_MINIMAL'] = 'Minimal - Ages 5+';
+            ['LABEL_MATURTY_MILD'] = 'Mild - Ages 9+';
+            ['LABEL_MATURTY_MATURE'] = 'Mild - Ages 9+';
         }
     }
 }

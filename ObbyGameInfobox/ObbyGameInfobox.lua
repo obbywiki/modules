@@ -273,10 +273,13 @@ function ObbyGameInfobox.main( frame )
 			obby_developer_canonical = c.type == 'User' and '@'.. c.name or c.name
 		end
 
-		obby_stats_visits = row.visits or obby_stats_visits
-		obby_stats_favorites = row.favoritedCount or 'N/A'
-		if row.visits and tonumber(obby_stats_visits) ~= nil then obby_stats_visits_raw = tonumber(obby_stats_visits); obby_stats_visits = get_comma_val(obby_stats_visits) end
-		if row.favoritedCount and tonumber(obby_stats_favorites) ~= nil then obby_stats_favorites = get_comma_val(obby_stats_favorites) end
+		if row then
+			obby_stats_visits = row.visits or obby_stats_visits
+			obby_stats_favorites = row.favoritedCount or 'N/A'
+			if row.visits and tonumber(obby_stats_visits) ~= nil then obby_stats_visits_raw = tonumber(obby_stats_visits); obby_stats_visits = get_comma_val(obby_stats_visits) end
+			if row.favoritedCount and tonumber(obby_stats_favorites) ~= nil then obby_stats_favorites = get_comma_val(obby_stats_favorites) end
+		end
+
 	end
 
 	-- local s2, universe_data = pcall(function()
