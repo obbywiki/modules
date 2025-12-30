@@ -101,8 +101,11 @@ local function build_table(badges, thumb_map, icon_px)
 		local img_url = thumb_map[b.id]
 		local icon_cell = row:tag("td")
 		if img_url then
-			local div = icon_cell:tag("div")
-			div:wikitext(img_url)
+			local eimage_code = string.format('{{#eimage:%s|%dpx}}', img_url, icon_px)
+			
+			icon_cell:tag("div")
+				:css("text-align", "center")
+				:wikitext(eimage_code)
 		else
 			icon_cell:wikitext("N/A")
 		end
