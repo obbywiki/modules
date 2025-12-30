@@ -101,12 +101,8 @@ local function build_table(badges, thumb_map, icon_px)
 		local img_url = thumb_map[b.id]
 		local icon_cell = row:tag("td")
 		if img_url then
-			icon_cell:tag("div"):tag("img")
-				:attr("src", img_url)
-				:attr("alt", b.name)
-				:attr("loading", "lazy")
-			-- 	:cssText(string.format("width:%dpx;height:%dpx;object-fit:contain", icon_px, icon_px))
-			-- icon_cell:wikitext('<img src="' .. img_url .. '" />')
+			local div = icon_cell:tag("div")
+			div:wikitext(img_url)
 		else
 			icon_cell:wikitext("N/A")
 		end
@@ -142,7 +138,7 @@ function p.render(frame)
 
 	-- table.sort(badges, function(a, b) return a.name:lower() < b.name:lower() end)
 
-	local thumbs = fetch_thumbnails(badges, icon_px) or {}
+	local thumbs = fetch_thumbnails(badges) or {}
 
 	return build_table(badges, thumbs, icon_px)
 end
