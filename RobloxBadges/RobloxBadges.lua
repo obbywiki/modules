@@ -106,7 +106,11 @@ local function build_table(badges, thumb_map, icon_px)
 			-- 	:attr("alt", b.name)
 			-- 	:attr("loading", "lazy")
 			-- 	:cssText(string.format("width:%dpx;height:%dpx;object-fit:contain", icon_px, icon_px))
-			icon_cell:wikitext('<img src="' .. img_url .. '" />')
+			-- icon_cell:wikitext('<img src="' .. img_url .. '" />')
+			icon_cell:tag("img")
+				:attr("src", img_url)
+				:attr("alt", b.name)
+				:attr("loading", "lazy")
 		else
 			icon_cell:wikitext("N/A")
 		end
