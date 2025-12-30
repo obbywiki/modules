@@ -101,13 +101,17 @@ local function build_table(badges, thumb_map, icon_px, frame)
 		local img_url = thumb_map[b.id]
 		local icon_cell = row:tag("td")
 		if img_url then
+			-- ??
+
 			local s, image_output = pcall(function() 
 				return frame:callParserFunction{
 					name = '#eimage',
 					args = { 
 						img_url, 
 						icon_px .. 'x' .. icon_px .. 'px',
-						'alt=' .. mw.text.escape(b.name),
+						'center',
+						'inline',
+						'middle',
 						'link=https://www.roblox.com/badges/' .. (b.string_id or tostring(b.id or 0)) .. '/badge'
 					}
 				}
