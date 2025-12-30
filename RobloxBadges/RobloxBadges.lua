@@ -84,7 +84,7 @@ end
 
 
 
-local function build_table(badges, thumb_map, icon_px)
+local function build_table(badges, thumb_map, icon_px, frame)
 	local tbl = html.create("table")
 		:addClass("wikitable sortable plainlinks")
 		:addClass("mw-collapsible mw-made-collapsible")
@@ -101,11 +101,14 @@ local function build_table(badges, thumb_map, icon_px)
 		local img_url = thumb_map[b.id]
 		local icon_cell = row:tag("td")
 		if img_url then
-			local eimage_code = string.format('{{#eimage:%s|%dpx}}', img_url, icon_px)
-			
+			local image_output = frame:callParserFunction{
+				name = '#eimage',
+				args = { img_url, icon_px .. 'px' }
+			}
+
 			icon_cell:tag("div")
 				:css("text-align", "center")
-				:wikitext(eimage_code)
+				:wikitext(image_output)
 		else
 			icon_cell:wikitext("N/A")
 		end
@@ -143,7 +146,7 @@ function p.render(frame)
 
 	local thumbs = fetch_thumbnails(badges) or {}
 
-	return build_table(badges, thumbs, icon_px)
+	return build_table(badges, thumbs, icon_px, frame)
 end
 
 return p
