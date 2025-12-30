@@ -103,23 +103,26 @@ local function build_table(badges, thumb_map, icon_px, frame)
 		if img_url then
 			-- ??
 
-			local s, image_output = pcall(function() 
-				return frame:callParserFunction{
-					'#eimage',
-					{ 
-						img_url, 
-						icon_px .. 'x' .. icon_px .. 'px'
-					}
-				}
-			end)
+			-- local s, image_output = pcall(function() 
+			-- 	return frame:callParserFunction{
+			-- 		'#eimage',
+			-- 		{ 
+			-- 			img_url, 
+			-- 			icon_px .. 'x' .. icon_px .. 'px'
+			-- 		}
+			-- 	}
+			-- end)
 			
-			if s then
-				icon_cell:tag("div")
-					:css("text-align", "center")
-					:wikitext(image_output)
-			else
-				icon_cell:wikitext('[' .. img_url .. ' image error]')
-			end
+			-- if s then
+			-- 	icon_cell:tag("div")
+			-- 		:css("text-align", "center")
+			-- 		:wikitext(image_output)
+			-- else
+			-- 	icon_cell:wikitext('[' .. img_url .. ' image error]')
+			-- end
+
+			icon_cell:wikitext('{{#eimage:' .. mw.text.nowiki(img_url) .. '|' .. icon_px .. 'x' .. icon_px .. 'px}}')
+
 		else
 			icon_cell:wikitext("N/A")
 		end
