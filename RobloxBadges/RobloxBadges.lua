@@ -105,14 +105,10 @@ local function build_table(badges, thumb_map, icon_px, frame)
 
 			local s, image_output = pcall(function() 
 				return frame:callParserFunction{
-					name = '#eimage',
-					args = { 
+					'#eimage',
+					{ 
 						img_url, 
-						icon_px .. 'x' .. icon_px .. 'px',
-						'center',
-						'inline',
-						'middle',
-						'link=https://www.roblox.com/badges/' .. (b.string_id or tostring(b.id or 0)) .. '/badge'
+						icon_px .. 'x' .. icon_px .. 'px'
 					}
 				}
 			end)
@@ -122,7 +118,7 @@ local function build_table(badges, thumb_map, icon_px, frame)
 					:css("text-align", "center")
 					:wikitext(image_output)
 			else
-				icon_cell:wikitext("image error")
+				icon_cell:wikitext('[' .. img_url .. ' image error]')
 			end
 		else
 			icon_cell:wikitext("N/A")
