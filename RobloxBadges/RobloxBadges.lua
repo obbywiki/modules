@@ -101,10 +101,25 @@ local function build_table(badges, thumb_map, icon_px, frame)
 		local img_url = thumb_map[b.id]
 		local icon_cell = row:tag("td")
 		if img_url then
-			local div = icon_cell:tag("div")
-			div:wikitext('<nowiki>' .. img_url .. '</nowiki>')
-			-- 	:cssText(string.format("width:%dpx;height:%dpx;object-fit:contain", icon_px, icon_px))
-			-- icon_cell:wikitext('<img src="' .. img_url .. '" />')
+			local s, image_output = pcall(function() 
+				return frame:callParserFunction{
+					name = '#eimage',
+					args = { 
+						img_url, 
+						icon_px .. 'x' .. icon_px .. 'px',
+						'alt=' .. mw.text.escape(b.name),
+						'link=https://www.roblox.com/badges/' .. (b.string_id or tostring(b.id or 0)) .. '/badge'
+					}
+				}
+			end)
+			
+			if s then
+				icon_cell:tag("div")
+					:css("text-align", "center")
+					:wikitext(image_output)
+			else
+				icon_cell:wikitext("image error")
+			end
 		else
 			icon_cell:wikitext("N/A")
 		end
