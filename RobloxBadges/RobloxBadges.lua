@@ -109,6 +109,7 @@ local function build_table(badges, thumb_map, icon_px, frame)
 					args = { 
 						img_url, 
 						icon_px .. 'x' .. icon_px .. 'px',
+						'link=https://www.roblox.com/badges/' .. (b.string_id or tostring(b.id or 0)) .. '/badge', -- side effect, citizen skin default image hover effects looks pretty bad with the link
 						'caption=Badge'
 					}
 				}
