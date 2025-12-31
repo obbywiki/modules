@@ -14,6 +14,19 @@ local function fetch_json(url)
 	return data.__json, nil
 end
 
+local function get_comma_val(num)
+	local formatted = num
+	while true do  
+		local k;
+
+		formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
+		if (k==0) then
+			break
+		end
+	end
+	return formatted
+end
+
 local function gather_badges(universe_id)
 	local all = {}
 	local cursor = nil
@@ -142,11 +155,11 @@ local function build_table(badges, thumb_map, icon_px, frame)
 		-- row:tag("td"):wikitext(b.statistics.awardedCount .. ' awarded, ' .. b.statistics.pastDayAwardedCount .. ' in past day, ' .. (b.statistics.winRatePercentage or 0) .. '% win rate')
 		row:tag("td"):wikitext(string.format(
 			-- '%d awarded<br/>%d in past day<br/>%.2f%% win rate',
-			'%d (%d%% of) players have this badge<br/>%d awarded in the last 24 hours',
+			'%s (%d%% of) players have this badge<br/>%s awarded in the last 24 hours',
 
-			b.statistics.awardedCount or 0,
+			get_comma_val(b.statistics.awardedCount or 0),
 			tonumber(b.statistics.winRatePercentage or 0)*100,
-			b.statistics.pastDayAwardedCount or 0
+			get_comma_val(b.statistics.pastDayAwardedCount or 0)
 		))
 		row:tag("td"):wikitext(b.created)
 		row:tag("td"):wikitext(b.enabled and "✅ Yes" or "❌ No")
