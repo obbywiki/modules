@@ -33,9 +33,16 @@ local function gather_badges(universe_id)
 				all[#all+1] = {
 					id = b.id,
 					string_id = tostring(b.id),
-					name = b.name or "",
-					description = b.description or "",
-					enabled = b.enabled == true
+					name = b.name or '',
+					description = b.description or '',
+					enabled = b.enabled == true,
+					statistics = b.statistics or {
+						awardedCount = 0,
+						pastDayAwardedCount = 0,
+						winRatePercentage = 0
+					},
+					created = b.created or '',
+					updated = b.updated or ''
 				}
 			end
 		end
@@ -94,6 +101,8 @@ local function build_table(badges, thumb_map, icon_px, frame)
 	thead:tag("th"):wikitext("Icon")
 	thead:tag("th"):wikitext("Name")
 	thead:tag("th"):wikitext("Description")
+	thead:tag("th"):wikitext("Statistics")
+	thead:tag("th"):wikitext("Created")
 	thead:tag("th"):wikitext("Enabled")
 
 	for _, b in ipairs(badges) do
@@ -130,6 +139,8 @@ local function build_table(badges, thumb_map, icon_px, frame)
 		end
 		row:tag("td"):wikitext('[https://www.roblox.com/badges/' .. (b.string_id or tostring(b.id or 0)) .. '/badge ' .. b.name .. ']')
 		row:tag("td"):wikitext(b.description ~= "" and b.description or "—")
+		row:tag("td"):wikitext(b.statistics.awardedCount .. ' awarded, ' .. b.statistics.pastDayAwardedCount .. ' in past day, ' .. (b.statistics.winRatePercentage or 0) .. '% win rate')
+		row:tag("td"):wikitext(b.created)
 		row:tag("td"):wikitext(b.enabled and "✅ Yes" or "❌ No")
 	end
 
