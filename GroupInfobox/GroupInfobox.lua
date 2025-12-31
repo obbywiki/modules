@@ -421,7 +421,7 @@ function GroupInfobox.main( frame )
 	-- 	}
 	-- } )
 
-	local rendered = test:renderInfobox( nil, '[https://roblox.com/groups/' .. group_id .. '/' .. group_name .. '#!/about '  .. group_name .. ']' )
+	local rendered = test:renderInfobox( nil, '[https://roblox.com/groups/' .. group_id .. '/' .. string.gsub(group_name, ' ', '_') .. '#!/about '  .. group_name .. ']' )
 	-- local parsed_month = month_by_index(tonumber(group_creation_year))
 
 	-- local append_categories = {}
