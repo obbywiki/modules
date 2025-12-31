@@ -103,7 +103,7 @@ local function build_table(badges, thumb_map, icon_px, frame)
 	thead:tag("th"):wikitext("Description")
 	thead:tag("th"):wikitext("Statistics")
 	thead:tag("th"):wikitext("Created")
-	thead:tag("th"):wikitext("Enabled")
+	thead:tag("th"):wikitext("Active")
 
 	for _, b in ipairs(badges) do
 		local row = tbl:tag("tr")
