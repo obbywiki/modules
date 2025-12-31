@@ -14,17 +14,19 @@ local function fetch_json(url)
 	return data.__json, nil
 end
 
-local function get_comma_val(num)
-	local formatted = num
-	while true do  
-		local k;
+local function format_date_timestamp(iso_date)
+	local timestamp = iso_date or '2025-11-08T21:49:17.671+00:00'
 
-		formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
-		if (k==0) then
-			break
-		end
-	end
-	return formatted
+	local cleaned = timestamp:gsub('%.%d+', '')
+	local lang = mw.getContentLanguage()
+
+	local s, res = pcall(lang.formatDate, lang, "j F Y, H:i (T)", cleaned, true)
+    
+    if s then
+        return res
+    else
+        return "'''Unknown Date'''"
+    end
 end
 
 local function gather_badges(universe_id)
@@ -118,6 +120,8 @@ local function build_table(badges, thumb_map, icon_px, frame)
 	thead:tag("th"):wikitext("Created")
 	thead:tag("th"):wikitext("Active")
 
+	local lang = mw.getContentLanguage()
+
 	for _, b in ipairs(badges) do
 		local row = tbl:tag("tr")
 		local img_url = thumb_map[b.id]
@@ -157,11 +161,11 @@ local function build_table(badges, thumb_map, icon_px, frame)
 			-- '%d awarded<br/>%d in past day<br/>%.2f%% win rate',
 			'%s (%d%% of) players have this badge<br/>%s awarded in the last 24 hours',
 
-			get_comma_val(b.statistics.awardedCount or 0),
+			lang:formatNum(tonumber(b.statistics.awardedCount or 0)),
 			tonumber(b.statistics.winRatePercentage or 0)*100,
-			get_comma_val(b.statistics.pastDayAwardedCount or 0)
+			lang:formatNum(tonumber(b.statistics.pastDayAwardedCount or 0))
 		))
-		row:tag("td"):wikitext(b.created)
+		row:tag("td"):wikitext(format_date_timestamp(b.created))
 		row:tag("td"):wikitext(b.enabled and "✅ Yes" or "❌ No")
 	end
 
