@@ -87,7 +87,7 @@ end
 local function build_table(badges, thumb_map, icon_px, frame)
 	local tbl = html.create("table")
 		:addClass("wikitable sortable plainlinks")
-		:addClass("mw-collapsible mw-made-collapsible")
+		:addClass("mw-collapsible mw-made-collapsible wikitable--fluid")
 		:css("width", "100%")
 
 	local thead = tbl:tag("tr")
