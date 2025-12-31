@@ -295,7 +295,7 @@ function GroupInfobox.main( frame )
     test:renderImage( thumb )
 
     test:renderHeader( {
-		title = '[https://roblox.com/groups/' .. group_id .. '/' .. group_name .. '#!/about '  .. group_name .. ']',
+		title = '[https://roblox.com/groups/' .. group_id .. '/' .. string.gsub(group_name, ' ', '_') .. '#!/about '  .. group_name .. ']',
 		subtitle = (group_creator_was_corrected and ('by \'\'\''..group_creator..'\'\'\'') or ('by \'\'\'[[' .. group_creator .. ']]\'\'\'')) .. (group_creation_year ~= '' and (' — ' .. group_creation_year) or '')
 	} )
 
