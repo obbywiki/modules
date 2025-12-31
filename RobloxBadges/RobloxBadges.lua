@@ -139,7 +139,15 @@ local function build_table(badges, thumb_map, icon_px, frame)
 		end
 		row:tag("td"):wikitext('[https://www.roblox.com/badges/' .. (b.string_id or tostring(b.id or 0)) .. '/badge ' .. b.name .. ']')
 		row:tag("td"):wikitext(b.description ~= "" and b.description or "—")
-		row:tag("td"):wikitext(b.statistics.awardedCount .. ' awarded, ' .. b.statistics.pastDayAwardedCount .. ' in past day, ' .. (b.statistics.winRatePercentage or 0) .. '% win rate')
+		-- row:tag("td"):wikitext(b.statistics.awardedCount .. ' awarded, ' .. b.statistics.pastDayAwardedCount .. ' in past day, ' .. (b.statistics.winRatePercentage or 0) .. '% win rate')
+		row:tag("td"):wikitext(string.format(
+			-- '%d awarded<br/>%d in past day<br/>%.2f%% win rate',
+			'%d (%d%% of) players have this badge<br/>%d awarded in the last 24 hours',
+
+			b.statistics.awardedCount or 0,
+			tonumber(b.statistics.winRatePercentage or 0)*100,
+			b.statistics.pastDayAwardedCount or 0
+		))
 		row:tag("td"):wikitext(b.created)
 		row:tag("td"):wikitext(b.enabled and "✅ Yes" or "❌ No")
 	end
