@@ -659,7 +659,7 @@ function InfoboxNeue.new( self, config )
 		-- Display a placeholder image if addImage does not find an image
 		displayPlaceholder = true,
 		-- Placeholder Image
-		placeholderImage = 'Platzhalter.webp',
+		placeholderImage = 'Standard169placeholder.webp',
 	}
 
 	for k, v in pairs( config or {} ) do
