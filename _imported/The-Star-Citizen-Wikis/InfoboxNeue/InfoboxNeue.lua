@@ -226,6 +226,9 @@ function methodtable.renderCarousel( self, images )
 
 	for _, filename in ipairs( images ) do
 		if type( filename ) == 'string' and #filename > 0 then
+			if string.sub(filename,1,7) == 'File://' then
+				filename = 'https://' .. string.sub(filename,8)
+			end
 			if string.sub(filename,1,8) == 'https://' then
 				track:tag( 'div' )
 					:addClass( 'infobox__carousel-item' )

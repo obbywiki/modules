@@ -320,8 +320,13 @@ function ObbyGameInfobox.main( frame )
 	local use_external_thumbs = false
 	if universe_id then
 		local thumb_overall_s, thumb_overall_err = pcall(function()
+
+			-- request needs to route through oxalyl due to integer overflow issues on roblox's end
+			--- imageIds are in some cases too large for int32 and arent returned as strings, use oxalyl to get them returned as strings
 			local media_res = mw.ext.externalData.getExternalData{
-				url = 'https://games.roblox.com/v2/games/' .. tostring(universe_id) .. '/media',
+				-- url = 'https://games.roblox.com/v2/games/' .. tostring(universe_id) .. '/media',
+				-- 'https://oxalyl.apis.wolf1te.com/roblox.com/thumbnails/v1/badges/icons?badgeIds=%s&size=150x150&format=Png&isCircular=false&returnPolicy=PlaceHolder&wlft_auth=public-key-obbywiki-14-11-25-Vx9q7VCbM2Srn38LVDDhMk58GKf5bxD14KpPkS5XFzNEcM2FRHEaXNMbran621QySY0ueSUXZL5y4pTwjZ55nyyHhBTBuJ9BFnCAHzFLyPB3CfB9k9FGxBhAFST9qygnqtjd3PfUYtEEd4BRvhPpdQ25bLDjmjNhfucKqfE1DWJ2qkGuDubMSCGCqJGyLSFY5t2dpmTg4ij8viyCbu5dunfJfuZ71pCiz1ia4MUNBHdaPDSkg6wvWd9AJZGcHUT9&oxalyl_convert_int=true'
+				url = 'https://oxalyl.apis.wolf1te.com/roblox.com/games/v2/games/' .. tostring(universe_id) .. '/media?fetchAllExperienceRelatedMedia=false&oxalyl_convert_int=true&wlft_auth=public-key-obbywiki-14-11-25-Vx9q7VCbM2Srn38LVDDhMk58GKf5bxD14KpPkS5XFzNEcM2FRHEaXNMbran621QySY0ueSUXZL5y4pTwjZ55nyyHhBTBuJ9BFnCAHzFLyPB3CfB9k9FGxBhAFST9qygnqtjd3PfUYtEEd4BRvhPpdQ25bLDjmjNhfucKqfE1DWJ2qkGuDubMSCGCqJGyLSFY5t2dpmTg4ij8viyCbu5dunfJfuZ71pCiz1ia4MUNBHdaPDSkg6wvWd9AJZGcHUT9',
 				format = 'json'
 			}
 
@@ -333,8 +338,8 @@ function ObbyGameInfobox.main( frame )
 			local thumb_found = false
 
 			if mdata then
-				for _, v in pairs(mdata) do
-					if v.assetType == 'Image' and v.imageId and v.assetTypeId == 1 then
+				for _, v in ipairs(mdata) do
+					if v.assetType == 'Image' and v.imageId and (v.assetTypeId == 1 or v.assetTypeId == '1') then
 						-- 
 						if v.approved == true then
 							table.insert(image_ids, v.imageId)
@@ -352,14 +357,16 @@ function ObbyGameInfobox.main( frame )
 					local thumb_json = thumb_res and thumb_res.__json
 					local tdata = thumb_json and thumb_json.data
 
-					for _, v in pairs(tdata) do
-						if v.state == 'Completed' and v.imageUrl then
-							table.insert(thumb_urls, v.imageUrl)
-							use_external_thumbs = true
+					if tdata then
+						for _, v in ipairs(tdata) do
+							if v.state == 'Completed' and v.imageUrl then
+								table.insert(thumb_urls, v.imageUrl)
+								use_external_thumbs = true
+							end
 						end
+						
+						thumbs = thumb_urls
 					end
-					
-					thumbs = thumb_urls
 				end
 			end
 		end)
@@ -411,13 +418,13 @@ function ObbyGameInfobox.main( frame )
 
 	--
 
-	if use_external_thumbs and thumbs and #thumbs > 0 and not args.disable_auto_thumb then
-		if #thumbs == 1 then
-			thumb = thumbs[1]
-			test:renderImage( thumbs[1] )
-		else
+	if use_external_thumbs and thumbs and #thumbs > 0 and args.disable_auto_thumb ~= 'false' then
+		-- if #thumbs == 1 then
+		-- 	thumb = thumbs[1]
+		-- 	test:renderImage( thumbs[1] ) -- todo cant support external images yet
+		-- else
 			test:renderCarousel( thumbs )
-		end
+		-- end
 	else
 		if thumb and thumb ~= '' then
 			test:renderImage( thumb )
