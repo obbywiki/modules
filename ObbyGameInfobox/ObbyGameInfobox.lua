@@ -74,7 +74,7 @@ local smm = {
 
 
 function ObbyGameInfobox.main( frame )
-    local InfoboxNeue = require( 'Module:InfoboxNeue' )
+    local InfoboxNeue = require( 'Module:InfoboxNeueExperimental' )
 
     local test = InfoboxNeue:new( {
 		placeholderImage = 'Standard169placeholder.webp'
@@ -358,7 +358,7 @@ function ObbyGameInfobox.main( frame )
 
 	--
 
-    test:renderImage( thumb )
+    test:renderCarousel( {thumb,'Standard169placeholder.webp'} )
 
 	local obby_status = args.unreleased == 'true' and 'Unreleased' or obby_is_public and 'Public' or 'Private'
 

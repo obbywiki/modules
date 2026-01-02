@@ -155,6 +155,10 @@ end
 function methodtable.renderImage( self, filename )
 	checkType( 'Module:InfoboxNeue.renderImage', 1, self, 'table' )
 
+	if self.hasCarousel then
+		return ''
+	end
+
 	local hasPlaceholderImage = false
 
 	if type( filename ) ~= 'string' and self.config.displayPlaceholder == true then
@@ -186,6 +190,69 @@ function methodtable.renderImage( self, filename )
 		html:tag( 'div' ):addClass( 'infobox__image-upload' )
 			:wikitext( string.format( '[[%s|%s]]', 'Special:UploadWizard',
 				tostring( icon ) .. t( 'label_upload_image' ) ) )
+	end
+
+	local item = tostring( html )
+
+	table.insert( self.entries, item )
+	self.imageEntryIndex = #self.entries
+
+	return item
+end
+
+--- Return the HTML of the infobox carousel component as string
+---
+--- @param images table List of image filenames
+--- @return string html
+function methodtable.renderCarousel( self, images )
+	checkType( 'Module:InfoboxNeue.renderCarousel', 1, self, 'table' )
+	checkType( 'Module:InfoboxNeue.renderCarousel', 2, images, 'table' )
+
+	self.hasCarousel = true
+
+	-- Remove existing image if any
+	if self.imageEntryIndex and self.entries[self.imageEntryIndex] then
+		table.remove( self.entries, self.imageEntryIndex )
+		self.imageEntryIndex = nil
+	end
+
+	if #images == 0 then return '' end
+
+	local html = mw.html.create( 'div' ):addClass( 'infobox__carousel' )
+	local track = html:tag( 'div' ):addClass( 'infobox__carousel-wrapper' )
+		:tag( 'div' ):addClass( 'infobox__carousel-track' )
+
+	local frame = mw.getCurrentFrame()
+
+	for _, filename in ipairs( images ) do
+		if type( filename ) == 'string' and #filename > 0 then
+			if string.sub(filename,1,8) == 'https://' then
+				track:tag( 'div' )
+					:addClass( 'infobox__carousel-item' )
+					:attr( 'draggable', 'false' )
+					:wikitext( 
+						frame:callParserFunction{
+							name = '#eimage',
+							args = { 
+								filename, 
+								-- icon_px .. 'x' .. icon_px .. 'px',
+								'768x432px',
+								'caption=Thumbnail'
+							}
+						}
+					 )
+			else
+				local parts = mw.text.split( filename, ':', true )
+				if #parts > 1 then
+					table.remove( parts, 1 )
+					filename = table.concat( parts, ':' )
+				end
+
+				track:tag( 'div' )
+					:addClass( 'infobox__carousel-item' )
+					:wikitext( string.format( '[[File:%s|400px]]', filename ) )
+			end
+		end
 	end
 
 	local item = tostring( html )
@@ -698,6 +765,14 @@ function InfoboxNeue.fromArgs( frame )
 
 	if args['image'] then
 		instance:renderImage( args['image'] )
+	end
+
+	if args['carousel'] then
+		local images = mw.text.split( args['carousel'], ',', true )
+		for i, v in ipairs( images ) do
+			images[i] = mw.text.trim( v )
+		end
+		instance:renderCarousel( images )
 	end
 
 	if args['indicator'] then

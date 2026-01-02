@@ -1,0 +1,171 @@
+/* Infobox Carousel Styles */
+.infobox__carousel {
+    position: relative;
+    width: 100%;
+    margin-bottom: 8px;
+    /* Standard spacing for infobox items */
+    user-select: none;
+}
+
+.infobox__carousel-wrapper {
+    overflow: hidden;
+    width: 100%;
+    border-radius: var(--border-radius-base, 2px);
+    /* Use variable */
+    position: relative;
+    /* Ensure overlay positions correctly */
+}
+
+/* Gradient Overlay */
+/* Gradient Overlay */
+.infobox__carousel-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to bottom, transparent, var(--color-surface-1));
+    /* Match surface color */
+    z-index: 1;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.infobox__carousel:hover .infobox__carousel-wrapper::after {
+    opacity: 0.2;
+    /* Reduce on hover to reveal image */
+}
+
+.infobox__carousel-track {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    /* Smooth eased slide */
+    width: 100%;
+}
+
+.infobox__carousel-item {
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infobox__carousel-item img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    user-drag: none;
+}
+
+/* Carousel Navigation Buttons */
+.infobox__carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.4);
+    /* Slightly unrelated transparent black */
+    color: rgba(255, 255, 255, 0.9);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 14px;
+    z-index: 2;
+    border-radius: var(--border-radius-base, 2px);
+    /* Square with very slight rounding */
+    opacity: 0;
+    /* Hidden by default, shown on hover */
+    transition: opacity 0.2s ease, background 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+}
+
+.infobox__carousel:hover .infobox__carousel-btn {
+    opacity: 1;
+}
+
+.infobox__carousel-btn:hover {
+    background: var(--background-color-progressive, #00aff0);
+    /* Requested variable */
+    color: #fff;
+}
+
+.infobox__carousel-prev {
+    left: 8px;
+    /* Added spacing */
+}
+
+.infobox__carousel-next {
+    right: 8px;
+    /* Added spacing */
+}
+
+/* Indicators (dots -> rectangles) */
+.infobox__carousel-indicators {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    z-index: 2;
+    padding: 8px 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+}
+
+.infobox__carousel-dot {
+    width: 32px;
+    height: 4px;
+    border-radius: var(--border-radius-base, 2px);
+    background: rgba(255, 255, 255, 0.2);
+    /* Fainter inactive state */
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.infobox__carousel-dot.active {
+    background: rgba(255, 255, 255, 0.5);
+    /* Brighter base active state */
+}
+
+/* Progress bar fill for active dot */
+.infobox__carousel-dot.active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    /* Solid white fill */
+    transform: translateX(-100%);
+    animation: carousel-progress 5s linear forwards;
+}
+
+/* Pause animation on hover */
+.infobox__carousel:hover .infobox__carousel-dot.active::after {
+    animation-play-state: paused;
+}
+
+@keyframes carousel-progress {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0%);
+    }
+}
+
+.infobox__carousel-wrapper.is-dragging {
+    cursor: grabbing;
+}
