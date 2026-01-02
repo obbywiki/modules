@@ -74,7 +74,7 @@ local smm = {
 
 
 function ObbyGameInfobox.main( frame )
-    local InfoboxNeue = require( 'Module:InfoboxNeueExperimental' )
+    local InfoboxNeue = require( 'Module:InfoboxNeue' )
 
     local test = InfoboxNeue:new( {
 		placeholderImage = 'Standard169placeholder.webp'
@@ -316,6 +316,59 @@ function ObbyGameInfobox.main( frame )
 		end
 	end
 
+	local thumbs
+	local use_external_thumbs = false
+	if universe_id then
+		local thumb_overall_s, thumb_overall_err = pcall(function()
+			local media_res = mw.ext.externalData.getExternalData{
+				url = 'https://games.roblox.com/v2/games/' .. tostring(universe_id) .. '/media',
+				format = 'json'
+			}
+
+			local media_json = media_res and media_res.__json
+			local mdata = media_json and media_json.data
+
+			local image_ids = {}
+			local thumb_urls = {}
+			local thumb_found = false
+
+			if mdata then
+				for _, v in pairs(mdata) do
+					if v.assetType == 'Image' and v.imageId and v.assetTypeId == 1 then
+						-- 
+						if v.approved == true then
+							table.insert(image_ids, v.imageId)
+							thumb_found = true
+						end
+					end
+				end
+
+				if thumb_found and #image_ids > 0 then
+					local thumb_res = mw.ext.externalData.getExternalData{
+						url = 'https://thumbnails.roblox.com/v1/games/' .. tostring(universe_id) .. '/thumbnails?thumbnailIds=' .. table.concat(image_ids, ',') .. '&size=768x432&format=Webp&isCircular=false',
+						format = 'json'
+					}
+
+					local thumb_json = thumb_res and thumb_res.__json
+					local tdata = thumb_json and thumb_json.data
+
+					for _, v in pairs(tdata) do
+						if v.state == 'Completed' and v.imageUrl then
+							table.insert(thumb_urls, v.imageUrl)
+							use_external_thumbs = true
+						end
+					end
+					
+					thumbs = thumb_urls
+				end
+			end
+		end)
+
+		if not thumb_overall_s then
+			mw.log('Error fetching thumbnail: ' .. tostring(thumb_overall_err))
+		end
+	end
+
 	-- local s2, universe_data = pcall(function()
 	-- 	return mw.ext.externalData.getExternalData{
 	-- 		data = {
@@ -358,7 +411,20 @@ function ObbyGameInfobox.main( frame )
 
 	--
 
-    test:renderCarousel( {thumb,'Standard169placeholder.webp'} )
+	if use_external_thumbs and thumbs and #thumbs > 0 and not args.disable_auto_thumb then
+		if #thumbs == 1 then
+			thumb = thumbs[1]
+			test:renderImage( thumbs[1] )
+		else
+			test:renderCarousel( thumbs )
+		end
+	else
+		if thumb and thumb ~= '' then
+			test:renderImage( thumb )
+		else
+			test:renderImage( 'Standard169placeholder.webp' )
+		end
+	end
 
 	local obby_status = args.unreleased == 'true' and 'Unreleased' or obby_is_public and 'Public' or 'Private'
 
