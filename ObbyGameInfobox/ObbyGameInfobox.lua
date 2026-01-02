@@ -89,7 +89,7 @@ function ObbyGameInfobox.main( frame )
 	local obby_maturity = args.maturity or args.rating or 'na'
 	local obby_update_freq = args.update_freq or args.update_frequency or 'Unknown'
 	local obby_genai = args.ai_generated_content_disclosure or args.genai or args.ai
-	local obby_ai_generated_content_disclosure = (obby_genai == 'branding' or obby_genai == 'thumbnails' or obby_genai == 'icon' or obby_genai == 'identity') and 'branding' or obby_genai == 'stated_none' and 'stated_none' or 'unknown'
+	local obby_ai_generated_content_disclosure = (obby_genai == 'branding' or obby_genai == 'thumbnails' or obby_genai == 'icon' or obby_genai == 'identity') and 'branding' or obby_genai == 'stated_none' and 'stated_none' or obby_genai == 'description' and 'description' or 'unknown'
 
 	local obby_subgenre_lower = string.lower(obby_subgenre)
 	obby_subgenre_lower = string.gsub(obby_subgenre_lower, ' ', '')
@@ -185,7 +185,8 @@ function ObbyGameInfobox.main( frame )
 	local obby_stats_visits = args.visits or 'N/A'
 	local obby_stats_visits_raw
 	local obby_stats_peak_ccu = args.peak_ccu or 'N/A'
-	local obby_stats_likes = args.likes or 'N/A'
+	local obby_stats_likes = args.likes or 0
+	local obby_stats_dislikes = args.dislikes or 0
 	local obby_stats_favorites
 
 	if tonumber(obby_stats_visits) ~= nil then
@@ -193,12 +194,26 @@ function ObbyGameInfobox.main( frame )
 	end
 
 	if tonumber(obby_stats_peak_ccu) ~= nil then
-		obby_stats_peak_ccu = get_comma_val(args.peak_ccu)
+		if obby_stats_peak_ccu == '0' then
+			obby_stats_peak_ccu = 'N/A'
+		else
+			obby_stats_peak_ccu = get_comma_val(args.peak_ccu)
+		end
 	end
 
 	if tonumber(obby_stats_likes) ~= nil then
-		obby_stats_likes = get_comma_val(args.likes)
+		obby_stats_likes = tonumber(args.likes)
+	else
+		obby_stats_likes = 0
 	end
+
+	if tonumber(obby_stats_dislikes) ~= nil then
+		obby_stats_dislikes = tonumber(args.dislikes)
+	else
+		obby_stats_dislikes = 0
+	end
+
+
 
     local obby_levels = args.levels or args.stages or 'N/A'
 	local obby_levels_total = args.levels_total or args.stages_total or nil
@@ -280,6 +295,20 @@ function ObbyGameInfobox.main( frame )
 			if row.favoritedCount and tonumber(obby_stats_favorites) ~= nil then obby_stats_favorites = get_comma_val(obby_stats_favorites) end
 		end
 
+		---
+
+		local votes_res = mw.ext.externalData.getExternalData{
+			url = 'https://games.roblox.com/v1/games/votes?universeIds=' .. tostring(universe_id),
+			format = 'json'
+		}
+
+		local votes_json = votes_res and votes_res.__json
+		local vrow = votes_json and votes_json.data and votes_json.data[1]
+
+		if vrow then
+			if vrow.upVotes and tonumber(vrow.upVotes) ~= nil then obby_stats_likes = tonumber(vrow.upVotes) end
+			if vrow.downVotes and tonumber(vrow.downVotes) ~= nil then obby_stats_dislikes = tonumber(vrow.downVotes) end
+		end
 	end
 
 	-- local s2, universe_data = pcall(function()
@@ -349,7 +378,7 @@ function ObbyGameInfobox.main( frame )
 		content = {
 			test:renderItem( 'Visits', obby_stats_visits .. '+'),
 			test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
-			test:renderItem( 'Likes', obby_stats_likes .. '+' ),
+			test:renderItem( 'Rating', (obby_stats_likes + obby_stats_dislikes) > 0 and (math.floor((obby_stats_likes / (obby_stats_likes + obby_stats_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Verified|link=]] ' .. get_comma_val(tostring(obby_stats_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Verified|link=]] ' .. get_comma_val(tostring(obby_stats_dislikes)) .. ')' or 'N/A'),
 			test:renderItem( 'Favorites', obby_stats_favorites .. '+' ),
 		}
 	} )
@@ -365,7 +394,7 @@ function ObbyGameInfobox.main( frame )
 			test:renderItem( 'Genre', 'Obby & Platformer' ),
 			test:renderItem( 'Sub-genre', obby_subgenre ),
 			test:renderItem( 'Obby System', obby_system ),
-			test:renderItem( 'AI Content', obby_ai_generated_content_disclosure == 'branding' and 'Use in branding, promotional images, or other' or obby_ai_generated_content_disclosure == 'stated_none' and 'The developer has stated that no GenAI was used.' or 'None/Unknown' ),
+			test:renderItem( 'AI Content', obby_ai_generated_content_disclosure == 'branding' and 'Use in branding, promotional images, or other' or obby_ai_generated_content_disclosure == 'stated_none' and 'The developer has stated that no GenAI was used.' or obby_ai_generated_content_disclosure == 'description' and 'Use in the game\'s description' or 'None/Unknown' ),
 		}
 	} )
 
