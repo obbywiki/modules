@@ -90,6 +90,11 @@ function ObbyGameInfobox.main( frame )
 	local obby_update_freq = args.update_freq or args.update_frequency or 'Unknown'
 	local obby_genai = args.ai_generated_content_disclosure or args.genai or args.ai
 	local obby_ai_generated_content_disclosure = (obby_genai == 'branding' or obby_genai == 'thumbnails' or obby_genai == 'icon' or obby_genai == 'identity') and 'branding' or obby_genai == 'stated_none' and 'stated_none' or obby_genai == 'description' and 'description' or 'unknown'
+	local obby_is_public = (args.is_public == 'true' or args.is_public == 'yes') and true or (args.is_public == 'false' or args.is_public == 'no') and false
+
+	if args.is_public == nil then
+		obby_is_public = true
+	end
 
 	local obby_subgenre_lower = string.lower(obby_subgenre)
 	obby_subgenre_lower = string.gsub(obby_subgenre_lower, ' ', '')
@@ -354,6 +359,16 @@ function ObbyGameInfobox.main( frame )
 	--
 
     test:renderImage( thumb )
+
+	local obby_status = args.unreleased == 'true' and 'Unreleased' or obby_is_public and 'Public' or 'Private'
+
+	test:renderIndicator( {
+		data = obby_status,
+		color = obby_status == 'Unreleased' and 'gray' or obby_status == 'Public' and 'green' or 'red',
+		tooltip = (obby_is_public and 'This obby is publicly accessible on Roblox.' or
+					'This obby is private and is not accessible to all users.'
+		)
+	} )
 
     test:renderHeader( {
 		title = '[https://roblox.com/games/' .. obby_starter_place_id .. '/ '  .. obby_name .. ']',
