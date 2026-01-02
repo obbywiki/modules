@@ -377,7 +377,7 @@ function ObbyGameInfobox.main( frame )
 		col = 2,
 		content = {
 			test:renderItem( 'Visits', obby_stats_visits .. '+'),
-			test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
+			test:renderItem( 'Peak CCU', '{{#simple-tooltip: ' .. (obby_stats_peak_ccu .. '+') .. ' | All-time highest amount of players }}' ),
 			test:renderItem( 'Rating', (obby_stats_likes + obby_stats_dislikes) > 0 and (math.floor((obby_stats_likes / (obby_stats_likes + obby_stats_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Verified|link=]] ' .. get_comma_val(tostring(obby_stats_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Verified|link=]] ' .. get_comma_val(tostring(obby_stats_dislikes)) .. ')' or 'N/A'),
 			test:renderItem( 'Favorites', obby_stats_favorites .. '+' ),
 		}
