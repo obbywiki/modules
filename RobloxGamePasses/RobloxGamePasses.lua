@@ -106,6 +106,13 @@ end
 
 
 local function build_table(passes, thumb_map, icon_px, frame)
+	if #passes == 0 then
+		local none = html.create("div")
+		none:wikitext('This obby has no active/valid game-passes available.')
+
+		return tostring(none)
+	end
+
 	local tbl = html.create("table")
 		:addClass("wikitable sortable plainlinks")
 		:addClass("mw-collapsible mw-made-collapsible wikitable--fluid")
