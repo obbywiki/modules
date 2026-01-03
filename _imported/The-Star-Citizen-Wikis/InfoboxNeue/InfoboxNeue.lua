@@ -1,4 +1,6 @@
 -- imported from https://github.com/The-Star-Citizen-Wikis/SharedModules/blob/master/InfoboxNeue/InfoboxNeue.lua
+-- now contains more than mini modifications, feel free to use if any are helpful
+-- depends on Common.css and Common.js
 
 local InfoboxNeue = {}
 
@@ -196,6 +198,34 @@ function methodtable.renderImage( self, filename )
 
 	table.insert( self.entries, item )
 	self.imageEntryIndex = #self.entries
+
+	return item
+end
+
+--- Return the HTML of the infobox image component as string
+---
+--- @param filename string
+--- @return string html
+function methodtable.renderInvisibleImage( self, filename )
+	checkType( 'Module:InfoboxNeue.renderInvisibleImage', 1, self, 'table' )
+
+	if type( filename ) ~= 'string' then
+		return ''
+	end
+
+	local parts = mw.text.split( filename, ':', true )
+	if #parts > 1 then
+		table.remove( parts, 1 )
+		filename = table.concat( parts, ':' )
+	end
+
+	local html = mw.html.create( 'div' )
+		:addClass( 'infobox__image--invisible' )
+		:css('display', 'none')
+		:wikitext( string.format( '[[File:%s|thumb|frameless]]', filename ) )
+
+	local item = tostring( html )
+	table.insert( self.entries, item )
 
 	return item
 end

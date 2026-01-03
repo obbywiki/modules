@@ -419,12 +419,21 @@ function ObbyGameInfobox.main( frame )
 	--
 
 	if use_external_thumbs and thumbs and #thumbs > 0 and args.disable_auto_thumb ~= 'false' then
-		-- if #thumbs == 1 then
-		-- 	thumb = thumbs[1]
-		-- 	test:renderImage( thumbs[1] ) -- todo cant support external images yet
-		-- else
+		
+		if #thumbs == 1 then
+			thumb = thumbs[1]
+			-- test:renderImage( thumbs[1] ) -- todo cant support external images yet
+			if thumb then
+				test:renderImage( thumb )
+			end
+		else
+			if thumb then
+				-- render invisible internal file so mediawiki can generate an article thumbnail
+				test:renderInvisibleImage( thumb )
+			end
 			test:renderCarousel( thumbs )
-		-- end
+		end
+
 	else
 		if thumb and thumb ~= '' then
 			test:renderImage( thumb )
