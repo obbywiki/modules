@@ -159,13 +159,13 @@ local function build_table(badges, thumb_map, icon_px, frame)
 		-- row:tag("td"):wikitext(b.statistics.awardedCount .. ' awarded, ' .. b.statistics.pastDayAwardedCount .. ' in past day, ' .. (b.statistics.winRatePercentage or 0) .. '% win rate')
 		row:tag("td"):wikitext(string.format(
 			-- '%d awarded<br/>%d in past day<br/>%.2f%% win rate',
-			"'''%s''' (%d%% of) players have this badge<br/>%s awarded in the last 24 hours",
+			"'''%s''' (%d%% of) players have this badge<br/><br/>%s awarded in the last 24 hours",
 
 			lang:formatNum(tonumber(b.statistics.awardedCount or 0)),
 			tonumber(b.statistics.winRatePercentage or 0)*100,
 			lang:formatNum(tonumber(b.statistics.pastDayAwardedCount or 0))
 		))
-		row:tag("td"):wikitext("'''Created:''' " .. format_date_timestamp(b.created) .. '<br/> <code>' .. b.id .. '</code>' )
+		row:tag("td"):wikitext("'''Created:''' " .. format_date_timestamp(b.created) .. '<br/><br/> <code>' .. b.id .. '</code>' )
 		row:tag("td"):wikitext(b.enabled and "✅ Yes" or "❌ No")
 	end
 
