@@ -117,7 +117,7 @@ local function build_table(badges, thumb_map, icon_px, frame)
 	thead:tag("th"):wikitext("Name")
 	thead:tag("th"):wikitext("Description")
 	thead:tag("th"):wikitext("Statistics")
-	thead:tag("th"):wikitext("Created")
+	thead:tag("th"):wikitext("Details")
 	thead:tag("th"):wikitext("Active")
 
 	local lang = mw.getContentLanguage()
@@ -165,7 +165,7 @@ local function build_table(badges, thumb_map, icon_px, frame)
 			tonumber(b.statistics.winRatePercentage or 0)*100,
 			lang:formatNum(tonumber(b.statistics.pastDayAwardedCount or 0))
 		))
-		row:tag("td"):wikitext(format_date_timestamp(b.created))
+		row:tag("td"):wikitext("'''Created:''' " .. format_date_timestamp(b.created) .. '<br/> <code>' .. b.id .. '</code>' )
 		row:tag("td"):wikitext(b.enabled and "✅ Yes" or "❌ No")
 	end
 
