@@ -107,6 +107,13 @@ end
 
 
 local function build_table(badges, thumb_map, icon_px, frame)
+	if #badges == 0 then
+		local none = html.create("div")
+		none:wikitext('This obby has no active/obtainable badges available.')
+
+		return tostring(none)
+	end
+
 	local tbl = html.create("table")
 		:addClass("wikitable sortable plainlinks")
 		:addClass("mw-collapsible mw-made-collapsible wikitable--fluid")
