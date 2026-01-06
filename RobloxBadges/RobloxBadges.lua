@@ -169,7 +169,7 @@ local function build_table(badges, thumb_map, icon_px, frame)
 			"'''%s''' (%d%% of) players have this badge<br/><br/>%s awarded in the last 24 hours",
 
 			lang:formatNum(tonumber(b.statistics.awardedCount or 0)),
-			tonumber(b.statistics.winRatePercentage or 0)*100,
+			(tonumber(b.statistics.winRatePercentage) or 0)*100,
 			lang:formatNum(tonumber(b.statistics.pastDayAwardedCount or 0))
 		))
 		row:tag("td"):wikitext("'''Created:''' " .. format_date_timestamp(b.created) .. '<br/><br/> <code>' .. b.id .. '</code>' )
