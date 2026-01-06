@@ -108,7 +108,7 @@ end
 local function build_table(passes, thumb_map, icon_px, frame)
 	if #passes == 0 then
 		local none = html.create("div")
-		none:wikitext('This obby has no active/valid game-passes available.')
+		none:wikitext('This obby has no active/valid game-passes available.[[Category:Pages_with_no_passes]]')
 
 		return tostring(none)
 	end

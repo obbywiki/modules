@@ -109,7 +109,7 @@ end
 local function build_table(badges, thumb_map, icon_px, frame)
 	if #badges == 0 then
 		local none = html.create("div")
-		none:wikitext('This obby has no active/obtainable badges available.')
+		none:wikitext('This obby has no active/obtainable badges available.[[Category:Pages_with_no_badges]]')
 
 		return tostring(none)
 	end
