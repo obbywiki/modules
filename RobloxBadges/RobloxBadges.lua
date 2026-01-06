@@ -181,7 +181,7 @@ end
 
 function p.render(frame)
 	local args = frame:getParent() and frame:getParent().args or frame.args
-	local universe_id = args.universe_id or args.universe or args.uid
+	local universe_id = args.universe_id or args.universe or args.uid or args.id
 	if not universe_id or universe_id == "" then
 		return "Error: universe_id is required."
 	end
