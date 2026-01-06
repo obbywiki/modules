@@ -172,9 +172,13 @@ end
 function p.render(frame)
 	local args = frame:getParent() and frame:getParent().args or frame.args
 	local universe_id = args.universe_id or args.universe or args.uid or args.id
-	if not universe_id or universe_id == "" then
-		return "Error: universe_id is required."
+	if not universe_id or universe_id == '' then
+		return "Error: universe_id is required.<includeonly>[[Category:Pages_with_missing_RobloxGamePasses_IDs]]</includeonly>"
 	end
+	if universe_id == '0' or universe_id == 0 then
+		return "Placeholder. Please fill in the universe's ID in the RobloxGamePasses template.<includeonly>[[Category:Pages_with_missing_RobloxGamePasses_IDs]]</includeonly>"
+	end
+
 	local show_disabled = tostring(args.show_disabled or "no"):lower() ~= "no"
 	local icon_px = tonumber(args.icon_size) or 72
 
