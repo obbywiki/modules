@@ -186,7 +186,7 @@ function p.render(frame)
 		return "Error: universe_id is required."
 	end
 	if universe_id == '0' or universe_id == 0 then
-		return "Placeholder. Please fill in the universe's ID in the RobloxBadges template.<includeonly>[[Category:Pages_with_missing_RobloxBadges_IDs]]</includeonly>"
+		return "Placeholder. Please fill in the universe's ID in the RobloxBadges template.[[Category:Pages_with_missing_RobloxBadges_IDs]]"
 	end
 	if args.none == 'true' or args.none == true then
 		return 'This obby has no active/obtainable badges available.'

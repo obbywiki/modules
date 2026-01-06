@@ -173,10 +173,10 @@ function p.render(frame)
 	local args = frame:getParent() and frame:getParent().args or frame.args
 	local universe_id = args.universe_id or args.universe or args.uid or args.id
 	if not universe_id or universe_id == '' then
-		return "Error: universe_id is required.<includeonly>[[Category:Pages_with_missing_RobloxGamePasses_IDs]]</includeonly>"
+		return "Error: universe_id is required.[[Category:Pages_with_missing_RobloxGamePasses_IDs]]"
 	end
 	if universe_id == '0' or universe_id == 0 then
-		return "Placeholder. Please fill in the universe's ID in the RobloxGamePasses template.<includeonly>[[Category:Pages_with_missing_RobloxGamePasses_IDs]]</includeonly>"
+		return "Placeholder. Please fill in the universe's ID in the RobloxGamePasses template.[[Category:Pages_with_missing_RobloxGamePasses_IDs]]"
 	end
 	if args.none == 'true' or args.none == true then
 		return 'This obby has no active/valid game-passes available.'
