@@ -178,6 +178,9 @@ function p.render(frame)
 	if universe_id == '0' or universe_id == 0 then
 		return "Placeholder. Please fill in the universe's ID in the RobloxGamePasses template.<includeonly>[[Category:Pages_with_missing_RobloxGamePasses_IDs]]</includeonly>"
 	end
+	if args.none == 'true' or args.none == true then
+		return 'This obby has no active/valid game-passes available.'
+	end
 
 	local show_disabled = tostring(args.show_disabled or "no"):lower() ~= "no"
 	local icon_px = tonumber(args.icon_size) or 72
