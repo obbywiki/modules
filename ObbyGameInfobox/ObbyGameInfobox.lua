@@ -668,8 +668,10 @@ function ObbyGameInfobox.main( frame )
 	elseif obby_stats_visits_raw < 1000000 then
 		table.insert(append_categories, '[[Category:' .. '500%2C000-1%2C000%2C000_visits' .. ']]')
 	else
-		table.insert(append_categories, '[[Category:' .. 'above_1%2C000%2C000_visits' .. ']]')
+		table.insert(append_categories, '[[Category:' .. 'Above_1%2C000%2C000_visits' .. ']]')
 	end
+
+	table.insert(append_categories, '[[Category:' .. 'Obby' .. ']]')
 
 	local shortdesc = '{{SHORTDESC:' .. (obby_subgenre .. ' by ' .. obby_developer_canonical .. ' - ' .. obby_creation_year) .. '}}'
 
