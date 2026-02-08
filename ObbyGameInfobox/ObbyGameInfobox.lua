@@ -2,10 +2,12 @@
 
 local ObbyGameInfobox = {}
 
-local months_full = {'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'}
+-- Initialize i18n
+local i18n = require('Module:i18n2').new('ObbyGameInfobox')
 
 local function month_by_index(month)
-	return months_full[month] or 'N/A'
+	local months = i18n:get('months', {})
+	return months[tostring(month)] or i18n:get('label_na', 'N/A')
 end
 
 local function get_comma_val(num)
@@ -103,77 +105,62 @@ function ObbyGameInfobox.main( frame )
 
 	local obby_verified_status = (args.verified == 'true' or args.verified == 'full') and 'verified' or args.verified == 'false' and 'unstable' or args.verified == 'broken' and 'broken' or (args.verified == 'broken2' or args.verified == 'does_not_load') and 'does_not_load' or 'unknown'
 
-	if obby_subgenre_lower == 'dco' then
-		obby_subgenre = 'Difficulty Chart Obby'
-	elseif obby_subgenre_lower == 'jpdco' then
-		obby_subgenre = 'Jump Per Difficulty Chart Obby'
-	elseif obby_subgenre_lower == 'njpdco' then
-		obby_subgenre = 'No Jump Per Difficulty Chart Obby'
-	elseif obby_subgenre_lower == 'wpdco' then
-		obby_subgenre = 'Wrap-Around Per Difficulty Chart Obby'
-	elseif obby_subgenre_lower == 'wdco' then
-		obby_subgenre = 'Wrap-Around Difficulty Chart Obby'
-	elseif obby_subgenre_lower == 'njdco' then
-		obby_subgenre = 'No Jumping Difficulty Chart Obby'
-	elseif obby_subgenre_lower == 'spdco' then
-		obby_subgenre = 'Stick-Out Per Difficulty Chart Obby'
-	elseif obby_subgenre_lower == 'st' then
-		obby_subgenre = 'Stage Tower Obby'
-	elseif obby_subgenre_lower == 'stage_tower_obby' then
-		obby_subgenre = 'Stage Tower Obby'
-	elseif obby_subgenre_lower == 't' then
-		obby_subgenre = 'Tower Obby'
-	elseif obby_subgenre_lower == 'tower_obby' then
-		obby_subgenre = 'Tower Obby'
-	elseif obby_subgenre_lower == 'so' then
-		obby_subgenre = 'Story Obby'
+	local subgenre_map = {
+		['dco'] = 'subgenre_dco',
+		['jpdco'] = 'subgenre_jpdco',
+		['njpdco'] = 'subgenre_njpdco',
+		['wpdco'] = 'subgenre_wpdco',
+		['wdco'] = 'subgenre_wdco',
+		['njdco'] = 'subgenre_njdco',
+		['spdco'] = 'subgenre_spdco',
+		['st'] = 'subgenre_stage_tower',
+		['stagetowerobby'] = 'subgenre_stage_tower',
+		['towerstageobby'] = 'subgenre_stage_tower',
+		['stage_tower_obby'] = 'subgenre_stage_tower',
+		['t'] = 'subgenre_tower',
+		['towerobby'] = 'subgenre_tower',
+		['tower_obby'] = 'subgenre_tower',
+		['so'] = 'subgenre_story',
+		['storyobby'] = 'subgenre_story',
+		['difficultychartobby'] = 'subgenre_dco',
+		['trollobby'] = 'subgenre_troll',
+		['gimmickobby'] = 'subgenre_gimmick',
+		['nojumpperdifficultychartobby'] = 'subgenre_njpdco',
+		['wraparounddifficultychartobby'] = 'subgenre_wdco',
+		['wraparoundperdifficultychartobby'] = 'subgenre_wpdco',
+		['coopobby'] = 'subgenre_coop',
+		['2playerobby'] = 'subgenre_coop',
+		['tierobby'] = 'subgenre_tier',
+		['multiplayer'] = 'subgenre_multiplayer',
+		['4playerobby'] = 'subgenre_multiplayer',
+		['obby'] = 'subgenre_classic',
+		['classic'] = 'subgenre_classic',
+		['classicobby'] = 'subgenre_classic'
+	}
+
+	local subgenre_key = subgenre_map[obby_subgenre_lower]
+	if subgenre_key then
+		obby_subgenre = i18n:get(subgenre_key)
 	else
-		if obby_subgenre_lower == 'difficultychartobby' then
-			obby_subgenre = 'Difficulty Chart Obby'
-		elseif obby_subgenre_lower == 'stagetowerobby' or obby_subgenre_lower == 'towerstageobby' then
-			obby_subgenre = 'Stage Tower Obby'
-		elseif obby_subgenre_lower == 'towerobby' then
-			obby_subgenre = 'Tower Obby'
-		elseif obby_subgenre_lower == 'storyobby' then
-			obby_subgenre = 'Story Obby'
-		elseif obby_subgenre_lower == 'trollobby' then
-			obby_subgenre = 'Troll Obby'
-		elseif obby_subgenre_lower == 'gimmickobby' then
-			obby_subgenre = 'Gimmick Obby'
-		elseif obby_subgenre_lower == 'nojumpperdifficultychartobby' then
-			obby_subgenre = 'No Jump Per Difficulty Chart Obby'
-		elseif obby_subgenre_lower == 'wraparounddifficultychartobby' then
-			obby_subgenre = 'Wrap-Around Difficulty Chart Obby'
-		elseif obby_subgenre_lower == 'wraparoundperdifficultychartobby' then
-			obby_subgenre = 'Wrap-Around Per Difficulty Chart Obby'
-		elseif obby_subgenre_lower == 'coopobby' or obby_subgenre_lower == '2playerobby' then
-			obby_subgenre = 'Co-Op Obby'
-		elseif obby_subgenre_lower == 'tierobby' then
-			obby_subgenre = 'Tier Obby'
-		elseif obby_subgenre_lower == 'multiplayer' or obby_subgenre_lower == '4playerobby' then
-			obby_subgenre = 'Multiplayer Obby'
-			elseif obby_subgenre_lower == 'obby' or obby_subgenre_lower == 'classic' or obby_subgenre_lower == 'classicobby' then
-			obby_subgenre = 'Classic Obby'
-		else
-			obby_subgenre = 'Unsupported sub-genre'
-		end
+		obby_subgenre = i18n:get('subgenre_unsupported')
 	end
 
 
-	obby_maturity = string.lower(obby_maturity)
+	local maturity_map = {
+		['minimal'] = 'maturity_minimal',
+		['mild'] = 'maturity_mild',
+		['mature'] = 'maturity_mature',
+		['restricted'] = 'maturity_restricted',
+		['unrated'] = 'maturity_unrated',
+		['none'] = 'maturity_unrated'
+	}
 
-	if obby_maturity == 'minimal' then
-		obby_maturity = 'Minimal - Ages 5+'
-	elseif obby_maturity == 'mild' then
-		obby_maturity = 'Mild - Ages 9+'
-	elseif obby_maturity == 'mature' then
-		obby_maturity = 'Mature - Ages 13+'
-	elseif obby_maturity == 'restricted' then
-		obby_maturity = 'Restricted - Ages 18+'
-	elseif obby_maturity == 'unrated' or obby_maturity == 'none' then
-		obby_maturity = 'Unrated - Ages 18+'
+	local maturity_lower = string.lower(obby_maturity)
+	local maturity_key = maturity_map[maturity_lower]
+	if maturity_key then
+		obby_maturity = i18n:get(maturity_key)
 	else
-		obby_maturity = 'N/A - Unknown'
+		obby_maturity = i18n:get('maturity_unknown')
 	end
 
 
@@ -230,16 +217,18 @@ function ObbyGameInfobox.main( frame )
 	local obby_avatar_type = args.avatar_type or args.rig_type or 'N/A'
 	obby_avatar_type = string.lower(obby_avatar_type)
 
-	if obby_avatar_type == 'r6' then
-		obby_avatar_type = 'R6'
-	elseif obby_avatar_type == 'r15' then
-		obby_avatar_type = 'R15'
-	elseif obby_avatar_type == 'rthro' then
-		obby_avatar_type = 'Rthro'
-	elseif obby_maturity == 'choice' then
-		obby_avatar_type = 'Player Choice'
+	local avatar_map = {
+		['r6'] = 'avatar_r6',
+		['r15'] = 'avatar_r15',
+		['rthro'] = 'avatar_rthro',
+		['choice'] = 'avatar_choice'
+	}
+
+	local avatar_key = avatar_map[obby_avatar_type]
+	if avatar_key then
+		obby_avatar_type = i18n:get(avatar_key)
 	else
-		obby_avatar_type = 'N/A - Unknown'
+		obby_avatar_type = i18n:get('avatar_unknown')
 	end
 
 	local obby_tier = args.tier or '0'
@@ -442,56 +431,73 @@ function ObbyGameInfobox.main( frame )
 		end
 	end
 
-	local obby_status = args.unreleased == 'true' and 'Unreleased' or obby_is_public and 'Public' or 'Private'
+	local obby_status_key = args.unreleased == 'true' and 'status_unreleased' or obby_is_public and 'status_public' or 'status_private'
+	local obby_status = i18n:get(obby_status_key)
+	local obby_status_raw = args.unreleased == 'true' and 'Unreleased' or obby_is_public and 'Public' or 'Private'
 
 	test:renderIndicator( {
 		data = obby_status,
-		color = obby_status == 'Unreleased' and 'gray' or obby_status == 'Public' and 'green' or 'red',
-		tooltip = (obby_is_public and 'This obby is publicly accessible on Roblox.' or
-					'This obby is private and is not accessible to all users.'
-		)
+		color = obby_status_raw == 'Unreleased' and 'gray' or obby_status_raw == 'Public' and 'green' or 'red',
+		tooltip = (obby_is_public and i18n:get('tooltip_public') or i18n:get('tooltip_private'))
 	} )
 
     test:renderHeader( {
 		title = '[https://roblox.com/games/' .. obby_starter_place_id .. '/ '  .. obby_name .. ']',
-		subtitle = (obby_developer_was_corrected and ('by \'\'\''..obby_developer..'\'\'\'') or ('by \'\'\''  .. obby_developer .. '\'\'\'')) .. (obby_creation_year ~= '' and (' — ' .. obby_creation_year) or '')
+		subtitle = (obby_developer_was_corrected and (i18n:get('label_by') .. ' \'\'\''..obby_developer..'\'\'\'') or (i18n:get('label_by') .. ' \'\'\''  .. obby_developer .. '\'\'\'')) .. (obby_creation_year ~= '' and (' — ' .. obby_creation_year) or '')
 	} )
 
+	-- Helper for "of total" display
+	local function format_with_total(value, total)
+		if total and value then
+			return value .. ' <small>(' .. i18n:format('of_total', total) .. ')</small>'
+		end
+		return value or ''
+	end
+
     test:renderSection( {
-		title = 'Gameplay',
+		title = i18n:get('section_gameplay'),
 		col = 2,
 		content = {
-			test:renderItem( 'Checkpoints (Stages)', obby_levels_total and obby_levels and (obby_levels .. (obby_levels_total and ' <small>(of ' .. obby_levels_total .. ')</small>')) or obby_levels or ''),
-			test:renderItem( 'Difficulties', obby_difficulties_total and obby_difficulties and (obby_difficulties .. (obby_difficulties_total and ' <small>(of ' .. obby_difficulties_total .. ')</small>')) or obby_difficulties or ''),
-			test:renderItem( 'Towers', obby_towers_total and obby_towers and (obby_towers .. (obby_towers_total and ' <small>(of ' .. obby_towers_total .. ')</small>')) or obby_towers and obby_towers or ''),
-			test:renderItem( 'Tier', '[[Special:MyLanguage/Tiers|'.. (obby_tier == '0' and '0 - Unrated/Unknown' or obby_tier).. ']]' ),
-			test:renderItem( 'Avatar Type', obby_avatar_type )
+			test:renderItem( i18n:get('field_checkpoints'), format_with_total(obby_levels, obby_levels_total)),
+			test:renderItem( i18n:get('field_difficulties'), format_with_total(obby_difficulties, obby_difficulties_total)),
+			test:renderItem( i18n:get('field_towers'), format_with_total(obby_towers, obby_towers_total)),
+			test:renderItem( i18n:get('field_tier'), '[[Special:MyLanguage/Tiers|'.. (obby_tier == '0' and '0 - Unrated/Unknown' or obby_tier).. ']]' ),
+			test:renderItem( i18n:get('field_avatar_type'), obby_avatar_type )
 		}
 	} )
 
 	test:renderSection( {
-		title = 'Statistics',
+		title = i18n:get('section_statistics'),
 		col = 2,
 		content = {
-			test:renderItem( 'Visits', obby_stats_visits .. '+'),
-			test:renderItem( 'Peak CCU', '{{#simple-tooltip: ' .. (obby_stats_peak_ccu .. '+') .. ' | All-time highest amount of players }}' ),
-			test:renderItem( 'Rating', (obby_stats_likes + obby_stats_dislikes) > 0 and (math.floor((obby_stats_likes / (obby_stats_likes + obby_stats_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Verified|link=]] ' .. get_comma_val(tostring(obby_stats_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Verified|link=]] ' .. get_comma_val(tostring(obby_stats_dislikes)) .. ')' or 'N/A'),
-			test:renderItem( 'Favorites', obby_stats_favorites .. '+' ),
+			test:renderItem( i18n:get('field_visits'), obby_stats_visits .. '+'),
+			test:renderItem( i18n:get('field_peak_ccu'), '{{#simple-tooltip: ' .. (obby_stats_peak_ccu .. '+') .. ' | ' .. i18n:get('tooltip_peak_ccu') .. ' }}' ),
+			test:renderItem( i18n:get('field_rating'), (obby_stats_likes + obby_stats_dislikes) > 0 and (math.floor((obby_stats_likes / (obby_stats_likes + obby_stats_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Verified|link=]] ' .. get_comma_val(tostring(obby_stats_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Verified|link=]] ' .. get_comma_val(tostring(obby_stats_dislikes)) .. ')' or i18n:get('label_na')),
+			test:renderItem( i18n:get('field_favorites'), obby_stats_favorites .. '+' ),
 		}
 	} )
 
+	-- AI content disclosure mapping
+	local ai_disclosure_map = {
+		['branding'] = 'ai_branding',
+		['stated_none'] = 'ai_stated_none',
+		['description'] = 'ai_description'
+	}
+	local ai_disclosure_key = ai_disclosure_map[obby_ai_generated_content_disclosure]
+	local ai_disclosure_text = ai_disclosure_key and i18n:get(ai_disclosure_key) or i18n:get('ai_unknown')
+
     test:renderSection( {
-		title = 'Publishing & Other',
+		title = i18n:get('section_publishing'),
 		col = 2,
 		content = {
-			test:renderItem( 'Released', obby_creation_month .. ' ' .. obby_creation_year ),
-			test:renderItem( 'Update Frequency', obby_update_freq ),
-			test:renderItem( 'Publisher', obby_publisher ),
-			test:renderItem( 'Maturity', obby_maturity ),
-			test:renderItem( 'Genre', 'Obby & Platformer' ),
-			test:renderItem( 'Sub-genre', obby_subgenre ),
-			test:renderItem( 'Obby System', obby_system ),
-			test:renderItem( 'AI Content', obby_ai_generated_content_disclosure == 'branding' and 'Use in branding, promotional images, or other' or obby_ai_generated_content_disclosure == 'stated_none' and 'The developer has stated that no GenAI was used.' or obby_ai_generated_content_disclosure == 'description' and 'Use in the game\'s description' or 'None/Unknown' ),
+			test:renderItem( i18n:get('field_released'), obby_creation_month .. ' ' .. obby_creation_year ),
+			test:renderItem( i18n:get('field_update_freq'), obby_update_freq ),
+			test:renderItem( i18n:get('field_publisher'), obby_publisher ),
+			test:renderItem( i18n:get('field_maturity'), obby_maturity ),
+			test:renderItem( i18n:get('field_genre'), i18n:get('genre_obby') ),
+			test:renderItem( i18n:get('field_sub_genre'), obby_subgenre ),
+			test:renderItem( i18n:get('field_obby_system'), obby_system ),
+			test:renderItem( i18n:get('field_ai_content'), ai_disclosure_text ),
 		}
 	} )
 
@@ -542,11 +548,11 @@ function ObbyGameInfobox.main( frame )
 	if #social_icons_wikitext > 0 or #platform_icons_wikitext > 0 then
 		test:renderSection(
 			{
-				title = 'Presence',
+				title = i18n:get('section_presence'),
 				content = {
 					test:renderItem(
 						{
-							label = 'Socials',
+							label = i18n:get('field_socials'),
 							plainlinks_enabled = true,
 
 							data = table.concat(social_icons_wikitext, ' ')	
@@ -555,7 +561,7 @@ function ObbyGameInfobox.main( frame )
 
 					test:renderItem(
 						{
-							label = 'Platforms',
+							label = i18n:get('field_platforms'),
 							plainlinks_enabled = true,
 
 							data = table.concat(platform_icons_wikitext, ' ')
@@ -566,65 +572,74 @@ function ObbyGameInfobox.main( frame )
 		)
 	end
 
+	-- Verified status mapping
+	local verified_info_map = {
+		['verified'] = 'verified_verified',
+		['unstable'] = 'verified_unstable',
+		['broken'] = 'verified_broken',
+		['does_not_load'] = 'verified_does_not_load'
+	}
+	local verified_info_key = verified_info_map[obby_verified_status] or 'verified_unknown'
+	local verified_info_text = i18n:get(verified_info_key)
+
 	test:renderSection({
-		title = 'Playability',
+		title = i18n:get('section_playability'),
 		col = 2,
 		content = {
 			test:renderItem(
 				{
-					label = 'Status',
+					label = i18n:get('field_status'),
 					plainlinks_enabled = true,
 					data = obby_verified_status == 'verified' and '[[File:Verified-check-green-96.webp|36px|alt=Verified|link=]]' or (obby_verified_status == 'unstable' or obby_verified_status == 'broken' or obby_verified_status == 'does_not_load') and '[[File:Verified-dash-red-72.webp|36px|alt=Unstable|link=]]' or obby_verified_status == 'unknown' and '[[File:Verified-dash-orange-72.webp|36px|alt=Unknown|link=]]'
 				}
 			),
 			test:renderItem(
 				{
-					label = 'Info',
-
-					data = obby_verified_status == 'verified' and 'Verified - Fully Possible - All Devices' or obby_verified_status == 'unstable' and 'Unstable - Partially Possible - Some Devices' or obby_verified_status == 'broken' and 'Broken - Not Possible' or obby_verified_status == 'does_not_load' and 'Unplayable - Does not load' or 'Unknown'
+					label = i18n:get('field_info'),
+					data = verified_info_text
 				}
 			)
 		}
 	})
 
 	test:renderSection( {
-		title = 'Technical',
+		title = i18n:get('section_technical'),
 		col = 2,
 		content = {
-			test:renderItem( 'Start Place ID', '<code>' .. (obby_starter_place_id == 1818 and 'Unlisted' or tostring(obby_starter_place_id) or 'N/A') .. '</code>' ),
-			test:renderItem( 'Universe ID', '<code>' .. (tostring(universe_id) or 'N/A') .. '</code>' ),
+			test:renderItem( i18n:get('field_start_place_id'), '<code>' .. (obby_starter_place_id == 1818 and i18n:get('label_unlisted') or tostring(obby_starter_place_id) or i18n:get('label_na')) .. '</code>' ),
+			test:renderItem( i18n:get('field_universe_id'), '<code>' .. (tostring(universe_id) or i18n:get('label_na')) .. '</code>' ),
 		}
 	} )
 
     test:renderFooter( {
 		button = {
 			icon = 'GoogleMaterialIcons-Globe.svg',
-			label = 'External Links',
+			label = i18n:get('section_external_links'),
 			type = 'popup',
 			content = test:renderSection( {
 				content = {
 					test:renderItem( {
-						label = 'Roblox',
+						label = i18n:get('link_roblox'),
 						data = {test:renderLinkButton( {
-							label = 'View on Roblox',
+							label = i18n:get('link_view_roblox'),
 							link = 'https://roblox.com/games/' .. obby_starter_place_id .. '/'
 						}),
 
 						test:renderLinkButton({
-							label = 'Play on Roblox',
+							label = i18n:get('link_play_roblox'),
 							link = (obby_join_sharelink_id ~= '' and 'https://roblox.com/join/' .. obby_join_sharelink_id) or 'https://roblox.com/start?placeId=' .. obby_starter_place_id .. '&launchData=obbywiki'
 						})
 					}					
 					} ),
 
 					test:renderItem( {
-						label = 'Analytics (not affiliated)',
+						label = i18n:get('link_analytics'),
 						data = {test:renderLinkButton( {
-							label = 'View on RoMonitorStats',
+							label = i18n:get('link_romonitorstats'),
 							link = 'https://romonitorstats.com/experience/' .. obby_starter_place_id .. '/'
 						}),
 						test:renderLinkButton( {
-							label = 'View on Rolimons',
+							label = i18n:get('link_rolimons'),
 							link = 'https://rolimons.com/game/' .. obby_starter_place_id .. '/'
 						})
 					}					

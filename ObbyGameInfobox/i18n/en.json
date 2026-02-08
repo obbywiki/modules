@@ -1,0 +1,128 @@
+{
+  "months": {
+    "1": "January",
+    "2": "February",
+    "3": "March",
+    "4": "April",
+    "5": "May",
+    "6": "June",
+    "7": "July",
+    "8": "August",
+    "9": "September",
+    "10": "October",
+    "11": "November",
+    "12": "December"
+  },
+
+  "section_gameplay": "Gameplay",
+  "section_statistics": "Statistics",
+  "section_publishing": "Publishing & Other",
+  "section_presence": "Presence",
+  "section_playability": "Playability",
+  "section_technical": "Technical",
+  "section_external_links": "External Links",
+
+  "field_checkpoints": "Checkpoints (Stages)",
+  "field_difficulties": "Difficulties",
+  "field_towers": "Towers",
+  "field_tier": "Tier",
+  "field_avatar_type": "Avatar Type",
+
+  "field_visits": "Visits",
+  "field_rating": "Rating",
+  "field_peak_ccu": "Peak CCU",
+  "field_favorites": "Favorites",
+
+  "field_released": "Released",
+  "field_update_freq": "Update Frequency",
+  "field_publisher": "Publisher",
+  "field_maturity": "Maturity",
+  "field_genre": "Genre",
+  "field_sub_genre": "Sub-genre",
+  "field_obby_system": "Obby System",
+  "field_ai_content": "AI Content",
+
+  "field_socials": "Socials",
+  "field_platforms": "Platforms",
+
+  "field_status": "Status",
+  "field_info": "Info",
+
+  "field_start_place_id": "Start Place ID",
+  "field_universe_id": "Universe ID",
+
+  "label_na": "N/A",
+  "label_unknown": "Unknown",
+  "label_unlisted": "Unlisted",
+  "label_by": "by",
+
+  "status_public": "Public",
+  "status_private": "Private",
+  "status_unreleased": "Unreleased",
+
+  "tooltip_public": "This obby is publicly accessible on Roblox.",
+  "tooltip_private": "This obby is private and is not accessible to all users.",
+  "tooltip_peak_ccu": "All-time highest amount of players",
+
+  "maturity_minimal": "Minimal - Ages 5+",
+  "maturity_mild": "Mild - Ages 9+",
+  "maturity_mature": "Mature - Ages 13+",
+  "maturity_restricted": "Restricted - Ages 18+",
+  "maturity_unrated": "Unrated - Ages 18+",
+  "maturity_unknown": "N/A - Unknown",
+
+  "avatar_r6": "R6",
+  "avatar_r15": "R15",
+  "avatar_rthro": "Rthro",
+  "avatar_choice": "Player Choice",
+  "avatar_unknown": "N/A - Unknown",
+
+  "subgenre_dco": "Difficulty Chart Obby",
+  "subgenre_jpdco": "Jump Per Difficulty Chart Obby",
+  "subgenre_njpdco": "No Jump Per Difficulty Chart Obby",
+  "subgenre_wpdco": "Wrap-Around Per Difficulty Chart Obby",
+  "subgenre_wdco": "Wrap-Around Difficulty Chart Obby",
+  "subgenre_njdco": "No Jumping Difficulty Chart Obby",
+  "subgenre_spdco": "Stick-Out Per Difficulty Chart Obby",
+  "subgenre_stage_tower": "Stage Tower Obby",
+  "subgenre_tower": "Tower Obby",
+  "subgenre_story": "Story Obby",
+  "subgenre_troll": "Troll Obby",
+  "subgenre_gimmick": "Gimmick Obby",
+  "subgenre_coop": "Co-Op Obby",
+  "subgenre_tier": "Tier Obby",
+  "subgenre_multiplayer": "Multiplayer Obby",
+  "subgenre_classic": "Classic Obby",
+  "subgenre_unsupported": "Unsupported sub-genre",
+
+  "genre_obby": "Obby & Platformer",
+
+  "verified_verified": "Verified - Fully Possible - All Devices",
+  "verified_unstable": "Unstable - Partially Possible - Some Devices",
+  "verified_broken": "Broken - Not Possible",
+  "verified_does_not_load": "Unplayable - Does not load",
+  "verified_unknown": "Unknown",
+
+  "ai_branding": "Use in branding, promotional images, or other",
+  "ai_stated_none": "The developer has stated that no GenAI was used.",
+  "ai_description": "Use in the game's description",
+  "ai_unknown": "None/Unknown",
+
+  "link_view_roblox": "View on Roblox",
+  "link_play_roblox": "Play on Roblox",
+  "link_roblox": "Roblox",
+  "link_analytics": "Analytics (not affiliated)",
+  "link_romonitorstats": "View on RoMonitorStats",
+  "link_rolimons": "View on Rolimons",
+
+  "social_twitter": "Twitter",
+  "social_bsky": "BlueSky",
+  "social_youtube": "YouTube",
+  "social_discord": "Discord",
+  "social_guilded": "Guilded",
+  "social_roblox": "Roblox",
+  "social_website": "Website",
+  "social_wiki": "MediaWiki",
+
+  "of_total": "of $1"
+}

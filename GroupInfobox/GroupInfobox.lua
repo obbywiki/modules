@@ -424,7 +424,7 @@ function GroupInfobox.main( frame )
 	local rendered = test:renderInfobox( nil, '[https://roblox.com/groups/' .. group_id .. '/' .. string.gsub(group_name, ' ', '_') .. '#!/about '  .. group_name .. ']' )
 	-- local parsed_month = month_by_index(tonumber(group_creation_year))
 
-	-- local append_categories = {}
+	local append_categories = {}
 
 	-- if tonumber(obby_creation_year) >= 2008 and tonumber(obby_creation_year) <= os.date('*t').year+2 then
 	-- 	table.insert(append_categories, '[[Category:' .. tostring(obby_creation_year) .. ']]')
@@ -439,7 +439,10 @@ function GroupInfobox.main( frame )
 	-- 	table.insert(append_categories, '[[Category:' .. parsed_month .. ']]')
 	-- end
 
-    return rendered -- .. '\n' .. table.concat(append_categories, '\n')
+	table.insert(append_categories, '[[Category:' .. 'Group' .. ']]')
+	table.insert(append_categories, '[[Category:' .. 'Studio' .. ']]')
+
+    return rendered .. '\n' .. table.concat(append_categories, '\n')
 end
 
 return GroupInfobox
