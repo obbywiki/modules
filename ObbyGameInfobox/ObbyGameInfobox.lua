@@ -473,7 +473,7 @@ function ObbyGameInfobox.main( frame )
 			test:renderItem( i18n:get('field_visits'), obby_stats_visits .. '+'),
 			test:renderItem( i18n:get('field_peak_ccu'), '{{#simple-tooltip: ' .. (obby_stats_peak_ccu .. '+') .. ' | ' .. i18n:get('tooltip_peak_ccu') .. ' }}' ),
 			test:renderItem( i18n:get('field_rating'), (obby_stats_likes + obby_stats_dislikes) > 0 and (math.floor((obby_stats_likes / (obby_stats_likes + obby_stats_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Verified|link=]] ' .. get_comma_val(tostring(obby_stats_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Verified|link=]] ' .. get_comma_val(tostring(obby_stats_dislikes)) .. ')' or i18n:get('label_na')),
-			test:renderItem( i18n:get('field_favorites'), obby_stats_favorites .. '+' ),
+			test:renderItem( i18n:get('field_favorites'), (obby_stats_favorites or 'N/A') .. '+' ),
 		}
 	} )
 
