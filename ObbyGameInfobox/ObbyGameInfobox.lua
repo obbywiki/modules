@@ -670,6 +670,10 @@ function ObbyGameInfobox.main( frame )
 		table.insert(append_categories, '[[Category:' .. obby_subgenre .. ']]')
 	end
 
+	if not obby_stats_visits_raw then
+		obby_stats_visits_raw = 0
+	end
+
 	if obby_stats_visits_raw < 5000 then
 		table.insert(append_categories, '[[Category:' .. '0-5%2C000_visits' .. ']]')
 	elseif obby_stats_visits_raw < 25000 then
