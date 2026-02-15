@@ -2,7 +2,6 @@
 
 local ObbyGameInfobox = {}
 
--- Initialize i18n
 local i18n = require('Module:i18n2').new('ObbyGameInfobox')
 
 local function month_by_index(month)
