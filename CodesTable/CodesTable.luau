@@ -24,6 +24,12 @@ function split_by_comma(inputstr)
     return t
 end
 
+local months_full = {'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'}
+
+local function month_by_index(month)
+	return months_full[month] or 'N/A'
+end
+
 local function format_expiry_date(date_str)
     if not date_str or date_str == '' or date_str == 'never' or date_str == '0' then
         return "<i>No Expiry</i>"
@@ -33,7 +39,6 @@ local function format_expiry_date(date_str)
 
     local iso = date_str
     if date_str:match('^%d%d%d%d%-%d%d%-%d%d$') then
-        -- Default to end of day for date-only expiry
         iso = date_str .. 'T23:59:59+00:00'
     elseif date_str:match('^%d%d%d%d%-%d%d%-%d%d%s+%d%d:%d%d$') then
         local d, t = date_str:match('^(%d%d%d%d%-%d%d%-%d%d)%s+(%d%d:%d%d)$')
@@ -60,17 +65,17 @@ local function format_expiry_date(date_str)
     end
 end
 
-local function build_table(opt, exc_args)
+local function build_table(frame, opt, exc_args)
     local tbl = html.create("table")
         :addClass("wikitable sortable plainlinks")
         :addClass("mw-collapsible mw-made-collapsible wikitable--fluid")
         :css("width", "100%")
 
     tbl:tag('caption'):css('')
-        :tag('div'):css('display', 'flex'):wikitext(opt.i and '[[File:' .. opt.i .. '|48px]] ' or '')
-        :tag('div'):css('vertical-align', 'top'):css('display', 'flex'):css('flex-direction', 'column'):css('margin-left', '8px')
+        :tag('div'):css('display', 'flex'):css('margin-top', '4px'):wikitext(opt.i and '[[File:' .. opt.i .. '|48px]] ' or ''):addClass('mw-codes-table-img') --:css('border-radius', '6px')
+        :tag('div'):css('vertical-align', 'top'):css('display', 'flex'):css('flex-direction', 'column'):css('margin-left', '8px'):css('line-height', '1.2')
             :tag('span'):wikitext(opt.n and opt.n .. ' Codes&nbsp;' or 'Codes&nbsp;'):css('vertical-align', 'top'):done()
-            :tag('span'):wikitext('Page last edited {{REVISIONTIMESTAMP}}'):css('vertical-align', 'bottom'):css('font-size', 'small'):css('color', 'var(--color-subtle)')
+            :tag('span'):wikitext('Page last edited \'\'\'' .. frame:preprocess('{{REVISIONDAY}} ' .. month_by_index(tonumber(frame:preprocess('{{REVISIONMONTH}}'))) .. ' {{REVISIONYEAR}}') .. '\'\'\''):css('vertical-align', 'bottom'):css('font-size', 'x-small'):css('color', 'var(--color-subtle)')
 
      local thead = tbl:tag("tr")
      thead:tag("th"):wikitext("Code")
@@ -116,7 +121,7 @@ function p.render(frame)
     if exc_args['name'] then exc_args['name'] = nil end
     if exc_args['icon'] then exc_args['icon'] = nil end
 
-    return build_table({r = optional_root_place_id, n = optional_name, i = optional_icon}, exc_args)
+    return build_table(frame, {r = optional_root_place_id, n = optional_name, i = optional_icon}, exc_args)
 end
 
 return p
