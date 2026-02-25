@@ -4,13 +4,17 @@ local ObbyGameInfobox = {}
 
 local i18n = require('Module:i18n2').new('ObbyGameInfobox')
 
+local months_full = {'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'}
+
 local function month_by_index(month)
-	local months = i18n:get('months', {})
+	-- local months = i18n:get('months', {})
 	local monthnum = tonumber(month)
 
 	if not monthnum then return i18n:get('label_na', 'N/A') end
 
-	return months[tostring(monthnum)] or i18n:get('label_na', 'N/A')
+	return months_full[monthnum] or i18n:get('label_na', 'N/A')
+
+	-- return months[tostring(monthnum)] or i18n:get('label_na', 'N/A')
 end
 
 local function get_comma_val(num)
