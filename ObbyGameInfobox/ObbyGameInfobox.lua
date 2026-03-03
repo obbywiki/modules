@@ -143,6 +143,8 @@ function ObbyGameInfobox.main( frame )
 		['obby'] = 'subgenre_classic',
 		['classic'] = 'subgenre_classic',
 		['classicobby'] = 'subgenre_classic'
+		['timetrial'] = 'subgenre_time_trial',
+		['tt'] = 'subgenre_time_trial',
 	}
 
 	local subgenre_key = subgenre_map[obby_subgenre_lower]
