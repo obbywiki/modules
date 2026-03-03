@@ -142,7 +142,7 @@ function ObbyGameInfobox.main( frame )
 		['4playerobby'] = 'subgenre_multiplayer',
 		['obby'] = 'subgenre_classic',
 		['classic'] = 'subgenre_classic',
-		['classicobby'] = 'subgenre_classic'
+		['classicobby'] = 'subgenre_classic',
 		['timetrial'] = 'subgenre_time_trial',
 		['tt'] = 'subgenre_time_trial',
 	}
