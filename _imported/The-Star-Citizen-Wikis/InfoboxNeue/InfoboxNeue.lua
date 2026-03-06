@@ -406,6 +406,7 @@ function methodtable.renderSection( self, data, noInsert )
 	local html = mw.html.create( 'div' ):addClass( 'infobox__section' )
 
 	if data['title'] then
+		html:attr( 'data-source-title', data['title'] )
 		local header = html:tag( 'div' ):addClass( 'infobox__sectionHeader' )
 		header:tag( 'div' )
 			:addClass( 'infobox__sectionTitle' )
