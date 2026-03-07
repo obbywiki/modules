@@ -756,7 +756,7 @@ function ObbyGameInfobox.main( frame )
 	local shortdesc = '{{SHORTDESC:' .. (obby_subgenre .. ' by ' .. (obby_developer_canonical or obby_developer_raw or 'Unknown') .. ' - ' .. obby_creation_year) .. '}}'
 
 	-- if args.root_place_id_unknown ~= 'true' and args.root_place_id_unknown ~= true then
-		local cargo_res = ObbyGameInfobox.store(frame, {
+		ObbyGameInfobox.store(frame, {
 			root_place_id = args.root_place_id,
 			universe_id = universe_id,
 			name = args.name or mw.title.getCurrentTitle().text,
