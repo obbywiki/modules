@@ -790,99 +790,133 @@ function ObbyGameInfobox.main( frame )
 	-- end
 
 	-- JSON-LD structured data (Schema.org VideoGame)
-	local game_url = 'https://roblox.com/games/' .. obby_starter_place_id .. '/'
-	local page_url = mw.title.getCurrentTitle():fullUrl('', 'https')
+	-- local game_url = 'https://roblox.com/games/' .. obby_starter_place_id .. '/'
+	-- local page_url = mw.title.getCurrentTitle():fullUrl('', 'https')
 
-	local json_ld = {
-		['@context'] = 'https://schema.org',
-		['@type'] = 'VideoGame',
-		name = args.name or mw.title.getCurrentTitle().text,
-		url = page_url,
-		description = obby_subgenre .. ' by ' .. (obby_developer_canonical or obby_developer_raw or 'Unknown') .. ' — ' .. obby_creation_year,
-		gamePlatform = 'Roblox',
-		genre = { 'Obby', obby_subgenre },
-		applicationCategory = 'Game',
-		operatingSystem = 'Cross-platform',
-	}
+	-- local json_ld = {
+	-- 	['@context'] = 'https://schema.org',
+	-- 	['@type'] = 'VideoGame',
+	-- 	name = args.name or mw.title.getCurrentTitle().text,
+	-- 	url = page_url,
+	-- 	description = obby_subgenre .. ' by ' .. (obby_developer_canonical or obby_developer_raw or 'Unknown') .. ' — ' .. obby_creation_year,
+	-- 	gamePlatform = 'Roblox',
+	-- 	genre = { 'Obby', obby_subgenre },
+	-- 	applicationCategory = 'Game',
+	-- 	operatingSystem = 'Cross-platform',
+	-- }
 
-	-- image
-	if thumb and thumb ~= '' then
-		json_ld.image = 'https://obbywiki.com/wiki/Special:FilePath/' .. mw.uri.encode(thumb, 'PATH')
-	elseif use_external_thumbs and thumbs and #thumbs > 0 then
-		json_ld.image = thumbs[1]
+	-- -- image
+	-- if thumb and thumb ~= '' then
+	-- 	json_ld.image = 'https://obbywiki.com/wiki/Special:FilePath/' .. mw.uri.encode(thumb, 'PATH')
+	-- elseif use_external_thumbs and thumbs and #thumbs > 0 then
+	-- 	json_ld.image = thumbs[1]
+	-- end
+
+	-- -- author / developer
+	-- if obby_developer_canonical or obby_developer_raw then
+	-- 	json_ld.author = {
+	-- 		['@type'] = (string.sub(obby_developer_canonical or obby_developer_raw, 1, 1) == '@' and 'Person' or 'Organization'),
+	-- 		name = obby_developer_canonical or obby_developer_raw,
+	-- 	}
+	-- end
+
+	-- -- publisher
+	-- if obby_publisher and obby_publisher ~= 'Self-Published' then
+	-- 	json_ld.publisher = {
+	-- 		['@type'] = 'Organization',
+	-- 		name = obby_publisher,
+	-- 	}
+	-- end
+
+	-- -- date published  (ISO 8601)
+	-- if tonumber(obby_creation_year) then
+	-- 	local date_str = tostring(obby_creation_year)
+	-- 	if tonumber(args.month) then
+	-- 		date_str = date_str .. '-' .. string.format('%02d', tonumber(args.month))
+	-- 		if tonumber(obby_creation_day) then
+	-- 			date_str = date_str .. '-' .. string.format('%02d', tonumber(obby_creation_day))
+	-- 		end
+	-- 	end
+	-- 	json_ld.datePublished = date_str
+	-- end
+
+	-- -- aggregate rating (likes / dislikes → 1-5 scale)
+	-- local total_votes = obby_stats_likes + obby_stats_dislikes
+	-- if total_votes > 0 then
+	-- 	local pct = obby_stats_likes / total_votes
+	-- 	json_ld.aggregateRating = {
+	-- 		['@type'] = 'AggregateRating',
+	-- 		ratingValue = tostring(math.floor(pct * 50 + 0.5) / 10), -- 0‑5 scale
+	-- 		bestRating = '5',
+	-- 		worstRating = '0',
+	-- 		ratingCount = tostring(total_votes),
+	-- 	}
+	-- end
+
+	-- -- numberOfLevels (custom / GamePlayMode etc.)
+	-- if obby_levels and obby_levels ~= 'N/A' and tonumber(obby_levels) then
+	-- 	json_ld.numberOfLevels = tonumber(obby_levels)
+	-- end
+
+	-- -- sameAs (external links)
+	-- local same_as = { game_url }
+	-- for key, v in pairs(smm) do
+	-- 	if args[key] then
+	-- 		table.insert(same_as, v.url .. args[key])
+	-- 	end
+	-- end
+	-- if #same_as > 0 then
+	-- 	json_ld.sameAs = same_as
+	-- end
+
+	-- -- available platforms
+	-- local game_platforms = {}
+	-- if args.pc then table.insert(game_platforms, 'PC') end
+	-- if args.tablet then table.insert(game_platforms, 'Tablet') end
+	-- if args.phone then table.insert(game_platforms, 'Mobile') end
+	-- if args.console then table.insert(game_platforms, 'Console') end
+	-- if args.vr then table.insert(game_platforms, 'VR') end
+	-- if #game_platforms > 0 then
+	-- 	json_ld.gamePlatform = game_platforms
+	-- end
+
+	-- local json_ld_string = '<script type="application/ld+json">' .. mw.text.jsonEncode(json_ld) .. '</script>'
+
+	-- temporary workaround to json-ld injection issues
+	-- WikiSEO: injects JSON-LD into <head> via OutputPage::addHeadItem(), bypassing the HTML sanitizer
+	local seo_image = thumb
+	if not seo_image or seo_image == '' then
+		seo_image = (use_external_thumbs and thumbs and #thumbs > 0) and thumbs[1] or nil
 	end
 
-	-- author / developer
-	if obby_developer_canonical or obby_developer_raw then
-		json_ld.author = {
-			['@type'] = (string.sub(obby_developer_canonical or obby_developer_raw, 1, 1) == '@' and 'Person' or 'Organization'),
-			name = obby_developer_canonical or obby_developer_raw,
-		}
-	end
-
-	-- publisher
-	if obby_publisher and obby_publisher ~= 'Self-Published' then
-		json_ld.publisher = {
-			['@type'] = 'Organization',
-			name = obby_publisher,
-		}
-	end
-
-	-- date published  (ISO 8601)
+	local seo_date_published
 	if tonumber(obby_creation_year) then
-		local date_str = tostring(obby_creation_year)
+		seo_date_published = tostring(obby_creation_year)
 		if tonumber(args.month) then
-			date_str = date_str .. '-' .. string.format('%02d', tonumber(args.month))
+			seo_date_published = seo_date_published .. '-' .. string.format('%02d', tonumber(args.month))
 			if tonumber(obby_creation_day) then
-				date_str = date_str .. '-' .. string.format('%02d', tonumber(obby_creation_day))
+				seo_date_published = seo_date_published .. '-' .. string.format('%02d', tonumber(obby_creation_day))
 			end
 		end
-		json_ld.datePublished = date_str
 	end
 
-	-- aggregate rating (likes / dislikes → 1-5 scale)
-	local total_votes = obby_stats_likes + obby_stats_dislikes
-	if total_votes > 0 then
-		local pct = obby_stats_likes / total_votes
-		json_ld.aggregateRating = {
-			['@type'] = 'AggregateRating',
-			ratingValue = tostring(math.floor(pct * 50 + 0.5) / 10), -- 0‑5 scale
-			bestRating = '5',
-			worstRating = '0',
-			ratingCount = tostring(total_votes),
-		}
-	end
+	local seo_description = obby_subgenre .. ' by ' .. (obby_developer_canonical or obby_developer_raw or 'Unknown') .. ' — ' .. obby_creation_year
+	local seo_keywords_parts = { 'obby', obby_subgenre, (obby_developer_canonical or obby_developer_raw or ''), 'roblox' }
+	local seo_keywords = table.concat(seo_keywords_parts, ', ')
 
-	-- numberOfLevels (custom / GamePlayMode etc.)
-	if obby_levels and obby_levels ~= 'N/A' and tonumber(obby_levels) then
-		json_ld.numberOfLevels = tonumber(obby_levels)
-	end
+	mw.ext.seo.set{
+		type = 'VideoGame',
+		title = args.name or mw.title.getCurrentTitle().text,
+		description = seo_description,
+		keywords = seo_keywords,
+		image = seo_image,
+		published_time = seo_date_published,
+		author = obby_developer_canonical or obby_developer_raw or 'Unknown',
+		locale = 'en_US',
+		site_name = 'ObbyWiki',
+	}
 
-	-- sameAs (external links)
-	local same_as = { game_url }
-	for key, v in pairs(smm) do
-		if args[key] then
-			table.insert(same_as, v.url .. args[key])
-		end
-	end
-	if #same_as > 0 then
-		json_ld.sameAs = same_as
-	end
-
-	-- available platforms
-	local game_platforms = {}
-	if args.pc then table.insert(game_platforms, 'PC') end
-	if args.tablet then table.insert(game_platforms, 'Tablet') end
-	if args.phone then table.insert(game_platforms, 'Mobile') end
-	if args.console then table.insert(game_platforms, 'Console') end
-	if args.vr then table.insert(game_platforms, 'VR') end
-	if #game_platforms > 0 then
-		json_ld.gamePlatform = game_platforms
-	end
-
-	local json_ld_string = '<script type="application/ld+json">' .. mw.text.jsonEncode(json_ld) .. '</script>'
-
-    return frame:preprocess(shortdesc) .. rendered .. (cargo_debug_res or '') .. (cargo_store_res or '') .. '\n' .. table.concat(append_categories, '\n') .. json_ld_string
+    return frame:preprocess(shortdesc) .. rendered .. (cargo_debug_res or '') .. (cargo_store_res or '') .. '\n' .. table.concat(append_categories, '\n')
 end
 
 return ObbyGameInfobox
