@@ -83,8 +83,8 @@ local obby_schema = {
 	_table = 'Obbies',
 	_drilldownTabs = 'Tab1(format=list;delimiter=\;;fields=creator)',
 
-	root_place_id = 'Integer',
-	universe_id = 'Integer',
+	root_place_id = 'String', -- store as string now to prevent integer overflows
+	universe_id = 'String',
 
 	name = 'String',
 	thumbnail = 'String',
@@ -115,7 +115,7 @@ function ObbyGameInfobox.declare(frame)
         end
     end
 
-    return frame:callParserFunction('#cargo_declare', declare_args)
+    return frame:callParserFunction{ name = '#cargo_declare', args = declare_args }
 end
 
 function ObbyGameInfobox.store(frame, data)
@@ -129,7 +129,7 @@ function ObbyGameInfobox.store(frame, data)
         end
     end
 
-	return frame:callParserFunction('#cargo_store', store_args)
+	return frame:callParserFunction{ name = '#cargo_store', args = store_args }
 end
 
 
@@ -755,8 +755,8 @@ function ObbyGameInfobox.main( frame )
 
 	local shortdesc = '{{SHORTDESC:' .. (obby_subgenre .. ' by ' .. (obby_developer_canonical or obby_developer_raw or 'Unknown') .. ' - ' .. obby_creation_year) .. '}}'
 
-	if not args.root_place_id_unknown then
-		ObbyGameInfobox.store(frame, {
+	-- if args.root_place_id_unknown ~= 'true' and args.root_place_id_unknown ~= true then
+		local cargo_res = ObbyGameInfobox.store(frame, {
 			root_place_id = args.root_place_id,
 			universe_id = universe_id,
 			name = args.name or mw.title.getCurrentTitle().text,
@@ -769,7 +769,7 @@ function ObbyGameInfobox.main( frame )
 			month = tonumber(args.month) or nil,
 			day = tonumber(obby_creation_day) or nil
 		})
-	end
+	-- end
 
     return frame:preprocess(shortdesc) .. rendered .. '\n' .. table.concat(append_categories, '\n')
 end
