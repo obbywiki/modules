@@ -46,7 +46,7 @@ local function render( creator )
 
     return navplate.fromData( { 
         title = '[[' .. creator .. ']]',
-        subtitle = "Games also by",
+        subtitle = "Obbies also created by",
         id = 1,
         items = items
      } )
