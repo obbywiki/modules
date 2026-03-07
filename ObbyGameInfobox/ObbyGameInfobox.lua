@@ -79,7 +79,58 @@ local smm = {
 	},
 }
 
+local obby_schema = {
+	_table = 'Obbies',
+	_drilldownTabs = 'Tab1(format=list;delimiter=\;;fields=creator)',
 
+	root_place_id = 'Integer',
+	universe_id = 'Integer',
+
+	name = 'String',
+	thumbnail = 'String',
+	creator = 'String', -- aka. "Developer"
+	developers = 'List (,) of String',
+	
+	stages = 'Integer',
+	tier = 'Integer',
+
+	subgenre = 'String',
+	
+	year = 'Integer',
+	month = 'Integer',
+	day = 'Integer',
+	
+}
+
+-- declares the INITIAL schema for the related cargo table(s), runs once or per template page refresh
+-- do not confuse declaring with storing
+function ObbyGameInfobox.declare(frame)
+	local declare_args = {}
+
+    table.insert(declare_args, '_table=' .. obby_schema._table)
+
+    for k, v in pairs(obby_schema) do
+        if k ~= '_table' then
+            table.insert(declare_args, k .. '=' .. v)
+        end
+    end
+
+    return frame:callParserFunction('#cargo_declare', declare_args)
+end
+
+function ObbyGameInfobox.store(frame, data)
+	local store_args = {}
+
+    table.insert(store_args, '_table=' .. obby_schema._table)
+
+	for k, v in pairs(data) do
+        if v and v ~= '' then
+            table.insert(store_args, k .. '=' .. v)
+        end
+    end
+
+	return frame:callParserFunction('#cargo_store', store_args)
+end
 
 
 function ObbyGameInfobox.main( frame )
@@ -182,6 +233,7 @@ function ObbyGameInfobox.main( frame )
 
     local obby_creation_year = args.year or ''
 	local obby_creation_month = month_by_index(args.month and tonumber(args.month) or 0)
+	local obby_creation_day = args.day or ''
 
 	local obby_stats_visits = args.visits or 'N/A'
 	local obby_stats_visits_raw
@@ -702,6 +754,21 @@ function ObbyGameInfobox.main( frame )
 	table.insert(append_categories, '[[Category:' .. 'Obby' .. ']]')
 
 	local shortdesc = '{{SHORTDESC:' .. (obby_subgenre .. ' by ' .. (obby_developer_canonical or obby_developer_raw or 'Unknown') .. ' - ' .. obby_creation_year) .. '}}'
+
+
+	ObbyGameInfobox.store(frame, {
+        root_place_id = args.root_place_id,
+        universe_id = universe_id,
+        name = args.name or mw.title.getCurrentTitle().text,
+        thumbnail = thumb,
+        creator = obby_developer_canonical or obby_developer_raw,
+        stages = args.stages,
+        tier = args.tier,
+        subgenre = obby_subgenre,
+        year = tonumber(obby_creation_year) or nil,
+        month = tonumber(args.month) or nil,
+        day = tonumber(obby_creation_day) or nil
+    })
 
     return frame:preprocess(shortdesc) .. rendered .. '\n' .. table.concat(append_categories, '\n')
 end

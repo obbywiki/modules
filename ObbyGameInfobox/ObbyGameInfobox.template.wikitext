@@ -1,0 +1,376 @@
+<includeonly>{{#invoke:ObbyGameInfobox|main}}</includeonly><noinclude>
+<!-- declare cargo table only on template page -->
+{{#invoke:ObbyGameInfobox|declare}}
+</noinclude><noinclude>
+<code>{{Tl|ObbyGameInfobox}}</code> is a large and complex template (which invokes [[Module:ObbyGameInfobox]]). Please refer to the below documentation about how each parameter is used.
+
+Please note that only the <code>root_place_id</code> and <code>name</code> parameters are truly required for an ideal template. Most information is automatically fetched based on the place id. The root place id should be the number/id in the url when you open the game.
+
+=Related=
+* [[Help:Supported_obby_genres]] - lists official supported sub-genres and shorthands
+* [[OW:Playability]] - reference on what to mark as playable and what to not
+* [[Special:MyLanguage/Tiers|Tiers]] - what are tiers
+
+The config reference of this template is provided below. This reference is also accessible via the Visual Editor when editing a page.
+
+---
+
+<templatedata>
+{
+	"params": {
+		"name": {
+			"label": "Obby Name",
+			"autovalue": "{{PAGENAME}}",
+			"description": "The actual name of the Obby.",
+			"type": "string",
+			"example": "{{PAGENAME}}",
+			"suggestedvalues": [
+				"{{PAGENAME}}"
+			],
+			"default": "{{PAGENAME}}",
+			"required": true
+		},
+		"image": {
+			"aliases": [
+				"thumb"
+			],
+			"label": "Image",
+			"description": "Provides the main thumbnail image by name of the file. Do not include markdown.",
+			"example": "thumbnail.webp",
+			"type": "wiki-file-name",
+			"default": "standard169placeholder.webp",
+			"suggested": true
+		},
+		"root_place_id": {
+			"label": "Root Place ID",
+			"description": "(aka. Start Place ID) is required for the infobox to function and is the standard. You can grab this from the numbers in the URL of the game's page on Roblox.",
+			"example": "1818",
+			"type": "number",
+			"required": true
+		},
+		"developer": {
+			"label": "Developer",
+			"description": "The developer of the obby, either an @username or a Group Name. Will be used as a fallback.",
+			"example": "My Group Name",
+			"type": "string",
+			"suggested": true
+		},
+		"publisher": {
+			"label": "Publisher",
+			"description": "The publisher of the game. Leave blank if none or unknown.",
+			"type": "string"
+		},
+		"subgenre": {
+			"label": "Sub-genre",
+			"description": "The sub-genre of the Obby. See a list of supported sub-genres and shorthands at https://obbywiki.com/wiki/Help:Supported_obby_genres",
+			"example": "classic_obby",
+			"type": "string",
+			"suggested": true
+		},
+		"maturity": {
+			"label": "Maturity Rating",
+			"description": "The age/maturity rating provided by Roblox.",
+			"example": "minimal",
+			"type": "string",
+			"suggestedvalues": [
+				"minimal",
+				"na",
+				"unrated",
+				"none",
+				"mild",
+				"mature",
+				"restricted"
+			],
+			"default": "na"
+		},
+		"year": {
+			"label": "Release Year",
+			"description": "The year the obby was released. If true release year is known, use that. Otherwise, use the game's creation date. (20xx - ''will only be valid if at or above 2008 and below or at the current year or up to 2 years ahead'')",
+			"type": "number",
+			"suggestedvalues": [
+				"2026"
+			],
+			"suggested": true
+		},
+		"month": {
+			"label": "Release Month",
+			"description": "The month the obby was released; 1-12 only.",
+			"type": "number",
+			"suggestedvalues": [
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12"
+			],
+			"suggested": true
+		},
+		"stages": {
+			"aliases": [
+				"levels"
+			],
+			"label": "Stages",
+			"description": "The amount of stages/checkpoints if applicable and with-in the game.",
+			"example": "220",
+			"type": "number",
+			"default": "0"
+		},
+		"stages_total": {
+			"label": "Stages (total/planned)",
+			"description": "The total amount of stages that are planned, including ones that are unfinished or not in the game but will be. Requires `stages`.",
+			"example": "300",
+			"type": "number"
+		},
+		"difficulties": {
+			"label": "Difficulties",
+			"description": "Mainly referring to difficulties from the Difficulty Chart Obby sub-genre.",
+			"type": "number",
+			"example": "10"
+		},
+		"difficulties_total": {
+			"label": "Difficulties (total/planned)",
+			"description": "The total amount of difficulties total that are planned. Requires `difficulties`.",
+			"type": "number",
+			"example": "12"
+		},
+		"towers": {
+			"label": "Towers",
+			"description": "If the game is a tower obby or has bonus towers, fill in this field.",
+			"example": "3",
+			"type": "number"
+		},
+		"towers_total": {
+			"label": "Towers (total/planned)",
+			"description": "The amount of total planned towers and bonus towers. Requires `towers`.",
+			"example": "5",
+			"type": "number"
+		},
+		"avatar_type": {
+			"label": "Avatar Type",
+			"description": "The avatar type the obby allows. Typically R6.",
+			"type": "string",
+			"suggestedvalues": [
+				"r6",
+				"r15",
+				"rthro",
+				"choice"
+			],
+			"suggested": true
+		},
+		"verified": {
+			"label": "Verified (playability)",
+			"description": "The verified playability/completability of the obby's main progression. See [[Project:Playability]] for more information.",
+			"type": "string",
+			"suggestedvalues": [
+				"true",
+				"false",
+				"broken",
+				"does_not_load"
+			],
+			"default": "false"
+		},
+		"ai": {
+			"label": "AI Usage",
+			"description": "If known, this field discloses if AI was used during the games development or marketting.",
+			"type": "string",
+			"suggestedvalues": [
+				"branding",
+				"thumbnails",
+				"icon",
+				"identity",
+				"stated_none",
+				"description",
+				"unknown"
+			],
+			"default": "unknown"
+		},
+		"is_public": {
+			"label": "Public",
+			"description": "If the obby is publicly playable. May fill automatically.",
+			"example": "true",
+			"type": "boolean",
+			"default": "true",
+			"autovalue": "true"
+		},
+		"unreleased": {
+			"label": "Unreleased",
+			"description": "If the game itself is unreleased and coming soon.",
+			"type": "boolean",
+			"default": "false",
+			"autovalue": "false"
+		},
+		"visits": {
+			"label": "Visits",
+			"description": "The amount of total visits a obby has. Now filled and updated automatically.",
+			"type": "number",
+			"deprecated": true
+		},
+		"dislikes": {
+			"label": "Dislikes",
+			"description": "The amount of dislikes the obby has. Now filled and updated automatically.",
+			"type": "number",
+			"deprecated": true
+		},
+		"peak_ccu": {
+			"label": "Peak CCU",
+			"description": "The highest ever recorded CCU in the obby's lifespan.",
+			"type": "number"
+		},
+		"twitter": {
+			"aliases": [
+				"x"
+			],
+			"label": "Twitter",
+			"description": "The social media (Twitter) handle of the game, development group or owner's account, or attached social link.  Does not include an `@`.",
+			"type": "string"
+		},
+		"bluesky": {
+			"aliases": [
+				"bsky"
+			],
+			"label": "BlueSky",
+			"description": "The social media (BlueSky) handle of the game, development group or owner's account, or attached social link.  Does not include an `@`.",
+			"type": "string"
+		},
+		"youtube": {
+			"label": "YouTube",
+			"description": "The social media (YouTube) handle of the game, development group or owner's account, or attached social link.  Does not include an `@`. Only supports handles. Does not support legacy YouTube username systems.",
+			"type": "string"
+		},
+		"discord": {
+			"label": "Discord",
+			"description": "The invite code of the game, development group or owner's Discord server, or attached social link.  Does not include a url or anything before or after the code.",
+			"type": "string"
+		},
+		"guilded": {
+			"label": "Guilded",
+			"description": "Deprecated (as Guilded was sunset). Still works for legacy support. May be removed shortly.",
+			"type": "string",
+			"deprecated": "Guilded was sunset in December 2025."
+		},
+		"website": {
+			"label": "Website",
+			"description": "The most prominent website related to the game or development studio/owner. Use the `wiki` field if appropriate.",
+			"type": "string"
+		},
+		"wiki": {
+			"label": "Wiki",
+			"description": "If applicable, the game or community's wiki. Represented with a MediaWiki logo.",
+			"type": "string"
+		},
+		"pc": {
+			"label": "PC",
+			"description": "If the game is compatible with PC/Desktop.",
+			"type": "boolean"
+		},
+		"tablet": {
+			"label": "Tablet",
+			"description": "If the game is compatible with Tablet.",
+			"type": "boolean"
+		},
+		"phone": {
+			"label": "Phone",
+			"description": "If the game is compatible with Phone.",
+			"type": "boolean"
+		},
+		"vr": {
+			"label": "VR",
+			"description": "If the game is compatible with VR.",
+			"type": "boolean"
+		},
+		"console": {
+			"label": "Console",
+			"description": "If the game is compatible with Console.",
+			"type": "boolean"
+		},
+		"likes": {
+			"label": "Likes",
+			"description": "The amount of likes the obby has. Now filled and updated automatically.",
+			"type": "number",
+			"deprecated": true
+		},
+		"roblox": {
+			"label": "Roblox",
+			"description": "The username of the featured Roblox account/developer. Does not include an `@`.",
+			"type": "string",
+			"deprecated": "May not be supported in the future."
+		},
+		"system": {
+			"label": "(Obby) System",
+			"description": "If known, the underlying obby system the obby uses. Leave blank if unknown.",
+			"type": "string"
+		},
+		"tier": {
+			"label": "Tier",
+			"description": "If known, the [[Special:MyLanguage/Tiers Obby Tier] of the obby. Leave at 0 or unfilled if unknown or unrated.",
+			"type": "number",
+			"suggestedvalues": [
+				"0",
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12"
+			],
+			"default": "0"
+		}
+	},
+	"paramOrder": [
+		"name",
+		"image",
+		"root_place_id",
+		"tier",
+		"publisher",
+		"subgenre",
+		"maturity",
+		"year",
+		"month",
+		"developer",
+		"stages",
+		"stages_total",
+		"difficulties",
+		"difficulties_total",
+		"towers",
+		"towers_total",
+		"avatar_type",
+		"verified",
+		"ai",
+		"is_public",
+		"unreleased",
+		"system",
+		"visits",
+		"likes",
+		"dislikes",
+		"peak_ccu",
+		"twitter",
+		"bluesky",
+		"youtube",
+		"roblox",
+		"discord",
+		"guilded",
+		"website",
+		"wiki",
+		"pc",
+		"tablet",
+		"phone",
+		"vr",
+		"console"
+	],
+	"description": "The main infobox for an obby game page. Fetches live information and the correct universe ID automatically based on the root/start place ID provided. Requires `name`, `image`, and `root_place_id`."
+}
+</templatedata>
+</noinclude>
