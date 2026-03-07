@@ -755,20 +755,21 @@ function ObbyGameInfobox.main( frame )
 
 	local shortdesc = '{{SHORTDESC:' .. (obby_subgenre .. ' by ' .. (obby_developer_canonical or obby_developer_raw or 'Unknown') .. ' - ' .. obby_creation_year) .. '}}'
 
-
-	ObbyGameInfobox.store(frame, {
-        root_place_id = args.root_place_id,
-        universe_id = universe_id,
-        name = args.name or mw.title.getCurrentTitle().text,
-        thumbnail = thumb,
-        creator = obby_developer_canonical or obby_developer_raw,
-        stages = args.stages,
-        tier = args.tier,
-        subgenre = obby_subgenre,
-        year = tonumber(obby_creation_year) or nil,
-        month = tonumber(args.month) or nil,
-        day = tonumber(obby_creation_day) or nil
-    })
+	if not args.root_place_id_unknown then
+		ObbyGameInfobox.store(frame, {
+			root_place_id = args.root_place_id,
+			universe_id = universe_id,
+			name = args.name or mw.title.getCurrentTitle().text,
+			thumbnail = thumb,
+			creator = obby_developer_canonical or obby_developer_raw,
+			stages = args.stages,
+			tier = args.tier,
+			subgenre = obby_subgenre,
+			year = tonumber(obby_creation_year) or nil,
+			month = tonumber(args.month) or nil,
+			day = tonumber(obby_creation_day) or nil
+		})
+	end
 
     return frame:preprocess(shortdesc) .. rendered .. '\n' .. table.concat(append_categories, '\n')
 end
