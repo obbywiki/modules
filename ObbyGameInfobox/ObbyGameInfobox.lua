@@ -110,7 +110,7 @@ function ObbyGameInfobox.declare(frame)
     table.insert(declare_args, '_table=' .. obby_schema._table)
 
     for k, v in pairs(obby_schema) do
-        if k ~= '_table' then
+        if k ~= '_table' and k ~= '_drilldownTabs' then
             table.insert(declare_args, k .. '=' .. v)
         end
     end
@@ -118,7 +118,7 @@ function ObbyGameInfobox.declare(frame)
     return frame:callParserFunction{ name = '#cargo_declare', args = declare_args }
 end
 
-function ObbyGameInfobox.store(frame, data)
+function ObbyGameInfobox.store(frame, data, debug_mode)
 	local store_args = {}
 
     table.insert(store_args, '_table=' .. obby_schema._table)
@@ -129,7 +129,24 @@ function ObbyGameInfobox.store(frame, data)
         end
     end
 
-	return frame:callParserFunction{ name = '#cargo_store', args = store_args }
+	mw.logObject(store_args, 'ObbyGameInfobox Store Args')
+
+	local cargo_store_res = frame:callParserFunction{ name = '#cargo_store', args = store_args }
+	local debug_output = ''
+
+	if debug_mode then
+		debug_output = '<div class="obby-debug-storage" style="border: 1px solid #ccc; padding: 10px; margin: 10px 0; background-color: #f9f9f9;">'
+		debug_output = debug_output .. '<strong>[ObbyGameInfobox Debug] Cargo Store Args:</strong><pre>' .. mw.text.nowiki(mw.text.jsonEncode(store_args)) .. '</pre>'
+		if cargo_store_res and cargo_store_res ~= '' then
+			debug_output = debug_output .. '<div style="color: red;"><strong>Cargo Store Result/Error:</strong> ' .. cargo_store_res .. '</div>'
+		else
+			debug_output = debug_output .. '<div style="color: green;"><strong>Cargo Store Status:</strong> Success (Empty Result)</div>'
+		end
+		debug_output = debug_output .. '</div>'
+		return cargo_store_res, debug_output
+	end
+
+	return cargo_store_res, ''
 end
 
 
@@ -755,10 +772,11 @@ function ObbyGameInfobox.main( frame )
 
 	local shortdesc = '{{SHORTDESC:' .. (obby_subgenre .. ' by ' .. (obby_developer_canonical or obby_developer_raw or 'Unknown') .. ' - ' .. obby_creation_year) .. '}}'
 
+	local cargo_store_res, cargo_debug_res = '', ''
 	-- if args.root_place_id_unknown ~= 'true' and args.root_place_id_unknown ~= true then
-		ObbyGameInfobox.store(frame, {
-			root_place_id = args.root_place_id,
-			universe_id = universe_id,
+		cargo_store_res, cargo_debug_res = ObbyGameInfobox.store(frame, {
+			root_place_id = tostring(args.root_place_id),
+			universe_id = tostring(universe_id),
 			name = args.name or mw.title.getCurrentTitle().text,
 			thumbnail = thumb,
 			creator = obby_developer_canonical or obby_developer_raw,
@@ -768,10 +786,10 @@ function ObbyGameInfobox.main( frame )
 			year = tonumber(obby_creation_year) or nil,
 			month = tonumber(args.month) or nil,
 			day = tonumber(obby_creation_day) or nil
-		})
+		}, args.debug == 'true' or args.debug == true)
 	-- end
 
-    return frame:preprocess(shortdesc) .. rendered .. '\n' .. table.concat(append_categories, '\n')
+    return frame:preprocess(shortdesc) .. rendered .. (cargo_debug_res or '') .. (cargo_store_res or '') .. '\n' .. table.concat(append_categories, '\n')
 end
 
 return ObbyGameInfobox
