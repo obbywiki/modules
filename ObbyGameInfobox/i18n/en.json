@@ -35,6 +35,7 @@
 
   "field_released": "Released",
   "field_update_freq": "Update Frequency",
+  "field_latest_update": "Latest Update",
   "field_publisher": "Publisher",
   "field_maturity": "Maturity",
   "field_genre": "Genre",

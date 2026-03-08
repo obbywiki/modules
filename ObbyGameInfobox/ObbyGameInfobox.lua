@@ -165,7 +165,7 @@ function ObbyGameInfobox.main( frame )
 	local obby_join_sharelink_id = args.play or args.sharelink or args.play_sharelink or ''
 	local obby_subgenre = args.subgenre or args.sub_genre or args.type or 'N/A'
 	local obby_maturity = args.maturity or args.rating or 'na'
-	local obby_update_freq = args.update_freq or args.update_frequency or 'Unknown'
+	-- local obby_update_freq = args.update_freq or args.update_frequency or 'Unknown'
 	local obby_genai = args.ai_generated_content_disclosure or args.genai or args.ai
 	local obby_ai_generated_content_disclosure = (obby_genai == 'branding' or obby_genai == 'thumbnails' or obby_genai == 'icon' or obby_genai == 'identity') and 'branding' or obby_genai == 'stated_none' and 'stated_none' or obby_genai == 'description' and 'description' or 'unknown'
 	local obby_is_public = (args.is_public == 'true' or args.is_public == 'yes') and true or (args.is_public == 'false' or args.is_public == 'no') and false
@@ -330,6 +330,7 @@ function ObbyGameInfobox.main( frame )
 
 	---
 
+	local last_updated = ''
 	if universe_id then
 		local game_res = mw.ext.externalData.getExternalData{
 			url = 'https://games.roblox.com/v1/games?universeIds=' .. tostring(universe_id),
@@ -366,6 +367,10 @@ function ObbyGameInfobox.main( frame )
 			obby_stats_favorites = row.favoritedCount or 'N/A'
 			if row.visits and tonumber(obby_stats_visits) ~= nil then obby_stats_visits_raw = tonumber(obby_stats_visits); obby_stats_visits = get_comma_val(obby_stats_visits) end
 			if row.favoritedCount and tonumber(obby_stats_favorites) ~= nil then obby_stats_favorites = get_comma_val(obby_stats_favorites) end
+
+			if row.updated then
+				last_updated = row.updated -- iso, e.g., 2026-03-07T09:29:16.4508416Z
+			end
 		end
 
 		---
@@ -565,12 +570,17 @@ function ObbyGameInfobox.main( frame )
 	local ai_disclosure_key = ai_disclosure_map[obby_ai_generated_content_disclosure]
 	local ai_disclosure_text = ai_disclosure_key and i18n:get(ai_disclosure_key) or i18n:get('ai_unknown')
 
+
+	local last_updated_year = last_updated:sub(1, 4)
+	local last_updated_month = month_by_index(tonumber(last_updated:sub(6, 7) or 1))
+	
+
     test:renderSection( {
 		title = i18n:get('section_publishing'),
 		col = 2,
 		content = {
 			test:renderItem( i18n:get('field_released'), obby_creation_month .. ' ' .. obby_creation_year ),
-			test:renderItem( i18n:get('field_update_freq'), obby_update_freq ),
+			test:renderItem( i18n:get('field_latest_update'), last_updated_month .. ' ' .. last_updated_year ),
 			test:renderItem( i18n:get('field_publisher'), obby_publisher ),
 			test:renderItem( i18n:get('field_maturity'), obby_maturity ),
 			test:renderItem( i18n:get('field_genre'), i18n:get('genre_obby') ),
