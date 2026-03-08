@@ -929,14 +929,13 @@ function ObbyGameInfobox.main( frame )
 
 	mw.ext.seo.set{
 		type = 'VideoGame',
-		title = (args.name or mw.title.getCurrentTitle().text or 'Untitled') .. ' - Obby Wiki',
 		description = seo_description,
 		keywords = seo_keywords,
 		image = seo_image,
 		published_time = seo_date_published,
 		author = obby_developer_canonical or obby_developer_raw or 'Unknown',
 		locale = 'en_US',
-		site_name = 'ObbyWiki',
+		site_name = 'Obby Wiki',
 	}
 
     return frame:preprocess(shortdesc) .. rendered .. (cargo_debug_res or '') .. (cargo_store_res or '') .. '\n' .. table.concat(append_categories, '\n')
