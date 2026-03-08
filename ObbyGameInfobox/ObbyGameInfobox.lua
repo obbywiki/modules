@@ -96,6 +96,7 @@ local obby_schema = {
 	tier = 'Integer',
 
 	is_public = 'Boolean',
+	avatar_type = 'String',
 
 	subgenre = 'String',
 	
@@ -810,6 +811,7 @@ function ObbyGameInfobox.main( frame )
 				month = tonumber(args.month) or nil,
 				day = tonumber(obby_creation_day) or nil,
 				is_public = obby_is_public,
+				avatar_type = obby_avatar_type == 'R6' and 'R6' or obby_avatar_type == 'R15' and 'R15' or obby_avatar_type == 'Rthro' and 'Rthro' or obby_avatar_type == 'Choice' and 'Choice' or nil,
 			}, args.debug == 'true' or args.debug == true)
 		-- end
 	end
