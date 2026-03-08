@@ -83,11 +83,15 @@ local studio_schema = {
 	month = "Integer",
 	
 	group_id = "String",
-	
+
 }
 
 function GroupInfobox.declare(frame)
 	return cargo.declare( studio_schema )
+end
+
+function GroupInfobox.store(data)
+	return cargo.store( 'Studios', data )
 end
 
 
@@ -459,6 +463,15 @@ function GroupInfobox.main( frame )
 
 	table.insert(append_categories, '[[Category:' .. 'Group' .. ']]')
 	table.insert(append_categories, '[[Category:' .. 'Studio' .. ']]')
+
+	GroupInfobox.store({
+		name = group_name,
+		owner = group_creator,
+		total_obbies = tonumber(group_obbies),
+		year = tonumber(group_creation_year),
+		month = tonumber(group_creation_month),
+		group_id = group_id,
+	})
 
     return rendered .. '\n' .. table.concat(append_categories, '\n')
 end
