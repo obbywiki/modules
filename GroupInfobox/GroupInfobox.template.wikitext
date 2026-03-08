@@ -1,0 +1,4 @@
+<includeonly>{{#invoke:GroupInfobox|main}}</includeonly><noinclude>
+<!-- declare cargo table only on template page -->
+{{#invoke:GroupInfobox|declare}}
+</noinclude>

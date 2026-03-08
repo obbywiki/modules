@@ -929,6 +929,7 @@ function ObbyGameInfobox.main( frame )
 
 	mw.ext.seo.set{
 		type = 'VideoGame',
+		-- title = (args.name or mw.title.getCurrentTitle().text or 'Untitled') .. ' - Obby Wiki',
 		description = seo_description,
 		keywords = seo_keywords,
 		image = seo_image,

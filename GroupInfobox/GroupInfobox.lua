@@ -70,7 +70,25 @@ local smm = {
 	},
 }
 
+local cargo = mw.ext.cargo
 
+local studio_schema = {
+	["_table"] = "Studios",
+
+	name = "String",
+	owner = "String",
+	total_obbies = "Integer",
+
+	year = "Integer",
+	month = "Integer",
+	
+	group_id = "String",
+	
+}
+
+function GroupInfobox.declare(frame)
+	return cargo.declare( studio_schema )
+end
 
 
 function GroupInfobox.main( frame )
