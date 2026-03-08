@@ -95,6 +95,8 @@ local obby_schema = {
 	stages = 'Integer',
 	tier = 'Integer',
 
+	is_public = 'Boolean',
+
 	subgenre = 'String',
 	
 	year = 'Integer',
@@ -806,7 +808,8 @@ function ObbyGameInfobox.main( frame )
 				subgenre = obby_subgenre,
 				year = tonumber(obby_creation_year) or nil,
 				month = tonumber(args.month) or nil,
-				day = tonumber(obby_creation_day) or nil
+				day = tonumber(obby_creation_day) or nil,
+				is_public = obby_is_public,
 			}, args.debug == 'true' or args.debug == true)
 		-- end
 	end
