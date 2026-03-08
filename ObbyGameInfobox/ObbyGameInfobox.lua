@@ -552,12 +552,11 @@ function ObbyGameInfobox.main( frame )
 		}
 	} )
 
-	-- TODO add local timezone and "Statistics lasted updated at " to citation
 	test:renderSection( {
 		title = i18n:get('section_statistics'),
 		col = 2,
 		content = {
-			test:renderItem( i18n:get('field_visits'), obby_stats_visits .. '+' .. ' <ref name="statistics_data">The Obby Wiki automatically sources live statistics directly from Roblox\'s database. See [https://roblox.com/games/' .. obby_starter_place_id .. '/ {{PAGENAME}} on Roblox] for more information.' .. os.date("%Y-%m-%d %H:%M:%S") .. '</ref>'),
+			test:renderItem( i18n:get('field_visits'), obby_stats_visits .. '+' .. ' <ref name="statistics_data">The Obby Wiki automatically sources live statistics directly from Roblox\'s database. See [https://roblox.com/games/' .. obby_starter_place_id .. '/ {{PAGENAME}} on Roblox] for more information. Statistics lasted retrieved at: ' .. os.date("%Y-%m-%d %H:%M:%S") .. ' UTC</ref>'),
 			test:renderItem( i18n:get('field_peak_ccu'), '{{#simple-tooltip: ' .. (obby_stats_peak_ccu .. '+') .. ' | ' .. i18n:get('tooltip_peak_ccu') .. ' }}' ),
 			test:renderItem( i18n:get('field_rating'), (obby_stats_likes + obby_stats_dislikes) > 0 and (math.floor((obby_stats_likes / (obby_stats_likes + obby_stats_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Verified|link=]] ' .. get_comma_val(tostring(obby_stats_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Verified|link=]] ' .. get_comma_val(tostring(obby_stats_dislikes)) .. ')' or i18n:get('label_na')),
 			test:renderItem( i18n:get('field_favorites'), (obby_stats_favorites or 'N/A') .. '+ <ref name="statistics_data" />' ),
