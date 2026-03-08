@@ -786,22 +786,31 @@ function ObbyGameInfobox.main( frame )
 	local shortdesc = '{{SHORTDESC:' .. (obby_subgenre .. ' by ' .. (obby_developer_canonical or obby_developer_raw or 'Unknown') .. ' - ' .. obby_creation_year) .. '}}'
 
 	local cargo_store_res, cargo_debug_res = '', ''
-	-- if args.root_place_id_unknown ~= 'true' and args.root_place_id_unknown ~= true then
-		cargo_store_res, cargo_debug_res = ObbyGameInfobox.store(frame, {
-			root_place_id = tostring(args.root_place_id),
-			universe_id = tostring(universe_id),
-			name = args.name or mw.title.getCurrentTitle().text,
-			thumbnail = thumb,
-			publisher = obby_publisher ~= 'Self-Published' and obby_publisher or nil,
-			creator = obby_developer_canonical or obby_developer_raw,
-			stages = args.stages,
-			tier = args.tier,
-			subgenre = obby_subgenre,
-			year = tonumber(obby_creation_year) or nil,
-			month = tonumber(args.month) or nil,
-			day = tonumber(obby_creation_day) or nil
-		}, args.debug == 'true' or args.debug == true)
-	-- end
+
+	if absolute_title and absolute_title.namespace == 10 then
+		-- do not append categories to template pages
+		append_categories = {}
+	else
+		-- only store in cargo if not a template page
+
+		-- if args.root_place_id_unknown ~= 'true' and args.root_place_id_unknown ~= true then
+			cargo_store_res, cargo_debug_res = ObbyGameInfobox.store(frame, {
+				root_place_id = tostring(args.root_place_id),
+				universe_id = tostring(universe_id),
+				name = args.name or mw.title.getCurrentTitle().text,
+				thumbnail = thumb,
+				publisher = obby_publisher ~= 'Self-Published' and obby_publisher or nil,
+				creator = obby_developer_canonical or obby_developer_raw,
+				stages = args.stages,
+				tier = args.tier,
+				subgenre = obby_subgenre,
+				year = tonumber(obby_creation_year) or nil,
+				month = tonumber(args.month) or nil,
+				day = tonumber(obby_creation_day) or nil
+			}, args.debug == 'true' or args.debug == true)
+		-- end
+	end
+	
 
 	-- JSON-LD structured data (Schema.org VideoGame)
 	-- local game_url = 'https://roblox.com/games/' .. obby_starter_place_id .. '/'
@@ -929,11 +938,6 @@ function ObbyGameInfobox.main( frame )
 		locale = 'en_US',
 		site_name = 'ObbyWiki',
 	}
-
-	if absolute_title and absolute_title.namespace == 10 then
-		-- do not append categories to template pages
-		append_categories = {}
-	end
 
     return frame:preprocess(shortdesc) .. rendered .. (cargo_debug_res or '') .. (cargo_store_res or '') .. '\n' .. table.concat(append_categories, '\n')
 end
