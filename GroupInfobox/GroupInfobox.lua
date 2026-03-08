@@ -470,7 +470,7 @@ function GroupInfobox.main( frame )
 		total_obbies = tonumber(group_obbies),
 		year = tonumber(group_creation_year),
 		month = tonumber(group_creation_month),
-		group_id = group_id,
+		group_id = tostring(group_id),
 	})
 
     return rendered .. '\n' .. table.concat(append_categories, '\n')
