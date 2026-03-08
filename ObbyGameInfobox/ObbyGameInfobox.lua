@@ -89,8 +89,8 @@ local obby_schema = {
 	name = 'String',
 	thumbnail = 'String',
 	creator = 'String', -- aka. "Developer"
-	developers = 'List (,) of String',
-	publisher = 'String',
+	developers = 'List (,) of String', -- for individual developers/contributors
+	publisher = 'String', -- publisher, rarely used, refers to the company that published the game, not the developer or studio
 	
 	stages = 'Integer',
 	tier = 'Integer',
