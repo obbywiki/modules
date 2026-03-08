@@ -780,7 +780,7 @@ function ObbyGameInfobox.main( frame )
 			universe_id = tostring(universe_id),
 			name = args.name or mw.title.getCurrentTitle().text,
 			thumbnail = thumb,
-			publisher = obby_publisher,
+			publisher = obby_publisher ~= 'Self-Published' and obby_publisher or nil,
 			creator = obby_developer_canonical or obby_developer_raw,
 			stages = args.stages,
 			tier = args.tier,
