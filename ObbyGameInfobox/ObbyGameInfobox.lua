@@ -930,7 +930,7 @@ function ObbyGameInfobox.main( frame )
 		site_name = 'ObbyWiki',
 	}
 
-	if absolute_title.namespace.id == 10 then
+	if absolute_title and absolute_title.namespace == 10 then
 		-- do not append categories to template pages
 		append_categories = {}
 	end
