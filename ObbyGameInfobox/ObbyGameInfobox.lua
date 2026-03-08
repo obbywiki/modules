@@ -160,6 +160,8 @@ function ObbyGameInfobox.main( frame )
 
     local args = require( 'Module:Arguments' ).getArgs( frame )
 
+	local absolute_title = mw.title.getCurrentTitle()
+
     local obby_name = args.name or '{{PAGENAME}}'
     local obby_starter_place_id = args.root_place_id or args.start_place_id or 1818
 	local obby_join_sharelink_id = args.play or args.sharelink or args.play_sharelink or ''
@@ -927,6 +929,11 @@ function ObbyGameInfobox.main( frame )
 		locale = 'en_US',
 		site_name = 'ObbyWiki',
 	}
+
+	if absolute_title.namespace.id == 10 then
+		-- do not append categories to template pages
+		append_categories = {}
+	end
 
     return frame:preprocess(shortdesc) .. rendered .. (cargo_debug_res or '') .. (cargo_store_res or '') .. '\n' .. table.concat(append_categories, '\n')
 end
