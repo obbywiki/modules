@@ -35,7 +35,7 @@ function p.main(frame)
     
     local results = mw.ext.cargo.query(
         'Obbies',
-        'name, creator, developers, stages, tier, subgenre, avatar_type, year, month',
+        'name, creator, developers, stages, tier, subgenre, avatar_type, year, month, day, is_public',
         {
             where = '_pageName="' .. pageName .. '"',
             limit = 1
@@ -59,11 +59,9 @@ function p.main(frame)
 
     local created_relative
 
-    -- e.g., less than a year ago
-
     if data.year and data.month then
         local current_timestamp = os.time()
-        local time = os.time({year = tonumber(data.year or 0), month = tonumber(data.month or 0), day = 1})
+        local time = os.time({year = tonumber(data.year or 0), month = tonumber(data.month or 0), day = tonumber(data.day or 1)})
 
         local diff = current_timestamp - time
         local years = math.floor(diff / 31536000)
@@ -78,49 +76,65 @@ function p.main(frame)
         end
     end
     
-    local creator_answer = string.format('\'\'\'%s\'\'\' was created by %s and was initially released by them approximately %s in %s of %s.', obby_name_cap, page_exists(creator_name) and '[[' .. creator_name .. ']]' or ("'''" .. creator_name .. "'''"), created_relative, month_by_index(data.month), data.year)
+    -- Question 1: Creator/Developer
+    local creator_answer = string.format('\'\'\'%s\'\'\' was developed by %s and was initially released on the Roblox platform in %s of %s (approximately %s).', obby_name_cap, page_exists(creator_name) and '[[' .. creator_name .. ']]' or ("'''" .. creator_name .. "'''"), month_by_index(data.month), data.year, created_relative)
     if dev_list then
-        creator_answer = creator_answer .. ' Additionally, it was developed with the help of ' .. dev_list .. '.'
+        creator_answer = creator_answer .. ' The game was created with additional development contributions from \'\'\'' .. dev_list .. '\'\'\'.'
     end
     
     table.insert(faqs, renderFAQ(frame, 
-        string.format('Who created %s?', obby_name),
+        string.format('Who is the developer of %s?', obby_name),
         creator_answer
     ))
+
+    -- Question 2: How to play
+    local is_public = data.is_public == '1' or data.is_public == true or data.is_public == 'yes'
+    local play_answer = string.format('You can play \'\'\'%s\'\'\' for free on Roblox. The game is %s to the public, meaning anyone with a Roblox account can join and start playing. Simply search for the game title on the Roblox website or mobile app to begin your adventure.', obby_name, is_public and 'currently open' or 'currently set to private or unlisted')
     
+    table.insert(faqs, renderFAQ(frame,
+        string.format('How do I play %s on Roblox?', obby_name),
+        play_answer
+    ))
+    
+    -- Question 3: Stages/Levels
     if data.stages and data.stages ~= '' and tonumber(data.stages) ~= 0 then
         table.insert(faqs, renderFAQ(frame,
-            string.format('How many stages does %s have?', obby_name),
-            string.format('As of now, %s features a total of %s stages for players to complete.', obby_name_cap, data.stages)
+            string.format('How many stages (levels) are in %s?', obby_name),
+            string.format('Selection from our database indicates that \'\'\'%s\'\'\' features a total of %s unique stages for players to complete. Each stage presents different platforming challenges that increase in difficulty as you progress.', obby_name_cap, data.stages)
         ))
     end
     
+    -- Question 4: Tier/Difficulty
     if data.tier and data.tier ~= '' and data.tier ~= '0' then
         local subgenre = (data.subgenre and data.subgenre ~= '') and data.subgenre or 'obby'
         table.insert(faqs, renderFAQ(frame,
-            string.format('What is the difficulty tier of %s?', obby_name),
-            string.format('%s is officially classified as a **Tier %s** %s.', obby_name_cap, data.tier, subgenre)
+            string.format('What is the official difficulty tier for %s?', obby_name),
+            string.format('\'\'\'%s\'\'\' is officially classified as a **Tier %s** %s. This tier rating helps players understand the level of skill and precision required to finish the game compared to other experiences on the Obby Wiki. The higher the tier, the harder the obby. See more information on the [[Tiers]] page.', obby_name_cap, data.tier, subgenre)
         ))
     elseif data.subgenre and data.subgenre ~= '' then
         table.insert(faqs, renderFAQ(frame,
-            string.format('What type of obby is %s?', obby_name),
-            string.format('%s is classed in the sub-genre of a "\'\'\'%s\'\'\'".', obby_name_cap, page_exists(data.subgenre) and '[[' .. data.subgenre .. ']]' or data.subgenre)
+            string.format('What type of obby subgenre is %s?', obby_name),
+            string.format('\'\'\'%s\'\'\' is falls under the sub-genre of a "\'\'\'%s\'\'\'". This category describes the specific gameplay style and mechanics you can expect when playing.', obby_name_cap, page_exists(data.subgenre) and '[[' .. data.subgenre .. ']]' or data.subgenre)
         ))
     end
     
+    -- Question 5: Avatar Type
     if data.avatar_type and data.avatar_type ~= '' and data.avatar_type ~= 'N/A' then
         local avatar_ending = data.avatar_type
+        local avatar_details = ''
         if avatar_ending:lower() == 'r6' then
-            avatar_ending = 'the classic R6 avatar rigs. While they support less customizability, they are used frequently in obbies for their simplicity, consistency, and familiarity. This is a standard for most obbies.'
+            avatar_details = 'the classic **R6** avatar rigs. R6 avatars are a staple in the obby community due to their consistent physics and predictable movement, making them ideal for steady and enjoyable gameplay in obbies. This is typically a standard for most obby developers.'
         elseif avatar_ending:lower() == 'r15' then
-            avatar_ending = 'the modern R15 avatar rigs. This rig is rarely used in obbies and hints at either custom physics or poor playability.'
+            avatar_details = 'the modern **R15** avatar rigs. This rig offers more articulation but is less common in traditional obbies as it can sometimes introduce variable physics during jumps.'
         elseif avatar_ending:lower() == 'choice' then
-            avatar_ending = 'any avatar type. This allows players to use any avatar type they prefer, whether it be R6, R15, or any other avatar type. This means that whichever avatar type you use on your profile will be used in game for specifically you.'
+            avatar_details = 'whichever avatar type the player prefers (**R6 or R15**). This flexibility allows you to use your personal avatar settings while navigating the game\'s obstacles.'
+        else
+            avatar_details = string.format('the %s avatar rig system.', avatar_ending)
         end
         
         table.insert(faqs, renderFAQ(frame,
-            string.format('What avatar type does %s use?', obby_name),
-            string.format('%s is designed for use with %s', obby_name_cap, avatar_ending)
+            string.format('Does %s use R6 or R15 Roblox avatars?', obby_name),
+            string.format('\'\'\'%s\'\'\' is specifically designed for use with %s', obby_name_cap, avatar_details)
         ))
     end
     
@@ -133,8 +147,8 @@ function p.main(frame)
 
     if data.creator and page_exists(data.creator) then
         table.insert(faqs, renderFAQ(frame,
-            string.format('Where can I find additional obbies by %s?', creator_name),
-            string.format('You can find any existing pages at the dedicated \'\'\'%s\'\'\' on the Obby Wiki.\n\n', '[[' .. creator_name .. ']]'),
+            string.format('Where can I find more obbies created by %s?', creator_name),
+            string.format('If you enjoy playing \'\'\'%s\'\'\', you can find a full list of other games and projects by %s on their dedicated wiki page: %s. This is the best place to discover similar projects by them as well as more information and keep up with their latest releases.', obby_name_cap, creator_name, '[[' .. creator_name .. ']]'),
             true,
             creator_name
         ))
