@@ -412,7 +412,7 @@ function GroupInfobox.main( frame )
 		title = 'Advanced',
 		col = 2,
 		content = {
-			test:renderItem( 'Group ID', group_id == 7 and 'Unlisted' or tostring(group_id) or 'Unknown' ),
+			test:renderItem( 'Group ID', '<code>' .. (group_id == 7 and 'Unlisted' or tostring(group_id) or 'Unknown') .. '</code>' ),
 			-- test:renderItem( 'Universe ID', tostring(universe_id) or 'Unknown' ),
 		}
 	} )
