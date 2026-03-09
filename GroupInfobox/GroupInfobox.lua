@@ -238,10 +238,14 @@ function GroupInfobox.main( frame )
 		if row and row.owner then
 			local c = row.owner
 			local base = not c.type and 'users' or (c.type == 'Group') and 'communities' or 'users'
-
-			group_creator_raw = c.username and '@' .. c.username or c.name or 'Unknown'
 			
-			if page_exists(base == 'communities' and (c.name or c.groupName or c.username) or '@' .. (c.username or c.name or 'Unknown')) then
+			group_creator = c.username and '@' .. c.username or c.name or 'Unknown'
+
+			group_creator_raw = group_creator
+
+			-- predicting potential api changes that allow groups to own groups, currently `username` is a user-only field
+			
+			if page_exists(base == 'communities' and (c.name or c.groupName) or '@' .. (c.username or c.name or 'Unknown')) then
 				group_creator = group_creator .. (c.hasVerifiedBadge and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]' or '')
 			else
 				group_creator = string.format(
