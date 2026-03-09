@@ -128,8 +128,8 @@ function ObbyGameInfobox.store(frame, data, debug_mode)
     table.insert(store_args, '_table=' .. obby_schema._table)
 
 	for k, v in pairs(data) do
-        if v and v ~= '' then
-            table.insert(store_args, k .. '=' .. v)
+        if v ~= nil and v ~= '' then
+            table.insert(store_args, k .. '=' .. tostring(v))
         end
     end
 
