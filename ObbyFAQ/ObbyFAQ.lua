@@ -1,11 +1,11 @@
 local p = {}
 
-local function renderFAQ(frame, question, answer)
+local function renderFAQ(frame, question, answer, render_also_by, creator_name)
     return frame:expandTemplate{
         title = 'FAQ',
         args = {
             question = question,
-            answer = answer
+            answer = answer .. (render_also_by and frame:preprocess('{{AlsoBy|' .. creator_name .. '}}') or '')
         }
     }
 end
@@ -91,7 +91,7 @@ function p.main(frame)
     if data.stages and data.stages ~= '' and tonumber(data.stages) ~= 0 then
         table.insert(faqs, renderFAQ(frame,
             string.format('How many stages does %s have?', obby_name),
-            string.format('%s features a total of %s stages for players to complete.', obby_name_cap, data.stages)
+            string.format('As of now, %s features a total of %s stages for players to complete.', obby_name_cap, data.stages)
         ))
     end
     
@@ -104,28 +104,39 @@ function p.main(frame)
     elseif data.subgenre and data.subgenre ~= '' then
         table.insert(faqs, renderFAQ(frame,
             string.format('What type of obby is %s?', obby_name),
-            string.format('%s is a %s type obby.', obby_name_cap, data.subgenre)
+            string.format('%s is classed in the sub-genre of a "\'\'\'%s\'\'\'".', obby_name_cap, page_exists(data.subgenre) and '[[' .. data.subgenre .. ']]' or data.subgenre)
         ))
     end
     
     if data.avatar_type and data.avatar_type ~= '' and data.avatar_type ~= 'N/A' then
-        local avatarInfo = data.avatar_type
-        if avatarInfo:lower() == 'r6' then
-            avatarInfo = 'the classic R6'
-        elseif avatarInfo:lower() == 'r15' then
-            avatarInfo = 'the modern R15'
+        local avatar_ending = data.avatar_type
+        if avatar_ending:lower() == 'r6' then
+            avatar_ending = 'the classic R6 avatar rigs. While they support less customizability, they are used frequently in obbies for their simplicity, consistency, and familiarity. This is a standard for most obbies.'
+        elseif avatar_ending:lower() == 'r15' then
+            avatar_ending = 'the modern R15 avatar rigs. This rig is rarely used in obbies and hints at either custom physics or poor playability.'
+        elseif avatar_ending:lower() == 'choice' then
+            avatar_ending = 'any avatar type. This allows players to use any avatar type they prefer, whether it be R6, R15, or any other avatar type. This means that whichever avatar type you use on your profile will be used in game for specifically you.'
         end
         
         table.insert(faqs, renderFAQ(frame,
-            string.format('What avatar type is recommended for %s?', obby_name),
-            string.format('%s is designed for use with %s avatar rigs.', obby_name_cap, avatarInfo)
+            string.format('What avatar type does %s use?', obby_name),
+            string.format('%s is designed for use with %s', obby_name_cap, avatar_ending)
         ))
     end
     
     if data.year and data.year ~= '' then
         table.insert(faqs, renderFAQ(frame,
             string.format('When was %s released?', obby_name),
-            string.format('%s first debuted in %s.', obby_name_cap, data.year)
+            string.format('%s was first released in %s of %s, around %s.%s', obby_name_cap, month_by_index(data.month), data.year, created_relative, (data.visits and string.format(' Since then, %s has received a total of %s visits.', obby_name_cap, data.visits) or ''))
+        ))
+    end
+
+    if data.creator and page_exists(data.creator) then
+        table.insert(faqs, renderFAQ(frame,
+            string.format('Where can I find additional obbies by %s?', creator_name),
+            string.format('You can find any existing pages at the dedicated \'\'\'%s\'\'\' on the Obby Wiki.\n\n', '[[' .. creator_name .. ']]'),
+            true,
+            creator_name
         ))
     end
     
