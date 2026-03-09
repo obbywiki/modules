@@ -1,0 +1,1 @@
+<includeonly>{{#invoke:ObbyFAQ|main}}</includeonly>
