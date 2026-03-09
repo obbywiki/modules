@@ -1,3 +1,5 @@
+{{ImportantModule}}
+
 Please refer to any documentation for the Obby Infobox template at: https://obbywiki.com/wiki/Template:ObbyGameInfobox.
 
 This infobox uses InfoboxNeue, which is likely imported, view more information at: https://obbywiki.com/wiki/Module:InfoboxNeue.

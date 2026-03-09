@@ -1,0 +1,9 @@
+<includeonly><templatestyles src="Template:FAQ/styles.css" />
+<details class="faq-item" {{#if:{{{open|}}}|open}}>
+	<summary class="faq-summary">
+		<span class="faq-question">{{{question|No question provided}}}</span>
+	</summary>
+	<div class="faq-content">
+		{{{answer|No answer provided}}}
+	</div>
+</details></includeonly>
