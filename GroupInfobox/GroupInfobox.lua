@@ -225,6 +225,8 @@ function GroupInfobox.main( frame )
 
 	---
 
+	local group_name_raw
+
 	if group_id then
 		local group_res = mw.ext.externalData.getExternalData{
 			url = 'https://groups.roblox.com/v1/groups/'.. tostring(group_id),
@@ -256,6 +258,19 @@ function GroupInfobox.main( frame )
 	
 				group_creator_was_corrected = true
 			end
+		end
+
+		if row and row.name then
+			group_name = row.name
+			group_name_raw = row.name
+
+			group_name = string.format(
+				'[https://roblox.com/groups/%s/%s#!/about %s%s]',
+				group_id,
+				string.gsub(group_name, ' ', '_'),
+				group_name,
+				(row.hasVerifiedBadge and '  [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]') or ''
+			)
 		end
 
 		if row then
@@ -309,7 +324,7 @@ function GroupInfobox.main( frame )
     test:renderImage( thumb )
 
     test:renderHeader( {
-		title = '[https://roblox.com/groups/' .. group_id .. '/' .. string.gsub(group_name, ' ', '_') .. '#!/about '  .. group_name .. ']',
+		title = group_name,
 		subtitle = (group_creator_was_corrected and ('by \'\'\''..group_creator..'\'\'\'') or ('by \'\'\'[[' .. group_creator .. ']]\'\'\'')) .. (group_creation_year ~= '' and (' — ' .. group_creation_year) or '')
 	} )
 
@@ -459,7 +474,7 @@ function GroupInfobox.main( frame )
 	-- 	}
 	-- } )
 
-	local rendered = test:renderInfobox( nil, '[https://roblox.com/groups/' .. group_id .. '/' .. string.gsub(group_name, ' ', '_') .. '#!/about '  .. group_name .. ']' )
+	local rendered = test:renderInfobox( nil, group_name )
 	-- local parsed_month = month_by_index(tonumber(group_creation_year))
 
 	local append_categories = {}
@@ -481,7 +496,7 @@ function GroupInfobox.main( frame )
 	table.insert(append_categories, '[[Category:' .. 'Studio' .. ']]')
 
 	GroupInfobox.store(frame, {
-		name = group_name,
+		name = group_name_raw,
 		owner = group_creator_raw,
 		total_obbies = tonumber(group_obbies),
 		year = tonumber(args.year),
