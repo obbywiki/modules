@@ -90,8 +90,16 @@ function GroupInfobox.declare(frame)
 	return cargo.declare( studio_schema )
 end
 
-function GroupInfobox.store(data)
-	return cargo.store( 'Studios', data )
+function GroupInfobox.store(frame, data)
+	local store_args = { '_table=' .. studio_schema._table }
+
+	for k, v in pairs(data) do
+        if v ~= nil and v ~= '' then
+            table.insert(store_args, k .. '=' .. tostring(v))
+        end
+    end
+
+	return frame:callParserFunction{ name = '#cargo_store', args = store_args }
 end
 
 
@@ -104,7 +112,7 @@ function GroupInfobox.main( frame )
 
     local args = require( 'Module:Arguments' ).getArgs( frame )
 
-    local group_name = args.name or '{{PAGENAME}}'
+    local group_name = args.name or mw.title.getCurrentTitle().text
     local group_id = args.group_id or args.id or 7
 	-- local obby_join_sharelink_id = args.play or args.sharelink or args.play_sharelink or ''
 	-- local obby_subgenre = args.subgenre or args.sub_genre or args.type or 'N/A'
@@ -150,8 +158,10 @@ function GroupInfobox.main( frame )
 
 
 	local group_creator, group_creator_was_corrected = args.developer or args.creator or args.owner or 'Unknown', false
-    local group_relations = args.relations or 'Independant'
+    local group_relations = args.relations or 'Independent'
 	local group_obbies = args.obbies or args.games or 0
+
+	local group_creator_raw = group_creator
 
     local group_creation_year = args.year or ''
 	local group_creation_month = month_by_index(tonumber(args.month or '0') or 0)
@@ -161,7 +171,7 @@ function GroupInfobox.main( frame )
 	-- local obby_stats_likes = args.likes or 'N/A'
 
 	if tonumber(group_stats_members) ~= nil then
-		group_stats_members = get_comma_val(args.visits)
+		group_stats_members = get_comma_val(group_stats_members)
 	end
 
 	-- if tonumber(obby_stats_peak_ccu) ~= nil then
@@ -228,6 +238,8 @@ function GroupInfobox.main( frame )
 		if row and row.owner then
 			local c = row.owner
 			local base = not c.type and 'users' or (c.type == 'Group') and 'communities' or 'users'
+
+			group_creator_raw = c.username and '@' .. c.username or c.name or 'Unknown'
 			
 			if page_exists(base == 'communities' and (c.name or c.groupName or c.username) or '@' .. (c.username or c.name or 'Unknown')) then
 				group_creator = group_creator .. (c.hasVerifiedBadge and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]' or '')
@@ -464,12 +476,12 @@ function GroupInfobox.main( frame )
 	table.insert(append_categories, '[[Category:' .. 'Group' .. ']]')
 	table.insert(append_categories, '[[Category:' .. 'Studio' .. ']]')
 
-	GroupInfobox.store({
+	GroupInfobox.store(frame, {
 		name = group_name,
-		owner = group_creator,
+		owner = group_creator_raw,
 		total_obbies = tonumber(group_obbies),
-		year = tonumber(group_creation_year),
-		month = tonumber(group_creation_month),
+		year = tonumber(args.year),
+		month = tonumber(args.month),
 		group_id = tostring(group_id),
 	})
 
