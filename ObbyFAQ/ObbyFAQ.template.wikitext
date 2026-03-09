@@ -1,1 +1,1 @@
-<includeonly>{{#invoke:ObbyFAQ|main}}</includeonly>
+<includeonly><div style="opacity:0;height:8px;"></div>{{#invoke:ObbyFAQ|main}}</includeonly>

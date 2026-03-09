@@ -89,7 +89,7 @@ function p.main(frame)
 
     -- Question 2: How to play
     local is_public = data.is_public == '1' or data.is_public == true or data.is_public == 'yes'
-    local play_answer = string.format('You can play \'\'\'%s\'\'\' for free on Roblox. The game is %s to the public, meaning anyone with a Roblox account can join and start playing. Simply search for the game title on the Roblox website or mobile app to begin your adventure.', obby_name, is_public and 'currently open' or 'currently set to private or unlisted')
+    local play_answer = string.format('You can play \'\'\'%s\'\'\' for free on Roblox. The game is %s to the public, meaning anyone with a Roblox account can join and start playing. Simply search for the game title on the Roblox website or mobile app to begin your adventure. Alternatively, you can directly click %s to reach the Roblox page.', obby_name, is_public and 'currently open' or 'currently set to private or unlisted', '[https://roblox.com/games/' .. data.id .. '/ this link]')
     
     table.insert(faqs, renderFAQ(frame,
         string.format('How do I play %s on Roblox?', obby_name),
@@ -123,9 +123,9 @@ function p.main(frame)
         local avatar_ending = data.avatar_type
         local avatar_details = ''
         if avatar_ending:lower() == 'r6' then
-            avatar_details = 'the classic **R6** avatar rigs. R6 avatars are a staple in the obby community due to their consistent physics and predictable movement, making them ideal for steady and enjoyable gameplay in obbies. This is typically a standard for most obby developers.'
+            avatar_details = 'the classic \'\'\'R6\'\'\' avatar rigs. R6 avatars are a staple in the obby community due to their consistent physics and predictable movement, making them ideal for steady and enjoyable gameplay in obbies. This is typically a standard for most obby developers.'
         elseif avatar_ending:lower() == 'r15' then
-            avatar_details = 'the modern **R15** avatar rigs. This rig offers more articulation but is less common in traditional obbies as it can sometimes introduce variable physics during jumps.'
+            avatar_details = 'the modern \'\'\'R15\'\'\' avatar rigs. This rig offers more articulation but is less common in traditional obbies as it can sometimes introduce variable physics during jumps.'
         elseif avatar_ending:lower() == 'choice' then
             avatar_details = 'whichever avatar type the player prefers (**R6 or R15**). This flexibility allows you to use your personal avatar settings while navigating the game\'s obstacles.'
         else
@@ -141,7 +141,7 @@ function p.main(frame)
     if data.year and data.year ~= '' then
         table.insert(faqs, renderFAQ(frame,
             string.format('When was %s released?', obby_name),
-            string.format('%s was first released in %s of %s, around %s.%s', obby_name_cap, month_by_index(data.month), data.year, created_relative, (data.visits and string.format(' Since then, %s has received a total of %s visits.', obby_name_cap, data.visits) or ''))
+            string.format('\'\'\'%s\'\'\' was first released in %s of %s, around %s.%s', obby_name_cap, month_by_index(data.month), data.year, created_relative, (data.visits and string.format(' Since then, %s has received a total of %s visits.', obby_name_cap, data.visits) or ''))
         ))
     end
 
