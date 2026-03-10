@@ -930,7 +930,7 @@ function ObbyGameInfobox.main( frame )
 		end
 	end
 
-	local seo_description = obby_name .. 'is a ' .. obby_subgenre .. ' by ' .. (obby_developer_canonical or obby_developer_raw or 'an unknown developer') .. ' released in ' .. obby_creation_month .. ' of ' .. obby_creation_year
+	local seo_description = obby_name .. ' is a ' .. obby_subgenre .. ' by ' .. (obby_developer_canonical or obby_developer_raw or 'an unknown developer') .. ' released in ' .. obby_creation_month .. ' of ' .. obby_creation_year
 	local seo_keywords_parts = { 'obby', obby_subgenre, (obby_developer_canonical or obby_developer_raw or ''), 'roblox' }
 	local seo_keywords = table.concat(seo_keywords_parts, ', ')
 
