@@ -95,6 +95,8 @@ local obby_schema = {
 	stages = 'Integer',
 	tier = 'Integer',
 
+	playability = 'String',
+
 	is_public = 'Boolean',
 	avatar_type = 'String',
 
@@ -813,7 +815,8 @@ function ObbyGameInfobox.main( frame )
 				day = tonumber(obby_creation_day) or nil,
 				is_public = obby_is_public,
 				avatar_type = obby_avatar_type == 'R6' and 'R6' or obby_avatar_type == 'R15' and 'R15' or obby_avatar_type == 'Rthro' and 'Rthro' or obby_avatar_type == 'Choice' and 'Choice' or nil,
-				developers = args.developers
+				developers = args.developers,
+				playability = verified_info_key,
 			}, args.debug == 'true' or args.debug == true)
 		-- end
 	end
