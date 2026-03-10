@@ -580,12 +580,12 @@ function ObbyGameInfobox.main( frame )
 	local last_updated_month = month_by_index(tonumber(last_updated:sub(6, 7) or 1))
 	
 
-	local full_my = obby_creation_month .. '_' .. obby_creation_year
+	local full_my = obby_creation_month .. ' ' .. obby_creation_year
     test:renderSection( {
 		title = i18n:get('section_publishing'),
 		col = 2,
 		content = {
-			test:renderItem( i18n:get('field_released'), '[[:Category:' .. full_my .. ' ' .. full_my .. ']]' ),
+			test:renderItem( i18n:get('field_released'), '[[:Category:' .. full_my .. '|' .. full_my .. ']]' ),
 			test:renderItem( i18n:get('field_latest_update'), last_updated_month .. ' ' .. last_updated_year ),
 			test:renderItem( i18n:get('field_publisher'), obby_publisher ),
 			test:renderItem( i18n:get('field_maturity'), obby_maturity ),
