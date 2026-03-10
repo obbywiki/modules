@@ -89,7 +89,7 @@ function p.main(frame)
 
     -- Question 2: How to play
     local is_public = data.is_public == '1' or data.is_public == true or data.is_public == 'yes'
-    local play_answer = string.format('You can play \'\'\'%s\'\'\' for free on Roblox. The game is %s to the public, meaning anyone with a Roblox account can join and start playing. Simply search for the game title on the Roblox website or mobile app to begin your adventure. Alternatively, you can directly click %s to reach the Roblox page.', obby_name, is_public and 'currently open' or 'currently set to private or unlisted', '[https://roblox.com/games/' .. data.id .. '/ this link]')
+    local play_answer = string.format('You can play \'\'\'%s\'\'\' for free on Roblox. The game is %s to the public, meaning anyone with a Roblox account can join and start playing. Simply search for the game title on the Roblox website or mobile app to begin your adventure. Alternatively, you can directly click %s to reach the Roblox page.', obby_name, is_public and 'currently open' or 'currently set to private or unlisted', '[https://roblox.com/games/' .. data.root_place_id .. '/ this link]')
     
     table.insert(faqs, renderFAQ(frame,
         string.format('How do I play %s on Roblox?', obby_name),
