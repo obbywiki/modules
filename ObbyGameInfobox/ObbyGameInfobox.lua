@@ -294,6 +294,7 @@ function ObbyGameInfobox.main( frame )
 
 
     local obby_levels = args.levels or args.stages or 'N/A'
+	local obby_obbies = args.obbies or args.maps or 'N/A' -- for games that are map-based instead of stage-based
 	local obby_levels_total = args.levels_total or args.stages_total or nil
 	local obby_difficulties = args.difficulties or ''
 	local obby_difficulties_total = args.difficulties_total or nil
@@ -545,11 +546,17 @@ function ObbyGameInfobox.main( frame )
 		return value or ''
 	end
 
+	local use_stages = false
+
+	if obby_levels ~= 'N/A' then
+		use_stages = true
+	end
+
     test:renderSection( {
 		title = i18n:get('section_gameplay'),
 		col = 2,
 		content = {
-			test:renderItem( i18n:get('field_checkpoints'), format_with_total(obby_levels, obby_levels_total)),
+			test:renderItem( use_stages and i18n:get('field_checkpoints') or i18n:get('field_obbies'), use_stages and format_with_total(obby_levels, obby_levels_total) or obby_obbies),
 			test:renderItem( i18n:get('field_difficulties'), format_with_total(obby_difficulties, obby_difficulties_total)),
 			test:renderItem( i18n:get('field_towers'), format_with_total(obby_towers, obby_towers_total)),
 			test:renderItem( i18n:get('field_tier'), '[[Special:MyLanguage/Tiers|'.. (obby_tier == '0' and '0 - Unrated/Unknown' or obby_tier).. ']]' ),
