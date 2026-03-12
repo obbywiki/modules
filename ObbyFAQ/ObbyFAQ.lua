@@ -114,7 +114,7 @@ function p.main(frame)
     elseif data.subgenre and data.subgenre ~= '' then
         table.insert(faqs, renderFAQ(frame,
             string.format('What type of obby subgenre is %s?', obby_name),
-            string.format('\'\'\'%s\'\'\' is falls under the sub-genre of a "\'\'\'%s\'\'\'". This category describes the specific gameplay style and mechanics you can expect when playing.', obby_name_cap, page_exists(data.subgenre) and '[[' .. data.subgenre .. ']]' or data.subgenre)
+            string.format('\'\'\'%s\'\'\' falls under the sub-genre of a \'\'\'%s\'\'\'. This category describes the specific gameplay style and mechanics you can expect when playing.', obby_name_cap, page_exists(data.subgenre) and '[[' .. data.subgenre .. ']]' or data.subgenre)
         ))
     end
     
