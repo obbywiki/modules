@@ -942,7 +942,29 @@ function ObbyGameInfobox.main( frame )
 		end
 	end
 
-	local seo_description = obby_name .. ' is a ' .. obby_subgenre .. ' by ' .. (obby_developer_canonical or obby_developer_raw or 'an unknown developer') .. ' released in ' .. obby_creation_month .. ' of ' .. obby_creation_year
+	local seo_description = obby_name .. ' is a ' .. obby_subgenre .. ' developed by ' .. (obby_developer_canonical or obby_developer_raw or 'an unknown developer') .. ' and released in ' .. obby_creation_month .. ' of ' .. obby_creation_year
+	if obby_tier and obby_tier ~= '0' then
+		seo_description = seo_description .. ' rated at a tier ' .. obby_tier .. ' in difficulty'
+	end
+
+	if obby_stats_visits then
+		seo_description = seo_description .. '. The game was been played over ' .. obby_stats_visits .. ' times'
+	end
+
+	if obby_stats_favorites then
+		seo_description = seo_description .. ', favorited over ' .. obby_stats_favorites .. ' times'
+	end
+
+	if obby_stats_likes then
+		seo_description = seo_description .. ', liked over ' .. obby_stats_likes .. ' times'
+	end
+
+	if obby_stats_dislikes then
+		seo_description = seo_description .. ', and disliked over ' .. obby_stats_dislikes .. ' times'
+	end
+
+	seo_description = seo_description .. '. Read more on the Obby Wiki.'
+
 	local seo_keywords_parts = { 'obby', obby_subgenre, (obby_developer_canonical or obby_developer_raw or ''), 'roblox' }
 	local seo_keywords = table.concat(seo_keywords_parts, ', ')
 
