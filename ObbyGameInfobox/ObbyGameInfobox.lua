@@ -942,9 +942,9 @@ function ObbyGameInfobox.main( frame )
 		end
 	end
 
-	local seo_description = obby_name .. ' is a ' .. obby_subgenre .. ' developed by ' .. (obby_developer_canonical or obby_developer_raw or 'an unknown developer') .. ' and released in ' .. obby_creation_month .. ' of ' .. obby_creation_year
+	local seo_description = obby_name .. ' is a ' .. obby_subgenre .. ' developed by ' .. (obby_developer_canonical or obby_developer_raw or 'an unknown developer') .. ' on Roblox and released in ' .. obby_creation_month .. ' of ' .. obby_creation_year
 	if obby_tier and obby_tier ~= '0' then
-		seo_description = seo_description .. ' rated at a tier ' .. obby_tier .. ' in difficulty'
+		seo_description = seo_description .. '. ' .. obby_name .. ' is currently rated at a tier ' .. obby_tier .. ' in difficulty'
 	end
 
 	if obby_stats_visits then
@@ -952,15 +952,15 @@ function ObbyGameInfobox.main( frame )
 	end
 
 	if obby_stats_favorites then
-		seo_description = seo_description .. ', favorited over ' .. obby_stats_favorites .. ' times'
+		seo_description = seo_description .. ', favorited by over ' .. obby_stats_favorites .. ' users'
 	end
 
 	if obby_stats_likes then
-		seo_description = seo_description .. ', liked over ' .. obby_stats_likes .. ' times'
+		seo_description = seo_description .. ', liked by over ' .. obby_stats_likes .. ' users'
 	end
 
 	if obby_stats_dislikes then
-		seo_description = seo_description .. ', and disliked over ' .. obby_stats_dislikes .. ' times'
+		seo_description = seo_description .. ', and disliked by over ' .. obby_stats_dislikes .. ' users'
 	end
 
 	seo_description = seo_description .. '. Read more on the Obby Wiki.'
