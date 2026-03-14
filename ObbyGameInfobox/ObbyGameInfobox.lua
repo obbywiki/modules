@@ -942,9 +942,15 @@ function ObbyGameInfobox.main( frame )
 		end
 	end
 
-	local seo_description = obby_name .. ' is a ' .. obby_subgenre .. ' developed by ' .. (obby_developer_canonical or obby_developer_raw or 'an unknown developer') .. ' on Roblox and released in ' .. obby_creation_month .. ' of ' .. obby_creation_year
+	local seo_obby_name = obby_name
+
+	seo_obby_name = string.gsub(seo_obby_name, '&#39;', "'")
+	seo_obby_name = string.gsub(seo_obby_name, '&#34;', '"')
+	seo_obby_name = string.gsub(seo_obby_name, '&#38;', '&')
+
+	local seo_description = seo_obby_name .. ' is a ' .. obby_subgenre .. ' developed by ' .. (obby_developer_canonical or obby_developer_raw or 'an unknown developer') .. ' on Roblox and released in ' .. obby_creation_month .. ' of ' .. obby_creation_year
 	if obby_tier and obby_tier ~= '0' then
-		seo_description = seo_description .. '. ' .. obby_name .. ' is currently rated at a tier ' .. obby_tier .. ' in difficulty'
+		seo_description = seo_description .. '. ' .. seo_obby_name .. ' is currently rated at a tier ' .. obby_tier .. ' in difficulty'
 	end
 
 	if obby_stats_visits then
