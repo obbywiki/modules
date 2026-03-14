@@ -948,7 +948,7 @@ function ObbyGameInfobox.main( frame )
 	end
 
 	if obby_stats_visits then
-		seo_description = seo_description .. '. The game was been played over ' .. obby_stats_visits .. ' times'
+		seo_description = seo_description .. '. The game has been played over ' .. obby_stats_visits .. ' times'
 	end
 
 	if obby_stats_favorites then
