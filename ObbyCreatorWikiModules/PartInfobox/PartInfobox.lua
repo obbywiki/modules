@@ -34,6 +34,8 @@ function PartInfobox.main( frame )
 
 	local part_type = args.type or 'Unknown'
     local part_cost = args.cost or args.price or 'N/A'
+	local year_added = args.year_added or 'Unknown'
+	local usage_requirements = args.requirements or 'None'
 
 	-- if tonumber(obby_stats_peak_ccu) ~= nil then
 	-- 	obby_stats_peak_ccu = get_comma_val(args.peak_ccu)
@@ -153,6 +155,8 @@ function PartInfobox.main( frame )
 		content = {
 			test:renderItem( 'Part Type', page_exists(part_type .. 's') and '[[' .. part_type .. ']]' or part_type),
 			test:renderItem( 'Initial Cost', '$' .. part_cost),
+			test:renderItem( 'Year Added', year_added),
+			test:renderItem( 'Requirements', usage_requirements),
 			-- test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
 			-- test:renderItem( 'Likes', obby_stats_likes .. '+' ),
 		}
@@ -261,7 +265,7 @@ function PartInfobox.main( frame )
 	-- 	table.insert(append_categories, '[[Category:' .. parsed_month .. ']]')
 	-- end
 
-	table.insert(append_categories, '[[Category:' .. 'Part' .. ']]')
+	table.insert(append_categories, '[[Category:' .. 'Parts' .. ']]')
 
     if part_type ~= 'Unknown' then
         table.insert(append_categories, '[[Category:' .. part_type .. 's]]')
