@@ -513,7 +513,7 @@ function methodtable.renderFooter( self, data )
 		local label = button:tag( 'div' ):addClass( 'infobox__buttonLabel' )
 
 		if buttonData['icon'] ~= nil then
-			label:wikitext( string.format( '[[File:%s|16px|link=]]%s', buttonData['icon'], buttonData['label'] ) )
+			label:wikitext( string.format( '[[File:%s|16px|link=|alt=%s]]%s', buttonData['icon'], buttonData['icon_alt'] or '', buttonData['label'] ) ) -- !MODIFICATION
 		else
 			label:wikitext( buttonData['label'] )
 		end

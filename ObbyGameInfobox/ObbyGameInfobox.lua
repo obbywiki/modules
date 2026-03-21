@@ -799,6 +799,7 @@ function ObbyGameInfobox.main( frame )
     test:renderFooter( {
 		button = {
 			icon = 'GoogleMaterialIcons-Globe.svg',
+			icon_alt = 'Globe',
 			label = i18n:get('section_external_links'),
 			type = 'popup',
 			content = test:renderSection( {
