@@ -256,7 +256,7 @@ function ObbyGameInfobox.main( frame )
 	local obby_developer_canonical
     local obby_publisher = args.publisher or 'Self-Published'
 
-	local obby_system = args.system or args.obby_system or 'Unknown'
+	local obby_system = args.system or args.obby_system or 'NA'
 
     local obby_creation_year = args.year or ''
 	local obby_creation_month = month_by_index(args.month and tonumber(args.month) or 0)
@@ -558,6 +558,14 @@ function ObbyGameInfobox.main( frame )
 			if obby_wiki_edge_res.info.updated then
 				last_updated = obby_wiki_edge_res.info.updated -- iso, e.g., 2026-03-07T09:29:16.4508416Z
 			end
+
+			if obby_wiki_edge_res.info.avatar_type then
+				if obby_wiki_edge_res.info.avatar_type == 'MorphToR6' then
+					obby_avatar_type = 'R6'
+				elseif obby_wiki_edge_res.info.avatar_type == 'MorphToR15' then
+					obby_avatar_type = 'R15'
+				end
+			end
 		end
 
 		data_last_fetched = obby_wiki_edge_res.fetched_at or os.date("%Y-%m-%d %H:%M:%S")
@@ -673,7 +681,7 @@ function ObbyGameInfobox.main( frame )
 			test:renderItem( i18n:get('field_maturity'), obby_maturity ),
 			test:renderItem( i18n:get('field_genre'), i18n:get('genre_obby') ),
 			test:renderItem( i18n:get('field_sub_genre'), page_exists(obby_subgenre) and '[[' .. obby_subgenre .. ']]' or obby_subgenre ),
-			test:renderItem( i18n:get('field_obby_system'), obby_system ),
+			obby_system ~= 'NA' and test:renderItem( i18n:get('field_obby_system'), obby_system ) or '',
 			test:renderItem( i18n:get('field_ai_content'), ai_disclosure_text ),
 		}
 	} )
