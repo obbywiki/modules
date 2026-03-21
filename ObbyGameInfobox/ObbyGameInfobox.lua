@@ -799,37 +799,60 @@ function ObbyGameInfobox.main( frame )
     test:renderFooter( {
 		button = {
 			icon = 'GoogleMaterialIcons-Globe.svg',
-			icon_alt = 'Globe',
+			icon_alt = 'Web',
 			label = i18n:get('section_external_links'),
 			type = 'popup',
 			content = test:renderSection( {
 				content = {
+					-- test:renderItem( {
+					-- 	label = i18n:get('link_roblox'),
+					-- 	data = {test:renderLinkButton( {
+					-- 		label = i18n:get('link_view_roblox'),
+					-- 		link = 'https://roblox.com/games/' .. obby_starter_place_id .. '/'
+					-- 	}),
+
+					-- 	test:renderLinkButton({
+					-- 		label = i18n:get('link_play_roblox'),
+					-- 		link = (obby_join_sharelink_id ~= '' and 'https://roblox.com/join/' .. obby_join_sharelink_id) or 'https://roblox.com/start?placeId=' .. obby_starter_place_id .. '&launchData=obbywiki'
+					-- 	})
+					-- }					
+					-- } ),
+
 					test:renderItem( {
 						label = i18n:get('link_roblox'),
-						data = {test:renderLinkButton( {
+						data = table.concat({test:renderLinkButton({
 							label = i18n:get('link_view_roblox'),
 							link = 'https://roblox.com/games/' .. obby_starter_place_id .. '/'
-						}),
-
-						test:renderLinkButton({
+						}), test:renderLinkButton({
 							label = i18n:get('link_play_roblox'),
 							link = (obby_join_sharelink_id ~= '' and 'https://roblox.com/join/' .. obby_join_sharelink_id) or 'https://roblox.com/start?placeId=' .. obby_starter_place_id .. '&launchData=obbywiki'
-						})
-					}					
+						})}, '')
 					} ),
 
 					test:renderItem( {
 						label = i18n:get('link_analytics'),
-						data = {test:renderLinkButton( {
+						data = table.concat({test:renderLinkButton({
 							label = i18n:get('link_romonitorstats'),
 							link = 'https://romonitorstats.com/experience/' .. obby_starter_place_id .. '/'
-						}),
-						test:renderLinkButton( {
+						}), test:renderLinkButton({
 							label = i18n:get('link_rolimons'),
 							link = 'https://rolimons.com/game/' .. obby_starter_place_id .. '/'
-						})
-					}					
-					} )
+						})}, '')
+					} ),
+
+					-- test:renderItem( {
+					-- 	label = i18n:get('link_analytics'),
+					-- 	data = {test:renderLinkButton( {
+					-- 		label = i18n:get('link_romonitorstats'),
+					-- 		link = 'https://romonitorstats.com/experience/' .. obby_starter_place_id .. '/'
+					-- 	}),
+					-- 	test:renderLinkButton( {
+					-- 		label = i18n:get('link_rolimons'),
+					-- 		link = 'https://rolimons.com/game/' .. obby_starter_place_id .. '/'
+					-- 	})
+					-- }					
+					-- } ),
+					class = 'infobox__section--linkButtons',
 				}
 			}, true )
 		}
