@@ -497,7 +497,7 @@ function ObbyGameInfobox.main( frame )
 
 	local s, res = pcall(function()
 		return mw.ext.externalData.getExternalData{
-			url = 'https://obbywiki-edge.wlft.workers.dev/v1/get-obby/' .. obby_starter_place_id,
+			url = 'https://edge.obbywiki.com/v1/get-obby/' .. obby_starter_place_id,
 			-- a new endpoint which collects and fetches all data needed for the infobox in typescript and node,
 			-- about 3s faster due to concurrency being possible in the environment!
 			format = 'json'
