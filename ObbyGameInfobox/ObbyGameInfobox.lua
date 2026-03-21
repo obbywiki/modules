@@ -822,10 +822,10 @@ function ObbyGameInfobox.main( frame )
 						label = i18n:get('link_roblox'),
 						data = table.concat({test:renderLinkButton({
 							label = i18n:get('link_view_roblox'),
-							link = 'https://roblox.com/games/' .. obby_starter_place_id .. '/'
+							link = 'https://www.roblox.com/games/' .. obby_starter_place_id .. '/'
 						}), test:renderLinkButton({
 							label = i18n:get('link_play_roblox'),
-							link = (obby_join_sharelink_id ~= '' and 'https://roblox.com/join/' .. obby_join_sharelink_id) or 'https://roblox.com/start?placeId=' .. obby_starter_place_id .. '&launchData=obbywiki'
+							link = (obby_join_sharelink_id ~= '' and 'https://www.roblox.com/join/' .. obby_join_sharelink_id) or 'https://www.roblox.com/start?placeId=' .. obby_starter_place_id .. '&launchData=obbywiki'
 						})}, '')
 					} ),
 
