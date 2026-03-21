@@ -532,7 +532,7 @@ function ObbyGameInfobox.main( frame )
 				local c = obby_wiki_edge_res.info.creator
 				local base = (c.creator_type == 'Group') and 'communities' or 'users'
 			
-				obby_developer_raw = obby_developer -- TODO remove
+				obby_developer_raw = obby_developer -- TODO investigate need for this variable
 
 				if page_exists(c.creator_type == 'Group' and c.name or '@' .. c.name) then
 					obby_developer = '[[' .. c.name .. ']]' .. (c.is_verified and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=' .. obby_developer_raw .. ']]' or '')
@@ -629,10 +629,10 @@ function ObbyGameInfobox.main( frame )
 		title = i18n:get('section_gameplay'),
 		col = 2,
 		content = {
-			test:renderItem( use_stages and i18n:get('field_checkpoints') or i18n:get('field_obbies'), use_stages and format_with_total(obby_levels, obby_levels_total) or obby_obbies),
+			(obby_levels ~= 'N/A' or obby_obbies ~= 'N/A') and test:renderItem( use_stages and i18n:get('field_checkpoints') or i18n:get('field_obbies'), use_stages and format_with_total(obby_levels, obby_levels_total) or obby_obbies) or '',
 			test:renderItem( i18n:get('field_difficulties'), format_with_total(obby_difficulties, obby_difficulties_total)),
 			test:renderItem( i18n:get('field_towers'), format_with_total(obby_towers, obby_towers_total)),
-			test:renderItem( i18n:get('field_tier'), '[[Special:MyLanguage/Tiers|'.. (obby_tier == '0' and '0 - Unrated/Unknown' or obby_tier).. ']]' ),
+			test:renderItem( i18n:get('field_tier'), '[[Tiers|'.. (obby_tier == '0' and '0 - Unrated/Unknown' or obby_tier).. ']]' ),
 			test:renderItem( i18n:get('field_avatar_type'), obby_avatar_type )
 		}
 	} )
