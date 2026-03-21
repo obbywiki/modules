@@ -270,7 +270,8 @@ function methodtable.renderCarousel( self, images )
 								filename, 
 								-- icon_px .. 'x' .. icon_px .. 'px',
 								'768x432px',
-								'caption=Thumbnail'
+								'caption=Thumbnail',
+								'fetchpriority=high'
 							}
 						}
 					 )
