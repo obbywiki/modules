@@ -938,6 +938,29 @@ function ObbyGameInfobox.main( frame )
 	local game_url = 'https://roblox.com/games/' .. obby_starter_place_id .. '/'
 	local page_url = mw.title.getCurrentTitle():fullUrl('', 'https')
 
+	local seo_description = seo_obby_name .. ' is a ' .. obby_subgenre .. ' developed by ' .. (obby_developer_canonical or obby_developer_raw or 'an unknown developer') .. ' on Roblox and released in ' .. obby_creation_month .. ' of ' .. obby_creation_year
+	if obby_tier and obby_tier ~= '0' then
+		seo_description = seo_description .. '. ' .. seo_obby_name .. ' is currently rated at a tier ' .. obby_tier .. ' in difficulty'
+	end
+
+	if obby_stats_visits then
+		seo_description = seo_description .. '. The game has been played over ' .. obby_stats_visits .. ' times'
+	end
+
+	if obby_stats_favorites then
+		seo_description = seo_description .. ', favorited by over ' .. obby_stats_favorites .. ' users'
+	end
+
+	if obby_stats_likes then
+		seo_description = seo_description .. ', liked by over ' .. obby_stats_likes .. ' users'
+	end
+
+	if obby_stats_dislikes then
+		seo_description = seo_description .. ', and disliked by over ' .. obby_stats_dislikes .. ' users'
+	end
+
+	seo_description = seo_description .. '. Read more on the Obby Wiki.'
+
 	local json_ld = {
 		-- ['@context'] = 'https://schema.org',
 		['@type'] = 'VideoGame',
@@ -945,7 +968,8 @@ function ObbyGameInfobox.main( frame )
 		url = page_url,
 		description = obby_subgenre .. ' by ' .. (obby_developer_canonical or obby_developer_raw or 'Unknown') .. ' — ' .. obby_creation_year,
 		gamePlatform = 'Roblox',
-		genre = { 'Obby', obby_subgenre },
+		-- genre = { 'Obby', obby_subgenre }, -- TODO fix
+		genre = 'Obby',
 		applicationCategory = 'Game',
 		operatingSystem = 'Cross-platform',
 	}
@@ -1012,7 +1036,7 @@ function ObbyGameInfobox.main( frame )
 	end
 
 	if #same_as > 0 then
-		json_ld.sameAs = same_as
+		json_ld.sameAs = same_as[1] -- TODO fix
 	end
 
 	-- available platforms
@@ -1023,7 +1047,7 @@ function ObbyGameInfobox.main( frame )
 	if args.console then table.insert(game_platforms, 'Console') end
 	if args.vr then table.insert(game_platforms, 'VR') end
 	if #game_platforms > 0 then
-		json_ld.gamePlatform = game_platforms
+		-- json_ld.gamePlatform = game_platforms TODO fix
 	end
 
 	-- local json_ld_string = '<script type="application/ld+json">' .. mw.text.jsonEncode(json_ld) .. '</script>'
@@ -1054,29 +1078,6 @@ function ObbyGameInfobox.main( frame )
 	seo_obby_name = string.gsub(seo_obby_name, '&#39;', "'")
 	seo_obby_name = string.gsub(seo_obby_name, '&#34;', '"')
 	seo_obby_name = string.gsub(seo_obby_name, '&#38;', '&')
-
-	local seo_description = seo_obby_name .. ' is a ' .. obby_subgenre .. ' developed by ' .. (obby_developer_canonical or obby_developer_raw or 'an unknown developer') .. ' on Roblox and released in ' .. obby_creation_month .. ' of ' .. obby_creation_year
-	if obby_tier and obby_tier ~= '0' then
-		seo_description = seo_description .. '. ' .. seo_obby_name .. ' is currently rated at a tier ' .. obby_tier .. ' in difficulty'
-	end
-
-	if obby_stats_visits then
-		seo_description = seo_description .. '. The game has been played over ' .. obby_stats_visits .. ' times'
-	end
-
-	if obby_stats_favorites then
-		seo_description = seo_description .. ', favorited by over ' .. obby_stats_favorites .. ' users'
-	end
-
-	if obby_stats_likes then
-		seo_description = seo_description .. ', liked by over ' .. obby_stats_likes .. ' users'
-	end
-
-	if obby_stats_dislikes then
-		seo_description = seo_description .. ', and disliked by over ' .. obby_stats_dislikes .. ' users'
-	end
-
-	seo_description = seo_description .. '. Read more on the Obby Wiki.'
 
 	local seo_keywords_parts = { 'obby', obby_subgenre, (obby_developer_canonical or obby_developer_raw or ''), 'roblox' }
 	local seo_keywords = table.concat(seo_keywords_parts, ', ')
