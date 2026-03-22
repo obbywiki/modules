@@ -972,7 +972,7 @@ function ObbyGameInfobox.main( frame )
 		['@type'] = 'VideoGame',
 		name = args.name or mw.title.getCurrentTitle().text,
 		url = page_url,
-		description = obby_subgenre .. ' by ' .. (obby_developer_canonical or obby_developer_raw or 'Unknown') .. ' — ' .. obby_creation_year,
+		description = seo_description,
 		gamePlatform = 'Roblox',
 		-- genre = { 'Obby', obby_subgenre }, -- TODO fix
 		genre = 'Obby',
