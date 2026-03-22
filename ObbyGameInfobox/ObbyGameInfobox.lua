@@ -935,97 +935,101 @@ function ObbyGameInfobox.main( frame )
 	
 
 	-- JSON-LD structured data (Schema.org VideoGame)
-	-- local game_url = 'https://roblox.com/games/' .. obby_starter_place_id .. '/'
-	-- local page_url = mw.title.getCurrentTitle():fullUrl('', 'https')
+	local game_url = 'https://roblox.com/games/' .. obby_starter_place_id .. '/'
+	local page_url = mw.title.getCurrentTitle():fullUrl('', 'https')
 
-	-- local json_ld = {
-	-- 	['@context'] = 'https://schema.org',
-	-- 	['@type'] = 'VideoGame',
-	-- 	name = args.name or mw.title.getCurrentTitle().text,
-	-- 	url = page_url,
-	-- 	description = obby_subgenre .. ' by ' .. (obby_developer_canonical or obby_developer_raw or 'Unknown') .. ' — ' .. obby_creation_year,
-	-- 	gamePlatform = 'Roblox',
-	-- 	genre = { 'Obby', obby_subgenre },
-	-- 	applicationCategory = 'Game',
-	-- 	operatingSystem = 'Cross-platform',
-	-- }
+	local json_ld = {
+		-- ['@context'] = 'https://schema.org',
+		['@type'] = 'VideoGame',
+		name = args.name or mw.title.getCurrentTitle().text,
+		url = page_url,
+		description = obby_subgenre .. ' by ' .. (obby_developer_canonical or obby_developer_raw or 'Unknown') .. ' — ' .. obby_creation_year,
+		gamePlatform = 'Roblox',
+		genre = { 'Obby', obby_subgenre },
+		applicationCategory = 'Game',
+		operatingSystem = 'Cross-platform',
+	}
 
-	-- -- image
-	-- if thumb and thumb ~= '' then
-	-- 	json_ld.image = 'https://obbywiki.com/wiki/Special:FilePath/' .. mw.uri.encode(thumb, 'PATH')
-	-- elseif use_external_thumbs and thumbs and #thumbs > 0 then
-	-- 	json_ld.image = thumbs[1]
-	-- end
+	-- image
+	if thumb and thumb ~= '' then
+		json_ld.image = 'https://obbywiki.com/wiki/Special:FilePath/' .. mw.uri.encode(thumb, 'PATH')
+	elseif use_external_thumbs and thumbs and #thumbs > 0 then
+		json_ld.image = thumbs[1]
+	end
 
-	-- -- author / developer
-	-- if obby_developer_canonical or obby_developer_raw then
-	-- 	json_ld.author = {
-	-- 		['@type'] = (string.sub(obby_developer_canonical or obby_developer_raw, 1, 1) == '@' and 'Person' or 'Organization'),
-	-- 		name = obby_developer_canonical or obby_developer_raw,
-	-- 	}
-	-- end
+	-- author / developer
+	if obby_developer_canonical or obby_developer_raw then
+		json_ld.author = {
+			['@type'] = (string.sub(obby_developer_canonical or obby_developer_raw, 1, 1) == '@' and 'Person' or 'Organization'),
+			name = obby_developer_canonical or obby_developer_raw,
+		}
+	end
 
-	-- -- publisher
-	-- if obby_publisher and obby_publisher ~= 'Self-Published' then
-	-- 	json_ld.publisher = {
-	-- 		['@type'] = 'Organization',
-	-- 		name = obby_publisher,
-	-- 	}
-	-- end
+	-- publisher
+	if obby_publisher and obby_publisher ~= 'Self-Published' then
+		json_ld.publisher = {
+			['@type'] = 'Organization',
+			name = obby_publisher,
+		}
+	end
 
-	-- -- date published  (ISO 8601)
-	-- if tonumber(obby_creation_year) then
-	-- 	local date_str = tostring(obby_creation_year)
-	-- 	if tonumber(args.month) then
-	-- 		date_str = date_str .. '-' .. string.format('%02d', tonumber(args.month))
-	-- 		if tonumber(obby_creation_day) then
-	-- 			date_str = date_str .. '-' .. string.format('%02d', tonumber(obby_creation_day))
-	-- 		end
-	-- 	end
-	-- 	json_ld.datePublished = date_str
-	-- end
+	-- date published  (ISO 8601)
+	if tonumber(obby_creation_year) then
+		local date_str = tostring(obby_creation_year)
+		if tonumber(args.month) then
+			date_str = date_str .. '-' .. string.format('%02d', tonumber(args.month))
+			if tonumber(obby_creation_day) then
+				date_str = date_str .. '-' .. string.format('%02d', tonumber(obby_creation_day))
+			end
+		end
+		json_ld.datePublished = date_str
+	end
 
-	-- -- aggregate rating (likes / dislikes → 1-5 scale)
-	-- local total_votes = obby_stats_likes + obby_stats_dislikes
-	-- if total_votes > 0 then
-	-- 	local pct = obby_stats_likes / total_votes
-	-- 	json_ld.aggregateRating = {
-	-- 		['@type'] = 'AggregateRating',
-	-- 		ratingValue = tostring(math.floor(pct * 50 + 0.5) / 10), -- 0‑5 scale
-	-- 		bestRating = '5',
-	-- 		worstRating = '0',
-	-- 		ratingCount = tostring(total_votes),
-	-- 	}
-	-- end
+	-- aggregate rating (likes / dislikes → 1-5 scale)
+	local total_votes = obby_stats_likes + obby_stats_dislikes
+	if total_votes > 0 then
+		local pct = obby_stats_likes / total_votes
+		json_ld.aggregateRating = {
+			['@type'] = 'AggregateRating',
+			ratingValue = tostring(math.floor(pct * 50 + 0.5) / 10), -- 0‑5 scale
+			bestRating = '5',
+			worstRating = '0',
+			ratingCount = tostring(total_votes),
+		}
+	end
 
-	-- -- numberOfLevels (custom / GamePlayMode etc.)
-	-- if obby_levels and obby_levels ~= 'N/A' and tonumber(obby_levels) then
-	-- 	json_ld.numberOfLevels = tonumber(obby_levels)
-	-- end
+	-- numberOfLevels (custom / GamePlayMode etc.)
+	if obby_levels and obby_levels ~= 'N/A' and tonumber(obby_levels) then
+		json_ld.numberOfLevels = tonumber(obby_levels)
+	end
 
-	-- -- sameAs (external links)
-	-- local same_as = { game_url }
-	-- for key, v in pairs(smm) do
-	-- 	if args[key] then
-	-- 		table.insert(same_as, v.url .. args[key])
-	-- 	end
-	-- end
-	-- if #same_as > 0 then
-	-- 	json_ld.sameAs = same_as
-	-- end
+	-- sameAs (identical topics)
+	local same_as = { game_url }
+	for key, v in pairs(smm) do
+		if args[key] and (args[key] == 'website') then
+			table.insert(same_as, v.url .. args[key])
+		end
+	end
 
-	-- -- available platforms
-	-- local game_platforms = {}
-	-- if args.pc then table.insert(game_platforms, 'PC') end
-	-- if args.tablet then table.insert(game_platforms, 'Tablet') end
-	-- if args.phone then table.insert(game_platforms, 'Mobile') end
-	-- if args.console then table.insert(game_platforms, 'Console') end
-	-- if args.vr then table.insert(game_platforms, 'VR') end
-	-- if #game_platforms > 0 then
-	-- 	json_ld.gamePlatform = game_platforms
-	-- end
+	if #same_as > 0 then
+		json_ld.sameAs = same_as
+	end
+
+	-- available platforms
+	local game_platforms = {}
+	if args.pc then table.insert(game_platforms, 'PC') end
+	if args.tablet then table.insert(game_platforms, 'Tablet') end
+	if args.phone then table.insert(game_platforms, 'Mobile') end
+	if args.console then table.insert(game_platforms, 'Console') end
+	if args.vr then table.insert(game_platforms, 'VR') end
+	if #game_platforms > 0 then
+		json_ld.gamePlatform = game_platforms
+	end
 
 	-- local json_ld_string = '<script type="application/ld+json">' .. mw.text.jsonEncode(json_ld) .. '</script>'
+	-- local json_ld_string = mw.text.jsonEncode(json_ld)
+
+	mw.ext.schemaOrg.setMainEntity(json_ld)
 
 	-- temporary workaround to json-ld injection issues
 	-- WikiSEO: injects JSON-LD into <head> via OutputPage::addHeadItem(), bypassing the HTML sanitizer
