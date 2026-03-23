@@ -1059,7 +1059,7 @@ function ObbyGameInfobox.main( frame )
 	-- local json_ld_string = '<script type="application/ld+json">' .. mw.text.jsonEncode(json_ld) .. '</script>'
 	-- local json_ld_string = mw.text.jsonEncode(json_ld)
 
-	mw.ext.schemaOrg.setMainEntity(json_ld)
+	mw.ext.jsonld.setMainEntity(json_ld)
 
 	-- temporary workaround to json-ld injection issues
 	-- WikiSEO: injects JSON-LD into <head> via OutputPage::addHeadItem(), bypassing the HTML sanitizer
