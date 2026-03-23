@@ -1060,6 +1060,9 @@ function ObbyGameInfobox.main( frame )
 	-- local json_ld_string = mw.text.jsonEncode(json_ld)
 
 	mw.ext.jsonld.setMainEntity(json_ld)
+	mw.ext.jsonld.addData({
+		image = json_ld.image
+	})
 
 	-- temporary workaround to json-ld injection issues
 	-- WikiSEO: injects JSON-LD into <head> via OutputPage::addHeadItem(), bypassing the HTML sanitizer
