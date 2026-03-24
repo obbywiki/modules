@@ -534,12 +534,18 @@ function ObbyGameInfobox.main( frame )
 			
 				obby_developer_raw = obby_developer -- TODO investigate need for this variable
 
-				if page_exists(c.creator_type == 'Group' and c.name or '@' .. c.name) then
-					obby_developer = '[[' .. c.name .. ']]' .. (c.is_verified and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=' .. obby_developer_raw .. ']]' or '')
+				local source_creator_name = c.name
+
+				if not source_creator_name or source_creator_name == '' then
+					source_creator_name = 'Unknown'
+				end
+
+				if page_exists(c.creator_type == 'Group' and source_creator_name or '@' .. source_creator_name) then
+					obby_developer = '[[' .. source_creator_name .. ']]' .. (c.is_verified and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=' .. obby_developer_raw .. ']]' or '')
 				else
 					obby_developer = string.format(
 						'[https://roblox.com/%s/%s/%s %s%s]',
-						base, c.id, base == 'communities' and (string.gsub(c.name, ' ', '_') .. '#!/about') or 'profile', (c.creator_type == 'User' and '@' or '') .. c.name,
+						base, c.id, base == 'communities' and (string.gsub(source_creator_name, ' ', '_') .. '#!/about') or 'profile', (c.creator_type == 'User' and '@' or '') .. source_creator_name,
 						(c.is_verified and '  [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]') or ''
 					)
 
