@@ -537,7 +537,7 @@ function ObbyGameInfobox.main( frame )
 				local source_creator_name = c.name
 
 				if not source_creator_name or source_creator_name == '' then
-					source_creator_name = 'Unknown'
+					source_creator_name = args.developer or args.creator or 'Unknown'
 				end
 
 				if page_exists(c.creator_type == 'Group' and source_creator_name or '@' .. source_creator_name) then
