@@ -47,7 +47,7 @@ function p.draw(frame)
 
         card:tag('span')
             :addClass('ow-month-card__link')
-            :wikitext('[https://obbywiki.com/wiki/Category:' .. month .. '_' .. target_year .. ' ]')
+            :wikitext('[[:Category:' .. month .. '_' .. target_year .. ' ]]')
     end
 
     return frame:extensionTag('templatestyles', '', { src = 'Template:MonthNav/styles.css' }) .. frame:preprocess(meta) .. precontent .. tostring(container)
