@@ -1,0 +1,4 @@
+<noinclude>
+Usage: <code>{{Tl|MonthNav|Year|MonthName}}</code>
+Example: {{MonthNav|2026|March}}
+</noinclude><includeonly>{{#invoke:MonthNav|draw}}</includeonly>
