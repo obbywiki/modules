@@ -18,7 +18,7 @@ function p.draw(frame)
 
     if current_month_name and current_month_name ~= '' then
         meta = '{{DISPLAYTITLE:Obbies released in ' .. current_month_name .. ' of ' .. target_year .. '}}{{SHORTDESC:View all documented obbies on the Obby Wiki only released in ' .. current_month_name .. ' of ' .. target_year .. '}}'
-precontent = 'This category contains all obbies created/released (that are documented on this wiki and) that were created in \'\'\'' ..  current_month_name .. '\'\'\' of \'\'\'' .. target_year .. '\'\'\' alone.'
+        precontent = 'This category contains all obbies created/released (that are documented on this wiki and) that were created in \'\'\'' ..  current_month_name .. '\'\'\' of \'\'\'' .. target_year .. '\'\'\' alone.'
     end
 
     for i, month in ipairs(months_full) do
@@ -48,7 +48,7 @@ precontent = 'This category contains all obbies created/released (that are docum
 
         card:tag('div')
             :addClass('ow-month-card__count')
-            :wikitext(count .. ' obbies')
+            :wikitext(count == 1 and count .. ' obby' or count .. ' obbies')
 
         card:tag('span')
             :addClass('ow-month-card__link')
