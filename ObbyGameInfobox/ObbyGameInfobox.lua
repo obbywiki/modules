@@ -552,7 +552,7 @@ function ObbyGameInfobox.main( frame )
 				obby_developer_was_corrected = true
 			end
 
-			obby_developer_canonical = c.creator_type == 'User' and '@'.. c.name or c.name
+			obby_developer_canonical = c.creator_type == 'User' and '@'.. source_creator_name or source_creator_name
 			end
 
 
