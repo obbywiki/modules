@@ -8,9 +8,13 @@ function p.draw(frame)
     local args = frame:getParent().args
     local target_year = args[1] or os.date("%Y")
     local current_month_name = args[2] or ""
-    
+
     local container = html.create('div')
         :addClass('ow-month-nav')
+
+    local meta = '{{DISPLAYTITLE:Obbies released in ' .. current_month_name .. ' of ' .. target_year .. '}}{{SHORTDESC:View all documented obbies on the Obby Wiki only released in ' .. current_month_name .. ' of ' .. target_year .. '}}'
+
+    local precontent = 'This category contains obbies/released (that are documented on this wiki and) that were created in \'\'\'' ..  current_month_name .. '\'\'\' of \'\'\'' .. target_year .. '\'\'\' alone.'
 
     for i, month in ipairs(months_full) do
         local count = 0
@@ -46,7 +50,7 @@ function p.draw(frame)
             :wikitext('[https://obbywiki.com/wiki/Category:' .. month .. '_' .. target_year .. ' ]')
     end
 
-    return frame:extensionTag('templatestyles', '', { src = 'Template:MonthNav/styles.css' }) .. tostring(container)
+    return frame:extensionTag('templatestyles', '', { src = 'Template:MonthNav/styles.css' }) .. frame:preprocess(meta) .. precontent .. tostring(container)
 end
 
 return p

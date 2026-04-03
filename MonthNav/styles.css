@@ -47,7 +47,7 @@
 
 .ow-month-card__count {
     font-size: 0.75rem;
-    color: var(--color-subtle, #54595d);
+    color: var(--color-base, #54595d);
 }
 
 .ow-month-card__link a {
