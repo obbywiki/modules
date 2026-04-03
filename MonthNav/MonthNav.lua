@@ -16,6 +16,11 @@ function p.draw(frame)
 
     local precontent = 'This category contains all obbies created/released (that are documented on this wiki and) that were created in \'\'\'' ..  current_month_name .. '\'\'\' of \'\'\'' .. target_year .. '\'\'\' alone.'
 
+    if not current_month_name or current_month_name == '' then
+        meta = ''
+        precontent = ''
+    end
+
     for i, month in ipairs(months_full) do
         local count = 0
 
