@@ -1,5 +1,6 @@
 -- inspired by scw
 -- uses InfoboxNeue
+-- 2
 
 -- infobox should cover all use cases like developers, community, content creators, etc.
 
