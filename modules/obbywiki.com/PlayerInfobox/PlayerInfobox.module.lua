@@ -1,6 +1,4 @@
 -- inspired by scw
--- uses InfoboxNeue
--- 3
 
 -- infobox should cover all use cases like developers, community, content creators, etc.
 
@@ -152,37 +150,9 @@ function PlayerInfobox.main( frame )
 
 	-- obby_avatar_type = string.lower(obby_avatar_type)
 
-	-- if obby_avatar_type == 'r6' then
-	-- 	obby_avatar_type = 'R6'
-	-- elseif obby_avatar_type == 'r15' then
-	-- 	obby_avatar_type = 'R15'
-	-- elseif obby_avatar_type == 'rthro' then
-	-- 	obby_avatar_type = 'Rthro'
-	-- elseif obby_maturity == 'choice' then
-	-- 	obby_avatar_type = 'Player Choice'
-	-- else
-	-- 	obby_avatar_type = 'N/A - Unknown'
-	-- end
-
 	-- local obby_tier = args.tier or '0'
 	
 	local thumb = args.image or args.thumbnail or args.thumb
-
-	--
-
-	-- local universe_id
-
-	-- local _, res = pcall(function() 
-	-- 	return mw.ext.externalData.getExternalData{
-	-- 		url = 'https://apis.roblox.com/universes/v1/places/' .. obby_starter_place_id .. '/universe',
-	-- 		format = 'json'
-	-- 	};
-	--  end)
-
-	-- universe_id = res and res.__json and res.__json.universeId
-
-
-	---
 
 	local player_user_name_raw
 
