@@ -13,5 +13,5 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.WIKIWIRE_GITHUB_TOKEN }}
         with:
-          username: Wlft@WikiWireBot
+          username: WikiWireBot@WikiWire
           password: ${{ secrets.WIKIWIRE_PASSWORD }}
