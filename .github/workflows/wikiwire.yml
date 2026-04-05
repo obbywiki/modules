@@ -10,6 +10,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: obbywiki/wikiwire@342147c44d9e813c58603bfbc8bbb1c8b82bcb78
+        env:
+            GITHUB_TOKEN: ${{ secrets.WIKIWIRE_GITHUB_TOKEN }}
         with:
           username: Wlft@WikiWireBot
           password: ${{ secrets.WIKIWIRE_PASSWORD }}
