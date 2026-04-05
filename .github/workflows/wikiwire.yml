@@ -12,7 +12,7 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
-      - uses: obbywiki/wikiwire@eebbd8610eef1ad3e8a9ed7318f9329f3017bc45
+      - uses: obbywiki/wikiwire@5ce03ebc51e86f9b887df321bef796eef49a610e
         env:
             GITHUB_TOKEN: ${{ secrets.WIKIWIRE_GITHUB_TOKEN }}
         with:
