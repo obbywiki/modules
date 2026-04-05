@@ -1,0 +1,7 @@
+version = 1
+
+[[sites]]
+id = "obbywiki.com"
+api = "https://obbywiki.com/w/api.php"
+default_branch = "main"
+css_content_model = "css"
