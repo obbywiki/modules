@@ -442,8 +442,8 @@ function PlayerInfobox.main( frame )
 	-- 	table.insert(append_categories, '[[Category:' .. parsed_month .. ']]')
 	-- end
 
-	table.insert(append_categories, '[[Category:' .. 'Group' .. ']]')
-	table.insert(append_categories, '[[Category:' .. 'Studio' .. ']]')
+	table.insert(append_categories, '[[Category:' .. 'Player' .. ']]')
+	-- table.insert(append_categories, '[[Category:' .. 'Studio' .. ']]')
 
 	PlayerInfobox.store(frame, {
 		username = player_user_name_raw,
