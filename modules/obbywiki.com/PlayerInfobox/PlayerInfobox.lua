@@ -1,6 +1,6 @@
 -- inspired by scw
 
--- should cover all use cases like developers, community, content creators, etc.
+-- infobox should cover all use cases like developers, community, content creators, etc.
 
 local PlayerInfobox = {}
 
