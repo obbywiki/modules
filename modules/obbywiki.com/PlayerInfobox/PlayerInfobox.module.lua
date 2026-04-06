@@ -79,6 +79,7 @@ local player_schema = {
 
 	display_name = "String",
 	username = "String",
+	is_verified = "Boolean",
 	user_id = "String",
 
 	total_obbies = "Integer",
@@ -128,29 +129,6 @@ function PlayerInfobox.main( frame )
 	
 	local player_current_ccu = 0 -- track users total ccu across all obbies on obby wiki TODO
 	local player_total_visits = args.visits or args.total_visits or 0
-	-- local obby_stats_peak_ccu = args.peak_ccu or 'N/A'
-	-- local obby_stats_likes = args.likes or 'N/A'
-
-	-- if tonumber(obby_stats_peak_ccu) ~= nil then
-	-- 	obby_stats_peak_ccu = get_comma_val(args.peak_ccu)
-	-- end
-
-	-- if tonumber(obby_stats_likes) ~= nil then
-	-- 	obby_stats_likes = get_comma_val(args.likes)
-	-- end
-
-    -- local obby_levels = args.levels or args.stages or 'N/A'
-	-- local obby_levels_total = args.levels_total or args.stages_total or 'N/A'
-	-- local obby_difficulties = args.difficulties or ''
-	-- local obby_difficulties_total = args.difficulties_total or nil
-	-- local obby_towers = args.towers or ''
-	-- local obby_towers_total = args.towers_total or nil
-
-	-- local obby_avatar_type = args.avatar_type or args.rig_type or 'N/A'
-
-	-- obby_avatar_type = string.lower(obby_avatar_type)
-
-	-- local obby_tier = args.tier or '0'
 	
 	local thumb = args.image or args.thumbnail or args.thumb
 
@@ -196,46 +174,6 @@ function PlayerInfobox.main( frame )
 		end
 	end
 
-	-- local s2, universe_data = pcall(function()
-	-- 	return mw.ext.externalData.getExternalData{
-	-- 		data = {
-	-- 			creator_name = 'json.data[0].creator.name',
-	-- 			creator_id   = 'json.data[0].creator.id',
-	-- 			is_verified  = 'json.data[0].creator.hasVerifiedBadge'
-	-- 		},
-	-- 		url = 'https://games.roblox.com/v1/games?universeIds=' .. universe_id,
-	-- 		format = 'json',
-	-- 	}
-	-- end)
-
-	-- if s2 and universe_data then
-	-- 	if universe_data.creator_name then
-	-- 		obby_developer = universe_data.creator.name or obby_developer
-
-	-- 		if universe_data.is_verified == 'true' or universe_data.is_verified == true then obby_developer = obby_developer .. ' [[File:Roblox_Verification_Badge.svg|12px|link=|alt=Verified]]' end
-	-- 	end
-	-- end
-
-	-- local universe
-
-	-- if universe_id then
-	-- 	local universe_data = mw.ext.externalData.getExternalData{
-	-- 		url = 'https://games.roblox.com/v1/games?universeIds=' .. universe_id
-	-- 	}
-	
-	-- 	universe = universe_data and universe_data[1]
-	
-	-- 	if universe then
-	-- 		obby_developer = universe.creator and universe.creator.name or obby_developer
-	-- 	end
-	-- end
-
-	---
-
-
-
-
-
 	--
 
     test:renderImage( thumb )
@@ -273,12 +211,6 @@ function PlayerInfobox.main( frame )
 		col = 2,
 		content = {
 			test:renderItem( 'Joined', player_creation_month .. ' ' .. player_creation_year ),
-			-- test:renderItem( 'Update Frequency', obby_update_freq ),
-			-- test:renderItem( 'Publisher', obby_publisher ),
-			-- test:renderItem( 'Genre', 'Obby & Platformer' ),
-			-- test:renderItem( 'Sub-genre', obby_subgenre ),
-			-- test:renderItem( 'Maturity', obby_maturity ),
-			-- test:renderItem( 'Obby System', obby_system ),
 		}
 	} )
 
@@ -353,44 +285,6 @@ function PlayerInfobox.main( frame )
 		}
 	} )
 
-    -- test:renderFooter( {
-	-- 	button = {
-	-- 		icon = 'GoogleMaterialIcons-Globe.svg',
-	-- 		label = 'External Links',
-	-- 		type = 'popup',
-	-- 		content = test:renderSection( {
-	-- 			content = {
-	-- 				test:renderItem( {
-	-- 					label = 'Roblox',
-	-- 					data = {test:renderLinkButton( {
-	-- 						label = 'View on Roblox',
-	-- 						link = 'https://roblox.com/games/' .. obby_starter_place_id .. '/'
-	-- 					}),
-
-	-- 					test:renderLinkButton({
-	-- 						label = 'Play on Roblox',
-	-- 						link = (obby_join_sharelink_id ~= '' and 'https://roblox.com/join/' .. obby_join_sharelink_id) or 'https://roblox.com/start?placeId=' .. obby_starter_place_id .. '&launchData=obbywiki'
-	-- 					})
-	-- 				}					
-	-- 				} ),
-
-	-- 				test:renderItem( {
-	-- 					label = 'Analytics (not affiliated)',
-	-- 					data = {test:renderLinkButton( {
-	-- 						label = 'View on RoMonitorStats',
-	-- 						link = 'https://romonitorstats.com/experience/' .. obby_starter_place_id .. '/'
-	-- 					}),
-	-- 					test:renderLinkButton( {
-	-- 						label = 'View on Rolimons',
-	-- 						link = 'https://rolimons.com/game/' .. obby_starter_place_id .. '/'
-	-- 					})
-	-- 				}					
-	-- 				} )
-	-- 			}
-	-- 		}, true )
-	-- 	}
-	-- } )
-
 	local rendered = test:renderInfobox( nil, player_user_name )
 	-- local parsed_month = month_by_index(tonumber(group_creation_year))
 
@@ -410,11 +304,12 @@ function PlayerInfobox.main( frame )
 	-- end
 
 	table.insert(append_categories, '[[Category:' .. 'Player' .. ']]')
-	-- table.insert(append_categories, '[[Category:' .. 'Studio' .. ']]')
+	-- TODO dynamically add categories for each role (e.g, Developer, Content Creator, etc.)
 
 	PlayerInfobox.store(frame, {
 		username = player_user_name_raw,
 		display_name = player_display_name,
+		is_verified = player_is_verified,
 		total_obbies = tonumber(player_total_obbies),
 		year = tonumber(player_creation_year),
 		month = tonumber(player_creation_month),
