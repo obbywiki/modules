@@ -566,7 +566,7 @@ function ObbyGameInfobox.main( frame )
 			end
 
 			if obby_wiki_edge_res.info.created and (not obby_creation_day or obby_creation_day == '') then
-				obby_creation_day = obby_wiki_edge_res.info.created and type(obby_wiki_edge_res.info.created) == 'string' and obby_wiki_edge_res.info.created ~= '' and obby_wiki_edge_res.info.created:sub(1, 4)
+				obby_creation_day = obby_wiki_edge_res.info.created and type(obby_wiki_edge_res.info.created) == 'string' and obby_wiki_edge_res.info.created ~= '' and obby_wiki_edge_res.info.created:sub(9, 10)
 			end
 
 			if obby_wiki_edge_res.info.avatar_type then
