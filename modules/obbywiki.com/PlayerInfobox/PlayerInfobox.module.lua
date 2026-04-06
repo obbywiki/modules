@@ -194,11 +194,6 @@ function PlayerInfobox.main( frame )
 			player_creation_month = month_by_index(tonumber(month))
 			player_creation_day = day
 		end
-
-		-- if row then
-		-- 	group_stats_members = row.memberCount or group_stats_members
-		-- 	if row.memberCount and tonumber(group_stats_members) ~= nil then group_stats_members = get_comma_val(group_stats_members) end
-		-- end
 	end
 
 	-- local s2, universe_data = pcall(function()
