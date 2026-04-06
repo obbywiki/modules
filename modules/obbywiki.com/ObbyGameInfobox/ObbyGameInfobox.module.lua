@@ -565,6 +565,10 @@ function ObbyGameInfobox.main( frame )
 				last_updated = obby_wiki_edge_res.info.updated -- iso, e.g., 2026-03-07T09:29:16.4508416Z
 			end
 
+			if obby_wiki_edge_res.info.created and (not obby_creation_day or obby_creation_day == '') then
+				obby_creation_day = obby_wiki_edge_res.info.created and type(obby_wiki_edge_res.info.created) == 'string' and obby_wiki_edge_res.info.created ~= '' and obby_wiki_edge_res.info.created:sub(1, 4)
+			end
+
 			if obby_wiki_edge_res.info.avatar_type then
 				if obby_wiki_edge_res.info.avatar_type == 'MorphToR6' then
 					obby_avatar_type = 'R6'
