@@ -1,5 +1,13 @@
 name: Luacheck
-on: [push, pull_request]
+on:
+  push:
+    paths:
+      - 'modules/**'
+      - 'modules/*'
+  pull_request:
+    paths:
+      - 'modules/**'
+      - 'modules/*'
 
 jobs:
   luacheck:
