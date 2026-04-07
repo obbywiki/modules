@@ -2,6 +2,7 @@
 # Learn more: https://github.com/obbywiki/wikiwire
 
 version = 1
+shared = true
 
 [[sites]]
 id = "obbywiki"
