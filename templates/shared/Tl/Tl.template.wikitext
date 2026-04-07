@@ -1,1 +1,3 @@
-{{#invoke:TemplateLink|main}}
+<noinclude>
+Usage: {{Tl|TemplateName|arg1|arg2|key=value}}
+</noinclude>{{#invoke:TemplateLink|main}}

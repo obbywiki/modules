@@ -21,11 +21,13 @@ function p.main(frame)
         if type(a) == type(b) then
             return a < b
         end
+        
         return type(a) == 'number'
     end)
 
     for _, k in ipairs(keys) do
         local v = args[k]
+
         if type(k) == 'number' then
             result = result .. '&#124;' .. v
         else
