@@ -1,0 +1,4 @@
+<includeonly>{{#invoke:PlayerInfobox|main}}</includeonly><noinclude>
+<!-- declare cargo table only on template page -->
+{{#invoke:PlayerInfobox|declare}}
+</noinclude>
