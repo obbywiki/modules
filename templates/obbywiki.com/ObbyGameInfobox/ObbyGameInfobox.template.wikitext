@@ -327,6 +327,44 @@ The config reference of this template is provided below. This reference is also 
 				"12"
 			],
 			"default": "0"
+		},
+		"day": {
+			"label": "Release Day",
+			"description": "The day the obby was released on. Will be filled with creation date if invalid.",
+			"type": "number",
+			"suggestedvalues": [
+				"1",
+				"2",
+				"3",
+				"4",
+				"5",
+				"6",
+				"7",
+				"8",
+				"9",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15",
+				"16",
+				"17",
+				"18",
+				"19",
+				"20",
+				"21",
+				"22",
+				"23",
+				"24",
+				"25",
+				"26",
+				"27",
+				"28",
+				"29",
+				"30",
+				"31"
+			]
 		}
 	},
 	"paramOrder": [
@@ -368,7 +406,8 @@ The config reference of this template is provided below. This reference is also 
 		"tablet",
 		"phone",
 		"vr",
-		"console"
+		"console",
+		"day"
 	],
 	"description": "The main infobox for an obby game page. Fetches live information and the correct universe ID automatically based on the root/start place ID provided. Requires `name`, `image`, and `root_place_id`."
 }
