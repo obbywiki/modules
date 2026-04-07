@@ -689,7 +689,7 @@ function ObbyGameInfobox.main( frame )
 			test:renderItem( i18n:get('field_latest_update'), last_updated_month .. ' ' .. last_updated_year ),
 			test:renderItem( i18n:get('field_publisher'), obby_publisher ),
 			test:renderItem( i18n:get('field_maturity'), obby_maturity ),
-			test:renderItem( i18n:get('field_genre'), i18n:get('genre_obby') ),
+			test:renderItem( i18n:get('field_genre'), '[[Obby|' .. i18n:get('genre_obby') .. ']]' ),
 			test:renderItem( i18n:get('field_sub_genre'), page_exists(obby_subgenre) and '[[' .. obby_subgenre .. ']]' or obby_subgenre ),
 			obby_system ~= 'NA' and test:renderItem( i18n:get('field_obby_system'), obby_system ) or '',
 			test:renderItem( i18n:get('field_ai_content'), ai_disclosure_text ),
