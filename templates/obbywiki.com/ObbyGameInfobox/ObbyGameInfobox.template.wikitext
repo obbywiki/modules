@@ -2,7 +2,7 @@
 <!-- declare cargo table only on template page -->
 {{#invoke:ObbyGameInfobox|declare}}
 </noinclude><noinclude>
-<code>{{Tl|ObbyGameInfobox}}</code> is a large and complex template (which invokes [[Module:ObbyGameInfobox]]). Please refer to the below documentation about how each parameter is used.
+{{Tl|ObbyGameInfobox}} is a large and complex template (which invokes [[Module:ObbyGameInfobox]]). Please refer to the below documentation about how each parameter is used.
 
 Please note that only the <code>root_place_id</code> and <code>name</code> parameters are truly required for an ideal template. Most information is automatically fetched based on the place id. The root place id should be the number/id in the url when you open the game.
 
