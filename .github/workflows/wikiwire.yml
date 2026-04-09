@@ -36,6 +36,8 @@ jobs:
         run: |
           set -euo pipefail
 
+          POLYFILL="table.find=table.find or function(t,v,i) for j=i or 1,#t do if t[j]==v then return j end end end; table.clear=table.clear or function(t) for k in pairs(t) do t[k]=nil end end; table.create=table.create or function(n,v) local t={} for i=1,n do t[i]=v end return t end;"
+
           if [[ -z "${BEFORE:-}" || "${BEFORE}" =~ ^0+$ ]]; then
             changed_files="$(git show --name-only --pretty=format: "${AFTER}")"
           else
@@ -51,6 +53,8 @@ jobs:
             mkdir -p "$(dirname "$out_path")"
 
             ./darklua process --config .darklua.json5 "$path" "$out_path"
+            echo -e "$POLYFILL\n$(cat "$out_path")" > "$out_path"
+          
           done <<< "$changed_files"
 
       - name: Fail if outputs were not committed
