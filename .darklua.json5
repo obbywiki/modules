@@ -17,9 +17,7 @@
     "remove_comments",
     {
       "rule": "append_text_comment",
-      "comments": [
-        "This file was minified and transpiled by DarkLua. View the original source code in our shared code repository at https://github.com/obbywiki/modules, as well as any imports and disclosures. A copyright notice should be supplied at the bottom of this page."
-      ]
+      "text": "This file was minified and transpiled by DarkLua. View the original source code in our shared code repository at https://github.com/obbywiki/modules, as well as any imports and disclosures. A copyright notice should be supplied at the bottom of this page."
     }
   ]
 }
