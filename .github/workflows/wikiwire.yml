@@ -56,12 +56,6 @@ jobs:
       - name: Fail if outputs were not committed
         run: git diff --exit-code
 
-      - name: WikiWire uploads Darklua .lua only (not Luau sources)
-        shell: bash
-        run: |
-          touch .wikiwireignore
-          grep -qxF '**/*.module.luau' .wikiwireignore || echo '**/*.module.luau' >> .wikiwireignore
-
       - uses: obbywiki/wikiwire@4989b61661fdd188479c7f2283b9ddde25337efa
         env:
           GITHUB_TOKEN: ${{ secrets.WIKIWIRE_GITHUB_TOKEN }}
