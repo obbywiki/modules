@@ -13,9 +13,8 @@
     "remove_compound_assignment",
     "remove_if_expression",
     "convert_luau_number",
-    "remove_unused_variables",
+    "remove_unused_variable",
     "remove_comments",
-    "remove_attribute",
     {
       "rule": "append_text_comment",
       "comments": [
