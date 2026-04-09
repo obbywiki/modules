@@ -62,7 +62,7 @@ jobs:
           touch .wikiwireignore
           grep -qxF '**/*.module.luau' .wikiwireignore || echo '**/*.module.luau' >> .wikiwireignore
 
-      - uses: obbywiki/wikiwire@1afa3c89890ba386bf2e34247d4ad0c5ba20fcb8
+      - uses: obbywiki/wikiwire@4989b61661fdd188479c7f2283b9ddde25337efa
         env:
           GITHUB_TOKEN: ${{ secrets.WIKIWIRE_GITHUB_TOKEN }}
         with:
