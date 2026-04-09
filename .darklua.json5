@@ -7,11 +7,10 @@
     "require_mode": {
       "name": "path",
       "sources": {
-        "Module:InfoboxNeue": "./",
-        "Module:Arguments": "./"
+        "Module": "./modules"
       }
     },
-    "excludes": ["Module:Arguments","Module:InfoboxNeue"]
+    "excludes": ["Module?*"]
   },
   "rules": [
     "remove_types",
