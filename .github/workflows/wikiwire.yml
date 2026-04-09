@@ -38,7 +38,7 @@ jobs:
             out_path="${path%.module.luau}.module.lua"
             mkdir -p "$(dirname "$out_path")"
 
-            darklua process --config .darklua.json5 "$path" "$out_path"
+            ./darklua process --config .darklua.json5 "$path" "$out_path"
           done <<< "$changed_files"
 
       - name: Fail if outputs were not committed
