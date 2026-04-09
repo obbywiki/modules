@@ -57,4 +57,4 @@ jobs:
         with:
           username: WikiWireBot@WikiWire
           password: ${{ secrets.WIKIWIRE_PASSWORD }}
-          dark_lua_compat: true
+          dark_lua_compat: "false"
