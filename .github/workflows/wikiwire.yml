@@ -1,0 +1,54 @@
+name: WikiWire
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'modules/**'
+      - 'modules/*'
+      - 'templates/**'
+      - 'templates/*'
+
+jobs:
+  darklua_check:
+    name: Verify Darklua outputs are up-to-date
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Darklua
+        run: cargo install darklua
+
+      - name: Regenerate Lua outputs for changed Luau modules
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          changed_files="$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}")"
+          while IFS= read -r path; do
+            [[ "$path" == modules/**/*.module.luau ]] || continue
+
+            out_path="${path%.module.luau}.module.lua"
+            mkdir -p "$(dirname "$out_path")"
+
+            darklua process --config darklua.json5 "$path" -o "$out_path"
+          done <<< "$changed_files"
+
+      - name: Fail if outputs were not committed
+        run: git diff --exit-code
+  wikiwire:
+    runs-on: ubuntu-latest
+    name: Sync files to production MediaWiki
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: obbywiki/wikiwire@f433355468e35c800ee0f1c1a978c17012a8ac6f
+        env:
+            GITHUB_TOKEN: ${{ secrets.WIKIWIRE_GITHUB_TOKEN }}
+        with:
+          username: WikiWireBot@WikiWire
+          password: ${{ secrets.WIKIWIRE_PASSWORD }}
+          dark_lua_compat: true

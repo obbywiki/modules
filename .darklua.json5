@@ -14,6 +14,12 @@
     "convert_luau_number",
     "remove_unused_variables",
     "remove_comments",
-    "remove_attribute"
+    "remove_attribute",
+    {
+      "rule": "append_text_comment",
+      "comments": [
+        "This file was minified and transpiled by DarkLua. View the original source code in our shared code repository at https://github.com/obbywiki/modules, as well as any imports and disclosures. A copyright notice should be supplied at the bottom of this page."
+      ]
+    }
   ]
 }
