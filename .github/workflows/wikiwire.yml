@@ -21,7 +21,10 @@ jobs:
           fetch-depth: 0
 
       - name: Install Darklua
-        run: cargo install darklua
+        run: |
+          wget https://github.com/seaofvoices/darklua/releases/download/v0.15.0/darklua-linux-x86_64.zip
+          unzip darklua-linux-x86_64.zip
+          chmod +x darklua
 
       - name: Regenerate Lua outputs for changed Luau modules
         shell: bash
@@ -35,7 +38,7 @@ jobs:
             out_path="${path%.module.luau}.module.lua"
             mkdir -p "$(dirname "$out_path")"
 
-            darklua process --config darklua.json5 "$path" "$out_path"
+            darklua process --config .darklua.json5 "$path" "$out_path"
           done <<< "$changed_files"
 
       - name: Fail if outputs were not committed
