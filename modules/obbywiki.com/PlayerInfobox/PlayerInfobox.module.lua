@@ -123,6 +123,23 @@ function PlayerInfobox.main( frame )
     local player_user_id = args.user_id or args.id or 1
 
 	local player_total_obbies = args.obbies or args.games or 0
+
+	local player_roles = args.roles or args.known_for or 'player'
+	-- player,developer,content-creator
+
+	player_roles = string.lower(player_roles)
+
+	local roles = {}
+
+	for _, v in pairs(mw.text.split(player_roles, ',')) do
+		if table.find({'player','developer','content-creator'}, v) then
+			table.insert(roles, v)
+		else
+			if v == 'influencer' then
+				table.insert(roles, 'content-creator')
+			end
+		end
+	end
 	
     local player_creation_year, player_creation_month, player_creation_day
 	local player_is_verified = false
