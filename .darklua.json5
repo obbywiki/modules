@@ -13,16 +13,12 @@
     "excludes": ["Module?*"]
   },
   "rules": [
-    {
-      "rule": "append_text_comment",
-      "text": "This file was minified and transpiled by DarkLua. View the original source code in our shared code repository at https://github.com/obbywiki/modules, as well as any imports and disclosures. A copyright notice should be supplied at the bottom of this page."
-    },
     "remove_comments",
     "remove_types",
     "remove_interpolated_string",
     "remove_compound_assignment",
     "remove_if_expression",
     "convert_luau_number",
-    "remove_unused_variable",
+    "remove_unused_variable"
   ]
 }
