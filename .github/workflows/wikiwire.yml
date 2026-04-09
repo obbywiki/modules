@@ -51,7 +51,7 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
-      - uses: obbywiki/wikiwire@f433355468e35c800ee0f1c1a978c17012a8ac6f
+      - uses: obbywiki/wikiwire@1afa3c89890ba386bf2e34247d4ad0c5ba20fcb8
         env:
             GITHUB_TOKEN: ${{ secrets.WIKIWIRE_GITHUB_TOKEN }}
         with:
