@@ -17,6 +17,8 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install Darklua
         run: cargo install darklua
@@ -41,6 +43,7 @@ jobs:
   wikiwire:
     runs-on: ubuntu-latest
     name: Sync files to production MediaWiki
+    needs: [darklua_check]
     permissions:
       contents: read
     steps:
