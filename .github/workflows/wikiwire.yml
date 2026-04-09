@@ -22,7 +22,7 @@ jobs:
 
       - name: Install Darklua
         run: |
-          wget https://github.com/seaofvoices/darklua/releases/download/v0.15.0/darklua-linux-x86_64.zip
+          wget https://github.com/seaofvoices/darklua/releases/download/v0.18.0/darklua-linux-x86_64.zip
           unzip darklua-linux-x86_64.zip
           chmod +x darklua
 
