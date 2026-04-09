@@ -131,7 +131,7 @@ function PlayerInfobox.main( frame )
 
 	local roles = {}
 
-	for _, v in pairs(mw.text.split(player_roles, ',')) do
+	for _, v in pairs(string.split(player_roles, ',')) do
 		if table.find({'player','developer','content-creator'}, v) then
 			table.insert(roles, v)
 		else
