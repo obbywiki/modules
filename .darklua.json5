@@ -1,0 +1,19 @@
+{
+  "generator": {
+    "column_span": 80
+  },
+  "bundle": {
+    "require_mode": "path",
+    "excludes": ["Module:*"]
+  },
+  "rules": [
+    "remove_types",
+    "remove_interpolated_string",
+    "remove_compound_assignment",
+    "remove_if_expression",
+    "convert_luau_number",
+    "remove_unused_variables",
+    "remove_comments",
+    "remove_attribute"
+  ]
+}

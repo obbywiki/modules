@@ -108,7 +108,6 @@ function PlayerInfobox.store(frame, data)
 	return frame:callParserFunction{ name = '#cargo_store', args = store_args }
 end
 
-
 function PlayerInfobox.main( frame )
     local InfoboxNeue = require( 'Module:InfoboxNeue' )
 
