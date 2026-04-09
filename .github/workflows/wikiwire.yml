@@ -20,22 +20,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-            fetch-depth: 0
+          fetch-depth: 0
 
       - name: Install Darklua
         run: |
-          wget https://github.com/seaofvoices/darklua/releases/download/v0.18.0/darklua-linux-x86_64.zip
-          unzip darklua-linux-x86_64.zip
+          wget -q https://github.com/seaofvoices/darklua/releases/download/v0.18.0/darklua-linux-x86_64.zip
+          unzip -q darklua-linux-x86_64.zip
           chmod +x darklua
 
       - name: Regenerate Lua outputs for changed Luau modules
         shell: bash
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
         run: |
           set -euo pipefail
 
-          changed_files="$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}")"
+          if [[ -z "${BEFORE:-}" || "${BEFORE}" =~ ^0+$ ]]; then
+            changed_files="$(git show --name-only --pretty=format: "${AFTER}")"
+          else
+            changed_files="$(git diff --name-only "${BEFORE}" "${AFTER}")"
+          fi
+
           while IFS= read -r path; do
-            [[ "$path" == modules/**/*.module.luau ]] || continue
+            [[ -n "$path" ]] || continue
+            [[ "$path" == modules/* ]] || continue
+            [[ "$path" =~ \.module\.luau$ ]] || continue
 
             out_path="${path%.module.luau}.module.lua"
             mkdir -p "$(dirname "$out_path")"
@@ -46,9 +56,15 @@ jobs:
       - name: Fail if outputs were not committed
         run: git diff --exit-code
 
+      - name: WikiWire uploads Darklua .lua only (not Luau sources)
+        shell: bash
+        run: |
+          touch .wikiwireignore
+          grep -qxF '**/*.module.luau' .wikiwireignore || echo '**/*.module.luau' >> .wikiwireignore
+
       - uses: obbywiki/wikiwire@1afa3c89890ba386bf2e34247d4ad0c5ba20fcb8
         env:
-            GITHUB_TOKEN: ${{ secrets.WIKIWIRE_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.WIKIWIRE_GITHUB_TOKEN }}
         with:
           username: WikiWireBot@WikiWire
           password: ${{ secrets.WIKIWIRE_PASSWORD }}
