@@ -1,10 +1,15 @@
 {
   "generator": {
-    "name": "retain_lines",
+    "name": "readable",
     "column_span": 80
   },
   "bundle": {
-    "require_mode": {"name": "path"},
+    "require_mode": {
+      "name": "path",
+      "sources": {
+        "Module:": "./"
+      }
+    },
     "excludes": ["Module:*"]
   },
   "rules": [
