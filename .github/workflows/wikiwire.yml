@@ -10,15 +10,17 @@ on:
       - 'templates/*'
 
 jobs:
-  darklua_check:
-    name: Verify Darklua outputs are up-to-date
+  wikiwire:
     runs-on: ubuntu-latest
+    name: Sync files to production MediaWiki
+
     permissions:
       contents: read
+
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+            fetch-depth: 0
 
       - name: Install Darklua
         run: |
@@ -43,14 +45,7 @@ jobs:
 
       - name: Fail if outputs were not committed
         run: git diff --exit-code
-  wikiwire:
-    runs-on: ubuntu-latest
-    name: Sync files to production MediaWiki
-    needs: [darklua_check]
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@v4
+
       - uses: obbywiki/wikiwire@1afa3c89890ba386bf2e34247d4ad0c5ba20fcb8
         env:
             GITHUB_TOKEN: ${{ secrets.WIKIWIRE_GITHUB_TOKEN }}
