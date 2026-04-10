@@ -26,11 +26,9 @@ try {
 
   // nesting and bracket errors
 
-  content = content.replace(/\[\[([\s\S]*?)\]\]/g, (match, p1) => {
-    if (p1.includes('[')) {
-      return `[=[${p1}]=]`;
-    }
-    return match;
+  const filtered_content = content.replace(/\[(=*)\[([\s\S]*?)\]\1\]/g, (match, equals, inner) => {
+    const new_equals = equals + '=';
+    return `[${new_equals}[${inner}]${new_equals}]`;
   });
 
 
@@ -40,7 +38,7 @@ try {
   let injections = [];
 
   for (const [key, code] of Object.entries(POLYFILL_MAP)) {
-    if (content.includes(key)) {
+    if (filtered_content.includes(key)) {
       injections.push(code);
     }
   }
@@ -51,7 +49,7 @@ try {
     output += injections.join(';') + ';\n';
   }
   
-  output += content;
+  output += filtered_content;
 
   fs.writeFileSync(file_path, output);
 
