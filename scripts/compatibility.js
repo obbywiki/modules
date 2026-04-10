@@ -6,7 +6,7 @@ const target_file = process.argv[2];
 
 if (!target_file) process.exit(1);
 
-const compat_dir = path.join(__dirname, 'scripts', 'compat');
+const compat_dir = path.join(__dirname, 'compat');
 
 if (!fs.existsSync(compat_dir)) {
   console.error(`Error: Compatibility directory not found.`);
