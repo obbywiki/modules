@@ -23,6 +23,20 @@ const POLYFILL_MAP = {
 
 try {
   let content = fs.readFileSync(file_path, 'utf8');
+
+  // nesting and bracket errors
+
+  content = content.replace(/\[\[([\s\S]*?)\]\]/g, (match, p1) => {
+    if (p1.includes('[')) {
+      return `[=[${p1}]=]`;
+    }
+    return match;
+  });
+
+
+  // polyfill injections
+
+
   let injections = [];
 
   for (const [key, code] of Object.entries(POLYFILL_MAP)) {
@@ -40,6 +54,8 @@ try {
   output += content;
 
   fs.writeFileSync(file_path, output);
+
+  console.log("::debug::File contents for", file_path, "after polyfills:", output);
   
   console.log(`Processed ${file_path} successfully. Around ${injections.length} polyfills injected.`);
 } catch (err) {

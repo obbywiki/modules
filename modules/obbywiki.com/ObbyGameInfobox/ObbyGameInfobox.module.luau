@@ -1,4 +1,5 @@
 -- inspired by scw
+-- 2
 
 local ObbyGameInfobox = {}
 
