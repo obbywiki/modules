@@ -1,4 +1,5 @@
 {{ImportantModule}}
+{{SharedModule}}
 
 Please refer to any documentation for the Player Infobox template at: https://obbywiki.com/wiki/Template:PlayerInfobox.
 
