@@ -24,21 +24,13 @@ const POLYFILL_MAP = {
 try {
   let content = fs.readFileSync(file_path, 'utf8');
 
-  // nesting and bracket errors
-
-  const filtered_content = content.replace(/\[(=*)\[([\s\S]*?)\]\1\]/g, (match, equals, inner) => {
-    const new_equals = equals + '=';
-    return `[${new_equals}[${inner}]${new_equals}]`;
-  });
-
-
   // polyfill injections
 
 
   let injections = [];
 
   for (const [key, code] of Object.entries(POLYFILL_MAP)) {
-    if (filtered_content.includes(key)) {
+    if (content.includes(key)) {
       injections.push(code);
     }
   }
@@ -49,7 +41,7 @@ try {
     output += injections.join(';') + ';\n';
   }
   
-  output += filtered_content;
+  output += content;
 
   fs.writeFileSync(file_path, output);
 
