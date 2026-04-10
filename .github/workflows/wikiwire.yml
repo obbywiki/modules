@@ -52,7 +52,7 @@ jobs:
 
             ./darklua process --config .darklua.json5 "$path" "$out_path"
             node scripts/polyfill.js "$out_path"
-            node compatibility.js "$out_path"
+            node scripts/compatibility.js "$out_path"
           done <<< "$changed_files"
 
       - name: Fail if outputs were not committed
