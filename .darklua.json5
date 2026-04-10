@@ -1,6 +1,6 @@
 {
   "generator": {
-    "name": "dense",
+    "name": "retain_lines",
     "column_span": 999999
   },
   "bundle": {

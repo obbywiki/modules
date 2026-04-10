@@ -11,8 +11,6 @@ const HEADER = [
   '',
   '-- Uploaded automatically via WikiWire. View the original source at our central code repository: https://github.com/obbywiki/modules',
   '-- ANY EDITS WILL LIKELY BE OVERWRITTEN. A copyright notice should be supplied at the bottom of this page.',
-  '',
-  '',
 ].join('\n');
 
 const POLYFILL_MAP = {
@@ -33,7 +31,7 @@ try {
     }
   }
 
-  let output = HEADER;
+  let output = HEADER + '\n\n';
   
   if (injections.length > 0) {
     output += injections.join(';') + ';\n';

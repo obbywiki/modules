@@ -124,6 +124,7 @@ function ObbyGameInfobox.declare(frame)
     return frame:callParserFunction{ name = '#cargo_declare', args = declare_args }
 end
 
+-- sets the actual cargo data
 function ObbyGameInfobox.store(frame, data, debug_mode)
 	local store_args = {}
 
