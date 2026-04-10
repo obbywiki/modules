@@ -58,7 +58,7 @@ jobs:
             ./darklua process --config .darklua.json5 "$path" "$out_path"
 
             cp "$out_path" "$out_path.raw"
-            lua -p "$out_path.raw"
+            lua "$out_path.raw"
 
             node scripts/polyfill.js "$out_path"
             node scripts/compatibility.js "$out_path"
