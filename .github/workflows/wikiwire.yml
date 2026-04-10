@@ -28,6 +28,11 @@ jobs:
           unzip -q darklua-linux-x86_64.zip
           chmod +x darklua
 
+      - name: Setup Lua 5.1
+        uses: leafo/gh-actions-lua@v12
+        with:
+          luaVersion: "5.1.5"
+
       - name: Regenerate Lua outputs for changed Luau modules
         shell: bash
         env:
@@ -51,6 +56,10 @@ jobs:
             mkdir -p "$(dirname "$out_path")"
 
             ./darklua process --config .darklua.json5 "$path" "$out_path"
+
+            cp "$out_path" "$out_path.raw"
+            lua -p "$out_path.raw"
+
             node scripts/polyfill.js "$out_path"
             node scripts/compatibility.js "$out_path"
           done <<< "$changed_files"
