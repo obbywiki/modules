@@ -19,7 +19,7 @@ end
 
 local function get_comma_val(num)
 	local formatted = num
-	while true do  
+	while true do
 		local k;
 
 		formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
