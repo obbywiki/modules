@@ -289,7 +289,7 @@ function ObbyGameInfobox.main( frame )
 	end
 
 	if tonumber(obby_stats_dislikes) ~= nil then
-		obby_stats_dislikes = tonumber(args.dislikes)
+		obby_stats_dislikes = tonumber(args.dislikes) or 0
 	else
 		obby_stats_dislikes = 0
 	end
@@ -525,7 +525,7 @@ function ObbyGameInfobox.main( frame )
 
 		if obby_wiki_edge_res.up_votes and obby_wiki_edge_res.down_votes then
 			obby_stats_likes = obby_wiki_edge_res.up_votes
-			obby_stats_dislikes = obby_wiki_edge_res.down_votes
+			obby_stats_dislikes = obby_wiki_edge_res.down_votes or 0
 		end
 
 		if obby_wiki_edge_res.info then
