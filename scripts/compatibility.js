@@ -15,10 +15,10 @@ if (!fs.existsSync(compat_dir)) {
 
 const scripts = fs
   .readdirSync(compat_dir)
-  .filter((file) => file.endsWith('.js'));
+  .filter((file) => { return file.endsWith('.js') || file.endsWith('.py') });
 
 if (scripts.length === 0) {
-  console.log('No compatibility scripts enabled. None were run.');
+  console.log('No post-transpilation compatibility scripts enabled. None were run.');
   process.exit(0);
 }
 
@@ -28,12 +28,16 @@ scripts.forEach((script) => {
   const scriptPath = path.join(compat_dir, script);
   console.log(`\n[Running]: ${script}`);
 
+  const exec = script.endsWith('.js') ? 'node' : 'python3'
+
   try {
-    execSync(`node "${scriptPath}" "${target_file}"`, { stdio: 'inherit' });
+    execSync(`${exec} "${scriptPath}" "${target_file}"`, { stdio: 'inherit' });
   } catch (err) {
     console.error(`\n[Failed]: ${script} encountered an error.`);
     process.exit(1);
   }
+
+  console.log(`\n[Success]: ${script} ran with no errors.`)
 });
 
-console.log('Compatibility checks passed successfully.');
+console.log('All post-transpilation compatibility checks passed successfully.');
