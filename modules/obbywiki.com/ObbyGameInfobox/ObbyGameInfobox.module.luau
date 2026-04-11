@@ -359,12 +359,12 @@ function ObbyGameInfobox.main( frame )
 	-- 		obby_developer_raw = obby_developer -- TODO remove
 
 	-- 		if page_exists(c.type == 'Group' and c.name or '@' .. c.name) then
-	-- 			obby_developer = '[[' .. c.name .. ']]' .. (c.hasVerifiedBadge and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=' .. obby_developer_raw .. ']]' or '')
+	-- 			obby_developer = '\[\[' .. c.name .. '\]\]' .. (c.hasVerifiedBadge and ' \[\[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=' .. obby_developer_raw .. '\]\]' or '')
 	-- 		else
 	-- 			obby_developer = string.format(
 	-- 				'[https://roblox.com/%s/%s/%s %s%s]',
 	-- 				base, c.id, base == 'communities' and (string.gsub(c.name, ' ', '_') .. '#!/about') or 'profile', (c.type == 'User' and '@' or '') .. c.name,
-	-- 				(c.hasVerifiedBadge and '  [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]') or ''
+	-- 				(c.hasVerifiedBadge and '  \[\[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=\]\]') or ''
 	-- 			)
 
 	-- 			obby_developer_was_corrected = true
@@ -476,7 +476,7 @@ function ObbyGameInfobox.main( frame )
 	-- 	if universe_data.creator_name then
 	-- 		obby_developer = universe_data.creator.name or obby_developer
 
-	-- 		if universe_data.is_verified == 'true' or universe_data.is_verified == true then obby_developer = obby_developer .. ' [[File:Roblox_Verification_Badge.svg|12px|link=|alt=Verified]]' end
+	-- 		if universe_data.is_verified == 'true' or universe_data.is_verified == true then obby_developer = obby_developer .. ' \[\[File:Roblox_Verification_Badge.svg|12px|link=|alt=Verified\]\]' end
 	-- 	end
 	-- end
 
@@ -542,12 +542,12 @@ function ObbyGameInfobox.main( frame )
 				end
 
 				if page_exists(c.creator_type == 'Group' and source_creator_name or '@' .. source_creator_name) then
-					obby_developer = '[[' .. source_creator_name .. ']]' .. (c.is_verified and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=' .. obby_developer_raw .. ']]' or '')
+					obby_developer = '\[\[' .. source_creator_name .. '\]\]' .. (c.is_verified and ' \[\[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=' .. obby_developer_raw .. '\]\]' or '')
 				else
 					obby_developer = string.format(
 						'[https://roblox.com/%s/%s/%s %s%s]',
 						base, c.id, base == 'communities' and (string.gsub(source_creator_name, ' ', '_') .. '#!/about') or 'profile', (c.creator_type == 'User' and '@' or '') .. source_creator_name,
-						(c.is_verified and '  [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]') or ''
+						(c.is_verified and '  \[\[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=\]\]') or ''
 					)
 
 				obby_developer_was_corrected = true
@@ -651,7 +651,7 @@ function ObbyGameInfobox.main( frame )
 			(obby_levels ~= 'N/A' or obby_obbies ~= 'N/A') and test:renderItem( use_stages and i18n:get('field_checkpoints') or i18n:get('field_obbies'), use_stages and format_with_total(obby_levels, obby_levels_total) or obby_obbies) or '',
 			test:renderItem( i18n:get('field_difficulties'), format_with_total(obby_difficulties, obby_difficulties_total)),
 			test:renderItem( i18n:get('field_towers'), format_with_total(obby_towers, obby_towers_total)),
-			test:renderItem( i18n:get('field_tier'), '[[Tiers|'.. (obby_tier == '0' and '0 - Unrated/Unknown' or obby_tier).. ']]' ),
+			test:renderItem( i18n:get('field_tier'), '\[\[Tiers|'.. (obby_tier == '0' and '0 - Unrated/Unknown' or obby_tier).. '\]\]' ),
 			test:renderItem( i18n:get('field_avatar_type'), obby_avatar_type )
 		}
 	} )
@@ -662,7 +662,7 @@ function ObbyGameInfobox.main( frame )
 		content = {
 			test:renderItem( i18n:get('field_visits'), obby_stats_visits .. '+' .. ' <ref name="statistics_data">The Obby Wiki automatically sources live statistics directly from Roblox\'s database. See [https://roblox.com/games/' .. obby_starter_place_id .. '/ {{PAGENAME}} on Roblox] for more information. Statistics last retrieved at: ' .. data_last_fetched .. ' UTC.</ref>'),
 			test:renderItem( i18n:get('field_peak_ccu'), '{{#simple-tooltip: ' .. (obby_stats_peak_ccu .. '+') .. ' | ' .. i18n:get('tooltip_peak_ccu') .. ' }}' ),
-			test:renderItem( i18n:get('field_rating'), (obby_stats_likes + obby_stats_dislikes) > 0 and (math.floor((obby_stats_likes / (obby_stats_likes + obby_stats_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Verified|link=]] ' .. get_comma_val(tostring(obby_stats_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Verified|link=]] ' .. get_comma_val(tostring(obby_stats_dislikes)) .. ')' or i18n:get('label_na')),
+			test:renderItem( i18n:get('field_rating'), (obby_stats_likes + obby_stats_dislikes) > 0 and (math.floor((obby_stats_likes / (obby_stats_likes + obby_stats_dislikes)) * 1000) / 10) .. '% ( \[\[File:Likes.svg|12px|alt=Verified|link=\]\] ' .. get_comma_val(tostring(obby_stats_likes)) .. ' &nbsp; \[\[File:Dislikes.svg|12px|alt=Verified|link=\]\] ' .. get_comma_val(tostring(obby_stats_dislikes)) .. ')' or i18n:get('label_na')),
 			test:renderItem( i18n:get('field_favorites'), (obby_stats_favorites or 'N/A') .. '+ <ref name="statistics_data" />' ),
 		}
 	} )
@@ -686,12 +686,12 @@ function ObbyGameInfobox.main( frame )
 		title = i18n:get('section_publishing'),
 		col = 2,
 		content = {
-			test:renderItem( i18n:get('field_released'), '[[:Category:' .. full_my .. '|' .. full_my .. ']]' ),
+			test:renderItem( i18n:get('field_released'), '\[\[:Category:' .. full_my .. '|' .. full_my .. '\]\]' ),
 			test:renderItem( i18n:get('field_latest_update'), last_updated_month .. ' ' .. last_updated_year ),
 			test:renderItem( i18n:get('field_publisher'), obby_publisher ),
 			test:renderItem( i18n:get('field_maturity'), obby_maturity ),
-			test:renderItem( i18n:get('field_genre'), '[[Obby|' .. i18n:get('genre_obby') .. ']]' ),
-			test:renderItem( i18n:get('field_sub_genre'), page_exists(obby_subgenre) and '[[' .. obby_subgenre .. ']]' or obby_subgenre ),
+			test:renderItem( i18n:get('field_genre'), '\[\[Obby|' .. i18n:get('genre_obby') .. '\]\]' ),
+			test:renderItem( i18n:get('field_sub_genre'), page_exists(obby_subgenre) and '\[\[' .. obby_subgenre .. '\]\]' or obby_subgenre ),
 			obby_system ~= 'NA' and test:renderItem( i18n:get('field_obby_system'), obby_system ) or '',
 			test:renderItem( i18n:get('field_ai_content'), ai_disclosure_text ),
 		}
@@ -706,7 +706,7 @@ function ObbyGameInfobox.main( frame )
 			local full_url = v.url .. handle
 
 			local wikitext = string.format(
-				'[%s [[File:%s|24px|link=|alt=%s|class=social-icon %s-social-icon]]]',
+				'[%s \[\[File:%s|24px|link=|alt=%s|class=social-icon %s-social-icon\]\]]',
 				full_url,
 				v.icon,
 				v.display .. ' icon',
@@ -720,7 +720,7 @@ function ObbyGameInfobox.main( frame )
 	for _, i in pairs({'pc','tablet','phone','console','vr'}) do
 		if args[i] then
 			local wikitext = string.format(
-				'[[File:%s|24px|alt=%s|class=platform-icon|link=]]',
+				'\[\[File:%s|24px|alt=%s|class=platform-icon|link=\]\]',
 				(
 					i == 'pc' and
 						'Platform Computer White Small.png'
@@ -786,7 +786,7 @@ function ObbyGameInfobox.main( frame )
 				{
 					label = i18n:get('field_status'),
 					plainlinks_enabled = true,
-					data = obby_verified_status == 'verified' and '[[File:Verified-check-green-96.webp|36px|alt=Verified|link=]]' or (obby_verified_status == 'unstable' or obby_verified_status == 'broken' or obby_verified_status == 'does_not_load') and '[[File:Verified-dash-red-72.webp|36px|alt=Unstable|link=]]' or obby_verified_status == 'unknown' and '[[File:Verified-dash-orange-72.webp|36px|alt=Unknown|link=]]'
+					data = obby_verified_status == 'verified' and '\[\[File:Verified-check-green-96.webp|36px|alt=Verified|link=\]\]' or (obby_verified_status == 'unstable' or obby_verified_status == 'broken' or obby_verified_status == 'does_not_load') and '\[\[File:Verified-dash-red-72.webp|36px|alt=Unstable|link=\]\]' or obby_verified_status == 'unknown' and '\[\[File:Verified-dash-orange-72.webp|36px|alt=Unknown|link=\]\]'
 				}
 			),
 			test:renderItem(
@@ -875,19 +875,19 @@ function ObbyGameInfobox.main( frame )
 	local append_categories = {}
 
 	if tonumber(obby_creation_year) >= 2008 and tonumber(obby_creation_year) <= os.date('*t').year+2 then
-		table.insert(append_categories, '[[Category:' .. tostring(obby_creation_year) .. ']]')
+		table.insert(append_categories, '\[\[Category:' .. tostring(obby_creation_year) .. '\]\]')
 		
 		if parsed_month ~= 'N/A' then
-			table.insert(append_categories, '[[Category:' .. parsed_month .. ' ' .. tostring(obby_creation_year) .. ']]')
+			table.insert(append_categories, '\[\[Category:' .. parsed_month .. ' ' .. tostring(obby_creation_year) .. '\]\]')
 		end
 	end
 
 	if parsed_month ~= 'N/A' then
-		table.insert(append_categories, '[[Category:' .. parsed_month .. ']]')
+		table.insert(append_categories, '\[\[Category:' .. parsed_month .. '\]\]')
 	end
 
 	if obby_subgenre then
-		table.insert(append_categories, '[[Category:' .. obby_subgenre .. ']]')
+		table.insert(append_categories, '\[\[Category:' .. obby_subgenre .. '\]\]')
 	end
 
 	if not obby_stats_visits_raw then
@@ -895,22 +895,22 @@ function ObbyGameInfobox.main( frame )
 	end
 
 	if obby_stats_visits_raw < 5000 then
-		table.insert(append_categories, '[[Category:' .. '0-5%2C000_visits' .. ']]')
+		table.insert(append_categories, '\[\[Category:' .. '0-5%2C000_visits' .. '\]\]')
 	elseif obby_stats_visits_raw < 25000 then
-		table.insert(append_categories, '[[Category:' .. '5%2C000-25%2C000_visits' .. ']]')
+		table.insert(append_categories, '\[\[Category:' .. '5%2C000-25%2C000_visits' .. '\]\]')
 	elseif obby_stats_visits_raw < 50000 then
-		table.insert(append_categories, '[[Category:' .. '25%2C000-50%2C000_visits' .. ']]')
+		table.insert(append_categories, '\[\[Category:' .. '25%2C000-50%2C000_visits' .. '\]\]')
 	elseif obby_stats_visits_raw < 100000 then
-		table.insert(append_categories, '[[Category:' .. '50%2C000-100%2C000_visits' .. ']]')
+		table.insert(append_categories, '\[\[Category:' .. '50%2C000-100%2C000_visits' .. '\]\]')
 	elseif obby_stats_visits_raw < 500000 then
-		table.insert(append_categories, '[[Category:' .. '100%2C000-500%2C000_visits' .. ']]')
+		table.insert(append_categories, '\[\[Category:' .. '100%2C000-500%2C000_visits' .. '\]\]')
 	elseif obby_stats_visits_raw < 1000000 then
-		table.insert(append_categories, '[[Category:' .. '500%2C000-1%2C000%2C000_visits' .. ']]')
+		table.insert(append_categories, '\[\[Category:' .. '500%2C000-1%2C000%2C000_visits' .. '\]\]')
 	else
-		table.insert(append_categories, '[[Category:' .. 'Above_1%2C000%2C000_visits' .. ']]')
+		table.insert(append_categories, '\[\[Category:' .. 'Above_1%2C000%2C000_visits' .. '\]\]')
 	end
 
-	table.insert(append_categories, '[[Category:' .. 'Obby' .. ']]')
+	table.insert(append_categories, '\[\[Category:' .. 'Obby' .. '\]\]')
 
 	local shortdesc = '{{SHORTDESC:' .. (obby_subgenre .. ' by ' .. (obby_developer_canonical or obby_developer_raw or 'Unknown') .. ' - ' .. obby_creation_year) .. '}}'
 
