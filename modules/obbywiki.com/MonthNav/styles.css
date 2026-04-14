@@ -50,6 +50,29 @@
     color: var(--color-base, #54595d);
 }
 
+.ow-month-nav-years {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 1.5rem 0;
+    justify-content: center;
+}
+
+.ow-year-card {
+    position: relative;
+    flex: 1 1 calc(16% - 12px);
+    min-width: 16px;
+    padding: 5px 4px;
+    background-color: var(--background-color-interactive-subtle, #f8f9fa);
+    border: 1px solid var(--border-color-base, #a2a9b1);
+    border-radius: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+}
+
 .ow-month-card__link a {
     position: absolute;
     top: 0;

@@ -55,7 +55,21 @@ function p.draw(frame)
             :wikitext('[[:Category:' .. month .. '_' .. target_year .. ' ]]')
     end
 
-    return frame:extensionTag('templatestyles', '', { src = 'Template:MonthNav/styles.css' }) .. frame:preprocess(meta) .. precontent .. tostring(container)
+    local years_container = html.create('div')
+        :addClass('ow-month-nav-years')
+
+    for _, v in pairs({'2026','2025','2024','2023','2022','2021','2020'}) do
+        local card = years_container:tag('div')
+
+        card:addClass('ow-year-card')
+            :wikitext(v)
+
+        card:tag('span')
+            :addClass('ow-month-card__link')
+            :wikitext('[[:Category:' .. current_month_name .. '_' .. v .. ' ]]')
+    end
+
+    return frame:extensionTag('templatestyles', '', { src = 'Template:MonthNav/styles.css' }) .. frame:preprocess(meta) .. precontent .. tostring(container) .. '\n' .. tostring(years_container)
 end
 
 return p
