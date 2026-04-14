@@ -33,6 +33,10 @@
     border-width: 2px;
 }
 
+.ow-month-card.is-active > .ow-month-card__label {
+    color: white;
+}
+
 .ow-month-card.is-empty {
     opacity: 0.5;
     border-style: dashed;
