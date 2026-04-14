@@ -67,7 +67,7 @@ jobs:
       - name: Fail if outputs were not committed
         run: git diff --exit-code
 
-      - uses: obbywiki/wikiwire@4989b61661fdd188479c7f2283b9ddde25337efa
+      - uses: obbywiki/wikiwire@8923b248626912ae0fb58b3acc54e0a555e39347
         env:
           GITHUB_TOKEN: ${{ secrets.WIKIWIRE_GITHUB_TOKEN }}
         with:
