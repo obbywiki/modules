@@ -215,6 +215,7 @@ function ObbyGameInfobox.main( frame )
 		['coopobby'] = 'subgenre_coop',
 		['2playerobby'] = 'subgenre_coop',
 		['tierobby'] = 'subgenre_tier',
+		['tier'] = 'subgenre_tier',
 		['multiplayer'] = 'subgenre_multiplayer',
 		['4playerobby'] = 'subgenre_multiplayer',
 		['obby'] = 'subgenre_classic',
