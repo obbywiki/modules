@@ -109,7 +109,7 @@ function p.main(frame)
         local subgenre = (data.subgenre and data.subgenre ~= '') and data.subgenre or 'obby'
         table.insert(faqs, renderFAQ(frame,
             string.format('What is the official difficulty tier for %s?', obby_name),
-            string.format('\'\'\'%s\'\'\' is officially classified as a **Tier %s** %s. This tier rating helps players understand the level of skill and precision required to finish the game compared to other experiences on the Obby Wiki. The higher the tier, the harder the obby. See more information on the [[Tiers]] page.', obby_name_cap, data.tier, subgenre)
+            string.format('\'\'\'%s\'\'\' is officially classified as a \'\'\'Tier %s\'\'\' %s. This tier rating helps players understand the level of skill and precision required to finish the game compared to other experiences on the Obby Wiki. The higher the tier, the harder the obby. See more information on the [[Tiers]] page.', obby_name_cap, data.tier, subgenre)
         ))
     elseif data.subgenre and data.subgenre ~= '' then
         table.insert(faqs, renderFAQ(frame,
