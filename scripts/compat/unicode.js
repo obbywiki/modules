@@ -7,6 +7,7 @@ function fix_unicode_syntax(input) {
     let fixed;
 
     fixed = input.replace(/\\u\{2014\}/g, '—');
+    fixed = input.replace(/\\u\{2705\}/g, '✅');
 
     return fixed;
 }
