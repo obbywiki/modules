@@ -161,7 +161,7 @@ local function build_table(badges, thumb_map, icon_px, frame)
 		else
 			icon_cell:wikitext("N/A")
 		end
-		row:tag("td"):wikitext('[https://www.roblox.com/badges/' .. (b.string_id or tostring(b.id or 0)) .. '/badge <nowiki>' .. b.name .. '</nowiki>]')
+		row:tag("td"):wikitext('[https://www.roblox.com/badges/' .. (b.string_id or tostring(b.id or 0)) .. '/badge ' .. b.name .. ']')
 		row:tag("td"):wikitext(b.description ~= "" and b.description or "—")
 		-- row:tag("td"):wikitext(b.statistics.awardedCount .. ' awarded, ' .. b.statistics.pastDayAwardedCount .. ' in past day, ' .. (b.statistics.winRatePercentage or 0) .. '% win rate')
 
