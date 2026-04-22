@@ -164,8 +164,8 @@ local function build_table(badges, thumb_map, icon_px, frame)
 
 		local parsed_name = b.name
 
-		parsed_name = string.gsub(parsed_name, '%[', '\\[')
-		parsed_name = string.gsub(parsed_name, '%]', '\\]')
+		-- parsed_name = string.gsub(parsed_name, '%[', '[')
+		parsed_name = string.gsub(parsed_name, '%]', '<nowiki>]</nowiki>')
 
 		row:tag("td"):wikitext('[https://www.roblox.com/badges/' .. (b.string_id or tostring(b.id or 0)) .. '/badge ' .. parsed_name .. ']')
 		row:tag("td"):wikitext(b.description ~= "" and b.description or "—")
