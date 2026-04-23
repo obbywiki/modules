@@ -1,3 +1,3 @@
 # ObbyWiki Shared Modules & Templates Repository
 
-https://obbywiki.com/wiki/OW:About
+[About the Obby Wiki](https://obbywiki.com/wiki/OW:About)
