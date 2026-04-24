@@ -153,14 +153,11 @@ local function build_table(passes, thumb_map, icon_px, frame)
 				icon_cell:wikitext('[' .. img_url .. ' image error]')
 			end
 
-			-- icon_cell:wikitext('{{#eimage:' .. mw.text.nowiki(img_url) .. '|' .. icon_px .. 'x' .. icon_px .. 'px|caption=Badge}}')
-
 		else
 			icon_cell:wikitext("N/A")
 		end
 		row:tag("td"):wikitext('[https://www.roblox.com/game-pass/' .. (g.string_id or tostring(g.id or 0)) .. '/pass ' .. g.name .. ']')
 		row:tag("td"):wikitext(g.description ~= "" and g.description or "—")
-		-- row:tag("td"):wikitext(g.statistics.awardedCount .. ' awarded, ' .. g.statistics.pastDayAwardedCount .. ' in past day, ' .. (g.statistics.winRatePercentage or 0) .. '% win rate')
 		row:tag("td"):wikitext(tostring(g.price) .. ' Robux')
 		row:tag("td"):wikitext("'''Created:''' " .. format_date_timestamp(g.created) .. '<br/><br/> <code>' .. g.id .. '</code> - <code>' .. g.product_id .. '</code>' )
 		row:tag("td"):wikitext(g.is_for_sale and "✅ For Sale" or "❌ Not For Sale")
