@@ -58,7 +58,7 @@ function p.draw(frame)
     local years_container = html.create('div')
         :addClass('ow-month-nav-years')
 
-    for _, v in pairs({'2026','2025','2024','2023','2022','2021','2020'}) do
+    for _, v in pairs({'2026','2025','2024','2023','2022','2021','2020','2019','2018'}) do
         local card = years_container:tag('div')
 
         card:addClass('ow-year-card')
