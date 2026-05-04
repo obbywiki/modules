@@ -926,25 +926,27 @@ function ObbyGameInfobox.main( frame )
 		-- only store in cargo if not a template page
 
 		-- if args.root_place_id_unknown ~= 'true' and args.root_place_id_unknown ~= true then
-			cargo_store_res, cargo_debug_res = ObbyGameInfobox.store(frame, {
-				root_place_id = tostring(args.root_place_id),
-				universe_id = tostring(universe_id),
-				name = args.name or mw.title.getCurrentTitle().text,
-				thumbnail = thumb,
-				publisher = obby_publisher ~= 'Self-Published' and obby_publisher or nil,
-				creator = obby_developer_canonical or obby_developer_raw,
-				stages = tonumber(args.stages) or nil,
-				tier = tonumber(args.tier) or 0,
-				visits = obby_stats_visits_raw,
-				subgenre = obby_subgenre,
-				year = tonumber(obby_creation_year) or nil,
-				month = tonumber(args.month) or nil,
-				day = tonumber(obby_creation_day) or nil,
-				is_public = obby_is_public,
-				avatar_type = obby_avatar_type == 'R6' and 'R6' or obby_avatar_type == 'R15' and 'R15' or obby_avatar_type == 'Rthro' and 'Rthro' or obby_avatar_type == 'Choice' and 'Choice' or nil,
-				developers = args.developers,
-				playability = verified_info_key,
-			}, args.debug == 'true' or args.debug == true)
+			if universe_id ~= nil and universe_id ~= 0 then
+				cargo_store_res, cargo_debug_res = ObbyGameInfobox.store(frame, {
+					root_place_id = tostring(args.root_place_id),
+					universe_id = tostring(universe_id),
+					name = args.name or mw.title.getCurrentTitle().text,
+					thumbnail = thumb,
+					publisher = obby_publisher ~= 'Self-Published' and obby_publisher or nil,
+					creator = obby_developer_canonical or obby_developer_raw,
+					stages = tonumber(args.stages) or nil,
+					tier = tonumber(args.tier) or 0,
+					visits = obby_stats_visits_raw,
+					subgenre = obby_subgenre,
+					year = tonumber(obby_creation_year) or nil,
+					month = tonumber(args.month) or nil,
+					day = tonumber(obby_creation_day) or nil,
+					is_public = obby_is_public,
+					avatar_type = obby_avatar_type == 'R6' and 'R6' or obby_avatar_type == 'R15' and 'R15' or obby_avatar_type == 'Rthro' and 'Rthro' or obby_avatar_type == 'Choice' and 'Choice' or nil,
+					developers = args.developers,
+					playability = verified_info_key,
+				}, args.debug == 'true' or args.debug == true)
+			end
 		-- end
 	end
 	
