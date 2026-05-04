@@ -1,3 +1,4 @@
+local LSPFileSyncService = game:GetService("LSPFileSyncService")
 -- inspired by scw
 
 -- infobox should cover all use cases like developers, community, content creators, etc.
@@ -197,6 +198,9 @@ function PlayerInfobox.main( frame )
 
 	--
 
+	local most_popular_obby = { name = ''; visits = 0; }
+	local most_recent_obby
+
 	if mw.ext.cargo and mw.ext.cargo.query then
 		local target_user = player_user_name_raw or ("@" .. player_user_name_unformatted)
 
@@ -207,6 +211,19 @@ function PlayerInfobox.main( frame )
 		if data and data[1] then
 			player_total_obbies = tonumber(data[1].count) or 0
 			player_total_visits = tonumber(data[1].total_visits) or 0
+		end
+
+		--
+
+		local popular_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits', {
+			where = "developers HOLDS '" .. target_user .. "'",
+			orderBy = "visits DESC",
+			limit = 1
+		})
+
+		if popular_data and popular_data[1] then
+			most_popular_obby.name = popular_data[1].name
+			most_popular_obby.visits = tonumber(popular_data[1].visits) or 0
 		end
 	end
 
@@ -237,6 +254,7 @@ function PlayerInfobox.main( frame )
 		content = {
 			test:renderItem( 'Total Visits', get_comma_val(player_total_visits) .. '+ <ref name="statistics_data">Collected from every obby developed by this user which is stored in the Obby Wiki\'s database. Data may not be conclusive.</ref>'),
 			test:renderItem( 'Obbies', '~' .. player_total_obbies .. ' <ref name="statistics_data" />'),
+			test:renderItem( 'Most Popular Obby by Visits', most_popular_obby.name),
 			-- test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
 			-- test:renderItem( 'Likes', obby_stats_likes .. '+' ),
 		}
