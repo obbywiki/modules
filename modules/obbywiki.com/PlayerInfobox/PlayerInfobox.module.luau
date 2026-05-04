@@ -425,7 +425,7 @@ function PlayerInfobox.main( frame )
 		user_id = tostring(player_user_id),
 	})
 
-    return rendered .. '\n' .. table.concat(append_categories, '\n')
+    return rendered .. '\n' .. table.concat(append_categories, '\n') .. '{{DEFAULTSORT:' .. string.sub(player_user_name_raw, 2) .. '}}'
 end
 
 return PlayerInfobox
