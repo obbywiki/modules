@@ -214,7 +214,7 @@ function PlayerInfobox.main( frame )
 
 		--
 
-		local popular_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits', {
+		local popular_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits, month, year', {
 			where = "developers HOLDS '" .. target_user .. "'",
 			orderBy = "visits DESC",
 			limit = 1
