@@ -128,16 +128,6 @@ function PlayerInfobox.main( frame )
 	player_user_name_unformatted = string.gsub(player_user_name_unformatted, '@', '')
 	player_user_name_unformatted = string.gsub(player_user_name_unformatted, '~', '')
 
-	if mw.ext.cargo and mw.ext.cargo.query then
-		local data = mw.ext.cargo.query('Obbies', 'COUNT(*)=count', {
-			where = `developers HOLDS '@{player_user_name_unformatted}'`
-		})
-
-		if data and data[1] then
-			player_total_obbies = tonumber(data[1].count) or 0
-		end
-	end
-
 	local player_roles = args.roles or args.known_for or 'player'
 	-- player,developer,content-creator
 
@@ -202,6 +192,18 @@ function PlayerInfobox.main( frame )
 			player_creation_year = year
 			player_creation_month = month_by_index(tonumber(month))
 			player_creation_day = day
+		end
+	end
+
+	--
+
+	if mw.ext.cargo and mw.ext.cargo.query then
+		local data = mw.ext.cargo.query('Obbies', 'COUNT(*)=count', {
+			where = `developers HOLDS '{player_user_name_raw or `@{player_user_name_unformatted}`}'`
+		})
+
+		if data and data[1] then
+			player_total_obbies = tonumber(data[1].count) or 0
 		end
 	end
 
