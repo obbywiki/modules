@@ -548,7 +548,7 @@ function ObbyGameInfobox.main( frame )
 				end
 
 				if page_exists(c.creator_type == 'Group' and source_creator_name or '@' .. source_creator_name) then
-					obby_developer = '[[' .. source_creator_name .. ']]' .. (c.is_verified and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=' .. obby_developer_raw .. ']]' or '')
+					obby_developer = '[[' .. (c.creator_type == 'Group' and source_creator_name or '@' .. source_creator_name) .. ']]' .. (c.is_verified and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=' .. obby_developer_raw .. ']]' or '')
 				else
 					obby_developer = string.format(
 						'[https://roblox.com/%s/%s/%s %s%s]',
