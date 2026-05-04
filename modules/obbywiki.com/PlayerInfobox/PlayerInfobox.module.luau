@@ -129,8 +129,7 @@ function PlayerInfobox.main( frame )
 		})
 
 		if data and data[1] then
-			count = tonumber(data[1].count) or 0
-			player_total_obbies = count and tonumber(count) or 0
+			player_total_obbies = tonumber(data[1].count) or 0
 		end
 	end
 
