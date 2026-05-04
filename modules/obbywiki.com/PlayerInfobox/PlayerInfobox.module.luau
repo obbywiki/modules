@@ -414,6 +414,8 @@ function PlayerInfobox.main( frame )
 	table.insert(append_categories, '[[Category:' .. 'Player' .. ']]')
 	-- TODO dynamically add categories for each role (e.g, Developer, Content Creator, etc.)
 
+	local default_sort = '{{DEFAULTSORT:' .. string.sub(player_user_name_raw, 2) .. '}}'
+
 	PlayerInfobox.store(frame, {
 		username = player_user_name_raw,
 		display_name = player_display_name,
@@ -425,7 +427,7 @@ function PlayerInfobox.main( frame )
 		user_id = tostring(player_user_id),
 	})
 
-    return rendered .. '\n' .. table.concat(append_categories, '\n') .. '{{DEFAULTSORT:' .. string.sub(player_user_name_raw, 2) .. '}}'
+    return frame:preprocess(default_sort) ..  rendered .. '\n' .. table.concat(append_categories, '\n')
 end
 
 return PlayerInfobox
