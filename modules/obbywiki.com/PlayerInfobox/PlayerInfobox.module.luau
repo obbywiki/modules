@@ -222,7 +222,7 @@ function PlayerInfobox.main( frame )
 
 		if popular_data and popular_data[1] then
 			most_popular_obby.name = popular_data[1].name
-			most_popular_obby.image = popular_data[1].image
+			most_popular_obby.image = popular_data[1].thumbnail
 			most_popular_obby.visits = tonumber(popular_data[1].visits) or 0
 			most_popular_obby.month = tostring(popular_data[1].month)
 			most_popular_obby.year = tostring(popular_data[1].year)
