@@ -274,10 +274,10 @@ function PlayerInfobox.main( frame )
 		title = 'Statistics',
 		col = 2,
 		content = {
-			test:renderItem( 'Total Visits', get_comma_val(player_total_visits) .. '+ <ref name="statistics_data">Collected from every obby developed by this user which is stored in the Obby Wiki\'s database. Data may not be conclusive.</ref>'),
+			test:renderItem( 'Total Visits', get_comma_val(player_total_visits) .. '+ <ref name="statistics_data">Statistics are collected from every obby developed or contributed to by @'.. player_user_name_raw.. ' which is stored in the Obby Wiki\'s database. Data may not be conclusive.</ref>'),
 			test:renderItem( 'Obbies', '~' .. player_total_obbies .. ' <ref name="statistics_data" />'),
 			test:renderItem( 'Total Rating', (player_total_likes + player_total_dislikes) > 0 and (math.floor((player_total_likes / (player_total_likes + player_total_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Likes|link=]] ' .. get_comma_val(tostring(player_total_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Dislikes|link=]] ' .. get_comma_val(tostring(player_total_dislikes)) .. ')' or 'N/A'),
-			test:renderItem( 'Total Favorites', get_comma_val(player_total_visits) .. '+ <ref name="statistics_data">Collected from every obby developed by this user which is stored in the Obby Wiki\'s database. Data may not be conclusive.</ref>'),
+			test:renderItem( 'Total Favorites', get_comma_val(player_total_favorites) .. '+ <ref name="statistics_data">Collected from every obby developed by this user which is stored in the Obby Wiki\'s database. Data may not be conclusive.</ref>'),
 			-- test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
 			-- test:renderItem( 'Likes', obby_stats_likes .. '+' ),
 		}
