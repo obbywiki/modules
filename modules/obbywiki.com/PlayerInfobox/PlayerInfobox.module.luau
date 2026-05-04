@@ -264,7 +264,7 @@ function PlayerInfobox.main( frame )
 		title = 'Featured',
 		col = 2,
 		content = {
-			test:renderItem( 'Most Popular Obby', `{most_popular_obby.name} - {get_comma_val(most_popular_obby.visits)} ({most_popular_obby.month} {most_popular_obby.year})`),
+			test:renderItem( 'Most Popular Obby', `{most_popular_obby.name} - {get_comma_val(most_popular_obby.visits)} ({month_by_index(tonumber(most_popular_obby.month))} {most_popular_obby.year})`),
 			-- test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
 			-- test:renderItem( 'Likes', obby_stats_likes .. '+' ),
 		}
