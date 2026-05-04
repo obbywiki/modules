@@ -123,9 +123,14 @@ function PlayerInfobox.main( frame )
 
 	local player_total_obbies = args.obbies or args.games or 0
 
+	local player_user_name_unformatted = player_user_name
+
+	player_user_name_unformatted = string.gsub(player_user_name_unformatted, '@', '')
+	player_user_name_unformatted = string.gsub(player_user_name_unformatted, '~', '')
+
 	if mw.ext.cargo and mw.ext.cargo.query then
 		local data = mw.ext.cargo.query('Obbies', 'COUNT(*)=count', {
-			where = `developers HOLDS '@Wolf1te'`
+			where = `developers HOLDS '@{player_user_name_unformatted}'`
 		})
 
 		if data and data[1] then
