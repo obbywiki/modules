@@ -201,7 +201,7 @@ function ObbyGameInfobox.main( frame )
 		['wpdco'] = 'subgenre_wpdco',
 		['wdco'] = 'subgenre_wdco',
 		['njdco'] = 'subgenre_njdco',
-		['spdco'] = 'subgenre_spdco',
+		['sopdco'] = 'subgenre_sopdco',
 		['pdco'] = 'subgenre_pdco',
 		['st'] = 'subgenre_stage_tower',
 		['stagetowerobby'] = 'subgenre_stage_tower',
