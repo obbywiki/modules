@@ -7,13 +7,17 @@ if (msg_path) {
   
   var newc = content
     .replace(/fix-ogi:/gi, 'fix(ObbyGameInfobox):')
-    .replace(/fix-gi:/gi, 'fix(GroupInfobox):')
     .replace(/feat-ogi:/gi, 'feat(ObbyGameInfobox):')
-    .replace(/feat-gi:/gi, 'feat(GroupInfobox):')
     .replace(/chore-ogi:/gi, 'chore(ObbyGameInfobox):')
-    .replace(/chore-gi:/gi, 'chore(GroupInfobox):')
     .replace(/style-ogi:/gi, 'style(ObbyGameInfobox):')
-    .replace(/style-gi:/gi, 'style(GroupInfobox):');
+    .replace(/fix-gi:/gi, 'fix(GroupInfobox):')
+    .replace(/feat-gi:/gi, 'feat(GroupInfobox):')
+    .replace(/chore-gi:/gi, 'chore(GroupInfobox):')
+    .replace(/style-gi:/gi, 'style(GroupInfobox):')
+    .replace(/fix-pi:/gi, 'fix(PlayerInfobox):')
+    .replace(/feat-pi:/gi, 'feat(PlayerInfobox):')
+    .replace(/chore-pi:/gi, 'chore(PlayerInfobox):')
+    .replace(/style-pi:/gi, 'style(PlayerInfobox):');
 
   fs.writeFileSync(msg_path, newc);
 }
