@@ -120,41 +120,6 @@ function GroupInfobox.main( frame )
 
 	-- local obby_subgenre_lower = string.lower(obby_subgenre)
 
-	-- if obby_subgenre_lower == 'dco' then
-	-- 	obby_subgenre = 'Difficulty Chart Obby'
-	-- elseif obby_subgenre_lower == 'difficulty_chart_obby' then
-	-- 	obby_subgenre = 'Difficulty Chart Obby'
-	-- elseif obby_subgenre_lower == 'st' then
-	-- 	obby_subgenre = 'Stage Tower Obby'
-	-- elseif obby_subgenre_lower == 'stage_tower_obby' then
-	-- 	obby_subgenre = 'Stage Tower Obby'
-	-- elseif obby_subgenre_lower == 't' then
-	-- 	obby_subgenre = 'Tower Obby'
-	-- elseif obby_subgenre_lower == 'tower_obby' then
-	-- 	obby_subgenre = 'Tower Obby'
-	-- elseif obby_subgenre_lower == 'so' then
-	-- 	obby_subgenre = 'Story Obby'
-	-- elseif obby_subgenre_lower == 'story_obby' then
-	-- 	obby_subgenre = 'Story Obby'
-	-- end
-
-
-	-- obby_maturity = string.lower(obby_maturity)
-
-	-- if obby_maturity == 'minimal' then
-	-- 	obby_maturity = 'Minimal - Ages 5+'
-	-- elseif obby_maturity == 'mild' then
-	-- 	obby_maturity = 'Mild - Ages 9+'
-	-- elseif obby_maturity == 'mature' then
-	-- 	obby_maturity = 'Mature - Ages 13+'
-	-- elseif obby_maturity == 'restricted' then
-	-- 	obby_maturity = 'Restricted - Ages 18+'
-	-- elseif obby_maturity == 'unrated' or obby_maturity == 'none' then
-	-- 	obby_maturity = 'Unrated - Ages 18+'
-	-- else
-	-- 	obby_maturity = 'N/A - Unknown'
-	-- end
-
 
 	local group_creator, group_creator_was_corrected = args.developer or args.creator or args.owner or 'Unknown', false
     local group_relations = args.relations or 'Independent'
