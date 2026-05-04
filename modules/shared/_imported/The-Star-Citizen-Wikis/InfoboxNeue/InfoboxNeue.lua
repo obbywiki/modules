@@ -709,35 +709,28 @@ function methodtable.renderGameCard( self, image_name, page_name, visits, create
 	local html = mw.html.create( 'div' )
 		:addClass( 'infobox__item' )
 		:addClass( 'infobox__gameCard' )
-		:css( 'display', 'flex' )
-		:css( 'gap', '0.75rem' )
-		:css( 'align-items', 'center' )
-		:css( 'justify-content', 'space-between' )
+		:addClass( 'infobox__item--is-cell' )
 
 	local left = html:tag( 'div' )
 		:addClass( 'infobox__gameCardLeft' )
-		:css( 'display', 'flex' )
-		:css( 'gap', '0.75rem' )
-		:css( 'align-items', 'center' )
 
 	if normalized_image then
 		left:tag( 'div' )
 			:addClass( 'infobox__gameCardImage' )
 			:wikitext( string.format(
-				'[[File:%s|64px|alt=%s|link=%s]]',
+				'[[File:%s|64px|alt=%s]]',
 				normalized_image,
-				page_name,
 				page_name
 			) )
 	end
 
 	left:tag( 'div' )
 		:addClass( 'infobox__gameCardTitle' )
-		:wikitext( string.format( '[[%s]]', page_name ) )
+		-- :wikitext( string.format( '[[%s]]', page_name ) )
+		:wikitext( page_name )
 
 	local right = html:tag( 'div' )
 		:addClass( 'infobox__gameCardMeta' )
-		:css( 'text-align', 'right' )
 
 	if visits ~= nil and visits ~= '' then
 		right:tag( 'div' )
@@ -748,8 +741,12 @@ function methodtable.renderGameCard( self, image_name, page_name, visits, create
 	if created_month ~= nil and created_month ~= '' and created_year ~= nil and created_year ~= '' then
 		right:tag( 'div' )
 			:addClass( 'infobox__gameCardCreated' )
-			:wikitext( string.format( '<span class="infobox__label">Created</span> <span class="infobox__data">%s %s</span>', tostring( created_month ), tostring( created_year ) ) )
+			:wikitext( string.format( '<span class="infobox__label">Released</span> <span class="infobox__data">%s %s</span>', tostring( created_month ), tostring( created_year ) ) )
 	end
+
+	html:tag('span')
+		:addClass('infobox__gameCardLink')
+		:wikitext('[[' .. page_name .. ']]')
 
 	return tostring( html )
 end
