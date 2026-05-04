@@ -171,14 +171,14 @@ function PlayerInfobox.main( frame )
 			player_is_verified = row.hasVerifiedBadge or false
 
 			player_user_name = string.format(
-				'[https://roblox.com/users/%s/profile %s%s]',
+				'[https://www.roblox.com/users/%s/profile %s%s]',
 				player_user_id,
 				player_user_name_raw,
 				(row.hasVerifiedBadge and '  [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]') or ''
 			)
 
 			player_display_name = string.format(
-				'[https://roblox.com/users/%s/profile %s%s]',
+				'[https://www.roblox.com/users/%s/profile %s%s]',
 				player_user_id,
 				player_display_name,
 				(row.hasVerifiedBadge and '  [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]') or ''
