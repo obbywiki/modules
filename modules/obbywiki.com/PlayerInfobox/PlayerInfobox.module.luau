@@ -246,7 +246,7 @@ function PlayerInfobox.main( frame )
 		title = 'Other',
 		col = 2,
 		content = {
-			test:renderItem( 'Joined', player_creation_month .. ' ' .. player_creation_year ),
+			test:renderItem( 'Joined Roblox', player_creation_month .. ' ' .. player_creation_year ),
 		}
 	} )
 
