@@ -214,7 +214,7 @@ function PlayerInfobox.main( frame )
 
 		--
 
-		local popular_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits, month, year', {
+		local popular_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits, month, year, image', {
 			where = "developers HOLDS '" .. target_user .. "'",
 			orderBy = "visits DESC",
 			limit = 1
@@ -222,6 +222,7 @@ function PlayerInfobox.main( frame )
 
 		if popular_data and popular_data[1] then
 			most_popular_obby.name = popular_data[1].name
+			most_popular_obby.image = popular_data[1].image
 			most_popular_obby.visits = tonumber(popular_data[1].visits) or 0
 			most_popular_obby.month = tostring(popular_data[1].month)
 			most_popular_obby.year = tostring(popular_data[1].year)
@@ -264,7 +265,7 @@ function PlayerInfobox.main( frame )
 		title = 'Featured',
 		col = 2,
 		content = {
-			test:renderItem( 'Most Popular Obby', `[[{most_popular_obby.name}]] - {get_comma_val(most_popular_obby.visits)} ({month_by_index(tonumber(most_popular_obby.month))} {most_popular_obby.year})`),
+			test:renderItem( 'Most Popular Obby', `[[File:{most_popular_obby.image}|120px|alt={most_popular_obby.name}|link={most_popular_obby.name}]] [[{most_popular_obby.name}]] - {get_comma_val(most_popular_obby.visits)} ({month_by_index(tonumber(most_popular_obby.month))} {most_popular_obby.year})`),
 			-- test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
 			-- test:renderItem( 'Likes', obby_stats_likes .. '+' ),
 		}
