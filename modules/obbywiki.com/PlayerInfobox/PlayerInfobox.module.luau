@@ -150,6 +150,9 @@ function PlayerInfobox.main( frame )
 	
 	local player_current_ccu = 0 -- track users total ccu across all obbies on obby wiki TODO
 	local player_total_visits = args.visits or args.total_visits or 0
+	local player_total_likes = 0
+	local player_total_dislikes = 0
+	local player_total_favorites = 0
 	
 	local thumb = args.image or args.thumbnail or args.thumb
 
@@ -203,13 +206,16 @@ function PlayerInfobox.main( frame )
 	if mw.ext.cargo and mw.ext.cargo.query then
 		local target_user = player_user_name_raw or ("@" .. player_user_name_unformatted)
 
-		local data = mw.ext.cargo.query('Obbies', 'COUNT(*)=count, SUM(visits)=total_visits', {
+		local data = mw.ext.cargo.query('Obbies', 'COUNT(*)=count, SUM(visits)=total_visits, SUM(likes)=total_likes, SUM(dislikes)=total_dislikes, SUM(favorites)=total_favorites', {
 			where = "developers HOLDS '" .. target_user .. "'"
 		})
 
 		if data and data[1] then
 			player_total_obbies = tonumber(data[1].count) or 0
 			player_total_visits = tonumber(data[1].total_visits) or 0
+			player_total_likes = tonumber(data[1].total_likes) or 0
+			player_total_dislikes = tonumber(data[1].total_dislikes) or 0
+			player_total_favorites = tonumber(data[1].total_favorites) or 0
 		end
 
 		--
@@ -270,6 +276,8 @@ function PlayerInfobox.main( frame )
 		content = {
 			test:renderItem( 'Total Visits', get_comma_val(player_total_visits) .. '+ <ref name="statistics_data">Collected from every obby developed by this user which is stored in the Obby Wiki\'s database. Data may not be conclusive.</ref>'),
 			test:renderItem( 'Obbies', '~' .. player_total_obbies .. ' <ref name="statistics_data" />'),
+			test:renderItem( 'Total Rating', (player_total_likes + player_total_dislikes) > 0 and (math.floor((player_total_likes / (player_total_likes + player_total_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Likes|link=]] ' .. get_comma_val(tostring(player_total_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Dislikes|link=]] ' .. get_comma_val(tostring(player_total_dislikes)) .. ')' or 'N/A'),
+			test:renderItem( 'Total Favorites', get_comma_val(player_total_visits) .. '+ <ref name="statistics_data">Collected from every obby developed by this user which is stored in the Obby Wiki\'s database. Data may not be conclusive.</ref>'),
 			-- test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
 			-- test:renderItem( 'Likes', obby_stats_likes .. '+' ),
 		}
