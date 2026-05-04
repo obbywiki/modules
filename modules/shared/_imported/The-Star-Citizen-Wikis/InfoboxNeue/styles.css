@@ -351,7 +351,6 @@
 	color: var(--color-progressive);
 	text-overflow: ellipsis;
 	overflow: hidden;
-	-webkit-line-clamp: 3;
 	max-width: 82px;
 }
 
