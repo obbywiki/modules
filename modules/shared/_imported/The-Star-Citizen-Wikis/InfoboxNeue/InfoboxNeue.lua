@@ -718,7 +718,7 @@ function methodtable.renderGameCard( self, image_name, page_name, visits, create
 		left:tag( 'div' )
 			:addClass( 'infobox__gameCardImage' )
 			:wikitext( string.format(
-				'[[File:%s|64px|alt=%s]]',
+				'[[File:%s|120px|alt=%s]]',
 				normalized_image,
 				page_name
 			) )
