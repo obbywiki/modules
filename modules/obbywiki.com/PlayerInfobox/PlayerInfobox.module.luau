@@ -197,7 +197,7 @@ function PlayerInfobox.main( frame )
 
 	--
 
-	local most_popular_obby = { name = ''; visits = 0; }
+	local most_popular_obby = { name = ''; visits = 0; year = ''; month = ''; image = '' }
 	local most_recent_obby
 
 	if mw.ext.cargo and mw.ext.cargo.query then
@@ -223,6 +223,8 @@ function PlayerInfobox.main( frame )
 		if popular_data and popular_data[1] then
 			most_popular_obby.name = popular_data[1].name
 			most_popular_obby.visits = tonumber(popular_data[1].visits) or 0
+			most_popular_obby.month = tostring(popular_data[1].month)
+			most_popular_obby.year = tostring(popular_data[1].year)
 		end
 	end
 
@@ -253,7 +255,16 @@ function PlayerInfobox.main( frame )
 		content = {
 			test:renderItem( 'Total Visits', get_comma_val(player_total_visits) .. '+ <ref name="statistics_data">Collected from every obby developed by this user which is stored in the Obby Wiki\'s database. Data may not be conclusive.</ref>'),
 			test:renderItem( 'Obbies', '~' .. player_total_obbies .. ' <ref name="statistics_data" />'),
-			test:renderItem( 'Most Popular Obby by Visits', most_popular_obby.name),
+			-- test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
+			-- test:renderItem( 'Likes', obby_stats_likes .. '+' ),
+		}
+	} )
+
+	test:renderSection( {
+		title = 'Featured',
+		col = 2,
+		content = {
+			test:renderItem( 'Most Popular Obby', `{most_popular_obby.name} - {get_comma_val(most_popular_obby.visits)} ({most_popular_obby.month} {most_popular_obby.year})`),
 			-- test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
 			-- test:renderItem( 'Likes', obby_stats_likes .. '+' ),
 		}
