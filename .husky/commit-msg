@@ -1,1 +1,1 @@
-node .husky/replace-common.js "$1"
+node .husky/replace-common.mjs "$1"
