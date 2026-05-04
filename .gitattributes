@@ -1,0 +1,2 @@
+# technically not lingust-vendored, but it's cleaner to ignore
+scripts/** linguist-vendored

@@ -7,6 +7,7 @@ if (msg_path) {
   
   var newc = content
   newc = content.replace(/fix-ogi:/g, 'fix(ObbyGameInfobox):');
+  newc = content.replace(/fix-gi:/g, 'fix(GroupInfobox):');
 
   fs.writeFileSync(msg_path, newc);
 }
