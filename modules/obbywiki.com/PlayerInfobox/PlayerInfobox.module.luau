@@ -235,7 +235,7 @@ function PlayerInfobox.main( frame )
 		title = 'Statistics',
 		col = 2,
 		content = {
-			test:renderItem( 'Total Visits', player_total_visits .. '+'),
+			test:renderItem( 'Total Visits', get_comma_val(player_total_visits) .. '+'),
 			test:renderItem( 'Obbies', '~' .. player_total_obbies),
 			-- test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
 			-- test:renderItem( 'Likes', obby_stats_likes .. '+' ),
