@@ -95,6 +95,8 @@ local obby_schema = {
 	stages = 'Integer',
 	tier = 'Integer',
 
+	visits = 'Float',
+
 	playability = 'String',
 
 	is_public = 'Boolean',
@@ -933,6 +935,7 @@ function ObbyGameInfobox.main( frame )
 				creator = obby_developer_canonical or obby_developer_raw,
 				stages = tonumber(args.stages) or nil,
 				tier = tonumber(args.tier) or 0,
+				visits = obby_stats_visits_raw,
 				subgenre = obby_subgenre,
 				year = tonumber(obby_creation_year) or nil,
 				month = tonumber(args.month) or nil,
