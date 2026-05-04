@@ -349,6 +349,10 @@
 	min-width: 0;
 	font-weight: var(--font-weight-medium);
 	color: var(--color-progressive);
+	text-overflow: ellipsis;
+	overflow: hidden;
+	-webkit-line-clamp: 3;
+	max-width: 82px;
 }
 
 .infobox__gameCardTitle a {
