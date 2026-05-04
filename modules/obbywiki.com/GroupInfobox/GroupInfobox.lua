@@ -248,7 +248,9 @@ function GroupInfobox.main( frame )
 			-- predicting potential api changes that allow groups to own groups, currently `username` is a user-only field
 			
 			if page_exists(base == 'communities' and (c.name or c.groupName) or '@' .. (c.username or c.name or 'Unknown')) then
-				group_creator = group_creator .. (c.hasVerifiedBadge and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]' or '')
+				group_creator = '[[' .. group_creator .. ']]' .. (c.hasVerifiedBadge and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]' or '')
+
+				group_creator_was_corrected = true
 			else
 				group_creator = string.format(
 					'[https://roblox.com/%s/%s/%s %s%s]',
