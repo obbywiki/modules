@@ -114,7 +114,6 @@ function GroupInfobox.main( frame )
 
     local group_name = args.name or mw.title.getCurrentTitle().text
     local group_id = args.group_id or args.id or 7
-	-- local obby_join_sharelink_id = args.play or args.sharelink or args.play_sharelink or ''
 	-- local obby_subgenre = args.subgenre or args.sub_genre or args.type or 'N/A'
 	-- local obby_maturity = args.maturity or args.rating or 'na'
 	-- local obby_update_freq = args.update_freq or args.update_frequency or 'Unknown'
