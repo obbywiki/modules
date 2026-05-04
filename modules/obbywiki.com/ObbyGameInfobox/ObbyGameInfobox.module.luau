@@ -6,7 +6,7 @@ local i18n = require('Module:i18n2').new('ObbyGameInfobox')
 
 local months_full = {'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'}
 
-local function month_by_index(month)
+local function month_by_index(month) -- TODO reimplement i18n
 	-- local months = i18n:get('months', {})
 	local monthnum = tonumber(month)
 
