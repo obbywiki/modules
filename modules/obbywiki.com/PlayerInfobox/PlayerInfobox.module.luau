@@ -125,7 +125,7 @@ function PlayerInfobox.main( frame )
 
 	if mw.ext.cargo and mw.ext.cargo.query then
 		local data = mw.ext.cargo.query('Obbies', 'COUNT(*)=count', {
-			where = `developers HOLDS '@{player_user_name}'`
+			where = `developers HOLDS '@Wolf1te'`
 		})
 
 		if data and data[1] then
