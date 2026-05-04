@@ -942,7 +942,7 @@ function ObbyGameInfobox.main( frame )
 					visits = obby_stats_visits_raw,
 					likes = obby_stats_likes,
 					dislikes = obby_stats_dislikes,
-					favorites = obby_stats_favorites,
+					favorites = tonumber(obby_stats_favorites) or 0,
 					subgenre = obby_subgenre,
 					year = tonumber(obby_creation_year) or nil,
 					month = tonumber(args.month) or nil,
