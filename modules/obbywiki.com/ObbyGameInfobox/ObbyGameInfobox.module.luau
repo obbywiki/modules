@@ -522,6 +522,8 @@ function ObbyGameInfobox.main( frame )
 
 	local use_external_thumbs = false
 
+	local obby_stats_favorites_raw = obby_stats_favorites
+
 	if obby_wiki_edge_res then
 		universe_id = obby_wiki_edge_res.universe_id
 
@@ -567,7 +569,7 @@ function ObbyGameInfobox.main( frame )
 			obby_stats_visits = obby_wiki_edge_res.info.visits or obby_stats_visits
 			obby_stats_favorites = obby_wiki_edge_res.info.favorites or 'N/A'
 			if obby_wiki_edge_res.info.visits and tonumber(obby_stats_visits) ~= nil then obby_stats_visits_raw = tonumber(obby_stats_visits); obby_stats_visits = get_comma_val(obby_stats_visits) end
-			if obby_wiki_edge_res.info.favorites and tonumber(obby_stats_favorites) ~= nil then obby_stats_favorites = get_comma_val(obby_stats_favorites) end
+			if obby_wiki_edge_res.info.favorites and tonumber(obby_stats_favorites) ~= nil then obby_stats_favorites = get_comma_val(obby_stats_favorites); obby_stats_favorites_raw = obby_wiki_edge_res.info.favorites end
 
 			if obby_wiki_edge_res.info.updated then
 				last_updated = obby_wiki_edge_res.info.updated -- iso, e.g., 2026-03-07T09:29:16.4508416Z
@@ -943,7 +945,7 @@ function ObbyGameInfobox.main( frame )
 					visits = obby_stats_visits_raw,
 					likes = obby_stats_likes,
 					dislikes = obby_stats_dislikes,
-					favorites = tonumber(obby_stats_favorites) or 0,
+					favorites = tonumber(obby_stats_favorites_raw) or 0,
 					subgenre = obby_subgenre,
 					year = tonumber(obby_creation_year) or nil,
 					month = tonumber(args.month) or nil,
