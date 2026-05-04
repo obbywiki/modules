@@ -235,8 +235,8 @@ function PlayerInfobox.main( frame )
 		title = 'Statistics',
 		col = 2,
 		content = {
-			test:renderItem( 'Total Visits', get_comma_val(player_total_visits) .. '+<ref name="statistics_data">Collected from every obby developed by this user which is stored in the Obby Wiki\'s database. Data may not be conclusive.</ref>'),
-			test:renderItem( 'Obbies', '~' .. player_total_obbies .. '<ref name="statistics_data" />'),
+			test:renderItem( 'Total Visits', get_comma_val(player_total_visits) .. '+ <ref name="statistics_data">Collected from every obby developed by this user which is stored in the Obby Wiki\'s database. Data may not be conclusive.</ref>'),
+			test:renderItem( 'Obbies', '~' .. player_total_obbies .. ' <ref name="statistics_data" />'),
 			-- test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
 			-- test:renderItem( 'Likes', obby_stats_likes .. '+' ),
 		}
