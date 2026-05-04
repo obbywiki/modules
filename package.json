@@ -1,0 +1,17 @@
+{
+  "name": "obbywiki-modules",
+  "version": "0.0.0",
+  "description": "Used for developer tooling of the obbywiki/modules project only.",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.1",
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}
