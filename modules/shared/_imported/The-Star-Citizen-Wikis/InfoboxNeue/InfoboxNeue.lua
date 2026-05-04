@@ -671,6 +671,89 @@ function methodtable.renderItem( self, data, content )
 	return tostring( html )
 end
 
+--- Return the HTML of a "game card" style row.
+--- Renders a left image (as File:) and linked page name, plus visits and created month/year.
+---
+--- @param image_name string|nil
+--- @param page_name string|nil
+--- @param visits string|number|nil
+--- @param created_month string|number|nil
+--- @param created_year string|number|nil
+--- @return string html
+function methodtable.renderGameCard( self, image_name, page_name, visits, created_month, created_year )
+	checkType( 'Module:InfoboxNeue.renderGameCard', 1, self, 'table' )
+	checkTypeMulti( 'Module:InfoboxNeue.renderGameCard', 2, image_name, { 'string', 'nil' } )
+	checkTypeMulti( 'Module:InfoboxNeue.renderGameCard', 3, page_name, { 'string', 'nil' } )
+	checkTypeMulti( 'Module:InfoboxNeue.renderGameCard', 4, visits, { 'string', 'number', 'nil' } )
+	checkTypeMulti( 'Module:InfoboxNeue.renderGameCard', 5, created_month, { 'string', 'number', 'nil' } )
+	checkTypeMulti( 'Module:InfoboxNeue.renderGameCard', 6, created_year, { 'string', 'number', 'nil' } )
+
+	if page_name == nil or page_name == '' then
+		return ''
+	end
+	
+	local function normalize_file_name( s )
+		if type( s ) ~= 'string' or s == '' then
+			return nil
+		end
+		local parts = mw.text.split( s, ':', true )
+		if #parts > 1 then
+			table.remove( parts, 1 )
+			s = table.concat( parts, ':' )
+		end
+		return s
+	end
+
+	local normalized_image = normalize_file_name( image_name )
+
+	local html = mw.html.create( 'div' )
+		:addClass( 'infobox__item' )
+		:addClass( 'infobox__gameCard' )
+		:css( 'display', 'flex' )
+		:css( 'gap', '0.75rem' )
+		:css( 'align-items', 'center' )
+		:css( 'justify-content', 'space-between' )
+
+	local left = html:tag( 'div' )
+		:addClass( 'infobox__gameCardLeft' )
+		:css( 'display', 'flex' )
+		:css( 'gap', '0.75rem' )
+		:css( 'align-items', 'center' )
+
+	if normalized_image then
+		left:tag( 'div' )
+			:addClass( 'infobox__gameCardImage' )
+			:wikitext( string.format(
+				'[[File:%s|64px|alt=%s|link=%s]]',
+				normalized_image,
+				page_name,
+				page_name
+			) )
+	end
+
+	left:tag( 'div' )
+		:addClass( 'infobox__gameCardTitle' )
+		:wikitext( string.format( '[[%s]]', page_name ) )
+
+	local right = html:tag( 'div' )
+		:addClass( 'infobox__gameCardMeta' )
+		:css( 'text-align', 'right' )
+
+	if visits ~= nil and visits ~= '' then
+		right:tag( 'div' )
+			:addClass( 'infobox__gameCardVisits' )
+			:wikitext( string.format( '<span class="infobox__label">Visits</span> <span class="infobox__data">%s</span>', formatNumber( visits ) or visits ) )
+	end
+
+	if created_month ~= nil and created_month ~= '' and created_year ~= nil and created_year ~= '' then
+		right:tag( 'div' )
+			:addClass( 'infobox__gameCardCreated' )
+			:wikitext( string.format( '<span class="infobox__label">Created</span> <span class="infobox__data">%s %s</span>', tostring( created_month ), tostring( created_year ) ) )
+	end
+
+	return tostring( html )
+end
+
 --- Wrap the infobox HTML
 ---
 --- @param innerHtml string inner html of the infobox
