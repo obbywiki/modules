@@ -198,7 +198,7 @@ function PlayerInfobox.main( frame )
 	--
 
 	local most_popular_obby = { name = ''; visits = 0; year = ''; month = ''; image = '' }
-	local most_recent_obby
+	local most_recent_obby = { name = ''; visits = 0; year = ''; month = ''; image = '' }
 
 	if mw.ext.cargo and mw.ext.cargo.query then
 		local target_user = player_user_name_raw or ("@" .. player_user_name_unformatted)
@@ -226,6 +226,20 @@ function PlayerInfobox.main( frame )
 			most_popular_obby.visits = tonumber(popular_data[1].visits) or 0
 			most_popular_obby.month = tostring(popular_data[1].month)
 			most_popular_obby.year = tostring(popular_data[1].year)
+		end
+
+		local recent_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits, day, month, year, thumbnail', {
+			where = "developers HOLDS '" .. target_user .. "'",
+			orderBy = "year DESC, month DESC, day DESC",
+			limit = 1
+		})
+
+		if recent_data and recent_data[1] then
+			most_recent_obby.name = recent_data[1].name
+			most_recent_obby.image = recent_data[1].thumbnail
+			most_recent_obby.visits = tonumber(recent_data[1].visits) or 0
+			most_recent_obby.month = tostring(recent_data[1].month)
+			most_recent_obby.year = tostring(recent_data[1].year)
 		end
 	end
 
@@ -273,6 +287,16 @@ function PlayerInfobox.main( frame )
 					get_comma_val( tostring( most_popular_obby.visits or 0 ) ),
 					month_by_index( tonumber( most_popular_obby.month ) ),
 					most_popular_obby.year
+				)
+			),
+			test:renderItem(
+				'Most Recent Obby',
+				test:renderGameCard(
+					most_recent_obby.image,
+					most_recent_obby.name,
+					get_comma_val( tostring( most_recent_obby.visits or 0 ) ),
+					month_by_index( tonumber( most_recent_obby.month ) ),
+					most_recent_obby.year
 				)
 			),
 			-- test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
