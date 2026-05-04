@@ -95,7 +95,7 @@ local obby_schema = {
 	stages = 'Integer',
 	tier = 'Integer',
 
-	visits = 'Float',
+	visits = 'Integer',
 
 	playability = 'String',
 
