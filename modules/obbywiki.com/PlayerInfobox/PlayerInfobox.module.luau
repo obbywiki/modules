@@ -123,6 +123,17 @@ function PlayerInfobox.main( frame )
 
 	local player_total_obbies = args.obbies or args.games or 0
 
+	if mw.ext.cargo and mw.ext.cargo.query then
+		local data = mw.ext.cargo.query('Obbies', 'COUNT(*)=count', {
+			where = `developers HOLDS '@{player_user_name}'`
+		})
+
+		if data and data[1] then
+			count = tonumber(data[1].count) or 0
+			player_total_obbies = count and tonumber(count) or 0
+		end
+	end
+
 	local player_roles = args.roles or args.known_for or 'player'
 	-- player,developer,content-creator
 
