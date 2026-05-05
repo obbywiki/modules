@@ -79,6 +79,11 @@ local studio_schema = {
 	owner = "String",
 	total_obbies = "Integer",
 
+	developers = 'List (,) of String', -- for individual core developers in a group by @ (permanent or semi-permanent staff)
+	contributors = 'List (,) of String', -- for individual contributors or short-term contractors in a group by @
+	admins = 'List (,) of String', -- for group administrators
+	moderators = 'List (,) of String', -- for group moderators
+
 	year = "Integer",
 	month = "Integer",
 	
@@ -468,6 +473,10 @@ function GroupInfobox.main( frame )
 		year = tonumber(args.year),
 		month = tonumber(args.month),
 		group_id = tostring(group_id),
+		developers = args.developers,
+		contributors = args.contributors,
+		admins = args.admins,
+		moderators = args.moderators,
 	})
 
     return rendered .. '\n' .. table.concat(append_categories, '\n')
