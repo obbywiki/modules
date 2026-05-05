@@ -253,6 +253,12 @@ function PlayerInfobox.main( frame )
 
     test:renderImage( thumb )
 
+	test:renderIndicator( {
+		data = 'Active',
+		color = 'green',
+		tooltip = 'This user is considered active on Roblox.'
+	} )
+
     test:renderHeader( {
 		title = player_display_name,
 		subtitle = player_user_name_raw
