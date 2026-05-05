@@ -157,6 +157,7 @@ function PlayerInfobox.main( frame )
 	local thumb = args.image or args.thumbnail or args.thumb
 
 	local player_user_name_raw
+	local player_is_terminated = false
 
 	if player_user_id then
 		local user_res = mw.ext.externalData.getExternalData{
@@ -186,6 +187,10 @@ function PlayerInfobox.main( frame )
 				player_display_name,
 				(row.hasVerifiedBadge and '  [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]') or ''
 			)
+		end
+
+		if row and row.isBanned and row.isBanned == true then
+			player_is_terminated = true
 		end
 
 		if row and row.created then
@@ -254,9 +259,9 @@ function PlayerInfobox.main( frame )
     test:renderImage( thumb )
 
 	test:renderIndicator( {
-		data = 'Active',
-		color = 'green',
-		tooltip = 'This user is considered active on Roblox.'
+		data = player_is_terminated and 'Terminated' or 'Active',
+		color = player_is_terminated and 'red' or 'green',
+		tooltip = player_is_terminated and 'This user is currently banned/terminated on Roblox.' or 'This user is considered active on Roblox.'
 	} )
 
     test:renderHeader( {
