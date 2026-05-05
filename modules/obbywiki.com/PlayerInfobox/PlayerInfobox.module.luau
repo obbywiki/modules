@@ -409,6 +409,7 @@ function PlayerInfobox.main( frame )
 		col = 2,
 		content = {
 			test:renderItem( 'Joined Roblox', player_creation_month .. ' ' .. player_creation_year ),
+			test:renderItem( 'Most Popular Group', `[[{most_popular_group.name}]]` ),
 		}
 	} )
 
