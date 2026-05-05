@@ -291,9 +291,17 @@ function PlayerInfobox.main( frame )
 
 		local popular_group_data = mw.ext.cargo.query('Studios', '_pageName=name, members, month, year, thumbnail', {
 			where = "developers HOLDS '" .. target_user .. "'",
-			orderBy = "visits DESC",
+			orderBy = "members DESC",
 			limit = 1
 		})
+
+		if popular_group_data and popular_group_data[1] then
+			most_popular_group.name = popular_group_data[1].name
+			most_popular_group.image = popular_group_data[1].thumbnail
+			most_popular_group.members = tonumber(popular_group_data[1].members) or 0
+			most_popular_group.month = tostring(popular_group_data[1].month)
+			most_popular_group.year = tostring(popular_group_data[1].year)
+		end
 	end
 
 	--
