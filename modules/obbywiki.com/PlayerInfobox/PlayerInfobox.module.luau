@@ -307,7 +307,6 @@ function PlayerInfobox.main( frame )
 			test:renderItem( 'Obbies', '~' .. player_total_obbies .. ' <ref name="statistics_data" />'),
 			test:renderItem( 'Total Rating', (player_total_likes + player_total_dislikes) > 0 and (math.floor((player_total_likes / (player_total_likes + player_total_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Likes|link=]] ' .. get_comma_val(tostring(player_total_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Dislikes|link=]] ' .. get_comma_val(tostring(player_total_dislikes)) .. ')' or 'N/A'),
 			test:renderItem( 'Total Favorites', get_comma_val(player_total_favorites) .. '+ <ref name="statistics_data" />'),
-			test:renderItem( 'Contributions', '~' .. player_contributed_obbies),
 			-- test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
 			-- test:renderItem( 'Likes', obby_stats_likes .. '+' ),
 		}
@@ -348,9 +347,10 @@ function PlayerInfobox.main( frame )
 		title = 'Statistics (contributed)',
 		col = 2,
 		content = {
-			test:renderItem( 'Total Visits', get_comma_val(player_contributed_visits)),
-			test:renderItem( 'Total Rating', (player_contributed_likes + player_contributed_dislikes) > 0 and (math.floor((player_contributed_likes / (player_contributed_likes + player_contributed_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Likes|link=]] ' .. get_comma_val(tostring(player_contributed_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Dislikes|link=]] ' .. get_comma_val(tostring(player_contributed_dislikes)) .. ')' or 'N/A'),
-			test:renderItem( 'Total Favorites', get_comma_val(player_contributed_favorites) .. '+ <ref name="statistics_data" />'),
+			test:renderItem( 'Contributed Visits', get_comma_val(player_contributed_visits)),
+			test:renderItem( 'Contributions', '~' .. player_contributed_obbies),
+			test:renderItem( 'Contributed Rating', (player_contributed_likes + player_contributed_dislikes) > 0 and (math.floor((player_contributed_likes / (player_contributed_likes + player_contributed_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Likes|link=]] ' .. get_comma_val(tostring(player_contributed_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Dislikes|link=]] ' .. get_comma_val(tostring(player_contributed_dislikes)) .. ')' or 'N/A'),
+			test:renderItem( 'Contributed Favorites', get_comma_val(player_contributed_favorites) .. '+'),
 		}
 	} )
 
