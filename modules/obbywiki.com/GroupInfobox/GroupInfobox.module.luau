@@ -79,6 +79,8 @@ local studio_schema = {
 	owner = "String",
 	total_obbies = "Integer",
 
+	thumbnail = 'String',
+
 	developers = 'List (,) of String', -- for individual core developers in a group by @ (permanent or semi-permanent staff)
 	contributors = 'List (,) of String', -- for individual contributors or short-term contractors in a group by @
 	admins = 'List (,) of String', -- for group administrators
@@ -477,6 +479,7 @@ function GroupInfobox.main( frame )
 		contributors = args.contributors,
 		admins = args.admins,
 		moderators = args.moderators,
+		thumbnail = thumb,
 	})
 
     return rendered .. '\n' .. table.concat(append_categories, '\n')

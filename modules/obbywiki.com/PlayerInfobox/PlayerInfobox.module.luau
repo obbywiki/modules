@@ -208,6 +208,7 @@ function PlayerInfobox.main( frame )
 	local most_popular_obby = { name = ''; visits = 0; year = ''; month = ''; image = '' }
 	local most_popular_obby_contributed = { name = ''; visits = 0; year = ''; month = ''; image = '' }
 	local most_recent_obby = { name = ''; visits = 0; year = ''; month = ''; image = '' }
+	local most_popular_group = { name = ''; creator = ''; members = 0; year = ''; month = ''; image = '' }
 
 	local player_contributed_obbies = 0
 	local player_contributed_visits = 0
