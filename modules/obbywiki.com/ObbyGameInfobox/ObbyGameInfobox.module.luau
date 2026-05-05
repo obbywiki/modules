@@ -89,7 +89,8 @@ local obby_schema = {
 	name = 'String',
 	thumbnail = 'String',
 	creator = 'String', -- aka. "Developer"
-	developers = 'List (,) of String', -- for individual developers/contributors
+	developers = 'List (,) of String', -- for individual core developers by @
+	contributors = 'List (,) of String', -- for individual contributors by @, like map builders or contractors
 	publisher = 'String', -- publisher, rarely used, refers to the company that published the game, not the developer or studio
 	
 	stages = 'Integer',
@@ -953,6 +954,7 @@ function ObbyGameInfobox.main( frame )
 					is_public = obby_is_public,
 					avatar_type = obby_avatar_type == 'R6' and 'R6' or obby_avatar_type == 'R15' and 'R15' or obby_avatar_type == 'Rthro' and 'Rthro' or obby_avatar_type == 'Choice' and 'Choice' or nil,
 					developers = args.developers,
+					contributors = args.contributors,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 					playability = verified_info_key,
 				}, args.debug == 'true' or args.debug == true)
 			end
