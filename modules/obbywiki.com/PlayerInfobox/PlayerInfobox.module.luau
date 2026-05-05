@@ -376,20 +376,13 @@ function PlayerInfobox.main( frame )
 	} )
 
 	test:renderSection( {
-		title = 'Statistics (contributed)',
+		title = 'Contributions',
 		col = 2,
 		content = {
 			test:renderItem( 'Contributed Visits', get_comma_val(player_contributed_visits)),
 			test:renderItem( 'Contributions', '~' .. player_contributed_obbies),
 			test:renderItem( 'Contributed Rating', (player_contributed_likes + player_contributed_dislikes) > 0 and (math.floor((player_contributed_likes / (player_contributed_likes + player_contributed_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Likes|link=]] ' .. get_comma_val(tostring(player_contributed_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Dislikes|link=]] ' .. get_comma_val(tostring(player_contributed_dislikes)) .. ')' or 'N/A'),
 			test:renderItem( 'Contributed Favorites', get_comma_val(player_contributed_favorites) .. '+'),
-		}
-	} )
-
-	test:renderSection( {
-		title = 'Featured Contributions',
-		col = 2,
-		content = {
 			test:renderItem( {
 				label = 'Most Popular Contribution',
 				colspan = 2,
@@ -403,6 +396,14 @@ function PlayerInfobox.main( frame )
 			} )
 		}
 	} )
+
+	-- test:renderSection( {
+	-- 	title = 'Featured Contributions',
+	-- 	col = 2,
+	-- 	content = {
+			
+	-- 	}
+	-- } )
 
     test:renderSection( {
 		title = 'Other',
