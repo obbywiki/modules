@@ -78,6 +78,7 @@ local studio_schema = {
 	name = "String",
 	owner = "String",
 	total_obbies = "Integer",
+	members = "Float",
 
 	thumbnail = 'String',
 
@@ -127,6 +128,12 @@ function GroupInfobox.main( frame )
 
 	-- local obby_subgenre_lower = string.lower(obby_subgenre)
 
+	--
+
+	local group_name_raw
+	local group_stats_members_raw
+
+	--
 
 	local group_creator, group_creator_was_corrected = args.developer or args.creator or args.owner or 'Unknown', false
     local group_relations = args.relations or 'Independent'
@@ -142,6 +149,7 @@ function GroupInfobox.main( frame )
 	-- local obby_stats_likes = args.likes or 'N/A'
 
 	if tonumber(group_stats_members) ~= nil then
+		group_stats_members_raw = group_stats_members
 		group_stats_members = get_comma_val(group_stats_members)
 	end
 
@@ -196,8 +204,6 @@ function GroupInfobox.main( frame )
 
 	---
 
-	local group_name_raw
-
 	if group_id then
 		local group_res = mw.ext.externalData.getExternalData{
 			url = 'https://groups.roblox.com/v1/groups/'.. tostring(group_id),
@@ -247,6 +253,7 @@ function GroupInfobox.main( frame )
 		end
 
 		if row then
+			group_stats_members_raw = row.memberCount or 0
 			group_stats_members = row.memberCount or group_stats_members
 			if row.memberCount and tonumber(group_stats_members) ~= nil then group_stats_members = get_comma_val(group_stats_members) end
 		end
@@ -480,6 +487,7 @@ function GroupInfobox.main( frame )
 		admins = args.admins,
 		moderators = args.moderators,
 		thumbnail = thumb,
+		members = group_stats_members_raw,
 	})
 
     return rendered .. '\n' .. table.concat(append_categories, '\n')

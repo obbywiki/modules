@@ -286,6 +286,14 @@ function PlayerInfobox.main( frame )
 			most_recent_obby.month = tostring(recent_data[1].month)
 			most_recent_obby.year = tostring(recent_data[1].year)
 		end
+
+		--
+
+		local popular_group_data = mw.ext.cargo.query('Studios', '_pageName=name, members, month, year, thumbnail', {
+			where = "developers HOLDS '" .. target_user .. "'",
+			orderBy = "visits DESC",
+			limit = 1
+		})
 	end
 
 	--
