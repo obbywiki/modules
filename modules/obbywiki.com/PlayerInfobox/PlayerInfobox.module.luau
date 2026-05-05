@@ -206,6 +206,7 @@ function PlayerInfobox.main( frame )
 	--
 
 	local most_popular_obby = { name = ''; visits = 0; year = ''; month = ''; image = '' }
+	local most_popular_obby_contributed = { name = ''; visits = 0; year = ''; month = ''; image = '' }
 	local most_recent_obby = { name = ''; visits = 0; year = ''; month = ''; image = '' }
 
 	local player_contributed_obbies = 0
@@ -255,6 +256,20 @@ function PlayerInfobox.main( frame )
 			most_popular_obby.visits = tonumber(popular_data[1].visits) or 0
 			most_popular_obby.month = tostring(popular_data[1].month)
 			most_popular_obby.year = tostring(popular_data[1].year)
+		end
+
+		local popular_data_for_contributed = mw.ext.cargo.query('Obbies', '_pageName=name, visits, month, year, thumbnail', {
+			where = "contributors HOLDS '" .. target_user .. "'",
+			orderBy = "visits DESC",
+			limit = 1
+		})
+
+		if popular_data_for_contributed and popular_data_for_contributed[1] then
+			most_popular_obby_contributed.name = popular_data_for_contributed[1].name
+			most_popular_obby_contributed.image = popular_data_for_contributed[1].thumbnail
+			most_popular_obby_contributed.visits = tonumber(popular_data_for_contributed[1].visits) or 0
+			most_popular_obby_contributed.month = tostring(popular_data_for_contributed[1].month)
+			most_popular_obby_contributed.year = tostring(popular_data_for_contributed[1].year)
 		end
 
 		local recent_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits, day, month, year, thumbnail', {
@@ -351,6 +366,24 @@ function PlayerInfobox.main( frame )
 			test:renderItem( 'Contributions', '~' .. player_contributed_obbies),
 			test:renderItem( 'Contributed Rating', (player_contributed_likes + player_contributed_dislikes) > 0 and (math.floor((player_contributed_likes / (player_contributed_likes + player_contributed_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Likes|link=]] ' .. get_comma_val(tostring(player_contributed_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Dislikes|link=]] ' .. get_comma_val(tostring(player_contributed_dislikes)) .. ')' or 'N/A'),
 			test:renderItem( 'Contributed Favorites', get_comma_val(player_contributed_favorites) .. '+'),
+		}
+	} )
+
+	test:renderSection( {
+		title = 'Featured Contributions',
+		col = 2,
+		content = {
+			test:renderItem( {
+				label = 'Most Popular Contribution',
+				colspan = 2,
+				data = test:renderGameCard(
+					most_popular_obby_contributed.image,
+					most_popular_obby_contributed.name,
+					get_comma_val( tostring( most_popular_obby_contributed.visits or 0 ) ),
+					month_by_index( tonumber( most_popular_obby_contributed.month ) ),
+					most_popular_obby_contributed.year
+				)
+			} )
 		}
 	} )
 
