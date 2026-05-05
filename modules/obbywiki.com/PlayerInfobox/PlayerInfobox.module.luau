@@ -203,6 +203,12 @@ function PlayerInfobox.main( frame )
 	local most_popular_obby = { name = ''; visits = 0; year = ''; month = ''; image = '' }
 	local most_recent_obby = { name = ''; visits = 0; year = ''; month = ''; image = '' }
 
+	local player_contributed_obbies = 0
+	local player_contributed_visits = 0
+	local player_contributed_likes = 0
+	local player_contributed_dislikes = 0
+	local player_contributed_favorites = 0
+
 	if mw.ext.cargo and mw.ext.cargo.query then
 		local target_user = player_user_name_raw or ("@" .. player_user_name_unformatted)
 
@@ -216,6 +222,18 @@ function PlayerInfobox.main( frame )
 			player_total_likes = tonumber(data[1].total_likes) or 0
 			player_total_dislikes = tonumber(data[1].total_dislikes) or 0
 			player_total_favorites = tonumber(data[1].total_favorites) or 0
+		end
+
+		local contributors_data = mw.ext.cargo.query('Obbies', 'COUNT(*)=count, SUM(visits)=total_visits, SUM(likes)=total_likes, SUM(dislikes)=total_dislikes, SUM(favorites)=total_favorites', {
+			where = "contributors HOLDS '" .. target_user .. "'"
+		})
+
+		if contributors_data and contributors_data[1] then
+			player_contributed_obbies = tonumber(contributors_data[1].count) or 0
+			player_contributed_visits = tonumber(contributors_data[1].total_visits) or 0
+			player_contributed_likes = tonumber(contributors_data[1].total_likes) or 0
+			player_contributed_dislikes = tonumber(contributors_data[1].total_dislikes) or 0
+			player_contributed_favorites = tonumber(contributors_data[1].total_favorites) or 0
 		end
 
 		--
@@ -278,6 +296,7 @@ function PlayerInfobox.main( frame )
 			test:renderItem( 'Obbies', '~' .. player_total_obbies .. ' <ref name="statistics_data" />'),
 			test:renderItem( 'Total Rating', (player_total_likes + player_total_dislikes) > 0 and (math.floor((player_total_likes / (player_total_likes + player_total_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Likes|link=]] ' .. get_comma_val(tostring(player_total_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Dislikes|link=]] ' .. get_comma_val(tostring(player_total_dislikes)) .. ')' or 'N/A'),
 			test:renderItem( 'Total Favorites', get_comma_val(player_total_favorites) .. '+ <ref name="statistics_data" />'),
+			test:renderItem( 'Contributions', '~' .. player_contributed_obbies),
 			-- test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
 			-- test:renderItem( 'Likes', obby_stats_likes .. '+' ),
 		}
@@ -311,6 +330,16 @@ function PlayerInfobox.main( frame )
 			} ),
 			-- test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
 			-- test:renderItem( 'Likes', obby_stats_likes .. '+' ),
+		}
+	} )
+
+	test:renderSection( {
+		title = 'Statistics (contributed)',
+		col = 2,
+		content = {
+			test:renderItem( 'Total Visits', get_comma_val(player_contributed_visits)),
+			test:renderItem( 'Total Rating', (player_contributed_likes + player_contributed_dislikes) > 0 and (math.floor((player_contributed_likes / (player_contributed_likes + player_contributed_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Likes|link=]] ' .. get_comma_val(tostring(player_contributed_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Dislikes|link=]] ' .. get_comma_val(tostring(player_contributed_dislikes)) .. ')' or 'N/A'),
+			test:renderItem( 'Total Favorites', get_comma_val(player_contributed_favorites) .. '+ <ref name="statistics_data" />'),
 		}
 	} )
 
