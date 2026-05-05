@@ -409,7 +409,7 @@ function PlayerInfobox.main( frame )
 		col = 2,
 		content = {
 			test:renderItem( 'Joined Roblox', player_creation_month .. ' ' .. player_creation_year ),
-			test:renderItem( 'Most Popular Group', `[[{most_popular_group.name}]] \u{2004} {get_comma_val(tostring(most_popular_group.members))} members` ),
+			test:renderItem( 'Most Popular Group', `[[{most_popular_group.name}]] — {get_comma_val(tostring(most_popular_group.members))} members` ),
 		}
 	} )
 
@@ -506,7 +506,7 @@ function PlayerInfobox.main( frame )
 	-- TODO dynamically add categories for each role (e.g, Developer, Content Creator, etc.)
 
 	local default_sort = '{{DEFAULTSORT:' .. string.sub(player_user_name_raw, 2) .. '}}'
-	local display_title = '{{DISPLAYTITLE:' .. string.sub(player_user_name_raw, 2) .. '}}'
+	local display_title = '{{DISPLAYTITLE:@' .. string.sub(player_user_name_raw, 2) .. '}}'
 
 	PlayerInfobox.store(frame, {
 		username = player_user_name_raw,
