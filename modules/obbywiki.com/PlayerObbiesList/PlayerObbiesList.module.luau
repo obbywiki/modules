@@ -113,7 +113,7 @@ function PlayerObbiesList.main( frame )
             local row = cont_tbl:tag("tr")
             local thumb_cell = row:tag("td")
 
-            thumb_cell:wikitext(`[[File:{v.thumbnail}|120px]]`)
+            thumb_cell:wikitext(`[[File:{v.thumbnail}|120px|link={v.name}]]`)
 
             local total_likes = tonumber(v.likes) or 0
             local total_dislikes = tonumber(v.dislikes) or 0
