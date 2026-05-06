@@ -19,7 +19,23 @@ function PlayerObbiesList.main( frame )
         limit = 30
     })
 
-    return tostring(mw.text.jsonEncode(developers_held_data))
+    local creator_is_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits, month, year, thumbnail', {
+        where = "developers HOLDS '@" .. username .. "' AND NOT (developers HOLDS '@" .. username, 2 .. "')",
+        orderBy = "visits DESC",
+        limit = 30
+    })
+
+    local developed_data = {}
+
+    for _, v in ipairs(developers_held_data) do
+        table.insert(developed_data, v)
+    end
+
+    for _, v in ipairs(creator_is_data) do
+        table.insert(developed_data, v)
+    end
+
+    return tostring(mw.text.jsonEncode(developed_data))
 end
 
 return PlayerObbiesList
