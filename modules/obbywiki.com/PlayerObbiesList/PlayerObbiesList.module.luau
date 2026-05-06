@@ -47,11 +47,32 @@ function PlayerObbiesList.main( frame )
 
     local rendered = ''
 
+    local tbl = mw.html.create("table")
+		:addClass("wikitable sortable plainlinks")
+		:addClass("mw-collapsible mw-made-collapsible wikitable--fluid")
+		:css("width", "100%")
+
+    local thead = tbl:tag("tr")
+	thead:tag("th"):wikitext("Thumbnail")
+	thead:tag("th"):wikitext("Name")
+	thead:tag("th"):wikitext("Visits")
+	thead:tag("th"):wikitext("Date")
+
     for _, v in ipairs(developed_data) do
-        rendered ..= `\n* [[{v.name}]] ({month_by_index(tonumber(v.month))} {v.year})`
+        -- rendered ..= `\n* [[{v.name}]] ({month_by_index(tonumber(v.month))} {v.year})`
+        local row = tbl:tag("tr")
+		local thumb_cell = row:tag("td")
+
+        thumb_cell:wikitext(`[[File:{v.thumbnail}|120px]]`)
+
+        row:tag("td"):wikitext(`[[{v.name}]]`)
+        row:tag("td"):wikitext(`{v.visits}`)
+        row:tag("td"):wikitext(`{month_by_index(tonumber(v.month))} {v.year}`)
     end
 
-    return rendered .. '\n\n' .. tostring(mw.text.jsonEncode(developed_data))
+    rendered ..= tbl
+
+    return rendered .. '\n\n' -- .. tostring(mw.text.jsonEncode(developed_data))
 end
 
 return PlayerObbiesList
