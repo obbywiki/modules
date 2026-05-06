@@ -7,6 +7,8 @@ function PlayerObbiesList.main( frame )
 
     local username = args.username
 
+    if not username then return 'No username provided' end
+
     if string.sub(username, 1, 1) == '@' then
         username = string.sub(username, 2)
     end
