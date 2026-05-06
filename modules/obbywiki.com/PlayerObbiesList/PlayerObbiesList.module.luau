@@ -14,7 +14,8 @@ function PlayerObbiesList.main( frame )
     end
 
     local developers_held_data = mw.ext.cargo.query('Obbies', 'COUNT(*)=count, _pageName=name, visits, month, year, thumbnail', {
-        where = "developers HOLDS '@" .. username .. "'"
+        where = "developers HOLDS '@" .. username .. "'",
+        limit = 30
     })
 
     return tostring(mw.text.jsonEncode(developers_held_data))
