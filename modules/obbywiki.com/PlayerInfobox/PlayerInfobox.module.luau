@@ -216,6 +216,12 @@ function PlayerInfobox.main( frame )
 	local player_contributed_dislikes = 0
 	local player_contributed_favorites = 0
 
+	local player_owned_obbies = 0
+	local player_owned_visits = 0
+	local player_owned_likes = 0
+	local player_owned_dislikes = 0
+	local player_owned_favorites = 0
+
 	if mw.ext.cargo and mw.ext.cargo.query then
 		local target_user = player_user_name_raw or ("@" .. player_user_name_unformatted)
 
@@ -229,6 +235,18 @@ function PlayerInfobox.main( frame )
 			player_total_likes = tonumber(data[1].total_likes) or 0
 			player_total_dislikes = tonumber(data[1].total_dislikes) or 0
 			player_total_favorites = tonumber(data[1].total_favorites) or 0
+		end
+
+		local owned_data = mw.ext.cargo.query('Obbies', 'COUNT(*)=count, SUM(visits)=total_visits, SUM(likes)=total_likes, SUM(dislikes)=total_dislikes, SUM(favorites)=total_favorites', {
+			where = "developer = '" .. target_user .. "' AND NOT (developers HOLDS '" .. target_user .. "')"
+		})
+
+		if owned_data and owned_data[1] then
+			player_owned_obbies = tonumber(owned_data[1].count) or 0
+			player_owned_visits = tonumber(owned_data[1].total_visits) or 0
+			player_owned_likes = tonumber(owned_data[1].total_likes) or 0
+			player_owned_dislikes = tonumber(owned_data[1].total_dislikes) or 0
+			player_owned_favorites = tonumber(owned_data[1].total_favorites) or 0
 		end
 
 		local contributors_data = mw.ext.cargo.query('Obbies', 'COUNT(*)=count, SUM(visits)=total_visits, SUM(likes)=total_likes, SUM(dislikes)=total_dislikes, SUM(favorites)=total_favorites', {
@@ -303,6 +321,14 @@ function PlayerInfobox.main( frame )
 			most_popular_group.year = tostring(popular_group_data[1].year)
 		end
 	end
+
+	--
+
+	player_total_obbies += player_owned_obbies
+	player_total_visits += player_owned_visits
+	player_total_likes += player_owned_likes
+	player_total_dislikes += player_owned_dislikes
+	player_total_favorites += player_owned_favorites
 
 	--
 
