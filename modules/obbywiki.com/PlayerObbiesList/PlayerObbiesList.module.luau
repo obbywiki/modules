@@ -1,7 +1,7 @@
 local PlayerObbiesList = {}
 
 function PlayerObbiesList.main( frame )
-    if not mw.ext.cargo or not mw.ext.cargo.query then return '' end
+    if not mw.ext.cargo or not mw.ext.cargo.query then return "An unexpected error occurred and this user's obbies and contributions could not be loaded at this time. Please check back later." end
 
     local args = require( 'Module:Arguments' ).getArgs( frame )
 
@@ -13,7 +13,7 @@ function PlayerObbiesList.main( frame )
         username = string.sub(username, 2)
     end
 
-    local developers_held_data = mw.ext.cargo.query('Obbies', 'COUNT(*)=count, _pageName=name, visits, month, year, thumbnail', {
+    local developers_held_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits, month, year, thumbnail', {
         where = "developers HOLDS '@" .. username .. "'",
         orderBy = "visits DESC",
         limit = 30
