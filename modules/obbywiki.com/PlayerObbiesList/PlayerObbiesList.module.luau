@@ -1,5 +1,11 @@
 local PlayerObbiesList = {}
 
+local months_full = {'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'}
+
+local function month_by_index(month)
+	return months_full[month] or 'N/A'
+end
+
 function PlayerObbiesList.main( frame )
     if not mw.ext.cargo or not mw.ext.cargo.query then return "An unexpected error occurred and this user's obbies and contributions could not be loaded at this time. Please check back later." end
 
@@ -39,7 +45,13 @@ function PlayerObbiesList.main( frame )
         return tonumber(a.visits) > tonumber(b.visits)
     end)
 
-    return tostring(mw.text.jsonEncode(developed_data))
+    local rendered = ''
+
+    for _, v in ipairs(developed_data) do
+        rendered ..= `\n* [[{v.name}]] ({month_by_index(tonumber(v.month))} {v.year})`
+    end
+
+    return rendered .. '\n\n' .. tostring(mw.text.jsonEncode(developed_data))
 end
 
 return PlayerObbiesList
