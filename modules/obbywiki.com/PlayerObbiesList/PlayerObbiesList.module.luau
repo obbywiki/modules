@@ -1,0 +1,21 @@
+local PlayerObbiesList = {}
+
+function PlayerObbiesList.main( frame )
+    if not mw.ext.cargo or not mw.ext.cargo.query then return '' end
+
+    local args = require( 'Module:Arguments' ).getArgs( frame )
+
+    local username = args.username
+
+    if string.sub(username, 1, 1) == '@' then
+        username = string.sub(username, 2)
+    end
+
+    local developers_held_data = mw.ext.cargo.query('Obbies', 'COUNT(*)=count, _pageName=name, visits, month, year, thumbnail', {
+        where = "developers HOLDS '@" .. username .. "'"
+    })
+
+    return tostring(developers_held_data)
+end
+
+return PlayerObbiesList
