@@ -64,7 +64,7 @@ function PlayerObbiesList.main( frame )
         return tonumber(a.visits) > tonumber(b.visits)
     end)
 
-    local rendered = `@{username} has '''{#developed_data}+''' obbies they have developed themselves or been on the development team for:`
+    local rendered = `@{username} has '''{#developed_data}+''' obbies they have developed themselves or have been on or currently is on the development team for:`
 
     local tbl = mw.html.create("table")
 		:addClass("wikitable sortable plainlinks")
