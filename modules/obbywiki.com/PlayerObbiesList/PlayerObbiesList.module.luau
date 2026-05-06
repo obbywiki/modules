@@ -36,7 +36,7 @@ function PlayerObbiesList.main( frame )
     end
 
     table.sort(developed_data, function(a, b)
-        return a.visits < b.visits
+        return tonumber(a.visits) > tonumber(b.visits)
     end)
 
     return tostring(mw.text.jsonEncode(developed_data))
