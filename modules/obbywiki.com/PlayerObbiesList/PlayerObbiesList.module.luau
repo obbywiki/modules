@@ -122,7 +122,7 @@ function PlayerObbiesList.main( frame )
     end
 
     rendered ..= tostring(tbl)
-    rendered ..= '\n\n == Contributions == ' .. tostring(cont_tbl)
+    rendered ..= '\n\n' .. frame:preprocess('== Contributions ==') .. tostring(cont_tbl)
 
     return rendered .. '\n\n' -- .. tostring(mw.text.jsonEncode(developed_data))
 end
