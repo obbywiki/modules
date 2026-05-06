@@ -64,7 +64,7 @@ function PlayerObbiesList.main( frame )
         return tonumber(a.visits) > tonumber(b.visits)
     end)
 
-    local rendered = `@{username} has '''{#developed_data}+''' obbies they have developed themself or been on the development team for.`
+    local rendered = `@{username} has '''{#developed_data}+''' obbies they have developed themselves or been on the development team for:`
 
     local tbl = mw.html.create("table")
 		:addClass("wikitable sortable plainlinks")
@@ -128,7 +128,7 @@ function PlayerObbiesList.main( frame )
     rendered ..= tostring(tbl)
     
     if cont_tbl then
-        rendered ..= '\n\n' .. tostring(mw.html.create('h2'):wikitext('Contributions')) .. tostring(cont_tbl)
+        rendered ..= '\n\n' .. tostring(mw.html.create('h2'):wikitext('Contributions')) .. `Below are all of @{username}'s contributed obbies.` .. tostring(cont_tbl)
     end
 
     return rendered .. '\n\n' -- .. tostring(mw.text.jsonEncode(developed_data))
