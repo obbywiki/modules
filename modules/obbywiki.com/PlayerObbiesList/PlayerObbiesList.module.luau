@@ -17,7 +17,7 @@ function PlayerObbiesList.main( frame )
         where = "developers HOLDS '@" .. username .. "'"
     })
 
-    return tostring(developers_held_data)
+    return tostring(mw.text.jsonEncode(developers_held_data))
 end
 
 return PlayerObbiesList
