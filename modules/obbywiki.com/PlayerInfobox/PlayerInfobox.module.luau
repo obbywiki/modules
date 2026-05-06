@@ -238,7 +238,7 @@ function PlayerInfobox.main( frame )
 		end
 
 		local owned_data = mw.ext.cargo.query('Obbies', 'COUNT(*)=count, SUM(visits)=total_visits, SUM(likes)=total_likes, SUM(dislikes)=total_dislikes, SUM(favorites)=total_favorites', {
-			where = "developer = '" .. target_user .. "' AND NOT (developers HOLDS '" .. target_user .. "')"
+			where = "creator = '" .. target_user .. "' AND NOT (developers HOLDS '" .. target_user .. "')"
 		})
 
 		if owned_data and owned_data[1] then
