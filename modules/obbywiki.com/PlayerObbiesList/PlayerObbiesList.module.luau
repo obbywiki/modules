@@ -70,7 +70,7 @@ function PlayerObbiesList.main( frame )
         row:tag("td"):wikitext(`{month_by_index(tonumber(v.month))} {v.year}`)
     end
 
-    rendered ..= tbl
+    rendered ..= tostring(tbl)
 
     return rendered .. '\n\n' -- .. tostring(mw.text.jsonEncode(developed_data))
 end
