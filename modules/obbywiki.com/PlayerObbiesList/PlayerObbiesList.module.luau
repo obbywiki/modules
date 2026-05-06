@@ -6,6 +6,19 @@ local function month_by_index(month)
 	return months_full[month] or 'N/A'
 end
 
+local function get_comma_val(num)
+	local formatted = num
+	while true do  
+		local k;
+
+		formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
+		if (k==0) then
+			break
+		end
+	end
+	return formatted
+end
+
 function PlayerObbiesList.main( frame )
     if not mw.ext.cargo or not mw.ext.cargo.query then return "An unexpected error occurred and this user's obbies and contributions could not be loaded at this time. Please check back later." end
 
@@ -19,13 +32,13 @@ function PlayerObbiesList.main( frame )
         username = string.sub(username, 2)
     end
 
-    local developers_held_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits, month, year, thumbnail', {
+    local developers_held_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits, month, year, thumbnail, likes, dislikes', {
         where = "developers HOLDS '@" .. username .. "'",
         orderBy = "visits DESC",
         limit = 30
     })
 
-    local creator_is_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits, month, year, thumbnail', {
+    local creator_is_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits, month, year, thumbnail, likes, dislikes', {
         where = "creator = '@" .. username .. "' AND NOT (developers HOLDS '@" .. username .. "')",
         orderBy = "visits DESC",
         limit = 30
@@ -56,6 +69,7 @@ function PlayerObbiesList.main( frame )
 	thead:tag("th"):wikitext("Thumbnail")
 	thead:tag("th"):wikitext("Name")
 	thead:tag("th"):wikitext("Visits")
+    thead:tag("th"):wikitext("Rating")
 	thead:tag("th"):wikitext("Date")
 
     for _, v in ipairs(developed_data) do
@@ -65,8 +79,12 @@ function PlayerObbiesList.main( frame )
 
         thumb_cell:wikitext(`[[File:{v.thumbnail}|120px]]`)
 
+        local total_likes = tonumber(v.likes) or 0
+        local total_dislikes = tonumber(v.dislikes) or 0
+
         row:tag("td"):wikitext(`[[{v.name}]]`)
-        row:tag("td"):wikitext(`{v.visits}`)
+        row:tag("td"):wikitext(`{get_comma_val(v.visits)}`)
+        row:tag("td"):wikitext((total_likes + total_dislikes) > 0 and (math.floor((total_likes / (total_likes + total_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Likes|link=]] ' .. get_comma_val(tostring(total_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Dislikes|link=]] ' .. get_comma_val(tostring(total_dislikes)) .. ')' or 'N/A')
         row:tag("td"):wikitext(`{month_by_index(tonumber(v.month))} {v.year}`)
     end
 
