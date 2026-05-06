@@ -78,18 +78,6 @@ function PlayerObbiesList.main( frame )
     thead:tag("th"):wikitext("Rating")
 	thead:tag("th"):wikitext("Date")
 
-    local cont_tbl = mw.html.create("table")
-		:addClass("wikitable sortable plainlinks")
-		:addClass("mw-collapsible mw-made-collapsible wikitable--fluid")
-		:css("width", "100%")
-
-    local cthead = cont_tbl:tag("tr")
-	cthead:tag("th"):wikitext("Thumbnail")
-	cthead:tag("th"):wikitext("Name")
-	cthead:tag("th"):wikitext("Visits")
-    cthead:tag("th"):wikitext("Rating")
-	cthead:tag("th"):wikitext("Date")
-
     for _, v in ipairs(developed_data) do
         -- rendered ..= `\n* [[{v.name}]] ({month_by_index(tonumber(v.month))} {v.year})`
         local row = tbl:tag("tr")
@@ -106,23 +94,42 @@ function PlayerObbiesList.main( frame )
         row:tag("td"):wikitext(`{month_by_index(tonumber(v.month))} {v.year}`)
     end
 
-    for _, v in ipairs(contributors_held_data) do
-        local row = cont_tbl:tag("tr")
-		local thumb_cell = row:tag("td")
+    local cont_tbl
 
-        thumb_cell:wikitext(`[[File:{v.thumbnail}|120px]]`)
+    if #contributors_held_data > 0 then
+        cont_tbl = mw.html.create("table")
+            :addClass("wikitable sortable plainlinks")
+            :addClass("mw-collapsible mw-made-collapsible wikitable--fluid")
+            :css("width", "100%")
 
-        local total_likes = tonumber(v.likes) or 0
-        local total_dislikes = tonumber(v.dislikes) or 0
+        local cthead = cont_tbl:tag("tr")
+        cthead:tag("th"):wikitext("Thumbnail")
+        cthead:tag("th"):wikitext("Name")
+        cthead:tag("th"):wikitext("Visits")
+        cthead:tag("th"):wikitext("Rating")
+        cthead:tag("th"):wikitext("Date")
 
-        row:tag("td"):wikitext(`[[{v.name}]]`)
-        row:tag("td"):wikitext(`{get_comma_val(v.visits)}`)
-        row:tag("td"):wikitext((total_likes + total_dislikes) > 0 and (math.floor((total_likes / (total_likes + total_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Likes|link=]] ' .. get_comma_val(tostring(total_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Dislikes|link=]] ' .. get_comma_val(tostring(total_dislikes)) .. ')' or 'N/A')
-        row:tag("td"):wikitext(`{month_by_index(tonumber(v.month))} {v.year}`)
+        for _, v in ipairs(contributors_held_data) do
+            local row = cont_tbl:tag("tr")
+            local thumb_cell = row:tag("td")
+
+            thumb_cell:wikitext(`[[File:{v.thumbnail}|120px]]`)
+
+            local total_likes = tonumber(v.likes) or 0
+            local total_dislikes = tonumber(v.dislikes) or 0
+
+            row:tag("td"):wikitext(`[[{v.name}]]`)
+            row:tag("td"):wikitext(`{get_comma_val(v.visits)}`)
+            row:tag("td"):wikitext((total_likes + total_dislikes) > 0 and (math.floor((total_likes / (total_likes + total_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Likes|link=]] ' .. get_comma_val(tostring(total_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Dislikes|link=]] ' .. get_comma_val(tostring(total_dislikes)) .. ')' or 'N/A')
+            row:tag("td"):wikitext(`{month_by_index(tonumber(v.month))} {v.year}`)
+        end
     end
 
     rendered ..= tostring(tbl)
-    rendered ..= '\n\n' .. tostring(mw.html:create('div'):wikitext('== Contributions ==')) .. tostring(cont_tbl)
+    
+    if cont_tbl then
+        rendered ..= '\n\n' .. tostring(mw.html:create('div'):wikitext('== Contributions ==')) .. tostring(cont_tbl)
+    end
 
     return rendered .. '\n\n' -- .. tostring(mw.text.jsonEncode(developed_data))
 end
