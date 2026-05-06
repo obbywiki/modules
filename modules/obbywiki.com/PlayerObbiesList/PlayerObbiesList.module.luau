@@ -127,9 +127,9 @@ function PlayerObbiesList.main( frame )
 
     rendered ..= tostring(tbl)
     
-    if cont_tbl then
-        rendered ..= '\n\n' .. tostring(mw.html:create('div'):wikitext('== Contributions ==')) .. tostring(cont_tbl)
-    end
+    -- if cont_tbl then
+    --     rendered ..= '\n\n' .. tostring(mw.html:create('div'):wikitext('== Contributions ==')) .. tostring(cont_tbl)
+    -- end
 
     return rendered .. '\n\n' -- .. tostring(mw.text.jsonEncode(developed_data))
 end
