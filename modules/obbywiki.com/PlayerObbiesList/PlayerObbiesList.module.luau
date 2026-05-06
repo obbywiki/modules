@@ -128,7 +128,7 @@ function PlayerObbiesList.main( frame )
     rendered ..= tostring(tbl)
     
     if cont_tbl then
-        rendered ..= '\n\n' .. tostring(mw.html.create('h2'):wikitext('Contributions')) .. `Below are all of @{username}'s contributed obbies.` .. tostring(cont_tbl)
+        rendered ..= '\n\n' .. tostring(mw.html.create('h2'):wikitext('Contributions')) .. `Below are all of @{username}'s contributed obbies. Contributions are typically considered to be one-off contract work for games they are not core developers of. Work varies by developer and game, but typically contributors are one-time level designers, map creators, or other short-term work.` .. tostring(cont_tbl)
     end
 
     return rendered .. '\n\n' -- .. tostring(mw.text.jsonEncode(developed_data))
