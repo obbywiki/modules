@@ -20,7 +20,7 @@ function PlayerObbiesList.main( frame )
     })
 
     local creator_is_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits, month, year, thumbnail', {
-        where = "developers HOLDS '@" .. username .. "' AND NOT (developers HOLDS '@" .. username, 2 .. "')",
+        where = "creator = '@" .. username .. "' AND NOT (developers HOLDS '@" .. username .. "')",
         orderBy = "visits DESC",
         limit = 30
     })
