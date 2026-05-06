@@ -35,6 +35,10 @@ function PlayerObbiesList.main( frame )
         table.insert(developed_data, v)
     end
 
+    table.sort(developed_data, function(a, b)
+        return a.visits > b.visits
+    end)
+
     return tostring(mw.text.jsonEncode(developed_data))
 end
 
