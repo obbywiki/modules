@@ -38,6 +38,12 @@ function PlayerObbiesList.main( frame )
         limit = 30
     })
 
+    local contributors_held_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits, month, year, thumbnail, likes, dislikes', {
+        where = "contributors HOLDS '@" .. username .. "'",
+        orderBy = "visits DESC",
+        limit = 30
+    })
+
     local creator_is_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits, month, year, thumbnail, likes, dislikes', {
         where = "creator = '@" .. username .. "' AND NOT (developers HOLDS '@" .. username .. "')",
         orderBy = "visits DESC",
@@ -72,6 +78,18 @@ function PlayerObbiesList.main( frame )
     thead:tag("th"):wikitext("Rating")
 	thead:tag("th"):wikitext("Date")
 
+    local cont_tbl = mw.html.create("table")
+		:addClass("wikitable sortable plainlinks")
+		:addClass("mw-collapsible mw-made-collapsible wikitable--fluid")
+		:css("width", "100%")
+
+    local cthead = cont_tbl:tag("tr")
+	cthead:tag("th"):wikitext("Thumbnail")
+	cthead:tag("th"):wikitext("Name")
+	cthead:tag("th"):wikitext("Visits")
+    cthead:tag("th"):wikitext("Rating")
+	cthead:tag("th"):wikitext("Date")
+
     for _, v in ipairs(developed_data) do
         -- rendered ..= `\n* [[{v.name}]] ({month_by_index(tonumber(v.month))} {v.year})`
         local row = tbl:tag("tr")
@@ -88,7 +106,23 @@ function PlayerObbiesList.main( frame )
         row:tag("td"):wikitext(`{month_by_index(tonumber(v.month))} {v.year}`)
     end
 
+    for _, v in ipairs(contributors_held_data) do
+        local row = cont_tbl:tag("tr")
+		local thumb_cell = row:tag("td")
+
+        thumb_cell:wikitext(`[[File:{v.thumbnail}|120px]]`)
+
+        local total_likes = tonumber(v.likes) or 0
+        local total_dislikes = tonumber(v.dislikes) or 0
+
+        row:tag("td"):wikitext(`[[{v.name}]]`)
+        row:tag("td"):wikitext(`{get_comma_val(v.visits)}`)
+        row:tag("td"):wikitext((total_likes + total_dislikes) > 0 and (math.floor((total_likes / (total_likes + total_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Likes|link=]] ' .. get_comma_val(tostring(total_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Dislikes|link=]] ' .. get_comma_val(tostring(total_dislikes)) .. ')' or 'N/A')
+        row:tag("td"):wikitext(`{month_by_index(tonumber(v.month))} {v.year}`)
+    end
+
     rendered ..= tostring(tbl)
+    rendered ..= '\n\n==Contributions==' .. tostring(cont_tbl)
 
     return rendered .. '\n\n' -- .. tostring(mw.text.jsonEncode(developed_data))
 end
