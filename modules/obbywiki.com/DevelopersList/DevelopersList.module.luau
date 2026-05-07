@@ -22,6 +22,10 @@ local function construct_card(container, data)
     local username = user_info:tag('div')
     :addClass('user-info-username')
 
+    inner:tag('span')
+        :addClass('ow-developer-card__link')
+        :wikitext(`[[@{data[1].username}]]`)
+
     username:tag('div'):addClass('user-info-username-display'):wikitext(data[1].display_name)
     username:tag('div'):addClass('user-info-username-username'):wikitext(`@{data[1].username}`)
     
