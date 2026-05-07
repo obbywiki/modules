@@ -44,12 +44,24 @@
     text-indent: 10000px;
 }
 
-.developer-card-avatar .user-info-container {
+.developer-card-top .user-info-container {
     margin-left: 16px;
 }
 
-.developer-card-avatar .user-info-username {
-    gap: var(--spacing);
+.user-info-container .user-info-username .user-info-username-display {
     align-items: flex-end;
     display: flex;
+    font-weight: 700;
+    letter-spacing: 0.0075em;
+    line-height: 1.6;
+    font-size: 1.25rem;
+}
+
+.user-info-container .user-info-username .user-info-username-username {
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+    opacity: 0.6;
+    margin-bottom: 4px;
 }
