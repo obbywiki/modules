@@ -35,7 +35,7 @@ local function construct_card(container, data)
     local txt_area = inner:tag('div')
         :addClass('developer-card-description')
 
-    txt_area:wikitext('developer description')
+    txt_area:wikitext(data[1].description)
 
     return card
 end
@@ -68,15 +68,21 @@ function DevelopersList.main( frame )
         :addClass("ow developers-list")
 
     for _, v in pairs(usernames) do
+        local username = v
+
+        if string.find(username, '-') then
+            username = string.split(username, '-')[1]
+        end
+
         local data = mw.ext.cargo.query('Players', '_pageName=page, username, image, display_name, most_popular_obby, most_recent_obby, headshot', {
-            where = "username = '" .. v .. "'",
+            where = "username = '" .. username .. "'",
             limit = 1
         })
 
         if data and data[1] then
             construct_card(container, data)
         else
-            construct_card(container, {{username = v, display_name = v, image = 'Standard11placeholder.webp'}})
+            construct_card(container, {{username = v, display_name = v, image = 'Standard11placeholder.webp', description = string.find(username, '-') and string.split(username, '-')[2] or ''}})
         end
     end
 
