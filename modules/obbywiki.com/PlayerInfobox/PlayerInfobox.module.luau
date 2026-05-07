@@ -148,7 +148,7 @@ function PlayerInfobox.main( frame )
 		end
 	end
 	
-    local player_creation_year, player_creation_month, player_creation_day
+    local player_creation_year, player_creation_month, player_creation_day, player_creation_month_num
 	local player_is_verified = false
 	
 	local player_current_ccu = 0 -- track users total ccu across all obbies on obby wiki TODO
@@ -204,6 +204,7 @@ function PlayerInfobox.main( frame )
 			local year, month, day = row.created:match('^([%d]+)-([%d]+)-([%d]+)T')
 			player_creation_year = year
 			player_creation_month = month_by_index(tonumber(month))
+			player_creation_month_num = tonumber(month)
 			player_creation_day = day
 		end
 	end
@@ -548,7 +549,7 @@ function PlayerInfobox.main( frame )
 		most_popular_obby = most_popular_obby.name,
 		most_recent_obby = most_recent_obby.name,
 		year = tonumber(player_creation_year),
-		month = tonumber(player_creation_month),
+		month = player_creation_month_num,
 		day = tonumber(player_creation_day),
 		user_id = tostring(player_user_id),
 	})
