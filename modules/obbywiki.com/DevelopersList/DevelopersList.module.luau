@@ -22,7 +22,18 @@ function DevelopersList.main( frame )
         end
     end
 
-    return tostring(mw.text.jsonEncode(usernames))
+    -- return tostring(mw.text.jsonEncode(usernames))
+
+    local container = mw.html.create('div')
+        :addClass("ow developers-list")
+
+    for _, v in pairs(usernames) do
+        local data = mw.ext.cargo.query('Players', '_pageName=name, visits, month, year, thumbnail, likes, dislikes', {
+            where = "contributors HOLDS '@" .. username .. "'",
+            orderBy = "visits DESC",
+            limit = 30
+        })
+    end
 end
 
 return DevelopersList

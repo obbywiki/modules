@@ -83,7 +83,7 @@ local player_schema = {
 	user_id = "String",
 
 	total_obbies = "Integer",
-	total_visits = "String",
+	total_visits = "Float",
 
 	most_popular_obby = "String",
 	most_recent_obby = "String",
