@@ -19,7 +19,7 @@ local function construct_card(container, data)
     local user_info = top:tag('div')
         :addClass('user-info-container')
 
-    local username = top:tag('div')
+    local username = user_info:tag('div')
     :addClass('user-info-username')
 
     username:wikitext(data[1].display_name)
