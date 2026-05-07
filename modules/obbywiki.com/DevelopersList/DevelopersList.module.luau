@@ -30,7 +30,7 @@ local function construct_card(container, data)
     username:tag('div'):addClass('user-info-username-username'):wikitext(`@{data[1].username}`)
     
 
-    img:wikitext(`[[File:{data[1].image}|64px|link=]]`)
+    img:wikitext(`[[File:{data[1].headshot or data[1].image}|64px|link=]]`)
 
     local txt_area = inner:tag('div')
         :addClass('developer-card-description')
@@ -68,7 +68,7 @@ function DevelopersList.main( frame )
         :addClass("ow developers-list")
 
     for _, v in pairs(usernames) do
-        local data = mw.ext.cargo.query('Players', '_pageName=page, username, image, display_name, most_popular_obby, most_recent_obby', {
+        local data = mw.ext.cargo.query('Players', '_pageName=page, username, image, display_name, most_popular_obby, most_recent_obby, headshot', {
             where = "username = '" .. v .. "'",
             limit = 1
         })
