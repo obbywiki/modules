@@ -8,12 +8,19 @@
 .developer-card {
     overflow: hidden;
     border: 1px solid var(--border-color-base);
+    border-radius: var(--border-radius-medium);
     color: white;
+    padding: var(--space-sm);
 }
 
-.developer-card-root {
-    padding: 16px;
+.developer-card:hover {
+    background-color: var(--color-surface-2--hover);
+    border-color: var(--border-color-base);
 }
+
+/* .developer-card-root {
+    padding: 16px;
+} */
 
 .developer-card-top {
     display: flex;
