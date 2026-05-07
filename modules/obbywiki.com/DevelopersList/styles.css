@@ -1,0 +1,8 @@
+.developers-list {
+    width: 100%;
+    display: flex;
+}
+
+.developers-card {
+    width: 300px;
+}
