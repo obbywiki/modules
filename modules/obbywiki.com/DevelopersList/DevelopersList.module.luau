@@ -76,7 +76,7 @@ function DevelopersList.main( frame )
         end
     end
 
-    return tostring(container)
+    return frame:extensionTag('templatestyles', '', { src = 'Template:DevelopersList/styles.css' }) .. tostring(container)
 end
 
 return DevelopersList
