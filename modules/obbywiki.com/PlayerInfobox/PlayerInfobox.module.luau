@@ -542,7 +542,7 @@ function PlayerInfobox.main( frame )
 	local display_title = '{{DISPLAYTITLE:@' .. string.sub(player_user_name_raw, 2) .. '}}'
 
 	PlayerInfobox.store(frame, {
-		username = player_user_name_raw,
+		username = string.sub(player_user_name_raw, 2),
 		display_name = player_display_name_raw,
 		is_verified = player_is_verified,
 		total_obbies = tonumber(player_total_obbies),
