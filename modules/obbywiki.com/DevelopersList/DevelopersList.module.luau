@@ -30,10 +30,10 @@ local function construct_card(container, data)
     username:tag('div'):addClass('user-info-username-username'):wikitext(`@{data[1].username}`)
     
 
-    img:wikitext(`[[File:{data[1].image}|32px|link=]]`)
+    img:wikitext(`[[File:{data[1].image}|64px|link=]]`)
 
     local txt_area = inner:tag('div')
-        :addClass('text-area')
+        :addClass('developer-card-description')
 
     txt_area:wikitext('developer description')
 
