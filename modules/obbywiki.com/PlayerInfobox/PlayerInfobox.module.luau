@@ -85,6 +85,9 @@ local player_schema = {
 	total_obbies = "Integer",
 	total_visits = "String",
 
+	most_popular_obby = "String",
+	most_recent_obby = "String",
+
 	activity = "String",
 
 	year = "Integer",
@@ -157,6 +160,7 @@ function PlayerInfobox.main( frame )
 	local thumb = args.image or args.thumbnail or args.thumb
 
 	local player_user_name_raw
+	local player_display_name_raw
 	local player_is_terminated = false
 
 	if player_user_id then
@@ -172,6 +176,7 @@ function PlayerInfobox.main( frame )
 		if row and row.name then
 			player_user_name_raw = '@' .. row.name
 			player_display_name = row.displayName or row.name
+			player_display_name_raw = row.displayName or row.name
 			player_is_verified = row.hasVerifiedBadge or false
 
 			player_user_name = string.format(
@@ -537,9 +542,11 @@ function PlayerInfobox.main( frame )
 
 	PlayerInfobox.store(frame, {
 		username = player_user_name_raw,
-		display_name = player_display_name,
+		display_name = player_display_name_raw,
 		is_verified = player_is_verified,
 		total_obbies = tonumber(player_total_obbies),
+		most_popular_obby = most_popular_obby.name,
+		most_recent_obby = most_recent_obby.name,
 		year = tonumber(player_creation_year),
 		month = tonumber(player_creation_month),
 		day = tonumber(player_creation_day),
