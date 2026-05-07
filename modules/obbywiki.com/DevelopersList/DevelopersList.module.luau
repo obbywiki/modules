@@ -82,7 +82,7 @@ function DevelopersList.main( frame )
         if data and data[1] then
             construct_card(container, data)
         else
-            construct_card(container, {{username = v, display_name = v, image = 'Standard11placeholder.webp', description = string.find(username, '-') and string.split(username, '-')[2] or ''}})
+            construct_card(container, {{username = username, display_name = v, image = 'Standard11placeholder.webp', description = string.find(v, '-') and string.split(v, '-')[2] or ''}})
         end
     end
 
