@@ -28,7 +28,7 @@ function DevelopersList.main( frame )
         :addClass("ow developers-list")
 
     for _, v in pairs(usernames) do
-        local data = mw.ext.cargo.query('Players', '_pageName=page, username, image, most_popular_obby, most_recent_obby', {
+        local data = mw.ext.cargo.query('Players', '_pageName=page, username, image, display_name, most_popular_obby, most_recent_obby', {
             where = "username = '" .. v .. "'",
             limit = 1
         })
@@ -40,7 +40,13 @@ function DevelopersList.main( frame )
             local img = card:tag('div')
                 :addClass('image-container')
 
-            img:wikitext(`[[File:{data[1].image}]]`)
+            img:wikitext(`[[File:{data[1].image}|32px]]`)
+
+            local txt_area = card:tag('div')
+                :addClass('text-area')
+
+            txt_area:wikitext(data[1].display_name)
+            txt_area:wikitext(`[[@{data[1].username}]]`)
         end
     end
 
