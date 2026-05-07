@@ -11,6 +11,7 @@
     border-radius: var(--border-radius-medium);
     color: white;
     padding: var(--space-sm);
+    position: relative;
 }
 
 .developer-card:hover {
@@ -83,7 +84,7 @@
 
 
 
-.ow-developer-card__link {
+.ow-developer-card__link a {
     position: absolute;
     top: 0;
     left: 0;
