@@ -56,6 +56,7 @@
 }
 
 .user-info-container .user-info-username .user-info-username-display {
+    gap: var(--spacing);
     align-items: flex-end;
     display: flex;
     font-weight: 700;
