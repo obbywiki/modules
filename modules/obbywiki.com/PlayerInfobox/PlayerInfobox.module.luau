@@ -546,6 +546,7 @@ function PlayerInfobox.main( frame )
 		display_name = player_display_name_raw,
 		is_verified = player_is_verified,
 		total_obbies = tonumber(player_total_obbies),
+		total_visits = tonumber(player_total_visits),
 		most_popular_obby = most_popular_obby.name,
 		most_recent_obby = most_recent_obby.name,
 		year = tonumber(player_creation_year),
