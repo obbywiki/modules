@@ -8,10 +8,10 @@ local function construct_card(container, data)
         inner:addClass('developer-card-root')
 
     local top = inner:tag('div')
-        top:addClass('developer-card-top')
+        :addClass('developer-card-top')
 
     local avatar = top:tag('div')
-        top:addClass('developer-card-avatar')
+        :addClass('developer-card-avatar')
 
     local img = avatar:tag('div')
         :addClass('image-container')
