@@ -53,6 +53,8 @@ function DevelopersList.main( frame )
 
         if data and data[1] then
             construct_card(container, data)
+        else
+            construct_card(container, {{username = v, display_name = v, image = 'Standard11placeholder.webp'}})
         end
     end
 
