@@ -33,8 +33,18 @@ function DevelopersList.main( frame )
             limit = 1
         })
 
-        
+        if data and data[1] then
+            local card = container:tag('div')
+                :addClass('ow developers-card')
+
+            local img = card:tag('div')
+                :addClass('image-container')
+
+            img:wikitext(`[[File:{data[1].image}]]`)
+        end
     end
+
+    return tostring(container)
 end
 
 return DevelopersList
