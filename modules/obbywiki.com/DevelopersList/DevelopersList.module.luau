@@ -1,5 +1,23 @@
 local DevelopersList = {}
 
+local function construct_card(container, data)
+    local card = container:tag('div')
+        :addClass('ow developers-card')
+
+    local img = card:tag('div')
+        :addClass('image-container')
+
+    img:wikitext(`[[File:{data[1].image}|32px]]`)
+
+    local txt_area = card:tag('div')
+        :addClass('text-area')
+
+    txt_area:wikitext(data[1].display_name)
+    txt_area:wikitext(`[[@{data[1].username}]]`)
+
+    return card
+end
+
 function DevelopersList.main( frame )
     if not mw.ext.cargo or not mw.ext.cargo.query then return "An unexpected error occurred. Please check back later." end
 
@@ -34,19 +52,7 @@ function DevelopersList.main( frame )
         })
 
         if data and data[1] then
-            local card = container:tag('div')
-                :addClass('ow developers-card')
-
-            local img = card:tag('div')
-                :addClass('image-container')
-
-            img:wikitext(`[[File:{data[1].image}|32px]]`)
-
-            local txt_area = card:tag('div')
-                :addClass('text-area')
-
-            txt_area:wikitext(data[1].display_name)
-            txt_area:wikitext(`[[@{data[1].username}]]`)
+            construct_card(container, data)
         end
     end
 
