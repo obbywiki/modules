@@ -88,6 +88,8 @@ local player_schema = {
 	most_popular_obby = "String",
 	most_recent_obby = "String",
 
+	image = "String",
+
 	activity = "String",
 
 	year = "Integer",
@@ -553,6 +555,7 @@ function PlayerInfobox.main( frame )
 		month = player_creation_month_num,
 		day = tonumber(player_creation_day),
 		user_id = tostring(player_user_id),
+		image = thumb
 	})
 
     return frame:preprocess(default_sort .. display_title) ..  rendered .. '\n' .. table.concat(append_categories, '\n')

@@ -28,11 +28,12 @@ function DevelopersList.main( frame )
         :addClass("ow developers-list")
 
     for _, v in pairs(usernames) do
-        local data = mw.ext.cargo.query('Players', '_pageName=name, visits, month, year, thumbnail, likes, dislikes', {
-            where = "contributors HOLDS '@" .. username .. "'",
-            orderBy = "visits DESC",
-            limit = 30
+        local data = mw.ext.cargo.query('Players', '_pageName=page, username, image, most_popular_obby, most_recent_obby', {
+            where = "username = '" .. v .. "'",
+            limit = 1
         })
+
+        
     end
 end
 
