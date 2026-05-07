@@ -2,18 +2,36 @@ local DevelopersList = {}
 
 local function construct_card(container, data)
     local card = container:tag('div')
-        :addClass('ow developers-card')
+        :addClass('ow developer-card')
 
-    local img = card:tag('div')
+    local inner = card:tag('div')
+        inner:addClass('developer-card-root')
+
+    local top = inner:tag('div')
+        top:addClass('developer-card-top')
+
+    local avatar = top:tag('div')
+        top:addClass('developer-card-avatar')
+
+    local img = avatar:tag('div')
         :addClass('image-container')
+
+    local user_info = top:tag('div')
+        :addClass('user-info-container')
+
+    local username = top:tag('div')
+    :addClass('user-info-username')
+
+    username:wikitext(data[1].display_name)
+    username:wikitext(`[[@{data[1].username}]]`)
+    
 
     img:wikitext(`[[File:{data[1].image}|32px]]`)
 
-    local txt_area = card:tag('div')
+    local txt_area = inner:tag('div')
         :addClass('text-area')
 
-    txt_area:wikitext(data[1].display_name)
-    txt_area:wikitext(`[[@{data[1].username}]]`)
+    txt_area:wikitext('developer description')
 
     return card
 end

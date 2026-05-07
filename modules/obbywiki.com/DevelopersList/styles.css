@@ -1,8 +1,54 @@
 .developers-list {
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: calc(var(--spacing)*4);
 }
 
-.developers-card {
-    width: 300px;
+.developer-card {
+    overflow: hidden;
+    border: 1px solid var(--border-color-base);
+    color: white;
+}
+
+.developer-card-root {
+    padding: 16px;
+}
+
+.developer-card-top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.developer-card-avatar {
+    margin: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    user-select: none;
+    width: 64px;
+    height: 64px;
+    border: 2px solid var(--color-progressive);
+}
+
+.developer-card-avatar .image-container {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    object-fit: cover;
+    color: transparent;
+    text-indent: 10000px;
+}
+
+.developer-card-avatar .user-info-container {
+    margin-left: 16px;
+}
+
+.developer-card-avatar .user-info-username {
+    gap: calc(var(--spacing)*1);
+    align-items: flex-end;
+    display: flex;
 }
