@@ -1,4 +1,5 @@
 -- inspired by scw
+-- TODO: when place info data request fails, fallback to cargo data if available
 
 local ObbyGameInfobox = {}
 
