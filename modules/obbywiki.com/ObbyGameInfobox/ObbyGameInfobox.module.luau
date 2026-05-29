@@ -535,7 +535,7 @@ function ObbyGameInfobox.main( frame )
 		end
 
 		if obby_wiki_edge_res.up_votes and obby_wiki_edge_res.down_votes then
-			obby_stats_likes = obby_wiki_edge_res.up_votes
+			obby_stats_likes = obby_wiki_edge_res.up_votes or 0
 			obby_stats_dislikes = obby_wiki_edge_res.down_votes or 0
 		end
 
