@@ -292,7 +292,7 @@ function ObbyGameInfobox.main( frame )
 	end
 
 	if tonumber(obby_stats_likes) ~= nil then
-		obby_stats_likes = tonumber(args.likes)
+		obby_stats_likes = tonumber(obby_stats_likes)
 	else
 		obby_stats_likes = 0
 	end
