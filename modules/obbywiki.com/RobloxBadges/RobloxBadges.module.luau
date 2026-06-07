@@ -189,7 +189,7 @@ function p.render(frame)
 	if not universe_id or universe_id == "" then
 		return "Error: universe_id is required."
 	end
-	if universe_id == '0' or universe_id == 0 then
+	if universe_id == '0' or universe_id == 0 or tonumber(universe_id) == nil then
 		return "Placeholder. Please fill in the universe's ID in the RobloxBadges template.[[Category:Pages_with_missing_RobloxBadges_IDs]]"
 	end
 	if args.none == 'true' or args.none == true then
