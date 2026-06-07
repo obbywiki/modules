@@ -185,6 +185,11 @@ function ObbyGameInfobox.main( frame )
 	local obby_ai_generated_content_disclosure = (obby_genai == 'branding' or obby_genai == 'thumbnails' or obby_genai == 'icon' or obby_genai == 'identity') and 'branding' or obby_genai == 'stated_none' and 'stated_none' or obby_genai == 'description' and 'description' or 'unknown'
 	local obby_is_public = (args.is_public == 'true' or args.is_public == 'yes') and true or (args.is_public == 'false' or args.is_public == 'no') and false
 
+	if tonumber(obby_starter_place_id) == nil then
+		return 'ObbyGameInfobox rendering was skipped due to an invalid start place ID.'
+	end
+
+
 	if args.is_public == nil then
 		obby_is_public = true
 	end
