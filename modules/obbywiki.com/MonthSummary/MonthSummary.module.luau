@@ -84,7 +84,7 @@ function p.draw(frame)
 
         row:tag('td'):wikitext(i)
         row:tag('td'):wikitext(v.count)
-        row:tag('td'):wikitext(get_comma_val((v.visits))
+        row:tag('td'):wikitext(get_comma_val(v.visits))
     end
 
     local most_frequent_subgenre, most_popular_subgenre
