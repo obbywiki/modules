@@ -16,7 +16,7 @@ function p.draw(frame)
     if not mw.ext.cargo or not mw.ext.cargo.query then return 'Error' end
 
     local month_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits, subgenre', {
-        where = "month='" .. current_month_name .. "' AND year='" .. target_year .. "'",
+        where = "month='" .. tostring(table.find(months_full, current_month_name)) .. "' AND year='" .. target_year .. "'",
         orderBy = "visits DESC",
         limit = 30
     })
