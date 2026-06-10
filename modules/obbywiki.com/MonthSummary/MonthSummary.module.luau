@@ -58,13 +58,15 @@ function p.draw(frame)
                 most_popular_obby.visits = tonumber(v.visits)
                 most_popular_obby.creator = v.creator
                 if v.day then
-                    most_popular_obby.creator = v.day
+                    most_popular_obby.day = v.day
+                else
+                    most_popular_obby.day = 0
                 end
             end
         end
     end
 
-    return `= Summary =\n\nThere {single_release and 'was' or 'were'} {#month_data} {single_release and 'obby' or 'obbies'} released in {current_month_name} of {target_year}, with the most popular obby released being [[{most_popular_obby.name}]] by [[{most_popular_obby.creator}]] with {get_comma_val(tostring(most_popular_obby.visits))}{most_popular_obby.day and `releasing on the {most_popular_obby.day}{most_popular_obby.day==1 and 'st' or most_popular_obby.day==2 and 'nd' or most_popular_obby.day==3 and 'rd' or 'th'}` or ''}.`
+    return `= Summary =\n\nThere {single_release and 'was' or 'were'} {#month_data} {single_release and 'obby' or 'obbies'} released in {current_month_name} of {target_year}, with the most popular obby released being [[{most_popular_obby.name}]] by [[{most_popular_obby.creator}]] with {get_comma_val(tostring(most_popular_obby.visits))} visits {most_popular_obby.day ~= 0 and `and releasing on the {most_popular_obby.day}{most_popular_obby.day==1 and 'st' or most_popular_obby.day==2 and 'nd' or most_popular_obby.day==3 and 'rd' or 'th'}` or ''}.`
 end
 
 return p
