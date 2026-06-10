@@ -1,7 +1,5 @@
 local p = {}
 
--- local html = mw.html
-
 local months_full = {'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'}
 
 local function get_comma_val(num)
@@ -46,9 +44,13 @@ function p.draw(frame)
     for _, v in pairs(month_data) do
         if v.subgenre then
             if releases_by_subgenre[v.subgenre] then 
-                releases_by_subgenre[v.subgenre] += 1
+                releases_by_subgenre[v.subgenre].count += 1
+
+                if v.visits then
+                    releases_by_subgenre[v.subgenre].visits += v.visits
+                end
             else
-                releases_by_subgenre[v.subgenre] = 1
+                releases_by_subgenre[v.subgenre] = {count = 1; visits = v.visits or 0}
             end
         end
 
@@ -66,7 +68,26 @@ function p.draw(frame)
         end
     end
 
-    return `= Summary =\n\nThere {single_release and 'was' or 'were'} {#month_data} {single_release and 'obby' or 'obbies'} released in {current_month_name} of {target_year}, with the most popular obby released being [[{most_popular_obby.name}]] by [[{most_popular_obby.creator}]] with '''{get_comma_val(tostring(most_popular_obby.visits))} visits''' {most_popular_obby.day ~= 0 and ` that was released on the {most_popular_obby.day}{most_popular_obby.day==1 and 'st' or most_popular_obby.day==2 and 'nd' or most_popular_obby.day==3 and 'rd' or 'th'} of {current_month_name}` or ''}.\n\n`
+    local stbl = mw.html.create('table')
+        :addClass("wikitable sortable plainlinks")
+		:addClass("mw-collapsible mw-made-collapsible wikitable--fluid")
+		:css("width", "100%")
+
+    local thead = stbl:tag('tr')
+        :tag('th'):wikitext('Sub-genre')
+        :tag('th'):wikitext('Total')
+        :tag('th'):wikitext('Visits')
+
+    for i, v in pairs(releases_by_subgenre) do
+        local row = stbl:tag('tr')
+
+
+        row:tag('td'):wikitext(i)
+        row:tag('td'):wikitext(v.count)
+        row:tag('td'):wikitext(v.visits)
+    end
+
+    return `=Summary=\n\nThere {single_release and 'was' or 'were'} {#month_data} {single_release and 'obby' or 'obbies'} released in {current_month_name} of {target_year}, with the most popular obby released being [[{most_popular_obby.name}]] by [[{most_popular_obby.creator}]] with '''{get_comma_val(tostring(most_popular_obby.visits))} visits''' {most_popular_obby.day ~= 0 and ` that was released on the {most_popular_obby.day}{most_popular_obby.day==1 and 'st' or most_popular_obby.day==2 and 'nd' or most_popular_obby.day==3 and 'rd' or 'th'} of {current_month_name}` or ''}.\n\n==Releases by Sub-genre=={tostring(stbl)}\n\n`
 end
 
 return p
