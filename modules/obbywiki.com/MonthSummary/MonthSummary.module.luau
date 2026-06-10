@@ -90,7 +90,9 @@ function p.draw(frame)
     local most_frequent_subgenre = table.sort(releases_by_subgenre, function(a, b) return a.count > b.count end)
     local most_popular_subgenre = table.sort(releases_by_subgenre, function(a, b) return a.visits > b.visits end)
 
-    return `=Summary=\n\nThere {single_release and 'was' or 'were'} {#month_data} {single_release and 'obby' or 'obbies'} released in {current_month_name} of {target_year}, with the most popular obby released being [[{most_popular_obby.name}]] by [[{most_popular_obby.creator}]] with '''{get_comma_val(tostring(most_popular_obby.visits))} visits''' {most_popular_obby.day ~= 0 and ` that was released on the {most_popular_obby.day}{most_popular_obby.day==1 and 'st' or most_popular_obby.day==2 and 'nd' or most_popular_obby.day==3 and 'rd' or 'th'} of {current_month_name}` or ''}.\n\n{(mw.html.create('h2'):wikitext('Releases by Sub-genre'))}\nThe most frequent sub-genre of {current_month_name} {target_year} is {most_frequent_subgenre._index} with a total of {most_frequent_subgenre.count} {most_frequent_subgenre.count==1 and 'obby' or 'obbies'} released. {tostring(stbl)}\n\n`
+    return mw.text.jsonEncode(most_frequent_subgenre)
+
+    -- return `=Summary=\n\nThere {single_release and 'was' or 'were'} {#month_data} {single_release and 'obby' or 'obbies'} released in {current_month_name} of {target_year}, with the most popular obby released being [[{most_popular_obby.name}]] by [[{most_popular_obby.creator}]] with '''{get_comma_val(tostring(most_popular_obby.visits))} visits''' {most_popular_obby.day ~= 0 and ` that was released on the {most_popular_obby.day}{most_popular_obby.day==1 and 'st' or most_popular_obby.day==2 and 'nd' or most_popular_obby.day==3 and 'rd' or 'th'} of {current_month_name}` or ''}.\n\n{(mw.html.create('h2'):wikitext('Releases by Sub-genre'))}\nThe most frequent sub-genre of {current_month_name} {target_year} is {most_frequent_subgenre._index} with a total of {most_frequent_subgenre.count} {most_frequent_subgenre.count==1 and 'obby' or 'obbies'} released. {tostring(stbl)}\n\n`
 end
 
 return p
