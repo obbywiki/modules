@@ -21,7 +21,7 @@ The config reference of this template is provided below. This reference is also 
 		"name": {
 			"label": "Obby Name",
 			"autovalue": "{{PAGENAME}}",
-			"description": "The actual name of the Obby.",
+			"description": "The actual name of the Obby. Do not include updates or markers like [NEW] or [DCO].",
 			"type": "string",
 			"example": "{{PAGENAME}}",
 			"suggestedvalues": [
@@ -409,7 +409,7 @@ The config reference of this template is provided below. This reference is also 
 		"console",
 		"day"
 	],
-	"description": "The main infobox for an obby game page. Fetches live information and the correct universe ID automatically based on the root/start place ID provided. Requires `name`, `image`, and `root_place_id`."
+	"description": "The main infobox for an obby game page. Requests live information and the correct universe ID automatically based on the root/start place ID provided. Requires `name`, `image`, and `root_place_id` at a minimum. Certain sub-genres may require more. Fill in every suggested response related to your sub-genre to ensure prefect functionality."
 }
 </templatedata>
 </noinclude>
