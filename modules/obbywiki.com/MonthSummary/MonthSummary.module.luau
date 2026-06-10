@@ -50,7 +50,7 @@ function p.draw(frame)
                     releases_by_subgenre[v.subgenre].visits += v.visits
                 end
             else
-                releases_by_subgenre[v.subgenre] = {count = 1; visits = v.visits or 0; _index = v.subgenre}
+                releases_by_subgenre[v.subgenre] = {count = 1; visits = v.visits or 0}
             end
         end
 
@@ -87,16 +87,31 @@ function p.draw(frame)
         row:tag('td'):wikitext(get_comma_val(tostring(v.visits)))
     end
 
-    local most_frequent_subgenre = table.sort(releases_by_subgenre, function(a, b) return a.count > b.count end)
-    local most_popular_subgenre = table.sort(releases_by_subgenre, function(a, b) return a.visits > b.visits end)
+    local most_frequent_subgenre, most_popular_subgenre
 
-    if not most_frequent_subgenre or most_frequent_subgenre == {} then
-        local target = releases_by_subgenre[1]
+    local most_frequent_subgenre_count, most_popular_subgenre_visits = 0, 0
 
-        target._index ..= '*'
+    for i, v in pairs(releases_by_subgenre) do
+        if v.count > most_frequent_subgenre_count then
+            most_frequent_subgenre_count = v.count
+            
+            most_frequent_subgenre = {count = v.count, _index = i}
+        end
 
-        most_frequent_subgenre = target
+        if v.visits > most_popular_subgenre_visits then
+            most_popular_subgenre_visits = v.visits
+
+            most_popular_subgenre = {visits = v.visits, _index = i}
+        end
     end
+
+    -- if not most_frequent_subgenre or most_frequent_subgenre == {} then
+    --     local target = releases_by_subgenre[1]
+
+    --     target._index ..= '*'
+
+    --     most_frequent_subgenre = target
+    -- end
 
     return `=Summary=\n\nThere {single_release and 'was' or 'were'} {#month_data} {single_release and 'obby' or 'obbies'} released in {current_month_name} of {target_year}, with the most popular obby released being [[{most_popular_obby.name}]] by [[{most_popular_obby.creator}]] with '''{get_comma_val(tostring(most_popular_obby.visits))} visits''' {most_popular_obby.day ~= 0 and ` that was released on the {most_popular_obby.day}{most_popular_obby.day==1 and 'st' or most_popular_obby.day==2 and 'nd' or most_popular_obby.day==3 and 'rd' or 'th'} of {current_month_name}` or ''}.\n\n{(mw.html.create('h2'):wikitext('Releases by Sub-genre'))}\nThe most frequent sub-genre of {current_month_name} {target_year} is {most_frequent_subgenre._index} with a total of {most_frequent_subgenre.count} {most_frequent_subgenre.count==1 and 'obby' or 'obbies'} released. {tostring(stbl)}\n\n`
 end
