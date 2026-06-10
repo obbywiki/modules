@@ -88,15 +88,17 @@ function p.draw(frame)
         local row = stbl:tag('tr')
 
 
-        row:tag('td'):wikitext(i)
+        row:tag('td'):wikitext(`[[{i}]]`)
         row:tag('td'):wikitext(v.count)
         row:tag('td'):wikitext(get_comma_val(v.visits))
-        row:tag('td'):wikitext(`[[{v.mpo}]] ({get_comma_val(v.mpo_visits)})`)
+        row:tag('td'):wikitext(`[[{v.mpo}]] ({get_comma_val(v.mpo_visits)} visits)`)
     end
 
     local most_frequent_subgenre, most_popular_subgenre
 
     local most_frequent_subgenre_count, most_popular_subgenre_visits = 0, 0
+
+    local subgenre_release_count = 0
 
     for i, v in pairs(releases_by_subgenre) do
         if v.count > most_frequent_subgenre_count then
@@ -110,9 +112,11 @@ function p.draw(frame)
 
             most_popular_subgenre = {visits = tonumber(v.visits), _index = i}
         end
+
+        subgenre_release_count += 1
     end
 
-    return `=Summary=\n\nThere {single_release and 'was' or 'were'} {#month_data} {single_release and 'obby' or 'obbies'} released in {current_month_name} of {target_year}, with the most popular obby released being [[{most_popular_obby.name}]] by [[{most_popular_obby.creator}]] with '''{get_comma_val(tostring(most_popular_obby.visits))} visits''' {most_popular_obby.day ~= 0 and ` that was released on the {most_popular_obby.day}{most_popular_obby.day==1 and 'st' or most_popular_obby.day==2 and 'nd' or most_popular_obby.day==3 and 'rd' or 'th'} of {current_month_name}` or ''}.\n\n{(mw.html.create('h2'):wikitext('Releases by Sub-genre'))}\nThis month saw {#releases_by_subgenre} {#releases_by_subgenre==1 and 'sub-genre' or 'different sub-genres'} with the most frequent sub-genre of {current_month_name} {target_year} is {most_frequent_subgenre._index} with a total of {most_frequent_subgenre.count} {most_frequent_subgenre.count==1 and 'obby' or 'obbies'} released with-in the month. {tostring(stbl)}\n\n`
+    return `=Summary=\n\nThere {single_release and 'was' or 'were'} {#month_data} {single_release and 'obby' or 'obbies'} released in {current_month_name} of {target_year}, with the most popular obby released being [[{most_popular_obby.name}]] by [[{most_popular_obby.creator}]] with '''{get_comma_val(tostring(most_popular_obby.visits))} visits''' {most_popular_obby.day ~= 0 and ` that was released on the {most_popular_obby.day}{most_popular_obby.day==1 and 'st' or most_popular_obby.day==2 and 'nd' or most_popular_obby.day==3 and 'rd' or 'th'} of {current_month_name}` or ''}.\n\n{(mw.html.create('h2'):wikitext('Releases by Sub-genre'))}\nThis month saw {subgenre_release_count} {subgenre_release_count==1 and 'sub-genre' or 'different sub-genres'} with the most frequent sub-genre of {current_month_name} {target_year} is [[{most_frequent_subgenre._index}]] with a total of {most_frequent_subgenre.count} {most_frequent_subgenre.count==1 and 'obby' or 'obbies'} in that sub-genre released with-in the month. The sub-genre that received the most visits was {most_frequent_subgenre._index==most_popular_subgenre._index and 'also'} [[{most_popular_subgenre._index}]] with a total of {get_comma_val(tostring(most_popular_subgenre.visits))} visits between all obbies in that sub-genre of the month. See the full list below:\n{tostring(stbl)}\n\n`
 end
 
 return p
