@@ -1,0 +1,4 @@
+<noinclude>
+Usage: {{Tl|MonthSummary|Year|MonthName}}
+Example: {{MonthSummary|2026|March}}
+</noinclude><includeonly>{{#invoke:MonthSummary|draw}}</includeonly>
