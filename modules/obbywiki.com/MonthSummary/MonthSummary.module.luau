@@ -9,7 +9,7 @@ function p.draw(frame)
     local target_year = args[1] or os.date("%Y")
     local current_month_name = args[2] or ""
 
-    if not target_year or not current_month_name or not table.find(months_full, target_year) then
+    if not target_year or not current_month_name or not table.find(months_full, current_month_name) then
         return 'Error: Either an invalid year or an invalid month was provided to the MonthSummary template.'
     end
 
