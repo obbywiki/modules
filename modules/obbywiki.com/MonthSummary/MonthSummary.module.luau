@@ -84,7 +84,7 @@ function p.draw(frame)
 
         row:tag('td'):wikitext(i)
         row:tag('td'):wikitext(v.count)
-        row:tag('td'):wikitext(get_comma_val(tostring(v.visits)))
+        row:tag('td'):wikitext(get_comma_val((v.visits))
     end
 
     local most_frequent_subgenre, most_popular_subgenre
@@ -98,10 +98,10 @@ function p.draw(frame)
             most_frequent_subgenre = {count = v.count, _index = i}
         end
 
-        if v.visits > most_popular_subgenre_visits then
-            most_popular_subgenre_visits = v.visits
+        if tonumber(v.visits) > most_popular_subgenre_visits then
+            most_popular_subgenre_visits = tonumber(v.visits)
 
-            most_popular_subgenre = {visits = v.visits, _index = i}
+            most_popular_subgenre = {visits = tonumber(v.visits), _index = i}
         end
     end
 
