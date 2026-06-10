@@ -22,7 +22,7 @@ function p.draw(frame)
     })
 
     if not month_data or #month_data == 0 then
-        return 'No relevant data for this month to display. ' .. mw.test.jsonEncode(month_data)
+        return 'No relevant data for this month to display. ' .. mw.text.jsonEncode(month_data)
     end
 
     local single_release = #month_data == 1
