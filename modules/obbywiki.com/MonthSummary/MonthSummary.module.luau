@@ -53,7 +53,7 @@ function p.draw(frame)
         end
 
         if v.name and v.visits then
-            if v.vists > most_popular_obby.visits then
+            if v.visits > most_popular_obby.visits then
                 most_popular_obby.name = v.name
                 most_popular_obby.visits = v.visits
                 most_popular_obby.creator = v.creator
