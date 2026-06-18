@@ -19,6 +19,26 @@ local function get_comma_val(num)
 	return formatted
 end
 
+local function ordinal(n)
+    local x = tonumber(mw.ustring.match(n, "(%d*)%W*$"))
+    local suffix = "th"
+    
+    if x then
+        local mod10 = math.abs(x) % 10
+        local mod100 = math.abs(x) % 100
+        
+        if mod10 == 1 and mod100 ~= 11 then
+            suffix = "st"
+        elseif mod10 == 2 and mod100 ~= 12 then
+            suffix = "nd"
+        elseif mod10 == 3 and mod100 ~= 13 then
+            suffix = "rd"
+        end
+    end
+    
+    return n .. suffix
+end
+
 function WikiInfobox.main( frame )
     local InfoboxNeue = require( 'Module:InfoboxNeue' )
 
@@ -63,7 +83,7 @@ function WikiInfobox.main( frame )
 		title = 'Statistics',
 		col = 2,
 		content = {
-			infobox:renderItem( 'Founded', `{wiki_founded_day} {month_by_index(wiki_founded_month)} {wiki_founded_year}`),
+			infobox:renderItem( 'Founded', `{wiki_founded_day and `{wiki_founded_day}{ordinal(tonumber(wiki_founded_day))} `}{month_by_index(wiki_founded_month)} {wiki_founded_year}`),
             infobox:renderItem( 'Pages', get_comma_val(wiki_pages)),
             infobox:renderItem( 'Members', wiki_platform=='fandom' and 'N/A (Fandom)' or get_comma_val(wiki_members)),
             infobox:renderItem( 'Active Members', get_comma_val(wiki_active_members)),
