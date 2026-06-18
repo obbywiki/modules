@@ -51,6 +51,8 @@ function WikiInfobox.main( frame )
     local wiki_name : string = args.name or mw.title.getCurrentTitle().text
     local wiki_url : string = args.wiki_url or args.url or 'obby.wiki'
 
+    local wiki_dedicated_obby_page_name = args.dedicated
+
     local wiki_founded_year : number = args.year or 0
     local wiki_founded_month : number = tonumber(args.month or 0) or 0
     local wiki_founded_day : number = args.day or 0
@@ -88,6 +90,32 @@ function WikiInfobox.main( frame )
 		title = wiki_name,
 		subtitle = 'https://' .. wiki_url
 	} )
+
+    if wiki_dedicated_obby_page_name then
+        local dedicated_data = mw.ext.cargo.query('Obbies', '_pageName=name, visits, month, year, thumbnail', {
+			where = `_pageName='{wiki_dedicated_obby_page_name}'`
+		})
+
+        if dedicated_data and dedicated_data[1] then
+            infobox:renderSection( {
+                title = 'Featured',
+                col = 2,
+                content = {
+                    infobox:renderItem( {
+                        label = wiki_name .. ' is dedicated to',
+                        colspan = 2,
+                        data = infobox:renderGameCard(
+                            dedicated_data[1].thumbnail,
+                            dedicated_data[1].name,
+                            get_comma_val( tostring( dedicated_data[1].visits or 0 ) ),
+                            month_by_index( tonumber( dedicated_data[1].month ) ),
+                            dedicated_data[1].year
+                        )
+                    } ),
+                }
+            } )
+        end
+    end
 
     infobox:renderSection( {
 		title = 'Statistics',
