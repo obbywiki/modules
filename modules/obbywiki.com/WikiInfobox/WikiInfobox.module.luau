@@ -70,7 +70,7 @@ function WikiInfobox.main( frame )
         edits_per_page = tonumber(wiki_edits)/tonumber(wiki_pages)
     end
 
-    ---
+    ----
 
     infobox:renderImage( thumb )
 
