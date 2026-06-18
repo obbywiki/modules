@@ -33,7 +33,7 @@ function WikiInfobox.main( frame )
 
     local wiki_founded_year : number = args.year or 0
     local wiki_founded_month : number = args.month or 0
-    local wiki_founded_day : number = args.day or 0 -- TODO
+    local wiki_founded_day : number = args.day or 0
 
     local wiki_pages : number = args.pages or args.page_count or 0
     local wiki_members : number = args.members or 0
