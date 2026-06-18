@@ -61,6 +61,12 @@ function WikiInfobox.main( frame )
     local wiki_active_members : number = args.active_members or 0
     local wiki_edits : number = args.edits or 0
 
+    local wiki_files : number = args.files or 0
+    local wiki_admins : number = args.admins or args.administrators or 0
+    local wiki_bureaucrats : number = args.bureaucrats or 0
+    local wiki_bots : number = args.bots or 0
+    local wiki_moderators : number = args.moderators or 0
+
     local wiki_platform : 'fandom'|'miraheze'|'independent' = (args.platform and string.lower(args.platform)) or 'fandom'
 
     local thumb = args.image or args.thumbnail or args.thumb
@@ -69,6 +75,9 @@ function WikiInfobox.main( frame )
 
     if wiki_edits and wiki_total_pages and tonumber(wiki_edits) and tonumber(wiki_total_pages) then
         edits_per_page = tonumber(wiki_edits)/tonumber(wiki_total_pages)
+        edits_per_page = string.sub(edits_per_page, 1, 4)
+    else
+        edits_per_page = 'N/A'
     end
 
     ---
@@ -90,6 +99,19 @@ function WikiInfobox.main( frame )
             infobox:renderItem( 'Active Members', get_comma_val(wiki_active_members)),
             infobox:renderItem( 'Edits', get_comma_val(wiki_edits)),
             infobox:renderItem( 'Edits per page', edits_per_page),
+		}
+	} )
+
+    infobox:renderSection( {
+		title = 'More',
+		col = 2,
+		content = {
+			infobox:renderItem( 'Uploaded Files', get_comma_val(wiki_files)),
+            infobox:renderItem( 'Active users', get_comma_val(wiki_active_members)),
+            infobox:renderItem( 'Administrators', wiki_admins),
+            infobox:renderItem( 'Bureaucrats', wiki_bureaucrats),
+            infobox:renderItem( 'Moderators', wiki_moderators),
+            infobox:renderItem( 'Bots', wiki_bots),
 		}
 	} )
 
