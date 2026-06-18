@@ -56,6 +56,7 @@ function WikiInfobox.main( frame )
     local wiki_founded_day : number = args.day or 0
 
     local wiki_pages : number = args.pages or args.page_count or 0
+    local wiki_total_pages : number = args.all_pages or args.total_page_count or 0
     local wiki_members : number = args.members or 0
     local wiki_active_members : number = args.active_members or 0
     local wiki_edits : number = args.edits or 0
@@ -66,8 +67,8 @@ function WikiInfobox.main( frame )
 
     local edits_per_page = 0
 
-    if wiki_edits and wiki_pages and tonumber(wiki_edits) and tonumber(wiki_pages) then
-        edits_per_page = tonumber(wiki_edits)/tonumber(wiki_pages)
+    if wiki_edits and wiki_total_pages and tonumber(wiki_edits) and tonumber(wiki_total_pages) then
+        edits_per_page = tonumber(wiki_edits)/tonumber(wiki_total_pages)
     end
 
     ---
