@@ -70,7 +70,7 @@ function WikiInfobox.main( frame )
         edits_per_page = tonumber(wiki_edits)/tonumber(wiki_pages)
     end
 
-    ----
+    ---
 
     infobox:renderImage( thumb )
 
@@ -83,7 +83,7 @@ function WikiInfobox.main( frame )
 		title = 'Statistics',
 		col = 2,
 		content = {
-			infobox:renderItem( 'Founded', `{wiki_founded_day and `{wiki_founded_day}{ordinal(tonumber(wiki_founded_day))} `}{month_by_index(wiki_founded_month)} {wiki_founded_year}`),
+			infobox:renderItem( 'Founded', `{wiki_founded_day and `{ordinal(tonumber(wiki_founded_day))} `}{month_by_index(wiki_founded_month)} {wiki_founded_year}`),
             infobox:renderItem( 'Pages', get_comma_val(wiki_pages)),
             infobox:renderItem( 'Members', wiki_platform=='fandom' and 'N/A (Fandom)' or get_comma_val(wiki_members)),
             infobox:renderItem( 'Active Members', get_comma_val(wiki_active_members)),
