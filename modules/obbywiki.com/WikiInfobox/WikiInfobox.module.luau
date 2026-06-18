@@ -32,7 +32,7 @@ function WikiInfobox.main( frame )
     local wiki_url : string = args.wiki_url or args.url or 'obby.wiki'
 
     local wiki_founded_year : number = args.year or 0
-    local wiki_founded_month : number = args.month or 0
+    local wiki_founded_month : number = tonumber(args.month or 0) or 0
     local wiki_founded_day : number = args.day or 0
 
     local wiki_pages : number = args.pages or args.page_count or 0
@@ -43,6 +43,12 @@ function WikiInfobox.main( frame )
     local wiki_platform : 'fandom'|'miraheze'|'independent' = (args.platform and string.lower(args.platform)) or 'fandom'
 
     local thumb = args.image or args.thumbnail or args.thumb
+
+    local edits_per_page = 0
+
+    if wiki_edits and wiki_pages and tonumber(wiki_edits) and tonumber(wiki_pages) then
+        edits_per_page = tonumber(wiki_edits)/tonumber(wiki_pages)
+    end
 
     ---
 
@@ -57,11 +63,12 @@ function WikiInfobox.main( frame )
 		title = 'Statistics',
 		col = 2,
 		content = {
-			infobox:renderItem( 'Founded', month_by_index(wiki_founded_month) .. wiki_founded_year),
+			infobox:renderItem( 'Founded', `{wiki_founded_day} {month_by_index(wiki_founded_month)} {wiki_founded_year}`),
             infobox:renderItem( 'Pages', get_comma_val(wiki_pages)),
-            infobox:renderItem( 'Members', get_comma_val(wiki_members)),
+            infobox:renderItem( 'Members', wiki_platform=='fandom' and 'N/A (Fandom)' or get_comma_val(wiki_members)),
             infobox:renderItem( 'Active Members', get_comma_val(wiki_active_members)),
-            infobox:renderItem( 'Pages', get_comma_val(wiki_edits)),
+            infobox:renderItem( 'Edits', get_comma_val(wiki_edits)),
+            infobox:renderItem( 'Edits per page', edits_per_page),
 		}
 	} )
 
