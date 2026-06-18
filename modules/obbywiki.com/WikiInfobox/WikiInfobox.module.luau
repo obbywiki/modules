@@ -117,7 +117,7 @@ function WikiInfobox.main( frame )
 
     local rendered = infobox:renderInfobox( nil, wiki_name )
 
-    return rendered
+    return rendered .. '[[Category:Wiki]]'
 end
 
 
