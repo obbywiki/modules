@@ -57,7 +57,7 @@ function WikiInfobox.main( frame )
 		title = 'Statistics',
 		col = 2,
 		content = {
-			infobox:renderItem( 'Founded', wiki_founded_year),
+			infobox:renderItem( 'Founded', month_by_index(wiki_founded_month) .. wiki_founded_year),
             infobox:renderItem( 'Pages', get_comma_val(wiki_pages)),
             infobox:renderItem( 'Members', get_comma_val(wiki_members)),
             infobox:renderItem( 'Active Members', get_comma_val(wiki_active_members)),
