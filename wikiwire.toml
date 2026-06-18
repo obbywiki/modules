@@ -7,6 +7,6 @@ shared = true
 [[sites]]
 id = "obbywiki"
 host = "obbywiki.com"
-api = "https://obby.wiki/api.php"
+api = "https://obbywiki.com/api.php"
 default_branch = "main"
 css_content_model = "css"
