@@ -1,3 +1,6 @@
+# this CI workflow is very specific to the OW and contains multiple extremely technical work-arounds that might not apply to your wiki.
+# learn more about WikiWire: https://github.com/obbywiki/wikiwire
+
 name: WikiWire
 
 on:
@@ -66,7 +69,7 @@ jobs:
 
       - name: Fail if outputs were not committed
         run: git diff --exit-code
-        
+
       - name: Bypass Cloudflare for GitHub Action
         uses: xiaotianxt/bypass-cloudflare-for-github-action@v2.1.0
         with:
