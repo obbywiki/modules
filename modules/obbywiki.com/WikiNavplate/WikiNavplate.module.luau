@@ -10,11 +10,11 @@ local function render()
         items = {
             {
                 label = '2019',
-                pages = {'[[Eternal Towers of Hell Wiki]]'}
+                pages = '[[Eternal Towers of Hell Wiki]]'
             },
             {
                 label = '2022',
-                pages = {'[[Roblox Difficulty Chart Obby Wiki]]',"[[Aek's Hellscape Steeples Wiki]]"}
+                pages = "[[Roblox Difficulty Chart Obby Wiki]][[Aek's Hellscape Steeples Wiki]]"
             }
         }
      } )
