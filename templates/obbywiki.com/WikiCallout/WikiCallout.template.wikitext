@@ -1,0 +1,5 @@
+{{Callout
+| type  = info
+| title = This is a dedicated wiki article
+| body  = This article is dedicated to the wiki and community of [[{{{1}}}]], not the game itself. You may be looking for the game that this wiki is based on instead: [[{{{1}}}]].
+}}
