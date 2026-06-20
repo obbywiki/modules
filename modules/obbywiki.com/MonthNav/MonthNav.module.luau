@@ -18,7 +18,7 @@ function p.draw(frame)
 
     if current_month_name and current_month_name ~= '' then
         meta = '{{DISPLAYTITLE:Obbies released in ' .. current_month_name .. ' of ' .. target_year .. '}}{{SHORTDESC:View all documented obbies on the Obby Wiki only released in ' .. current_month_name .. ' of ' .. target_year .. '}}'
-        precontent = 'This category contains all obbies created/released (that are documented on this wiki and) that were created in \'\'\'' ..  current_month_name .. '\'\'\' of \'\'\'' .. target_year .. '\'\'\' alone. You can view the full list below or sort by another month or year.'
+        precontent = 'This category contains [[:Category:Obby|all obbies]] created/released (that are documented on this wiki and) that were created in \'\'\'[[' ..  current_month_name .. ']]\'\'\' of \'\'\'[[' .. target_year .. ']]\'\'\' alone. You can view the full list below or sort by another month or year.'
     end
 
     for i, month in ipairs(months_full) do
