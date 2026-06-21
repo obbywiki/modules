@@ -36,6 +36,14 @@ local function page_exists(page_title)
     return title and title.exists
 end
 
+local function format_with_total(value, total)
+	if total and value then
+		return value .. ' <small>(' .. i18n:format('of_total', total) .. ')</small>'
+	end
+	
+	return value or ''
+end
+
 
 local smm = {
 	twitter = {
@@ -646,14 +654,6 @@ function ObbyGameInfobox.main( frame )
 		subtitle = (obby_developer_was_corrected and (i18n:get('label_by') .. ' \'\'\''..obby_developer..'\'\'\'') or (i18n:get('label_by') .. ' \'\'\''  .. obby_developer .. '\'\'\'')) .. (obby_creation_year ~= '' and (' — ' .. obby_creation_year) or '')
 	} )
 
-	-- Helper for "of total" display
-	local function format_with_total(value, total)
-		if total and value then
-			return value .. ' <small>(' .. i18n:format('of_total', total) .. ')</small>'
-		end
-		return value or ''
-	end
-
 	local use_stages = false
 
 	if obby_levels ~= 'N/A' then
@@ -1049,10 +1049,11 @@ function ObbyGameInfobox.main( frame )
 		json_ld.datePublished = date_str
 	end
 
-	-- aggregate rating (likes / dislikes → 1-5 scale)
+	-- aggregate rating (likes / dislikes -> 1-5 scale)
 	local total_votes = obby_stats_likes + obby_stats_dislikes
 	if total_votes > 0 then
 		local pct = obby_stats_likes / total_votes
+		
 		json_ld.aggregateRating = {
 			['@type'] = 'AggregateRating',
 			ratingValue = tostring(math.floor(pct * 50 + 0.5) / 10), -- 0‑5 scale

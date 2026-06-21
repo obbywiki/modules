@@ -1,3 +1,6 @@
+# its a miracle this works honestly; darklua string minification can sometimes default to [[]] for long strings, which lua scribunto easily confuses especially when it comes to nesting.
+# TODO convert to js, i dont like PYTHON
+
 import sys
 import re
 import os
