@@ -118,6 +118,14 @@ function WikiInfobox.main( frame )
     end
 
     infobox:renderSection( {
+		title = 'Quick Info',
+		col = 2,
+		content = {
+			infobox:renderItem( 'Primary Language', 'English'),
+		}
+	} )
+
+    infobox:renderSection( {
 		title = 'Statistics',
 		col = 2,
 		content = {
