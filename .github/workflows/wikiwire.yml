@@ -1,4 +1,4 @@
-# this CI workflow is very specific to the OW and contains multiple extremely technical work-arounds that might not apply to your wiki.
+# this CI workflow is very specific to the OW and contains multiple technical work-arounds that might not apply to your wiki.
 # learn more about WikiWire: https://github.com/obbywiki/wikiwire
 
 name: WikiWire
