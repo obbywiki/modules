@@ -84,4 +84,3 @@ jobs:
         with:
           username: WikiWireBot@WikiWire
           password: ${{ secrets.WIKIWIRE_PASSWORD }}
-          dry_run: true

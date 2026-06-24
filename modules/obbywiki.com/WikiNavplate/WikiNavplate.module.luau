@@ -1,5 +1,3 @@
--- test
-
 local p = {}
 
 local navplate = require( 'Module:Navplate' )
