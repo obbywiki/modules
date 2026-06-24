@@ -1,5 +1,3 @@
--- test
-
 local p = {}
 
 local navplate = require( 'Module:Navplate' )
@@ -17,6 +15,10 @@ local function render()
             {
                 label = '2022',
                 pages = "[[Roblox Difficulty Chart Obby Wiki]][[Aek's Hellscape Steeples Wiki]]"
+            },
+            {
+                label = '2025',
+                pages = "[[Obby Wiki]]"
             }
         }
      } )
