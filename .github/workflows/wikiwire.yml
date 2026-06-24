@@ -78,7 +78,7 @@ jobs:
           cf_api_token: ${{ secrets.CF_API_TOKEN }}
           disable_bot_fight_mode: 'true'
 
-      - uses: obbywiki/wikiwire@61b2b532797088c7aca389dc47dd73ebbd277cc1
+      - uses: obbywiki/wikiwire@93219a71db2e2d33b6fc916e85f7a782082f5783
         env:
           GITHUB_TOKEN: ${{ secrets.WIKIWIRE_GITHUB_TOKEN }}
         with:
