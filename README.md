@@ -1,7 +1,7 @@
 # ObbyWiki Shared Modules & Templates Repository
 
 > [!NOTE]
-> This is the central repository for (mostly) every module and template on the [Obby Wiki](https://obby.wiki). Here, modules and templates are automatically uploaded to the wiki via WikiWire. [Learn more about the Obby Wiki here](https://obbywiki.com/wiki/OW:About).
+> This is the central repository for (mostly) every module and template on the [Obby Wiki](https://obby.wiki). Here, modules and templates are automatically uploaded to the wiki via WikiWire. [Learn more about the Obby Wiki here](https://obby.wiki/OW:About).
 
 ---
 
@@ -15,7 +15,7 @@ This is the OWSMT repository, also known as the Obby Wiki Shared Modules and Tem
 
 # 2. Why Luau?
 
-Some people may believe that Luau is Roblox-specific and can only be used in Roblox. While Luau is both developed by Roblox and most commonly applied to that use case, many programmers have built tooling around Luau because if its worthwhile benefits over vanilla Lua. In this case, Luau is not used directly, as Scribunto and MediaWiki do not support it. Instead, here, Luau is transpiled to Lua via the automated production CI pipeline (WikiWire & DarkLua) and patched with the necessary polyfills and compatibility scripts to function correctly.
+Some people may believe that Luau is Roblox-specific and can only be used in Roblox. While Luau is both developed by Roblox and most commonly applied to that use case, many programmers have built tooling around Luau because of its worthwhile benefits over vanilla Lua. In this case, Luau is not used directly, as Scribunto and MediaWiki do not support it. Instead, here, Luau is transpiled to Lua via the automated production CI pipeline (WikiWire & DarkLua) and patched with the necessary polyfills and compatibility scripts to function correctly.
 
 With this, Luau offers significant advantages such as modern Lua features, typing, and the Luau language server protocol (Luau-LSP).
 
