@@ -1133,7 +1133,7 @@ function ObbyGameInfobox.main( frame )
 		site_name = 'Obby Wiki',
 	}
 
-	if args.test == 'true' then
+	if args.test == 'true' or args.debug == 'true' then
 		append_categories = {}
 	end
 
