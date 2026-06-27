@@ -1133,6 +1133,10 @@ function ObbyGameInfobox.main( frame )
 		site_name = 'Obby Wiki',
 	}
 
+	if args.test == 'true' then
+		append_categories = {}
+	end
+
     return frame:preprocess(shortdesc) .. rendered .. (cargo_debug_res or '') .. (cargo_store_res or '') .. '\n' .. table.concat(append_categories, '\n')
 end
 
