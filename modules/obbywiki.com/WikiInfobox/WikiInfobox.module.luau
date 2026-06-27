@@ -153,7 +153,17 @@ function WikiInfobox.main( frame )
 
     local rendered = infobox:renderInfobox( nil, wiki_name )
 
-    return rendered .. '[[Category:Wiki]]'
+    local append_categories = {'[[Category:Wiki]]'}
+
+    if wiki_platform == 'fandom' then
+        table.insert(append_categories, '[[Category:Wiki/Fandom]]')
+    elseif wiki_platform == 'miraheze' then
+        table.insert(append_categories, '[[Category:Wiki/Miraheze]]')
+    elseif wiki_platform == 'independent' then
+        table.insert(append_categories, '[[Category:Wiki/Independent]]')
+    end
+
+    return rendered .. '\n' .. table.concat(append_categories, '\n')
 end
 
 
