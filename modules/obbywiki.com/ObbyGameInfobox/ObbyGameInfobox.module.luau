@@ -1134,7 +1134,13 @@ function ObbyGameInfobox.main( frame )
 	}
 
 	if args.test == 'true' or args.debug == 'true' then
-		append_categories = {}
+		local new_append_categories = {}
+
+		for i, v in pairs(append_categories) do
+			table.insert(new_append_categories, string.gsub(v, 'Category', ':Category') :: string)
+		end
+
+		append_categories = new_append_categories
 	end
 
     return frame:preprocess(shortdesc) .. rendered .. (cargo_debug_res or '') .. (cargo_store_res or '') .. '\n' .. table.concat(append_categories, '\n')
