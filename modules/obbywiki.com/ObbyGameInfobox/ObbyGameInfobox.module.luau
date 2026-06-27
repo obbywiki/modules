@@ -223,6 +223,7 @@ function ObbyGameInfobox.main( frame )
 		['towerstageobby'] = 'subgenre_stage_tower',
 		['stage_tower_obby'] = 'subgenre_stage_tower',
 		['t'] = 'subgenre_tower',
+		['tower'] = 'subgenre_tower',
 		['towerobby'] = 'subgenre_tower',
 		['tower_obby'] = 'subgenre_tower',
 		['so'] = 'subgenre_story',
