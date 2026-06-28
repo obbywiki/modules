@@ -132,7 +132,7 @@ function WikiInfobox.main( frame )
 			infobox:renderItem( 'Founded', `{wiki_founded_day and `{ordinal(tonumber(wiki_founded_day))} `}{month_by_index(wiki_founded_month)} {wiki_founded_year}`),
             infobox:renderItem( 'Pages', get_comma_val(wiki_pages)),
             infobox:renderItem( 'Members', wiki_platform=='fandom' and 'N/A (Fandom)' or get_comma_val(wiki_members)),
-            infobox:renderItem( 'Active Members', get_comma_val(wiki_active_members)),
+            infobox:renderItem( 'Active members', get_comma_val(wiki_active_members)),
             infobox:renderItem( 'Edits', get_comma_val(wiki_edits)),
             infobox:renderItem( 'Edits per page', edits_per_page),
 		}
@@ -143,7 +143,7 @@ function WikiInfobox.main( frame )
 		col = 2,
 		content = {
 			infobox:renderItem( 'Uploaded Files', get_comma_val(wiki_files)),
-            infobox:renderItem( 'Active users', get_comma_val(wiki_active_members)),
+            infobox:renderItem( 'Platform', wiki_platform == 'fandom' and '[[:Category:Wiki/Fandom|Fandom]]' or wiki_platform == 'miraheze' and '[[:Category:Wiki/Miraheze|Miraheze]]' or '[[:Category:Wiki/Independent|Independent]]'),
             infobox:renderItem( 'Administrators', wiki_admins),
             infobox:renderItem( 'Bureaucrats', wiki_bureaucrats),
             infobox:renderItem( 'Moderators', wiki_moderators),
