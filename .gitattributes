@@ -3,3 +3,4 @@ scripts/** linguist-vendored
 # dont count imported or legacy modules towards language statistics
 modules/shared/_imported/** linguist-vendored
 modules/_legacy/** linguist-vendored
+**/**Legacy.lua linguist-vendored
