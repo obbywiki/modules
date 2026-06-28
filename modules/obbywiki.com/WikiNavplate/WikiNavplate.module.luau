@@ -33,14 +33,14 @@ local function render()
     local items = {}
     for _, label in ipairs( platforms ) do
         table.insert( items, {
-            label = label,
+            label = (label == 'fandom' and '[[:Category:Wiki/Fandom|Fandom]]' or label == 'miraheze' and '[[:Category:Wiki/Miraheze|Miraheze]]' or 'Independent/Other'),
             pages = table.concat( grouping[label], '' )
         } )
     end
 
     return navplate.fromData( { 
         title = '[[List of all known obby-related wikis|Other Wikis]]',
-        subtitle = "Obby-related wikis by platform/host",
+        subtitle = "Obby-related wikis by host",
         id = 1,
         items = items
      } )
