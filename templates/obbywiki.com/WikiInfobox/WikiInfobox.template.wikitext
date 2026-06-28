@@ -1,1 +1,4 @@
-<includeonly>{{#invoke:WikiInfobox|main}}</includeonly>
+<includeonly>{{#invoke:WikiInfobox|main}}</includeonly><noinclude>
+<!-- declare cargo table only on template page -->
+{{#invoke:WikiInfobox|declare}}
+</noinclude>

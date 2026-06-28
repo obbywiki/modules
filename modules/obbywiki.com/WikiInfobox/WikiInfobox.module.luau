@@ -39,6 +39,52 @@ local function ordinal(n)
     return n .. suffix
 end
 
+local wiki_schema = {
+	_table = 'Wikis',
+	_drilldownTabs = 'Tab1(format=list;delimiter=\;;fields=creator)',
+
+	domain_no_protocol = 'String',
+
+	name = 'String',
+	thumbnail = 'String',
+	primary_language = 'String',
+	
+	year = 'Integer',
+	month = 'Integer',
+	day = 'Integer',
+
+    platform = 'String',
+
+    pages = 'Integer',
+}
+
+-- from ObbyGameInfobox
+function WikiInfobox.declare(frame)
+	local declare_args = {}
+
+    table.insert(declare_args, '_table=' .. wiki_schema._table)
+
+    for k, v in pairs(wiki_schema) do
+        if k ~= '_table' and k ~= '_drilldownTabs' then
+            table.insert(declare_args, k .. '=' .. v)
+        end
+    end
+
+    return frame:callParserFunction{ name = '#cargo_declare', args = declare_args }
+end
+
+function WikiInfobox.store(frame, data)
+	local store_args = { '_table=' .. wiki_schema._table }
+
+	for k, v in pairs(data) do
+        if v ~= nil and v ~= '' then
+            table.insert(store_args, k .. '=' .. tostring(v))
+        end
+    end
+
+	return frame:callParserFunction{ name = '#cargo_store', args = store_args }
+end
+
 function WikiInfobox.main( frame )
     local InfoboxNeue = require( 'Module:InfoboxNeue' )
 
@@ -162,6 +208,20 @@ function WikiInfobox.main( frame )
     elseif wiki_platform == 'independent' then
         table.insert(append_categories, '[[Category:Wiki/Independent]]')
     end
+
+    WikiInfobox.store(frame, {
+        name = wiki_name,
+        thumbnail = thumb,
+		year = tonumber(args.year),
+		month = tonumber(args.month),
+        day = tonumber(args.day),
+
+        platform = wiki_platform,
+
+		domain_no_protocol = string.gsub(wiki_url, '%a://', ''),
+        primary_language = 'English',
+        pages = wiki_pages
+	})
 
     return rendered .. '\n' .. table.concat(append_categories, '\n')
 end
