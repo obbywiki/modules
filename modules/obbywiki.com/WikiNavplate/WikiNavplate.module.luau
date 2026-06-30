@@ -5,7 +5,7 @@ const navplate = require( 'Module:Navplate' )
 const cargo = mw.ext.cargo
 
 local function render()
-    local results = cargo.query(
+    const results = cargo.query(
         'Wikis',
         '_pageName, name, domain_no_protocol, platform',
         {
@@ -21,11 +21,13 @@ local function render()
     local platforms = {}
 
     for _, row in ipairs( results ) do
-        local label = row.platform or 'Other'
+        const label = row.platform or 'Other'
+
         if not grouping[label] then
             grouping[label] = {}
             table.insert( platforms, label )
         end
+        
         local link = '[[' .. row._pageName .. '|' .. row.name .. ']]'
         table.insert( grouping[label], link )
     end
