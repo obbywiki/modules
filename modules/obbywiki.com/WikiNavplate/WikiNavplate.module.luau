@@ -1,8 +1,8 @@
-local p = {}
+const p = {}
 
-local navplate = require( 'Module:Navplate' )
+const navplate = require( 'Module:Navplate' )
 
-local cargo = mw.ext.cargo
+const cargo = mw.ext.cargo
 
 local function render()
     local results = cargo.query(
