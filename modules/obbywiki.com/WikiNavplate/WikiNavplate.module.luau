@@ -27,7 +27,7 @@ local function render()
             grouping[label] = {}
             table.insert( platforms, label )
         end
-        
+
         local link = '[[' .. row._pageName .. '|' .. row.name .. ']]'
         table.insert( grouping[label], link )
     end
