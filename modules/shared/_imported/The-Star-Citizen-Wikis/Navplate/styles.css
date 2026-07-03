@@ -61,7 +61,7 @@
 	gap: var( --space-xs );
 }
 
-.template-navplate-item__label img {
+.template-navplate-item__label .template-navplate-item__label_img_mono {
 	opacity: var( --opacity-icon-base );
     filter: var( --filter-invert );
 }
