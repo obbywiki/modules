@@ -665,7 +665,7 @@ function ObbyGameInfobox.main( frame )
 		title = i18n:get('section_gameplay'),
 		col = 2,
 		content = {
-			(obby_levels ~= 'N/A' or obby_obbies ~= 'N/A') and test:renderItem( use_stages and i18n:get('field_checkpoints') or i18n:get('field_obbies'), use_stages and format_with_total(obby_levels, obby_levels_total) or obby_obbies) or '',
+			(obby_levels ~= 'N/A' or obby_obbies ~= 'N/A') and test:renderItem( use_stages and i18n:get('field_checkpoints') or i18n:get('field_obbies'), use_stages and (obby_levels == 0 and 'Unknown' or format_with_total(obby_levels, obby_levels_total)) or obby_obbies) or '',
 			test:renderItem( i18n:get('field_difficulties'), format_with_total(obby_difficulties, obby_difficulties_total)),
 			test:renderItem( i18n:get('field_towers'), format_with_total(obby_towers, obby_towers_total)),
 			test:renderItem( i18n:get('field_tier'), '[[Tiers|'.. (obby_tier == '0' and '0 - Unrated/Unknown' or obby_tier).. ']]' ),
