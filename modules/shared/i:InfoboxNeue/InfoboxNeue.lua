@@ -1,6 +1,6 @@
 -- imported from https://github.com/The-Star-Citizen-Wikis/SharedModules/blob/master/InfoboxNeue/InfoboxNeue.lua
 -- now contains more than mini modifications, feel free to use if any are helpful
--- depends on Common.css and Common.js
+-- depends on Common.css and Common.js for the carousel (probably shouln't TODO)
 
 local InfoboxNeue = {}
 
