@@ -405,7 +405,7 @@ function ObbyGameInfobox.main( frame )
 		local thumb_overall_s, thumb_overall_err = pcall(function()
 
 			-- request needs to route through oxalyl due to integer overflow issues on roblox's end
-			--- imageIds are in some cases too large for int32 and arent returned as strings, use oxalyl to get them returned as strings
+			-- imageIds are in some cases too large for int32 and arent returned as strings, use oxalyl to get them returned as strings
 			local media_res = mw.ext.externalData.getExternalData{
 				-- url = 'https://games.roblox.com/v2/games/' .. tostring(universe_id) .. '/media',
 				-- 'https://oxalyl.apis.wolf1te.com/roblox.com/thumbnails/v1/badges/icons?badgeIds=%s&size=150x150&format=Png&isCircular=false&returnPolicy=PlaceHolder&wlft_auth=public-key-obbywiki-14-11-25-Vx9q7VCbM2Srn38LVDDhMk58GKf5bxD14KpPkS5XFzNEcM2FRHEaXNMbran621QySY0ueSUXZL5y4pTwjZ55nyyHhBTBuJ9BFnCAHzFLyPB3CfB9k9FGxBhAFST9qygnqtjd3PfUYtEEd4BRvhPpdQ25bLDjmjNhfucKqfE1DWJ2qkGuDubMSCGCqJGyLSFY5t2dpmTg4ij8viyCbu5dunfJfuZ71pCiz1ia4MUNBHdaPDSkg6wvWd9AJZGcHUT9&oxalyl_convert_int=true'

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[389],{4410:s=>{s.exports=JSON.parse('{"sourceUrl":"https://github.com/obbywiki/modules/blob/main","baseUrl":"/","classOrder":[{"section":"Also By","classes":["AlsoBy"]}],"apiCategories":["invoked"]}')}}]);

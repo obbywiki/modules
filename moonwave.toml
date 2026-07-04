@@ -1,10 +1,19 @@
-title = "owsmt"
+title = "OWSMT"
 gitRepoUrl = "https://github.com/obbywiki/modules"
 
 gitSourceBranch = "main"
 changelog = false
 classOrder = []
+autoSectionPath = "modules/obbywiki.com"
+apiCategories = ["invoked"]
 
 [docusaurus]
 url = "https://owsmt.obby.dev"
 baseUrl = "/"
+tagline = "Obby Wiki Shared Modules & Templates repository"
+onBrokenLinks = "warn"
+onBrokenMarkdownLinks = "warn"
+
+[home]
+enabled = false
+includeReadme = true

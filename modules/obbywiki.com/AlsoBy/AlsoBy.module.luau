@@ -1,3 +1,5 @@
+--- @class AlsoBy
+
 local p = {}
 
 local navplate = require( 'Module:Navplate' )
@@ -6,6 +8,8 @@ local cargo = mw.ext.cargo
 
 --- Collects the data from Cargo and renders the Navplate as a string.
 ---
+--- @within AlsoBy
+--- @private
 --- @param creator string -- The name of the creator by @Username or GroupName
 ---
 --- @return string -- Returns the render as a string.
@@ -60,10 +64,13 @@ end
 
 --- Wraps the render function
 ---
+--- @within AlsoBy
 --- @param frame frame
 ---
 --- @return string
+---
 --- @tag invoked
+
 function p.main( frame )
     local args = require( 'Module:Arguments' ).getArgs( frame )
 
