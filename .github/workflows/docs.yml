@@ -4,11 +4,15 @@ on:
   workflow_dispatch:
   push:
     branches: ["main"]
-
+  
 jobs:
   status:
     runs-on: ubuntu-latest
     name: Publish docs to GitHub Pages
+    permissions:
+      contents: write
+      pages: write
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
