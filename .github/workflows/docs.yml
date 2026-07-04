@@ -8,7 +8,7 @@ on:
 jobs:
   status:
     runs-on: ubuntu-latest
-    name: Publish docs to GitHub Pages
+    name: Generate via Moonwave
     permissions:
       contents: write
       pages: write

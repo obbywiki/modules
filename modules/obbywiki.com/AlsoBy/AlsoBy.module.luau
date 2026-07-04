@@ -4,7 +4,13 @@ local navplate = require( 'Module:Navplate' )
 
 local cargo = mw.ext.cargo
 
-local function render( creator )
+--- Collects the data from Cargo and renders the Navplate as a string.
+---
+--- @param creator string -- The name of the creator by @Username or GroupName
+---
+--- @return string -- Returns the render as a string.
+
+local function render( creator : string ) : string
     if not creator or creator == '' then
         return ''
     end
@@ -52,6 +58,12 @@ local function render( creator )
      } )
 end
 
+--- Wraps the render function
+---
+--- @param frame frame
+---
+--- @return string
+--- @tag invoked
 function p.main( frame )
     local args = require( 'Module:Arguments' ).getArgs( frame )
 
