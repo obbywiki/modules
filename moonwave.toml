@@ -1,0 +1,10 @@
+title = "owsmt"
+gitRepoUrl = "https://github.com/obbywiki/modules"
+
+gitSourceBranch = "main"
+changelog = false
+classOrder = []
+
+[docusaurus]
+url = "https://owsmt.obby.dev"
+baseUrl = "/"
