@@ -1,3 +1,5 @@
+--- @class GroupInfobox
+
 -- inspired by scw
 
 local GroupInfobox = {}
@@ -94,10 +96,23 @@ local studio_schema = {
 
 }
 
+--- Declares the 'Studio' schema as a Cargo table. Only to be invoked via Template:GroupInfobox.
+---
+--- @within GroupInfobox
+--- @param frame frame
+---
+--- @return string
 function GroupInfobox.declare(frame)
 	return cargo.declare( studio_schema )
 end
 
+--- Stores data to the schema
+---
+--- @within GroupInfobox
+--- @param frame frame
+--- @param data {}
+---
+--- @return string
 function GroupInfobox.store(frame, data)
 	local store_args = { '_table=' .. studio_schema._table }
 
@@ -110,7 +125,14 @@ function GroupInfobox.store(frame, data)
 	return frame:callParserFunction{ name = '#cargo_store', args = store_args }
 end
 
-
+--- Renders and returns the infobox HTML as a string.
+---
+--- @within GroupInfobox
+--- @param frame frame
+---
+--- @return string
+---
+--- @tag invoked
 function GroupInfobox.main( frame )
     local InfoboxNeue = require( 'Module:InfoboxNeue' )
 
