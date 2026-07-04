@@ -3,6 +3,7 @@
 
 version = 1
 shared = true
+common = true
 
 [[sites]]
 id = "obbywiki"
@@ -10,3 +11,4 @@ host = "obbywiki.com"
 api = "https://obby.wiki/api.php"
 default_branch = "main"
 css_content_model = "css"
+common = true
