@@ -4,6 +4,12 @@ on:
   workflow_dispatch:
   push:
     branches: ["main"]
+    paths:
+      - 'modules/**'
+      - 'modules/*'
+      - 'moonwave.toml'
+    paths-ignore:
+      - '*.md'
   
 jobs:
   status:
