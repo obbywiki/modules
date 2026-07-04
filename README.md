@@ -25,6 +25,10 @@ At first, contributing may be overwhelming for new contributors. However, it is 
 
 Please note that only some polyfills like `table.find`, `string.split`, `table.clear`, and `table.create` are available at this moment. Feel free to add or request more at the `scripts/polyfill.js` script.
 
+4. Licensing
+
+Dedicated modules/templates/content are available under the license at LICENSE in this repository. Please note that content marked as imported, or under the _imported/ folder, adhere to their own license respectively, as defined by the place that they were sourced from.
+
 ---
 
 [ObbyWiki OSS](https://obbywiki.github.io/) - [Obby Wiki](https://obby.wiki) - [Use our DigitalOcean referral for $200 free for 60 days](https://www.digitalocean.com/?refcode=4bec7a43ac62)
