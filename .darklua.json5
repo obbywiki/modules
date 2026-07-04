@@ -10,7 +10,7 @@
         "Module": "./modules"
       }
     },
-    "excludes": ["Module?*"]
+    "excludes": ["Module?*","libraryUtil"]
   },
   "rules": [
     "remove_comments",
