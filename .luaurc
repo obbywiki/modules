@@ -1,5 +1,4 @@
 {
-    "globals": [
-        "mw"
-    ]
+    "languageMode": "nonstrict",
+    "globals": ["mw"]
 }
