@@ -114,7 +114,7 @@ end
 function GroupInfobox.main( frame )
     local InfoboxNeue = require( 'Module:InfoboxNeue' )
 
-    local test = InfoboxNeue:new( {
+    local infobox = InfoboxNeue:new( {
 		placeholderImage = 'Standard11placeholder.webp'
 	} )
 
@@ -301,47 +301,47 @@ function GroupInfobox.main( frame )
 
 	--
 
-    test:renderImage( thumb )
+    infobox:renderImage( thumb )
 
-    test:renderHeader( {
+    infobox:renderHeader( {
 		title = group_name,
 		subtitle = (group_creator_was_corrected and ('by \'\'\''..group_creator..'\'\'\'') or ('by \'\'\'[[' .. group_creator .. ']]\'\'\'')) .. (group_creation_year ~= '' and (' — ' .. group_creation_year) or '')
 	} )
 
-    -- test:renderSection( {
+    -- infobox:renderSection( {
 	-- 	title = 'Overview',
 	-- 	col = 2,
 	-- 	content = {
-	-- 		test:renderItem( '', obby_levels_total and obby_levels and (obby_levels .. (obby_levels_total and ' <small>(of ' .. obby_levels_total .. ')</small>')) or obby_levels or ''),
-	-- 		-- test:renderItem( 'Difficulties', obby_difficulties_total and obby_difficulties and (obby_difficulties .. (obby_difficulties_total and ' <small>(of ' .. obby_difficulties_total .. ')</small>')) or obby_difficulties or ''),
-	-- 		-- test:renderItem( 'Towers', obby_towers_total and obby_towers and (obby_towers .. (obby_towers_total and ' <small>(of ' .. obby_towers_total .. ')</small>')) or obby_towers and obby_towers or ''),
-	-- 		-- test:renderItem( 'Tier', '[[Tiers|'.. (obby_tier == '0' and '0 - Unrated/Unknown' or obby_tier).. ']]' ),
-	-- 		-- test:renderItem( 'Avatar Type', obby_avatar_type )
+	-- 		infobox:renderItem( '', obby_levels_total and obby_levels and (obby_levels .. (obby_levels_total and ' <small>(of ' .. obby_levels_total .. ')</small>')) or obby_levels or ''),
+	-- 		-- infobox:renderItem( 'Difficulties', obby_difficulties_total and obby_difficulties and (obby_difficulties .. (obby_difficulties_total and ' <small>(of ' .. obby_difficulties_total .. ')</small>')) or obby_difficulties or ''),
+	-- 		-- infobox:renderItem( 'Towers', obby_towers_total and obby_towers and (obby_towers .. (obby_towers_total and ' <small>(of ' .. obby_towers_total .. ')</small>')) or obby_towers and obby_towers or ''),
+	-- 		-- infobox:renderItem( 'Tier', '[[Tiers|'.. (obby_tier == '0' and '0 - Unrated/Unknown' or obby_tier).. ']]' ),
+	-- 		-- infobox:renderItem( 'Avatar Type', obby_avatar_type )
 	-- 	}
 	-- } )
 
-	test:renderSection( {
+	infobox:renderSection( {
 		title = 'Statistics',
 		col = 2,
 		content = {
-			test:renderItem( 'Members', group_stats_members .. '+'),
-			test:renderItem( 'Obbies', '~' .. group_obbies),
-			-- test:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
-			-- test:renderItem( 'Likes', obby_stats_likes .. '+' ),
+			infobox:renderItem( 'Members', group_stats_members .. '+'),
+			infobox:renderItem( 'Obbies', '~' .. group_obbies),
+			-- infobox:renderItem( 'Peak CCU', obby_stats_peak_ccu .. '+' ),
+			-- infobox:renderItem( 'Likes', obby_stats_likes .. '+' ),
 		}
 	} )
 
-    test:renderSection( {
+    infobox:renderSection( {
 		title = 'Publishing & Other',
 		col = 2,
 		content = {
-			test:renderItem( 'Created', group_creation_month .. ' ' .. group_creation_year ),
-			-- test:renderItem( 'Update Frequency', obby_update_freq ),
-			-- test:renderItem( 'Publisher', obby_publisher ),
-			-- test:renderItem( 'Genre', 'Obby & Platformer' ),
-			-- test:renderItem( 'Sub-genre', obby_subgenre ),
-			-- test:renderItem( 'Maturity', obby_maturity ),
-			-- test:renderItem( 'Obby System', obby_system ),
+			infobox:renderItem( 'Created', group_creation_month .. ' ' .. group_creation_year ),
+			-- infobox:renderItem( 'Update Frequency', obby_update_freq ),
+			-- infobox:renderItem( 'Publisher', obby_publisher ),
+			-- infobox:renderItem( 'Genre', 'Obby & Platformer' ),
+			-- infobox:renderItem( 'Sub-genre', obby_subgenre ),
+			-- infobox:renderItem( 'Maturity', obby_maturity ),
+			-- infobox:renderItem( 'Obby System', obby_system ),
 		}
 	} )
 
@@ -390,11 +390,11 @@ function GroupInfobox.main( frame )
 	-- end
 
 	if #social_icons_wikitext > 0 then
-		test:renderSection(
+		infobox:renderSection(
 			{
 				title = 'Presence',
 				content = {
-					test:renderItem(
+					infobox:renderItem(
 						{
 							label = 'Socials',
 							plainlinks_enabled = true,
@@ -407,43 +407,43 @@ function GroupInfobox.main( frame )
 		)
 	end
 
-	test:renderSection( {
+	infobox:renderSection( {
 		title = 'Advanced',
 		col = 2,
 		content = {
-			test:renderItem( 'Group ID', '<code>' .. (group_id == 7 and 'Unlisted' or tostring(group_id) or 'Unknown') .. '</code>' ),
-			-- test:renderItem( 'Universe ID', tostring(universe_id) or 'Unknown' ),
+			infobox:renderItem( 'Group ID', '<code>' .. (group_id == 7 and 'Unlisted' or tostring(group_id) or 'Unknown') .. '</code>' ),
+			-- infobox:renderItem( 'Universe ID', tostring(universe_id) or 'Unknown' ),
 		}
 	} )
 
-    -- test:renderFooter( {
+    -- infobox:renderFooter( {
 	-- 	button = {
 	-- 		icon = 'GoogleMaterialIcons-Globe.svg',
 	-- 		label = 'External Links',
 	-- 		type = 'popup',
-	-- 		content = test:renderSection( {
+	-- 		content = infobox:renderSection( {
 	-- 			content = {
-	-- 				test:renderItem( {
+	-- 				infobox:renderItem( {
 	-- 					label = 'Roblox',
-	-- 					data = {test:renderLinkButton( {
+	-- 					data = {infobox:renderLinkButton( {
 	-- 						label = 'View on Roblox',
 	-- 						link = 'https://roblox.com/games/' .. obby_starter_place_id .. '/'
 	-- 					}),
 
-	-- 					test:renderLinkButton({
+	-- 					infobox:renderLinkButton({
 	-- 						label = 'Play on Roblox',
 	-- 						link = (obby_join_sharelink_id ~= '' and 'https://roblox.com/join/' .. obby_join_sharelink_id) or 'https://roblox.com/start?placeId=' .. obby_starter_place_id .. '&launchData=obbywiki'
 	-- 					})
 	-- 				}					
 	-- 				} ),
 
-	-- 				test:renderItem( {
+	-- 				infobox:renderItem( {
 	-- 					label = 'Analytics (not affiliated)',
-	-- 					data = {test:renderLinkButton( {
+	-- 					data = {infobox:renderLinkButton( {
 	-- 						label = 'View on RoMonitorStats',
 	-- 						link = 'https://romonitorstats.com/experience/' .. obby_starter_place_id .. '/'
 	-- 					}),
-	-- 					test:renderLinkButton( {
+	-- 					infobox:renderLinkButton( {
 	-- 						label = 'View on Rolimons',
 	-- 						link = 'https://rolimons.com/game/' .. obby_starter_place_id .. '/'
 	-- 					})
@@ -454,7 +454,7 @@ function GroupInfobox.main( frame )
 	-- 	}
 	-- } )
 
-	local rendered = test:renderInfobox( nil, group_name )
+	local rendered = infobox:renderInfobox( nil, group_name )
 	-- local parsed_month = month_by_index(tonumber(group_creation_year))
 
 	local append_categories = {}
