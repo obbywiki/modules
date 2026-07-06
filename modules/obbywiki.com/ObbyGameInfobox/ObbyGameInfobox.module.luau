@@ -154,19 +154,6 @@ function ObbyGameInfobox.store(frame, data, debug_mode)
 	mw.logObject(store_args, 'ObbyGameInfobox Store Args')
 
 	local cargo_store_res = frame:callParserFunction{ name = '#cargo_store', args = store_args }
-	local debug_output = ''
-
-	if debug_mode then
-		debug_output = '<div class="obby-debug-storage" style="border: 1px solid #ccc; padding: 10px; margin: 10px 0; background-color: #f9f9f9;">'
-		debug_output = debug_output .. '<strong>[ObbyGameInfobox Debug] Cargo Store Args:</strong><pre>' .. mw.text.nowiki(mw.text.jsonEncode(store_args)) .. '</pre>'
-		if cargo_store_res and cargo_store_res ~= '' then
-			debug_output = debug_output .. '<div style="color: red;"><strong>Cargo Store Result/Error:</strong> ' .. cargo_store_res .. '</div>'
-		else
-			debug_output = debug_output .. '<div style="color: green;"><strong>Cargo Store Status:</strong> Success (Empty Result)</div>'
-		end
-		debug_output = debug_output .. '</div>'
-		return cargo_store_res, debug_output
-	end
 
 	return cargo_store_res, ''
 end
@@ -963,7 +950,7 @@ function ObbyGameInfobox.main( frame )
 					developers = args.developers,
 					contributors = args.contributors,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 					playability = verified_info_key,
-				}, args.debug == 'true' or args.debug == true)
+				})
 			end
 		-- end
 	end
