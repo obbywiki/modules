@@ -12,21 +12,25 @@ if (msg_path) {
     .replace(/chore-ogi:/gi, 'chore(ObbyGameInfobox):')
     .replace(/style-ogi:/gi, 'style(ObbyGameInfobox):')
     .replace(/refactor-ogi:/gi, 'refactor(ObbyGameInfobox):')
+    .replace(/docs-ogi:/gi, 'docs(ObbyGameInfobox):')
     .replace(/fix-gi:/gi, 'fix(GroupInfobox):')
     .replace(/feat-gi:/gi, 'feat(GroupInfobox):')
     .replace(/chore-gi:/gi, 'chore(GroupInfobox):')
     .replace(/style-gi:/gi, 'style(GroupInfobox):')
     .replace(/refactor-gi:/gi, 'refactor(GroupInfobox):')
+    .replace(/docs-ogi:/gi, 'docs(GroupInfobox):')
     .replace(/fix-pol:/gi, 'fix(PlayerObbiesList):')
     .replace(/feat-pol:/gi, 'feat(PlayerObbiesList):')
     .replace(/chore-pol:/gi, 'chore(PlayerObbiesList):')
     .replace(/style-pol:/gi, 'style(PlayerObbiesList):')
     .replace(/refactor-pol:/gi, 'refactor(PlayerObbiesList):')
+    .replace(/docs-ogi:/gi, 'docs(PlayerObbiesList):')
     .replace(/fix-pi:/gi, 'fix(PlayerInfobox):')
     .replace(/feat-pi:/gi, 'feat(PlayerInfobox):')
     .replace(/chore-pi:/gi, 'chore(PlayerInfobox):')
     .replace(/style-pi:/gi, 'style(PlayerInfobox):')
-    .replace(/refactor-pi:/gi, 'refactor(PlayerInfobox):');
+    .replace(/refactor-pi:/gi, 'refactor(PlayerInfobox):')
+    .replace(/docs-ogi:/gi, 'docs(PlayerInfobox):');
 
   fs.writeFileSync(msg_path, newc);
 }
