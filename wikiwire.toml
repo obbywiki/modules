@@ -4,6 +4,7 @@
 version = 1
 shared = true
 common = true
+ignore_content_model_errors = true
 
 [[sites]]
 id = "obbywiki"
