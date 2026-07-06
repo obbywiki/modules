@@ -7,6 +7,7 @@ The 2nd version of the Obby infobox, succeeding `{{Obby}}`.
 ## Requirements
 
 * [Extension:DynamicJsonLD](https://mediawiki.org/wiki/Extension:DynamicJsonLD)
+* [Extension:Cargo](https://mediawiki.org/wiki/Extension:Cargo)
 * InfoboxNeue
 * i18n2
 * Arguments
