@@ -14,7 +14,7 @@ At the bare minimum, the below parameters are required to produce an infobox.
 
 <syntaxhighlight lang="wikitext">
 {{ObbyGameInfobox
-| name = {{PAGENAME}} <!-- automatically fill in the name of the obby with the page's name (default) -->
+| name = {{PAGENAME}} <!-- Automatically fills in the name of the obby with the page's name (default) -->
 | root_place_id = 1818 <!-- The root place ID of a game, also referred to as the start place ID. Typically, this is found with-in the numbers part of a Roblox game URL (e.g., https://www.roblox.com/games/1818/...)
 }}
 </syntaxhighlight>
@@ -24,19 +24,20 @@ Supply the suggested parameters for the ideal output from the template:
 <syntaxhighlight lang="wikitext">
 {{ObbyGameInfobox
 | name = {{PAGENAME}}
-| image = UploadedFileName.webp
+| image = UploadedFileName.webp <!-- The name of an uploaded file/image on the ObbyWiki. WebP is recommended, as it is also the default file type from Roblox. This should be a game's thumbnail, ideally. -->
 | root_place_id = 1818
-| developer = @UsernameOrGroupName
-| subgenre = stage_tower_obby
+| developer = @UsernameOrGroupName <!-- This may be confusing, but this is only the uploader/owner of the game, such as the name displayed after 'By ...' on the game's page. This can be an @Username (must be prefixed with an @ symbol if the developer is a user), or just a Group Name. -->
+| subgenre = stage_tower_obby <!-- See https://obby.wiki/Help:Supported_obby_genres -->
 | maturity = minimal
 
+<!-- The date the obby was released or created (the release date takes precendent, if known). -->
 | year = 2023
 | month = 04
 | day = 27
 
-| avatar_type = r6
+| avatar_type = r6 <!-- r6/r15/choice -->
 
-| verified = true
+| verified = true <!-- See https://obby.wiki/Obby_Wiki:Playability -->
 }}
 </syntaxhighlight>
 
