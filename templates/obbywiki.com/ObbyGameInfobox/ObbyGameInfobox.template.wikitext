@@ -53,6 +53,8 @@ For collection and organization purposes, such as displaying contributed obbies 
 }}
 </syntaxhighlight>
 
+You can also use the <code>contributors</code> parameter if the contributor is not a core developer.
+
 Optional device parameters may also be used, if known:
 
 <syntaxhighlight lang="wikitext">
@@ -67,6 +69,33 @@ Optional device parameters may also be used, if known:
 }}
 </syntaxhighlight>
 
+Some parameters have <code>_total</code> counterparts. This is useful for obbies that have stages, but have not finished them yet. Instead of just displaying <code>Stages: 30</code>, the infobox can display <code>Stages: 30 (of 40)</code> instead.
+
+<syntaxhighlight lang="wikitext">
+{{ObbyGameInfobox
+<!-- ... -->
+| stages = 30
+| stages_total = 40
+<!-- ... -->
+}}
+</syntaxhighlight>
+
+This goes for many different sub-genre-specific parameters, such as <code>difficulties</code> or <code>towers</code>.
+
+<syntaxhighlight lang="wikitext">
+{{ObbyGameInfobox
+<!-- ... -->
+| towers = 1
+| towers_total = 2
+
+| difficulties = 10
+| difficulties_total = 12
+<!-- ... -->
+}}
+</syntaxhighlight>
+
+While a parameter and its <code>_total</code> counterpart can have an equal value, this behavior is not widely used.
+
 As well as genre-specific parameters, which you can find below.
 
 === Examples ===
@@ -77,6 +106,8 @@ Here are some examples for what you can directly use on a page:
 |-|Classic Obby=
 
 A Classic Obby is a bland obby with no applicable sub-genre. As such, it has no genre-specific parameters.
+
+Example from [[Obby Creator]].
 
 <syntaxhighlight lang="wikitext">
 {{ObbyGameInfobox
@@ -90,7 +121,7 @@ A Classic Obby is a bland obby with no applicable sub-genre. As such, it has no 
 | year = 2019
 | month = 03
 
-| stages = 100 <!-- Could be 'obbies', alternatively -->
+| obbies = 1000000 <!-- Could be 'stages', alternatively -->
 
 | avatar_type = r6
 | verified = true
@@ -107,6 +138,8 @@ A Classic Obby is a bland obby with no applicable sub-genre. As such, it has no 
 </syntaxhighlight>
 |-|Difficulty Chart Obby=
 A [[Difficulty Chart Obby]] needs a few specific and unique aspects added, such as the <code>difficulties</code> parameter.
+
+Example from [[Star's Difficulty Chart Obby]].
 
 <syntaxhighlight lang="wikitext">
 {{ObbyGameInfobox
