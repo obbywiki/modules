@@ -11,6 +11,8 @@ on:
       - 'modules/*'
       - 'templates/**'
       - 'templates/*'
+      - 'mediawiki/**'
+      - 'mediawiki/*'
 
 jobs:
   wikiwire:
@@ -78,7 +80,7 @@ jobs:
           cf_api_token: ${{ secrets.CF_API_TOKEN }}
           disable_bot_fight_mode: 'true'
 
-      - uses: obbywiki/wikiwire@390a1cebd97f6e16b94439f00ffb722d094456bb
+      - uses: obbywiki/wikiwire@3d0e798e1188300663ef19d643389fa3c84682f6
         env:
           GITHUB_TOKEN: ${{ secrets.WIKIWIRE_GITHUB_TOKEN }}
         with:
