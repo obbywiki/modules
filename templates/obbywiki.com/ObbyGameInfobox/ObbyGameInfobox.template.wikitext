@@ -46,14 +46,17 @@ While additional parameters can help, these are the ones you should focus on sup
 For collection and organization purposes, such as displaying contributed obbies on a developer's wiki page, you can use the <code>developers</code> parameter to attach it to them (note: this is distinct from the <code>developer</code> parameter).
 
 <syntaxhighlight lang="wikitext">
+{{ObbyGameInfobox
 <!-- ... -->
 | developers = @Username1,@Username2,@Username3 <!-- @Usernames only, entries are separated by a comma (,) and no spaces. -->
 <!-- ... -->
+}}
 </syntaxhighlight>
 
 Optional device parameters may also be used, if known:
 
 <syntaxhighlight lang="wikitext">
+{{ObbyGameInfobox
 <!-- ... -->
 | pc = true
 | tablet = true
@@ -61,13 +64,84 @@ Optional device parameters may also be used, if known:
 | vr = true
 | console = true
 <!-- ... -->
+}}
 </syntaxhighlight>
 
-As well as genre-specific parameters.
+As well as genre-specific parameters, which you can find below.
+
+=== Examples ===
+
+Here are some examples for what you can directly use on a page:
+
+<tabber>
+|-|Classic Obby=
+
+A Classic Obby is a bland obby with no applicable sub-genre. As such, it has no genre-specific parameters.
+
+<syntaxhighlight lang="wikitext">
+{{ObbyGameInfobox
+| name = Obby Creator
+| image = Obby_creator_thumb_1.webp
+| root_place_id = 2913303231
+| developer = Whirlpool Studio
+| publisher = Whirlpool Studio
+| subgenre = Obby
+| maturity = minimal
+| year = 2019
+| month = 03
+
+| stages = 100 <!-- Could be 'obbies', alternatively -->
+
+| avatar_type = r6
+| verified = true
+| ai = none
+
+| peak_ccu = 0
+
+| pc = true
+| tablet = true
+| phone = true
+| vr = true
+| console = true
+}}
+</syntaxhighlight>
+|-|Difficulty Chart Obby=
+A [[Difficulty Chart Obby]] needs a few specific and unique aspects added, such as the <code>difficulties</code> parameter.
+
+<syntaxhighlight lang="wikitext">
+{{ObbyGameInfobox
+| name = Star's Difficulty Chart Obby
+| image = Star's Difficulty Chart Obby v3 thumb upsell.png
+| root_place_id = 10384955640
+| developer = Kiwi's Obbies
+| developers = @Wolf1te,@ActuallyAKiwi,@or_ob,@MohoOoPvP
+| contributors = @TheAvsar,@Sylv0791
+| subgenre = dco
+| maturity = minimal
+| year = 2022
+| month = 07
+| stages = 260
+| avatar_type = r6
+| tier = 9 <!-- See https://obby.wiki/Tiers -->
+| verified = true
+
+| system = WOS v0.8.5 Premium (modified) <!-- This is completely optional, as many developers hide their obby system today -->
+
+| peak_ccu = 1100
+
+| pc = true
+| tablet = true
+| phone = true
+| vr = true
+| console = true
+}}
+</syntaxhighlight>
+
+</tabber>
 
 <hr />
 
-=Related=
+== Related ==
 * [[Help:Supported_obby_genres]] - lists official supported sub-genres and shorthands
 * [[OW:Playability]] - reference on what to mark as playable and what to not
 * [[Special:MyLanguage/Tiers|Tiers]] - what are tiers
