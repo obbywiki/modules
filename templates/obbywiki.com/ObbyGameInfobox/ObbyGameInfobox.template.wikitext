@@ -41,7 +41,29 @@ Supply the suggested parameters for the ideal output from the template:
 }}
 </syntaxhighlight>
 
-While additional parameters can help, these are the ones you should focus on supplying.
+While additional parameters can help, these are the ones you should focus on supplying. 
+
+For collection and organization purposes, such as displaying contributed obbies on a developer's wiki page, you can use the <code>developers</code> parameter to attach it to them (note: this is distinct from the <code>developer</code> parameter).
+
+<syntaxhighlight lang="wikitext">
+<!-- ... -->
+| developers = @Username1,@Username2,@Username3 <!-- @Usernames only, entries are separated by a comma (,) and no spaces. -->
+<!-- ... -->
+</syntaxhighlight>
+
+Optional device parameters may also be used, if known:
+
+<syntaxhighlight lang="wikitext">
+<!-- ... -->
+| pc = true
+| tablet = true
+| phone = true
+| vr = true
+| console = true
+<!-- ... -->
+</syntaxhighlight>
+
+As well as genre-specific parameters.
 
 <hr />
 
