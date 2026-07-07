@@ -8,7 +8,7 @@ Please note that only the <code>root_place_id</code> and <code>name</code> param
 
 == Usage ==
 
-New contributors should utilize the Article Flow tool, found at the top left of the page (the plus button), as it guides you through making a new article, as well as automating some tedious tasks.
+New contributors should utilize the Article Flow tool, found at the top left of the page (the plus button), as it guides you through making a new article, as well as automating some tedious tasks. Currently, this infobox only supports obbies on Roblox.
 
 At the bare minimum, the below parameters are required to produce an infobox.
 
@@ -178,6 +178,7 @@ Example from [[Star's Difficulty Chart Obby]].
 * [[Help:Supported_obby_genres]] - lists official supported sub-genres and shorthands
 * [[OW:Playability]] - reference on what to mark as playable and what to not
 * [[Special:MyLanguage/Tiers|Tiers]] - what are tiers
+* [[Blog:Create_an_obby_article_easily]] - make an obby article boilerplate semi-automatically
 
 The config reference of this template is provided below. This reference is also accessible via the Visual Editor when editing a page.
 
