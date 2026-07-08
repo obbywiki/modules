@@ -15,7 +15,7 @@ At the bare minimum, the below parameters are required to produce an infobox.
 <syntaxhighlight lang="wikitext">
 {{ObbyGameInfobox
 | name = {{PAGENAME}} <!-- Automatically fills in the name of the obby with the page's name (default) -->
-| root_place_id = 1818 <!-- The root place ID of a game, also referred to as the start place ID. Typically, this is found with-in the numbers part of a Roblox game URL (e.g., https://www.roblox.com/games/1818/...)
+| root_place_id = 1818 <!-- The root place ID of a game, also referred to as the start place ID. Typically, this is found with-in the numbers part of a Roblox game URL (e.g., https://www.roblox.com/games/1818/...) -->
 }}
 </syntaxhighlight>
 
