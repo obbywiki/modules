@@ -4,5 +4,6 @@ scripts/** linguist-vendored
 modules/shared/_imported/** linguist-vendored
 **/i:*/** linguist-vendored
 **/w:*/** linguist-vendored
+**/scw:*/** linguist-vendored
 modules/_legacy/** linguist-vendored
 **/**Legacy.lua linguist-vendored
