@@ -6,4 +6,4 @@
 [[Obby_wiki:About/Groups|User Groups]] |
 [[Obby_wiki:About/For_developers|For developers]] |
 [[Obby_wiki:Terms_of_Use|Terms of Use]]
-</div>
+</div><templatestyles src="AboutHeader/styles.css" />
