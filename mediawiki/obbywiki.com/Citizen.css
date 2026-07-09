@@ -15,6 +15,11 @@
     z-index: -1;
 }
 
+.page-Obby_Wiki_About .citizen-page-heading,
+.page-Obby_Wiki_About .citizen-page-actions > citizen-menu {
+  display: none;
+}
+
 .faq-question::before {
   content: "";
   display: inline-block;
