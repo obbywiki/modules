@@ -15,10 +15,24 @@
     z-index: -1;
 }
 
-.page-Obby_Wiki_About .citizen-page-heading,
 .page-Obby_Wiki_About .citizen-page-actions #p-views,
 .page-Obby_Wiki_About .citizen-page-actions #p-associated-pages {
   display: none;
+}
+
+.page-Obby_Wiki_About .citizen-page-heading::before {
+    content: "";
+    display: block;
+
+    background-image: url("https://2q2bp9cu5u.ufs.sh/f/jHfjIa1SBA5f4hxgeYGmiArxKSEWbsm23Yk91zcNIwgoTvLU");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    width: 52px; 
+    height: 52px;
+
+    margin: 0 auto 1.5rem auto; 
 }
 
 .faq-question::before {
