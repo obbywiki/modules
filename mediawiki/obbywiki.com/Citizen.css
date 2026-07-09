@@ -32,7 +32,13 @@
     width: 52px; 
     height: 52px;
 
-    margin: 0 auto 1.5rem auto; 
+    margin-right: 1rem;
+    position: absolute; 
+}
+
+.page-Obby_Wiki_About .firstHeading-container,
+.page-Obby_Wiki_About #siteSub {
+    margin-left: 4.5rem;
 }
 
 .faq-question::before {
