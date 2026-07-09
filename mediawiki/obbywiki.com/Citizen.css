@@ -1,49 +1,5 @@
 /* All CSS here will be loaded for users of the Citizen skin */
 
-/* modified from https://stellasora.miraheze.org/wiki/MediaWiki:Citizen.css */
-.page-Obby_Wiki_About .citizen-page-container::before {
-    background-image: url("https://2q2bp9cu5u.ufs.sh/f/jHfjIa1SBA5f8Oc5pbuYhQk6LB8KIWGD4bxMwv0migdrFCyq");
-    background-position-x: center;
-    background-position-y: 70%;
-    background-size: cover;
-    block-size: 400px;
-    content: "";
-    inset: 0;
-    mask-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1) 50%, transparent 100% );
-    pointer-events: none;
-    position: absolute;
-    z-index: -1;
-}
-
-.page-Obby_Wiki_About .citizen-page-actions #p-views,
-.page-Obby_Wiki_About .citizen-page-actions #p-associated-pages,
-.page-Obby_Wiki_About .firstHeading-container .mw-indicators,
-.page-Obby_Wiki_About #citizen-sidebar-lastmod,
-.page-Obby_Wiki_About .subpages {
-  display: none;
-}
-
-.page-Obby_Wiki_About .citizen-page-heading::before {
-    content: "";
-    display: block;
-
-    background-image: url("https://2q2bp9cu5u.ufs.sh/f/jHfjIa1SBA5f4hxgeYGmiArxKSEWbsm23Yk91zcNIwgoTvLU");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-
-    width: 52px; 
-    height: 52px;
-
-    margin-right: 1rem;
-    position: absolute; 
-}
-
-.page-Obby_Wiki_About .firstHeading-container,
-.page-Obby_Wiki_About #siteSub {
-    margin-left: 4.5rem;
-}
-
 /*  */
 
 .faq-question::before {
