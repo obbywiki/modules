@@ -16,7 +16,8 @@
 }
 
 .page-Obby_Wiki_About .citizen-page-actions #p-views,
-.page-Obby_Wiki_About .citizen-page-actions #p-associated-pages {
+.page-Obby_Wiki_About .citizen-page-actions #p-associated-pages,
+.page-Obby_Wiki_About .firstHeading-container .mw-indicators {
   display: none;
 }
 
