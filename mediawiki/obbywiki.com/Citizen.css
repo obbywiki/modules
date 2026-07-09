@@ -16,7 +16,8 @@
 }
 
 .page-Obby_Wiki_About .citizen-page-heading,
-.page-Obby_Wiki_About .citizen-page-actions .citizen-menu {
+.page-Obby_Wiki_About .citizen-page-actions #p-views,
+.page-Obby_Wiki_About .citizen-page-actions #p-associated-pages {
   display: none;
 }
 
