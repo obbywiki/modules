@@ -3,7 +3,7 @@
 [[Obby_wiki:About/Why|Why the Obby Wiki]] |
 [[Obby_wiki:Rules|Wiki Rules & Guidelines]] |
 [[Obby_wiki:About/For_developers|For developers]] |
-[[Obby_wiki:Terms_of_Use|Start Contributing]] |
+[[Help:Contributing|Start Contributing]] |
 [[Blog:Timeline|Announcements]] |
 [[Obby_wiki:About#More|More]]
 </div><span class="citizen-page-heading"></span><span class="citizen-page-actions"></span></includeonly>
