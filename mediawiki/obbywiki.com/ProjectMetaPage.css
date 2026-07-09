@@ -1,0 +1,42 @@
+.citizen-page-container::before {
+    background-image: url("https://2q2bp9cu5u.ufs.sh/f/jHfjIa1SBA5f8Oc5pbuYhQk6LB8KIWGD4bxMwv0migdrFCyq");
+    background-position-x: center;
+    background-position-y: 70%;
+    background-size: cover;
+    block-size: 400px;
+    content: "";
+    inset: 0;
+    mask-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1) 50%, transparent 100% );
+    pointer-events: none;
+    position: absolute;
+    z-index: -1;
+}
+
+.citizen-page-actions #p-views,
+.citizen-page-actions #p-associated-pages,
+.firstHeading-container .mw-indicators,
+#citizen-sidebar-lastmod,
+.subpages {
+  display: none;
+}
+
+.citizen-page-heading::before {
+    content: "";
+    display: block;
+
+    background-image: url("https://2q2bp9cu5u.ufs.sh/f/jHfjIa1SBA5f4hxgeYGmiArxKSEWbsm23Yk91zcNIwgoTvLU");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    width: 52px; 
+    height: 52px;
+
+    margin-right: 1rem;
+    position: absolute; 
+}
+
+.firstHeading-container,
+#siteSub {
+    margin-left: 4.5rem;
+}

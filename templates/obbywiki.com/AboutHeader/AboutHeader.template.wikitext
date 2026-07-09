@@ -1,8 +1,8 @@
 <includeonly><templatestyles src="Template:AboutHeader/styles.css" /><div class="about-nav-container">
 [[Obby_wiki:About|About]] |
 [[Obby_wiki:About/Why|Why the Obby Wiki]] |
-[[Obby_wiki:Rules|WikiRules & Guidelines]] |
+[[Obby_wiki:Rules|Wiki Rules & Guidelines]] |
 [[Obby_wiki:About/Groups|User Groups]] |
 [[Obby_wiki:About/For_developers|For developers]] |
-[[Obby_wiki:Terms_of_Use|Terms of Use]]
+[[Obby_wiki:Terms_of_Use|Start Contributing]]
 </div><span class="citizen-page-heading"></span><span class="citizen-page-actions"></span></includeonly>

@@ -18,7 +18,8 @@
 .page-Obby_Wiki_About .citizen-page-actions #p-views,
 .page-Obby_Wiki_About .citizen-page-actions #p-associated-pages,
 .page-Obby_Wiki_About .firstHeading-container .mw-indicators,
-.page-Obby_Wiki_About #citizen-sidebar-lastmod {
+.page-Obby_Wiki_About #citizen-sidebar-lastmod,
+.page-Obby_Wiki_About .subpages {
   display: none;
 }
 
@@ -42,6 +43,8 @@
 .page-Obby_Wiki_About #siteSub {
     margin-left: 4.5rem;
 }
+
+/*  */
 
 .faq-question::before {
   content: "";
