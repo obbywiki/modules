@@ -17,7 +17,8 @@
 
 .page-Obby_Wiki_About .citizen-page-actions #p-views,
 .page-Obby_Wiki_About .citizen-page-actions #p-associated-pages,
-.page-Obby_Wiki_About .firstHeading-container .mw-indicators {
+.page-Obby_Wiki_About .firstHeading-container .mw-indicators,
+.page-Obby_Wiki_About #citizen-sidebar-lastmod {
   display: none;
 }
 
