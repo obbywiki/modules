@@ -16,7 +16,7 @@
 }
 
 .page-Obby_Wiki_About .citizen-page-heading,
-.page-Obby_Wiki_About .citizen-page-actions > citizen-menu {
+.page-Obby_Wiki_About .citizen-page-actions .citizen-menu {
   display: none;
 }
 
