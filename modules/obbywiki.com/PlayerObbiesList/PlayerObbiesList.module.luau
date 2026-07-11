@@ -88,10 +88,12 @@ function PlayerObbiesList.main( frame )
         local total_likes = tonumber(v.likes) or 0
         local total_dislikes = tonumber(v.dislikes) or 0
 
+        const m_y = `{month_by_index(tonumber(v.month))} {v.year}`
+
         row:tag("td"):wikitext(`[[{v.name}]]`)
         row:tag("td"):wikitext(`{get_comma_val(v.visits)}`)
         row:tag("td"):wikitext((total_likes + total_dislikes) > 0 and (math.floor((total_likes / (total_likes + total_dislikes)) * 1000) / 10) .. '% ( [[File:Likes.svg|12px|alt=Likes|link=]] ' .. get_comma_val(tostring(total_likes)) .. ' &nbsp; [[File:Dislikes.svg|12px|alt=Dislikes|link=]] ' .. get_comma_val(tostring(total_dislikes)) .. ')' or 'N/A')
-        row:tag("td"):wikitext(`{month_by_index(tonumber(v.month))} {v.year}`)
+        row:tag("td"):wikitext(`[[:Category:{m_y}|{m_y}]]`)
     end
 
     local cont_tbl
