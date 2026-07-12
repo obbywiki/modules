@@ -894,6 +894,10 @@ function ObbyGameInfobox.main( frame )
 		table.insert(append_categories, '[[Category:' .. obby_subgenre .. ']]')
 	end
 
+	if obby_subgenre == 'Tier Obby' and obby_tier ~= 0 then
+		table.insert(append_categories, `[[Category:{obby_subgenre}/{obby_tier}]]`)
+	end
+
 	if not obby_stats_visits_raw then
 		obby_stats_visits_raw = 0
 	end
