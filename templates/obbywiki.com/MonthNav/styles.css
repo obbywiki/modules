@@ -51,7 +51,12 @@
 
 .ow-month-card__count {
     font-size: 0.75rem;
-    color: var(--color-base, #54595d);
+    color: var(--color-base);
+}
+
+.is-active .ow-month-card__count {
+    font-size: 0.75rem;
+    color: #c1cbdd;
 }
 
 .ow-month-nav-years {
