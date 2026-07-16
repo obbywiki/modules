@@ -212,6 +212,8 @@ function ObbyGameInfobox.main( frame )
 		['flood_type'] = 'subgenre_flood_type',
 		['ft'] = 'subgenre_flood_type',
 		['fty'] = 'subgenre_flood_type',
+		['th'] = 'subgenre_tower_hub',
+		['towerhub'] = 'subgenre_tower_hub',
 		['t'] = 'subgenre_tower',
 		['tower'] = 'subgenre_tower',
 		['towerobby'] = 'subgenre_tower',
