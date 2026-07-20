@@ -44,7 +44,7 @@ local function render()
         for _, label2 in pairs(grouping[label]) do
             table.insert( items, {
                 label = label2 == 'sub50' and '<50 pages' or '>50 pages',
-                pages = table.concat( grouping[label2], '' )
+                pages = table.concat( grouping[label][label2], '' )
             } )
         end
     end
