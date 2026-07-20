@@ -695,6 +695,13 @@ function ObbyGameInfobox.main( frame )
 	
 
 	local full_my = obby_creation_month .. ' ' .. obby_creation_year
+
+	local subgenre_text = page_exists(obby_subgenre) and '[[' .. obby_subgenre .. ']]' or obby_subgenre
+
+	if obby_subgenre == 'Tier Obby' then
+		subgenre_text ..= ` ([[:Category:Tier_Obby/{tostring(obby_tier)}|{tostring(obby_tier)}]])`
+	end
+
     test:renderSection( {
 		title = i18n:get('section_publishing'),
 		col = 2,
@@ -704,7 +711,7 @@ function ObbyGameInfobox.main( frame )
 			test:renderItem( i18n:get('field_publisher'), obby_publisher ),
 			test:renderItem( i18n:get('field_maturity'), obby_maturity ),
 			test:renderItem( i18n:get('field_genre'), '[[Obby|' .. i18n:get('genre_obby') .. ']]' ),
-			test:renderItem( i18n:get('field_sub_genre'), page_exists(obby_subgenre) and '[[' .. obby_subgenre .. ']]' or obby_subgenre ),
+			test:renderItem( i18n:get('field_sub_genre'), subgenre_text ),
 			obby_system ~= 'NA' and test:renderItem( i18n:get('field_obby_system'), obby_system ) or '',
 			test:renderItem( i18n:get('field_ai_content'), ai_disclosure_text ),
 		}
