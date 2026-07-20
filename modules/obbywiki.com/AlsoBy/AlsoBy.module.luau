@@ -45,7 +45,19 @@ local function render( creator : string ) : string
         })
 
         for _, v in ipairs(developers_held_data) do
-            table.insert(developed_data, v)
+            local s = true
+
+            for _, vv in pairs(developed_data) do
+                if vv._pageName == v._pageName then
+                    s = false
+                    
+                    break
+                end
+            end
+
+            if s then
+                table.insert(developed_data, v)
+            end
         end
     end
 
@@ -53,18 +65,10 @@ local function render( creator : string ) : string
         return ''
     end
 
-    -- deduplicate
-    local filtered = {}
-    for _, v in pairs( developed_data ) do
-        if not table.find(filtered, v) then
-            table.insert(filtered, v)
-        end
-    end
-
     local grouping = {}
     local subgenres = {}
 
-    for _, row in ipairs( filtered ) do
+    for _, row in ipairs( developed_data ) do
         local label = row.subgenre or 'Other'
         if not grouping[label] then
             grouping[label] = {}
