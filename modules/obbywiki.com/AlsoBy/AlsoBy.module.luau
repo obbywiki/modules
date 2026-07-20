@@ -53,10 +53,18 @@ local function render( creator : string ) : string
         return ''
     end
 
+    -- deduplicate
+    local filtered = {}
+    for _, v in pairs( developed_data ) do
+        if not table.find(filtered, v._pageName) then
+            table.insert(filtered, v._pageName)
+        end
+    end
+
     local grouping = {}
     local subgenres = {}
 
-    for _, row in ipairs( developed_data ) do
+    for _, row in ipairs( filtered ) do
         local label = row.subgenre or 'Other'
         if not grouping[label] then
             grouping[label] = {}
