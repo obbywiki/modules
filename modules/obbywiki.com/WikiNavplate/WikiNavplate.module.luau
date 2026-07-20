@@ -22,7 +22,7 @@ local function render()
 
     for _, row in ipairs( results ) do
         const label = row.platform or 'Other'
-        local label2 = tonumber(row.pages) <= 50 and 'sub50' or 'post50'
+        local label2 = tonumber(row.pages) <= 10 and 'sub10' or tonumber(row.pages) <= 50 and 'sub50' or tonumber(row.pages) <= 100 and 'sub100' or tonumber(row.pages) <= 500 and 'sub500' or 'post500'
 
         if not grouping[label] then
             grouping[label] = {}
@@ -43,7 +43,7 @@ local function render()
 
         for label2, _ in pairs(grouping[label]) do
             table.insert( items, {
-                label = label2 == 'sub50' and '<50 pages' or '>50 pages',
+                label = label2 == 'sub10' and '10 pages or less' or 'sub50' and '11-50 pages' or 'sub100' and '51-100 pages' or 'sub500' and '101-500 pages' or '500+ pages',
                 pages = table.concat( grouping[label][label2], '' )
             } )
         end
