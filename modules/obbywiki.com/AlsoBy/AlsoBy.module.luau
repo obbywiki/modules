@@ -56,8 +56,8 @@ local function render( creator : string ) : string
     -- deduplicate
     local filtered = {}
     for _, v in pairs( developed_data ) do
-        if not table.find(filtered, v._pageName) then
-            table.insert(filtered, v._pageName)
+        if not table.find(filtered, v) then
+            table.insert(filtered, v)
         end
     end
 
