@@ -47,6 +47,9 @@ local function render( creator : string ) : string
     end
 
     local items = {}
+
+    table.insert( items, { header = 'Lead roles in' } )
+
     for _, label in ipairs( subgenres ) do
         table.insert( items, {
             label = label,
@@ -58,7 +61,6 @@ local function render( creator : string ) : string
         title = '[[' .. creator .. ']]',
         subtitle = "Obbies also created by",
         id = 1,
-        header1 = 'Core developer for',
         items = items
      } )
 end
