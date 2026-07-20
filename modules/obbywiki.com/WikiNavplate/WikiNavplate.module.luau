@@ -7,7 +7,7 @@ const cargo = mw.ext.cargo
 local function render()
     const results = cargo.query(
         'Wikis',
-        '_pageName, name, domain_no_protocol, platform',
+        '_pageName, name, domain_no_protocol, platform, pages',
         {
             limit = 500
         }
@@ -22,24 +22,35 @@ local function render()
 
     for _, row in ipairs( results ) do
         const label = row.platform or 'Other'
+        local label2 = row.pages <= 50 and 'sub50' or 'post50'
+
+        -- if not table.find( platforms, label ) then
+        --     table.insert( platforms, label )
+        -- end
 
         if not grouping[label] then
             grouping[label] = {}
             table.insert( platforms, label )
         end
 
+        if not grouping[label][label2] then
+            grouping[label][label2] = {}
+        end
+
         local link = '[[' .. row._pageName .. '|' .. row.name .. ']]'
-        table.insert( grouping[label], link )
+        table.insert( grouping[label][label2], link )
     end
 
     local items = {}
     for _, label in ipairs( platforms ) do
-        table.insert( items, { header = (label == 'fandom' and '[[File:WIKI_PLATFORMS_FANDOM.svg|14px|link=]][[:Category:Wiki/Fandom|  Fandom]] <div class="template-navplate__subtitle>Wiki farm</div>' or label == 'miraheze' and '[[File:WIKI_PLATFORMS_MIRAHEZE.svg|14px|link=]][[:Category:Wiki/Miraheze|  Miraheze]] <div class="template-navplate__subtitle>Non-profit Wiki farm</div>' or 'Independent/Other') } )
+        table.insert( items, { header = (label == 'fandom' and '[[File:WIKI_PLATFORMS_FANDOM.svg|12px|link=]][[:Category:Wiki/Fandom|&nbsp;Fandom]] <div class="template-navplate__subtitle>Wiki farm</div>' or label == 'miraheze' and '[[File:WIKI_PLATFORMS_MIRAHEZE.svg|14px|link=]][[:Category:Wiki/Miraheze|&nbsp;Miraheze]] <div class="template-navplate__subtitle>Non-profit Wiki farm</div>' or 'Independent/Other') } )
 
-        table.insert( items, {
-            label = 'All',
-            pages = table.concat( grouping[label], '' )
-        } )
+        for _, label2 in pairs(grouping[label]) do
+            table.insert( items, {
+                label = label2 == 'sub50' and '<50 pages' or '>50 pages',
+                pages = table.concat( grouping[label2], '' )
+            } )
+        end
     end
 
     return navplate.fromData( { 
