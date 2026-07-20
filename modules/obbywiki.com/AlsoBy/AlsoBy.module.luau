@@ -58,6 +58,7 @@ local function render( creator : string ) : string
         title = '[[' .. creator .. ']]',
         subtitle = "Obbies also created by",
         id = 1,
+        header1 = 'Core developer for',
         items = items
      } )
 end
