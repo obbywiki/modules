@@ -22,6 +22,7 @@ local function render( creator : string ) : string
     local is_likely_user = string.sub(creator, 1, 1) == '@'
 
     local developed_data = {}
+    local contributed_data = {}
 
     local creator_is_data = cargo.query(
         'Obbies',
@@ -50,13 +51,35 @@ local function render( creator : string ) : string
             for _, vv in pairs(developed_data) do
                 if vv._pageName == v._pageName then
                     s = false
-                    
+
                     break
                 end
             end
 
             if s then
                 table.insert(developed_data, v)
+            end
+        end
+
+        local contributors_held_data = mw.ext.cargo.query('Obbies', '_pageName, name, subgenre', {
+            where = "contributors HOLDS '" .. creator .. "'",
+            orderBy = "subgenre ASC, name ASC",
+            limit = 50
+        })
+
+        for _, v in ipairs(contributors_held_data) do
+            local s = true
+
+            for _, vv in pairs(developed_data) do
+                if vv._pageName == v._pageName then
+                    s = false
+
+                    break
+                end
+            end
+
+            if s then
+                table.insert(contributed_data, v)
             end
         end
     end
@@ -80,13 +103,37 @@ local function render( creator : string ) : string
 
     local items = {}
 
-    if is_likely_user then table.insert( items, { header = 'Lead roles in' } ) end
+    if is_likely_user then table.insert( items, { header = 'Developed or developed for' } ) end
 
     for _, label in ipairs( subgenres ) do
         table.insert( items, {
             label = label,
             pages = table.concat( grouping[label], '' )
         } )
+    end
+
+    if contributed_data and #contributed_data > 0 then
+        if is_likely_user then table.insert( items, { header = 'Contributed to' } ) end
+
+        grouping = {}
+        subgenres = {}
+
+         for _, row in ipairs( contributed_data ) do
+            local label = row.subgenre or 'Other'
+            if not grouping[label] then
+                grouping[label] = {}
+                table.insert( subgenres, label )
+            end
+            local link = '[[' .. row._pageName .. '|' .. row.name .. ']]'
+            table.insert( grouping[label], link )
+        end
+
+        for _, label in ipairs( subgenres ) do
+            table.insert( items, {
+                label = label,
+                pages = table.concat( grouping[label], '' )
+            } )
+        end
     end
 
     return navplate.fromData( { 
