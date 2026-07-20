@@ -22,11 +22,7 @@ local function render()
 
     for _, row in ipairs( results ) do
         const label = row.platform or 'Other'
-        local label2 = row.pages <= 50 and 'sub50' or 'post50'
-
-        -- if not table.find( platforms, label ) then
-        --     table.insert( platforms, label )
-        -- end
+        local label2 = tonumber(row.pages) <= 50 and 'sub50' or 'post50'
 
         if not grouping[label] then
             grouping[label] = {}
