@@ -41,7 +41,7 @@ local function render()
     for _, label in ipairs( platforms ) do
         table.insert( items, { header = (label == 'fandom' and '[[File:WIKI_PLATFORMS_FANDOM.svg|12px|link=]][[:Category:Wiki/Fandom|&nbsp;Fandom]] <div class="template-navplate__subtitle>Wiki farm</div>' or label == 'miraheze' and '[[File:WIKI_PLATFORMS_MIRAHEZE.svg|14px|link=]][[:Category:Wiki/Miraheze|&nbsp;Miraheze]] <div class="template-navplate__subtitle>Non-profit Wiki farm</div>' or 'Independent/Other') } )
 
-        for _, label2 in pairs(grouping[label]) do
+        for label2, _ in pairs(grouping[label]) do
             table.insert( items, {
                 label = label2 == 'sub50' and '<50 pages' or '>50 pages',
                 pages = table.concat( grouping[label][label2], '' )
