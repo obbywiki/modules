@@ -19,7 +19,11 @@ local function render( creator : string ) : string
         return ''
     end
 
-    local results = cargo.query(
+    local is_likely_user = string.sub(creator, 1, 1) == '@'
+
+    local developed_data = {}
+
+    local creator_is_data = cargo.query(
         'Obbies',
         '_pageName, name, subgenre',
         {
@@ -29,14 +33,30 @@ local function render( creator : string ) : string
         }
     )
 
-    if not results or #results == 0 then
+    for _, v in ipairs(creator_is_data) do
+        table.insert(developed_data, v)
+    end
+
+    if is_likely_user then
+        local developers_held_data = mw.ext.cargo.query('Obbies', '_pageName, name, subgenre', {
+            where = "developers HOLDS '" .. creator .. "'",
+            orderBy = "subgenre ASC, name ASC",
+            limit = 500
+        })
+
+        for _, v in ipairs(developers_held_data) do
+            table.insert(developed_data, v)
+        end
+    end
+
+    if not developed_data or #developed_data == 0 then
         return ''
     end
 
     local grouping = {}
     local subgenres = {}
 
-    for _, row in ipairs( results ) do
+    for _, row in ipairs( developed_data ) do
         local label = row.subgenre or 'Other'
         if not grouping[label] then
             grouping[label] = {}
@@ -48,7 +68,7 @@ local function render( creator : string ) : string
 
     local items = {}
 
-    table.insert( items, { header = 'Lead roles in' } )
+    if is_likely_user then table.insert( items, { header = 'Lead roles in' } ) end
 
     for _, label in ipairs( subgenres ) do
         table.insert( items, {
