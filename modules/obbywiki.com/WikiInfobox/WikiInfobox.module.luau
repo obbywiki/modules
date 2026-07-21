@@ -197,6 +197,31 @@ function WikiInfobox.main( frame )
 		}
 	} )
 
+    infobox:renderFooter( {
+        button = {
+			icon = 'GoogleMaterialIcons-Globe.svg',
+			icon_alt = 'Web',
+			label = 'External Links',
+			type = 'popup',
+			content = infobox:renderSection( {
+				content = {
+					infobox:renderItem( {
+						label = 'Pages',
+						data = table.concat({infobox:renderLinkButton({
+							label = 'About',
+							link = '//' .. wiki_url .. '/wiki/Project:About'
+						}), infobox:renderLinkButton({
+							label = 'Special:Statistics',
+							link = '//' .. wiki_url .. '/wiki/Special:Statistics'
+						})}, '')
+					} ),
+                    
+					class = 'infobox__section--linkButtons',
+				}
+			}, true )
+		}
+    } )
+
     local rendered = infobox:renderInfobox( nil, wiki_name )
 
     local append_categories = {'[[Category:Wiki]]'}
