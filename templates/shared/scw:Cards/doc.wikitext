@@ -1,0 +1,26 @@
+{{Documentation}}
+
+Imported from the [https://starcitizen.tools/Template:Cards Star Citizen Wiki].
+
+Cards is used to create a row of cards. It is powered by [[Module:Cards]].
+
+== Usage ==
+<pre><nowiki>
+{{Cards
+|header1 = Anywhere insult Meduseld injuries read 30 became.
+|content1 = Doorstep discover rights Paladin spilt forebearers ready. There is one Dwarf yet in Moria who still draws breath. Sun's spirit EIf-witch retrieve.
+|column1 = 2
+|header2 = Maggot's squeaking splash bother encourage 2000.
+|content2 = Father fond he'll diversion squash starts subtleties servant tad cabbages Oin. Amazing floor Lindir downhill woodlands. All we have to decide is what to do with the time that is given to us. Dain this back beginning however courteous accept starts legendary first-born ride.
+}}
+</nowiki></pre>
+
+will give:
+
+{{Cards
+|header1 = Anywhere insult Meduseld injuries read 30 became.
+|content1 = Doorstep discover rights Paladin spilt forebearers ready. There is one Dwarf yet in Moria who still draws breath. Sun's spirit EIf-witch retrieve.
+|column1 = 2
+|header2 = Maggot's squeaking splash bother encourage 2000.
+|content2 = Father fond he'll diversion squash starts subtleties servant tad cabbages Oin. Amazing floor Lindir downhill woodlands. All we have to decide is what to do with the time that is given to us. Dain this back beginning however courteous accept starts legendary first-born ride.
+}}
