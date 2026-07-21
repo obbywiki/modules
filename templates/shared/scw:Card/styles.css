@@ -1,0 +1,295 @@
+.t-card {
+	--t-card-image-color_r: 0;
+	--t-card-image-color_g: 0;
+	--t-card-image-color_b: 0;
+
+	position: relative;
+	background-color: var(--color-surface-1);
+	border: 1px solid var(--border-color-base);
+	border-radius: var(--border-radius-medium);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+.t-card-header,
+.t-card-footer {
+	padding: 0.5rem 1rem;
+	background: var(--color-surface-3);
+}
+
+.t-card-footer {
+	font-size: var(--font-size-small);
+}
+
+.template-flexbox-item .t-card {
+	height: 100%;
+}
+
+.t-card blockquote {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.t-card-image {
+	position: relative;
+	display: flex;
+	flex-grow: 1;
+}
+
+.t-card-afterImage {
+	position: relative;
+	margin-top: -0.5rem;
+	padding: 0 1rem 1rem 1rem;
+	background-color: rgb(
+		var(--t-card-image-color_r),
+		var(--t-card-image-color_g),
+		var(--t-card-image-color_b)
+	);
+}
+
+.t-card-afterImage a {
+	color: #fff;
+}
+
+.t-card-afterImage,
+.t-card-label,
+.t-card-caption {
+	font-size: var(--font-size-x-small);
+}
+
+.t-card-label {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+.t-card-label > a,
+.t-card-label > span {
+	display: flex;
+	align-items: center;
+	height: 32px;
+	padding: 0 12px;
+	border-bottom-right-radius: var(--border-radius-medium);
+	background: var(--color-progressive);
+	color: var(--color-inverted-progressive);
+	line-height: 1;
+}
+
+.t-card-label > a:hover {
+	background: var(--color-progressive--hover);
+}
+
+.t-card-label > a:active {
+	background: var(--color-progressive--hover);
+}
+
+.t-card-content {
+	padding: 1rem;
+}
+
+.t-card-label + .t-card-content {
+	margin-top: 1.5rem;
+}
+
+.t-card-title {
+	color: var(--color-emphasized);
+	font-family: var(--font-family-heading);
+	font-size: var(--font-size-x-large);
+	font-weight: var(--font-weight-semi-bold);
+	line-height: var(--line-height-xxx-small);
+}
+
+.t-card-caption {
+	margin-top: 0.25rem;
+	color: var(--color-subtle);
+	line-height: var(--line-height-xx-small);
+}
+
+.t-card-title + .t-card-body,
+.t-card-caption + .t-card-body {
+	margin-top: 1rem;
+}
+
+.t-card-background,
+.t-card-link {
+	position: absolute;
+	inset: 0;
+}
+
+.t-card-background {
+	pointer-events: none;
+}
+
+.t-card-background::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 50%;
+	background: linear-gradient(
+		to top,
+		rgba(
+				var(--t-card-image-color_r),
+				var(--t-card-image-color_g),
+				var(--t-card-image-color_b),
+				1
+			)
+			0%,
+		rgba(
+				var(--t-card-image-color_r),
+				var(--t-card-image-color_g),
+				var(--t-card-image-color_b),
+				0.987
+			)
+			8.1%,
+		rgba(
+				var(--t-card-image-color_r),
+				var(--t-card-image-color_g),
+				var(--t-card-image-color_b),
+				0.951
+			)
+			15.5%,
+		rgba(
+				var(--t-card-image-color_r),
+				var(--t-card-image-color_g),
+				var(--t-card-image-color_b),
+				0.896
+			)
+			22.5%,
+		rgba(
+				var(--t-card-image-color_r),
+				var(--t-card-image-color_g),
+				var(--t-card-image-color_b),
+				0.825
+			)
+			29%,
+		rgba(
+				var(--t-card-image-color_r),
+				var(--t-card-image-color_g),
+				var(--t-card-image-color_b),
+				0.741
+			)
+			35.3%,
+		rgba(
+				var(--t-card-image-color_r),
+				var(--t-card-image-color_g),
+				var(--t-card-image-color_b),
+				0.648
+			)
+			41.2%,
+		rgba(
+				var(--t-card-image-color_r),
+				var(--t-card-image-color_g),
+				var(--t-card-image-color_b),
+				0.55
+			)
+			47.1%,
+		rgba(
+				var(--t-card-image-color_r),
+				var(--t-card-image-color_g),
+				var(--t-card-image-color_b),
+				0.45
+			)
+			52.9%,
+		rgba(
+				var(--t-card-image-color_r),
+				var(--t-card-image-color_g),
+				var(--t-card-image-color_b),
+				0.352
+			)
+			58.8%,
+		rgba(
+				var(--t-card-image-color_r),
+				var(--t-card-image-color_g),
+				var(--t-card-image-color_b),
+				0.259
+			)
+			64.7%,
+		rgba(
+				var(--t-card-image-color_r),
+				var(--t-card-image-color_g),
+				var(--t-card-image-color_b),
+				0.175
+			)
+			71%,
+		rgba(
+				var(--t-card-image-color_r),
+				var(--t-card-image-color_g),
+				var(--t-card-image-color_b),
+				0.104
+			)
+			77.5%,
+		rgba(
+				var(--t-card-image-color_r),
+				var(--t-card-image-color_g),
+				var(--t-card-image-color_b),
+				0.049
+			)
+			84.5%,
+		rgba(
+				var(--t-card-image-color_r),
+				var(--t-card-image-color_g),
+				var(--t-card-image-color_b),
+				0.013
+			)
+			91.9%,
+		rgba(
+				var(--t-card-image-color_r),
+				var(--t-card-image-color_g),
+				var(--t-card-image-color_b),
+				0
+			)
+			100%
+	);
+}
+
+.t-card-background--top img {
+	object-position: top;
+}
+
+.t-card-background--bottom img {
+	object-position: bottom;
+}
+
+.t-card-background img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: 100ms ease;
+	transition-property: transform;
+}
+
+.t-card:hover .t-card-background img {
+	transform: scale(1.1);
+}
+
+.t-card-link {
+	opacity: 0;
+}
+
+.t-card-link > a {
+	display: block;
+	height: 100%;
+}
+
+.t-card-image .t-card-content {
+	position: relative;
+}
+
+.t-card-image .t-card-content {
+	margin-top: auto;
+	line-height: var(--line-height-xx-small);
+	flex-grow: 1;
+}
+
+.t-card-image .t-card-title {
+	color: #fff;
+}
+
+.t-card-image .t-card-caption,
+.t-card-afterImage {
+	color: #ddd;
+}

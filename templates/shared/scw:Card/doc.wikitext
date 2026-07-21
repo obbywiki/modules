@@ -1,0 +1,78 @@
+{{documentation}}
+
+Imported from the [https://starcitizen.tools/Template:Card Star Citizen Wiki].
+
+Creates a card on the page.
+
+== TemplateData ==
+<templatedata>
+{
+	"params": {
+		"class": {
+			"label": "HTML class",
+			"description": "HTML class(es) added to the container",
+			"type": "string"
+		},
+		"image": {
+			"label": "Background image",
+			"description": "Background image of the card",
+			"example": "John Howe - Gollum.jpg",
+			"type": "wiki-file-name"
+		},
+		"imagePosition": {
+			"label": "Background image position",
+			"description": "Position of the background image in the card",
+			"example": "top",
+			"type": "string",
+			"suggestedvalues": [
+				"top",
+				"bottom"
+			],
+			"default": "center"
+		},
+		"imageWidth": {
+			"label": "Background image width",
+			"description": "Width of the background image",
+			"example": "300",
+			"type": "number",
+			"default": "400"
+		},
+		"label": {
+			"label": "Label",
+			"description": "Label of the card",
+			"example": "Article",
+			"type": "string"
+		},
+		"title": {
+			"label": "Title",
+			"description": "Title text of the card",
+			"example": "Túrin kills Beleg",
+			"type": "string"
+		},
+		"caption": {
+			"label": "Caption",
+			"description": "Caption text of the card",
+			"example": "Túrin finally kills Beleg in a prolonged heroic battle.",
+			"type": "string"
+		},
+		"content": {
+			"label": "Content",
+			"description": "HTML or wikitext used as content of the card",
+			"type": "content"
+		},
+		"link": {
+			"label": "Link",
+			"description": "Page name of the card that is linked to",
+			"example": "Gollum",
+			"type": "wiki-page-name"
+		},
+		"afterImage": {
+			"label": "After image content",
+			"description": "HTML or wikitext used as content of the card. It is only used on cards with background image",
+			"type": "content"
+		}
+	},
+	"description": "Card component of the main page",
+	"format": "block"
+}
+</templatedata>

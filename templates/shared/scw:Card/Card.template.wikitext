@@ -1,0 +1,39 @@
+<!--
+
+Template:Card
+--------------------
+Create a card
+
+--><includeonly><!--
+--><templatestyles src="Template:Card/styles.css"/><!--
+--><div
+    class="t-card {{{class|}}}"
+    style="
+        {{#if:{{{imageColorR|}}}|--t-card-image-color_r:{{{imageColorR}}};}}
+        {{#if:{{{imageColorG|}}}|--t-card-image-color_g:{{{imageColorG}}};}}
+        {{#if:{{{imageColorB|}}}|--t-card-image-color_b:{{{imageColorB}}};}}
+        {{#if:{{{height|}}}|min-height:{{{height}}};}}
+    "><!--
+    -->{{#if:{{{header|}}}|<div class="t-card-header">{{{header}}}</div>}}<!--
+    Image wrapper is needed to content overlay effect
+    -->{{#if:{{{image|}}}|<div class="t-card-image">}}<!--
+        -->{{#if:{{{image|}}}|<div class="t-card-background {{#if:{{{imagePosition|}}}|t-card-background--{{{imagePosition}}}}}">[[File:{{{image}}}|{{{imageWidth|400}}}px|link=]]</div>}}<!--
+        -->{{#if:{{{label|}}}|<div class="t-card-label">{{#if:{{{labelpage|}}}|[[{{{labelpage}}}|{{{label}}}]]|<span>{{{label}}}</span>}}</div>}}<!--
+        --><div class="t-card-content"><!--
+            -->{{#if:{{{title|}}}|<div class="t-card-title">{{{title}}}</div>}}<!--
+            -->{{#if:{{{caption|}}}|<div class="t-card-caption">{{{caption}}}</div>}}<!--
+            -->{{#if:{{{content|}}}|<div class="t-card-body">{{{content}}}</div>}}<!--
+        --></div><!--
+        -->{{#if:{{{link|}}}|<div class="t-card-link">[[{{{link}}}]]</div>}}<!--
+    -->{{#if:{{{image|}}}|</div>}}<!--
+    -->{{#if:{{{afterImage|}}}|<div class="t-card-afterImage">{{{afterImage}}}</div>}}<!--
+    -->{{#if:{{{footer|}}}|<div class="t-card-footer">{{{footer}}}</div>}}<!--
+--></div><!--
+--></includeonly><!--
+--><noinclude><!--
+
+Template documentation
+----------------------
+
+-->{{/doc}}<!--
+--></noinclude>
