@@ -29,6 +29,11 @@ Please note that only some polyfills like `table.find`, `string.split`, `table.c
 
 Dedicated modules/templates/content are available under the license at LICENSE in this repository. Please note that content marked as imported, or under the _imported/ folder, adhere to their own license respectively, as defined by the place that they were sourced from.
 
+# 5. See Also
+
+* [WikiWire](https://github.com/obbywiki/wikiwire)
+* [Luau](https://luau.org/)
+
 ---
 
 [ObbyWiki OSS](https://obbywiki.github.io/) - [Obby Wiki](https://obby.wiki) - [Use our DigitalOcean referral for $200 free for 60 days](https://www.digitalocean.com/?refcode=4bec7a43ac62)
