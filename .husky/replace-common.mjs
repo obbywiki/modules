@@ -30,7 +30,7 @@ if (msg_path) {
     .replace(/chore-pi:/gi, 'chore(PlayerInfobox):')
     .replace(/style-pi:/gi, 'style(PlayerInfobox):')
     .replace(/refactor-pi:/gi, 'refactor(PlayerInfobox):')
-    .replace(/docs-ogi:/gi, 'docs(PlayerInfobox):');
+    .replace(/docs-pi:/gi, 'docs(PlayerInfobox):');
 
   fs.writeFileSync(msg_path, newc);
 }

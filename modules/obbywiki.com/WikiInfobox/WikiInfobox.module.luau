@@ -208,7 +208,7 @@ function WikiInfobox.main( frame )
 					infobox:renderItem( {
 						label = 'Pages',
 						data = table.concat({infobox:renderLinkButton({
-							label = 'About',
+							label = 'Project',
 							link = '//' .. wiki_url .. '/wiki/Project:About'
 						}), infobox:renderLinkButton({
 							label = 'Special:Statistics',
