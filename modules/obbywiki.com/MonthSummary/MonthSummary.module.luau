@@ -347,8 +347,7 @@ function p.draw(frame)
 		day_note = ` that was released on the {ordinal(popular.day)} of {current_month_name}`
 	end
 
-	local summary_line =
-		`There {single_release and 'was' or 'were'} {stats.release_count} {single_release and 'obby' or 'obbies'} released in {current_month_name} of {target_year}, with the most popular obby released being [[{popular.name}]] by [[{popular.creator}]] with '''{get_comma_val(popular.visits)} visits'''{day_note}.\n`
+	local summary_line = `There {single_release and 'was' or 'were'} {stats.release_count} {single_release and 'obby' or 'obbies'} released in {current_month_name} of {target_year}, with the most popular obby released being [[{popular.name}]] by [[{popular.creator}]] with '''{get_comma_val(popular.visits)} visits'''{day_note}.\n\n`
 
 	local heading = tostring(mw.html.create('h2'):wikitext(`Summary for {current_month_name} {target_year}`)) -- necessary for the first title for some reason
 
@@ -361,7 +360,7 @@ function p.draw(frame)
 
 	local top_releases = render_top_releases(stats.top_three)
 	if top_releases then
-		table.insert(parts, frame:preprocess('\n== Top releases ==\n'))
+		table.insert(parts, frame:preprocess('\n== Top releases ==\n\n'))
 		table.insert(parts, tostring(
 			mw.html.create('div'):addClass('ow-month-summary__section'):node(top_releases)
 		))
@@ -369,7 +368,7 @@ function p.draw(frame)
 
 	local top_creators = render_top_creators(stats.top_creators)
 	if top_creators then
-		table.insert(parts, frame:preprocess('\n== Most active creators ==\n'))
+		table.insert(parts, frame:preprocess('\n== Most active creators ==\n\n'))
 		table.insert(parts, tostring(
 			mw.html.create('div'):addClass('ow-month-summary__section'):node(top_creators)
 		))
