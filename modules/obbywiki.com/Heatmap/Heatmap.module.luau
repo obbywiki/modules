@@ -224,7 +224,7 @@ local function query_obbies(where)
 		return nil, 'Heatmap: Cargo is unavailable.'
 	end
 
-	local rows = mw.ext.cargo.query('Obbies', 'day, month, year', {
+	local rows = mw.ext.cargo.query('Obbies', '_pageName=name, day, month, year', {
 		where = where,
 		limit = 2000,
 	})
@@ -244,6 +244,7 @@ end
 
 local function bucket_counts(rows, range, metric_fn)
 	local counts = {}
+	local names_by_day = {}
 	local total = 0
 	local focus_total = 0
 	local has_focus = range.focus_month ~= nil
@@ -262,15 +263,25 @@ local function bucket_counts(rows, range, metric_fn)
 					if has_focus and y == range.focus_year and m == range.focus_month then
 						focus_total += amount
 					end
+
+					local page_name = row.name
+					if type(page_name) == 'string' and page_name ~= '' then
+						local day_names = names_by_day[key]
+						if not day_names then
+							day_names = {}
+							names_by_day[key] = day_names
+						end
+						table.insert(day_names, page_name)
+					end
 				end
 			end
 		end
 	end
 
 	if has_focus then
-		return counts, focus_total
+		return counts, focus_total, names_by_day
 	end
-	return counts, total
+	return counts, total, names_by_day
 end
 
 local function is_focus_day(day, range)
@@ -305,7 +316,9 @@ local function intensity_level(count, max_n)
 	return 4
 end
 
-local function format_day_title(count, year, month, day, mode)
+local MAX_TOOLTIP_LINKS = 12
+
+local function format_day_tooltip(count, year, month, day, mode, names)
 	local month_name = months_full[month] or tostring(month)
 	local noun
 	if mode == 'releases' then
@@ -313,7 +326,33 @@ local function format_day_title(count, year, month, day, mode)
 	else
 		noun = mode
 	end
-	return tostring(count) .. ' ' .. noun .. ' on ' .. month_name .. ' ' .. tostring(day) .. ', ' .. tostring(year)
+
+	local heading = tostring(count)
+		.. ' '
+		.. noun
+		.. ' on '
+		.. month_name
+		.. ' '
+		.. tostring(day)
+		.. ', '
+		.. tostring(year)
+
+	if not names or #names == 0 then
+		return heading
+	end
+
+	-- Stable order; keep tip short so FloatingUI stays light on busy days
+	table.sort(names)
+	local lines = { "'''" .. heading .. "'''" }
+	local shown = math.min(#names, MAX_TOOLTIP_LINKS)
+	for i = 1, shown do
+		table.insert(lines, '* [[' .. names[i] .. ']]')
+	end
+	if #names > MAX_TOOLTIP_LINKS then
+		table.insert(lines, '* …and ' .. tostring(#names - MAX_TOOLTIP_LINKS) .. ' more')
+	end
+
+	return table.concat(lines, '\n')
 end
 
 local function build_day_list(range)
@@ -351,7 +390,7 @@ local function append_pad_cell(grid)
 		:addClass('ow-heatmap__cell--dummy')
 end
 
-local function render_heatmap(range, counts, total, mode, developer)
+local function render_heatmap(range, counts, total, mode, developer, names_by_day)
 	local max_n = max_count(counts)
 	local day_list = build_day_list(range)
 	local start_pad = weekday_index(range.start_y, range.start_m, range.start_d)
@@ -461,18 +500,27 @@ local function render_heatmap(range, counts, total, mode, developer)
 			cell:addClass('ow-heatmap__cell--has-data')
 		end
 
-		local day_classes = 'ow-heatmap__day'
+		local day_el = grid:tag('div'):addClass('ow-heatmap__day')
 		if has_focus and not focused then
-			day_classes ..= ' ow-heatmap__day--dimmed'
+			day_el:addClass('ow-heatmap__day--dimmed')
 		elseif has_focus and focused then
-			day_classes ..= ' ow-heatmap__day--focus'
+			day_el:addClass('ow-heatmap__day--focus')
 		end
 
-		local tooltip = format_day_title(count, day.year, day.month, day.day, mode)
-		local day_html = '<div class="' .. day_classes .. '">'
-			.. FloatingUI.render(tostring(cell), tooltip)
-			.. '</div>'
-		grid:wikitext(day_html)
+		-- Only attach FloatingUI when there is data — empty days were flooding the DOM
+		if count > 0 then
+			local tooltip = format_day_tooltip(
+				count,
+				day.year,
+				day.month,
+				day.day,
+				mode,
+				names_by_day and names_by_day[day.key]
+			)
+			day_el:wikitext(FloatingUI.render(tostring(cell), tooltip))
+		else
+			day_el:node(cell)
+		end
 
 		cells_placed += 1
 		week_count = math.max(week_count, week_index + 1)
@@ -567,8 +615,8 @@ function p.draw(frame)
 		return query_err
 	end
 
-	local counts, total = bucket_counts(rows, range, metric_fn)
-	local root = render_heatmap(range, counts, total, mode, developer)
+	local counts, total, names_by_day = bucket_counts(rows, range, metric_fn)
+	local root = render_heatmap(range, counts, total, mode, developer, names_by_day)
 
 	local styles = frame:extensionTag('templatestyles', '', {
 		src = 'Template:Heatmap/styles.css',
