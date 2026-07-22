@@ -168,6 +168,11 @@ function WikiInfobox.main( frame )
 		col = 2,
 		content = {
 			infobox:renderItem( 'Primary Language', 'English'),
+            infobox:renderItem( {
+				label = 'Activity',
+				colspan = 2,
+				data = '<div class="activity-bar" style="background:#eee;border-radius:99px;height:8px;overflow:hidden"><div style="width:90%%;height:100%%;background:#EF9F27;border-radius:99px"></div></div> <div style="font-size:11px">Moderate</div>',
+			} ),
 		}
 	} )
 
