@@ -350,7 +350,7 @@ function p.draw(frame)
 	local summary_line =
 		`There {single_release and 'was' or 'were'} {stats.release_count} {single_release and 'obby' or 'obbies'} released in {current_month_name} of {target_year}, with the most popular obby released being [[{popular.name}]] by [[{popular.creator}]] with '''{get_comma_val(popular.visits)} visits'''{day_note}.\n`
 
-	local heading = mw.html.create('h2'):wikitext(`Summary for {current_month_name} {target_year}`) -- necessary for the first title for some reason
+	local heading = tostring(mw.html.create('h2'):wikitext(`Summary for {current_month_name} {target_year}`)) -- necessary for the first title for some reason
 
 
 	local parts = {
