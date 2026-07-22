@@ -1,12 +1,14 @@
 <noinclude>
-Usage: {{Tl|Heatmap|scope=year/month/last|year=YYYY|month=MonthName|mode=releases|context=year}}
+Usage: {{Tl|Heatmap|scope=year/month/last|year=YYYY|month=MonthName|mode=releases|context=year|developer=@Username}}
 
 Examples:
-* {{Heatmap|scope=last}} - rolling last 365 days
+* {{Heatmap|scope=last}} - rolling last 365 days (site-wide)
 * {{Heatmap|scope=year|year=2026}} - calendar year
 * {{Heatmap|scope=month|year=2026|month=March}} - single month only
 * {{Heatmap|scope=month|year=2026|month=March|context=year}} - full year visible, other months blurred
 * {{Heatmap|scope=year|year=2026|mode=releases}} - explicit metric mode
+* {{Heatmap|scope=last|developer=@Username}} - one developer's releases (developers HOLDS or creator)
+* {{Heatmap|scope=year|year=2026|developer=Studio Name}} - studio/brand releases via creator
 
-Renders a GitHub-style heatmap of documented obby releases per day.
+Renders a GitHub-style heatmap of documented obby releases per day. Optional {{para|developer}} (aliases: {{para|player}}, {{para|creator}}) filters to that person or studio.
 </noinclude><includeonly>{{#invoke:Heatmap|draw}}</includeonly>

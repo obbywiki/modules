@@ -157,26 +157,66 @@ local function resolve_range(scope, year_arg, month_arg, context)
 	}
 end
 
-local function build_where(scope, range, context)
+local function normalize_developer(raw, force_user)
+	if not raw or raw == '' then
+		return nil
+	end
+
+	local trimmed = mw.text.trim(tostring(raw))
+	if trimmed == '' then
+		return nil
+	end
+
+	if force_user and string.sub(trimmed, 1, 1) ~= '@' then
+		return '@' .. trimmed
+	end
+
+	return trimmed
+end
+
+local function build_developer_clause(developer)
+	local escaped = cargo_escape(developer)
+	local is_user = string.sub(developer, 1, 1) == '@'
+
+	if is_user then
+		-- developed (list) or sole creator when developers list is empty / omits them
+		return "(developers HOLDS '"
+			.. escaped
+			.. "' OR creator='"
+			.. escaped
+			.. "')"
+	end
+
+	-- studio / brand pages credit via creator
+	return "creator='" .. escaped .. "'"
+end
+
+local function build_where(scope, range, context, developer)
+	local date_where
+
 	if scope == 'month' and context ~= 'year' then
-		return "year='"
+		date_where = "year='"
 			.. cargo_escape(range.start_y)
 			.. "' AND month='"
 			.. cargo_escape(range.start_m)
 			.. "'"
-	end
-
-	if scope == 'year' or (scope == 'month' and context == 'year') then
+	elseif scope == 'year' or (scope == 'month' and context == 'year') then
 		local year = range.focus_year or range.start_y
-		return "year='" .. cargo_escape(year) .. "'"
+		date_where = "year='" .. cargo_escape(year) .. "'"
+	else
+		-- last: pull spanning calendar years, filter in Lua
+		date_where = "year>='"
+			.. cargo_escape(range.start_y)
+			.. "' AND year<='"
+			.. cargo_escape(range.end_y)
+			.. "'"
 	end
 
-	-- last: pull spanning calendar years, filter in Lua
-	return "year>='"
-		.. cargo_escape(range.start_y)
-		.. "' AND year<='"
-		.. cargo_escape(range.end_y)
-		.. "'"
+	if developer then
+		return date_where .. ' AND ' .. build_developer_clause(developer)
+	end
+
+	return date_where
 end
 
 local function query_obbies(where)
@@ -311,7 +351,7 @@ local function append_pad_cell(grid)
 		:addClass('ow-heatmap__cell--dummy')
 end
 
-local function render_heatmap(range, counts, total, mode)
+local function render_heatmap(range, counts, total, mode, developer)
 	local max_n = max_count(counts)
 	local day_list = build_day_list(range)
 	local start_pad = weekday_index(range.start_y, range.start_m, range.start_d)
@@ -322,6 +362,9 @@ local function render_heatmap(range, counts, total, mode)
 	if has_focus then
 		root:addClass('ow-heatmap--month-focus')
 	end
+	if developer then
+		root:addClass('ow-heatmap--developer')
+	end
 
 	local caption_noun = 'releases'
 	if mode == 'releases' then
@@ -330,9 +373,14 @@ local function render_heatmap(range, counts, total, mode)
 		caption_noun = mode
 	end
 
+	local caption = tostring(total) .. ' ' .. caption_noun .. ' · ' .. range.label
+	if developer then
+		caption ..= ' · [[' .. developer .. ']]'
+	end
+
 	root:tag('div')
 		:addClass('ow-heatmap__caption')
-		:wikitext(tostring(total) .. ' ' .. caption_noun .. ' · ' .. range.label)
+		:wikitext(caption)
 
 	local scroll = root:tag('div'):addClass('ow-heatmap__scroll')
 	local calendar = scroll:tag('div'):addClass('ow-heatmap__calendar')
@@ -481,6 +529,12 @@ function p.draw(frame)
 	local context = string.lower(mw.text.trim(args.context or ''))
 	local year_arg = args.year
 	local month_arg = args.month
+	local developer
+	if args.player and mw.text.trim(tostring(args.player)) ~= '' then
+		developer = normalize_developer(args.player, true)
+	else
+		developer = normalize_developer(args.developer or args.creator, false)
+	end
 
 	if scope ~= 'year' and scope ~= 'month' and scope ~= 'last' then
 		return 'Heatmap: scope must be year, month, or last.'
@@ -508,13 +562,13 @@ function p.draw(frame)
 		return range_err
 	end
 
-	local rows, query_err = query_obbies(build_where(scope, range, context))
+	local rows, query_err = query_obbies(build_where(scope, range, context, developer))
 	if not rows then
 		return query_err
 	end
 
 	local counts, total = bucket_counts(rows, range, metric_fn)
-	local root = render_heatmap(range, counts, total, mode)
+	local root = render_heatmap(range, counts, total, mode, developer)
 
 	local styles = frame:extensionTag('templatestyles', '', {
 		src = 'Template:Heatmap/styles.css',
