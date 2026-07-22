@@ -230,10 +230,7 @@ local function render_top_releases(top_three)
 		return nil
 	end
 
-	local section = mw.html.create('div'):addClass('ow-month-summary__section')
-	section:tag('div'):addClass('ow-month-summary__section-title'):wikitext('Top releases')
-
-	local grid = section:tag('div'):addClass('ow-month-summary__top')
+	local grid = mw.html.create('div'):addClass('ow-month-summary__top')
 
 	for i, obby in ipairs(top_three) do
 		local card = grid:tag('div'):addClass('ow-month-summary__release')
@@ -242,7 +239,7 @@ local function render_top_releases(top_three)
 		local thumb_name = normalize_thumbnail(obby.thumbnail)
 		card:tag('div')
 			:addClass('ow-month-summary__release-thumb')
-			:wikitext(`[[File:{thumb_name}|320px|alt={obby.name}|link=]]`)
+			:wikitext(`[[File:{thumb_name}|112px|alt={obby.name}|link=]]`)
 
 		local meta = card:tag('div'):addClass('ow-month-summary__release-meta')
 		meta:tag('div'):addClass('ow-month-summary__release-title'):wikitext(obby.name)
@@ -262,7 +259,7 @@ local function render_top_releases(top_three)
 			:wikitext(`[[{obby.name}]]`)
 	end
 
-	return section
+	return grid
 end
 
 local function render_top_creators(top_creators)
@@ -270,10 +267,7 @@ local function render_top_creators(top_creators)
 		return nil
 	end
 
-	local section = mw.html.create('div'):addClass('ow-month-summary__section')
-	section:tag('div'):addClass('ow-month-summary__section-title'):wikitext('Most active creators')
-
-	local grid = section:tag('div'):addClass('ow-month-summary__creators')
+	local grid = mw.html.create('div'):addClass('ow-month-summary__creators')
 
 	for _, creator in ipairs(top_creators) do
 		local card = grid:tag('div'):addClass('ow-month-summary__creator')
@@ -288,35 +282,25 @@ local function render_top_creators(top_creators)
 			:wikitext(`[[{creator.name}]]`)
 	end
 
-	return section
+	return grid
 end
 
-local function render_subgenre_table(by_subgenre, stats, month_name, target_year)
-	local section = mw.html.create('div'):addClass('ow-month-summary__section')
-	section:tag('div'):addClass('ow-month-summary__section-title'):wikitext('Releases by sub-genre')
-
-	local intro_parts = {}
+local function render_subgenre_intro(stats, month_name, target_year)
 	if stats.subgenre_count > 0 and stats.top_subgenre then
 		local genre_word = stats.subgenre_count == 1 and 'sub-genre' or 'sub-genres'
-		table.insert(
-			intro_parts,
+		local intro =
 			`{stats.subgenre_count} {genre_word} this month; most frequent was [[{stats.top_subgenre.name}]] ({stats.top_subgenre.count}).`
-		)
 		if stats.most_visited_subgenre then
 			local same = stats.top_subgenre.name == stats.most_visited_subgenre.name
-			table.insert(
-				intro_parts,
-				`Most visited was {same and 'also ' or ''}[[{stats.most_visited_subgenre.name}]] ({get_comma_val(stats.most_visited_subgenre.visits)} visits).`
-			)
+			intro ..=
+				` Most visited was {same and 'also ' or ''}[[{stats.most_visited_subgenre.name}]] ({get_comma_val(stats.most_visited_subgenre.visits)} visits).`
 		end
-	else
-		table.insert(intro_parts, `No sub-genre breakdown available for {month_name} {target_year}.`)
+		return intro
 	end
+	return `No sub-genre breakdown available for {month_name} {target_year}.`
+end
 
-	section:tag('p')
-		:addClass('ow-month-summary__section-intro')
-		:wikitext(table.concat(intro_parts, ' '))
-
+local function render_subgenre_table(by_subgenre)
 	local table_el = mw.html.create('table')
 		:addClass('wikitable sortable plainlinks')
 		:addClass('mw-collapsible mw-made-collapsible wikitable--fluid')
@@ -336,8 +320,7 @@ local function render_subgenre_table(by_subgenre, stats, month_name, target_year
 		row:tag('td'):wikitext(`[[{entry.mpo}]] ({get_comma_val(entry.mpo_visits)} visits)`)
 	end
 
-	section:node(table_el)
-	return section
+	return table_el
 end
 
 function p.draw(frame)
@@ -364,26 +347,6 @@ function p.draw(frame)
 		src = 'Template:MonthSummary/styles.css',
 	})
 
-	local root = mw.html.create('div'):addClass('ow-month-summary')
-	root:node(render_stat_cards(stats))
-
-	local top_releases = render_top_releases(stats.top_three)
-	if top_releases then
-		root:node(top_releases)
-	end
-
-	local top_creators = render_top_creators(stats.top_creators)
-	if top_creators then
-		root:node(top_creators)
-	end
-
-	root:node(render_subgenre_table(
-		stats.by_subgenre,
-		stats,
-		current_month_name,
-		target_year
-	))
-
 	local popular = stats.most_popular
 	local day_note = ''
 	if popular.day ~= 0 then
@@ -396,7 +359,38 @@ function p.draw(frame)
 	end
 	summary_line ..= '.'
 
-	return styles .. `=Summary=\n\n{summary_line}\n\n` .. tostring(root)
+	local parts = {
+		styles,
+		frame:preprocess(`=Summary=\n\n{summary_line}`),
+		tostring(mw.html.create('div'):addClass('ow-month-summary'):node(render_stat_cards(stats))),
+	}
+
+	local top_releases = render_top_releases(stats.top_three)
+	if top_releases then
+		table.insert(parts, frame:preprocess('\n== Top releases ==\n'))
+		table.insert(parts, tostring(
+			mw.html.create('div'):addClass('ow-month-summary__section'):node(top_releases)
+		))
+	end
+
+	local top_creators = render_top_creators(stats.top_creators)
+	if top_creators then
+		table.insert(parts, frame:preprocess('\n== Most active creators ==\n'))
+		table.insert(parts, tostring(
+			mw.html.create('div'):addClass('ow-month-summary__section'):node(top_creators)
+		))
+	end
+
+	table.insert(parts, frame:preprocess(
+		`\n== Releases by sub-genre ==\n\n{render_subgenre_intro(stats, current_month_name, target_year)}\n`
+	))
+	table.insert(parts, tostring(
+		mw.html.create('div'):addClass('ow-month-summary__section'):node(
+			render_subgenre_table(stats.by_subgenre)
+		)
+	))
+
+	return table.concat(parts)
 end
 
 return p
