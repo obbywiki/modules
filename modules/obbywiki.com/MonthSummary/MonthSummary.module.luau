@@ -282,18 +282,15 @@ local function render_top_creators(top_creators)
 end
 
 local function render_subgenre_intro(stats, month_name, target_year)
-	if stats.subgenre_count > 0 and stats.top_subgenre then
-		local genre_word = stats.subgenre_count == 1 and 'sub-genre' or 'sub-genres'
-		local intro =
-			`{stats.subgenre_count} {genre_word} this month; most frequent was [[{stats.top_subgenre.name}]] ({stats.top_subgenre.count}).`
-		if stats.most_visited_subgenre then
-			local same = stats.top_subgenre.name == stats.most_visited_subgenre.name
-			intro ..=
-				` Most visited was {same and 'also ' or ''}[[{stats.most_visited_subgenre.name}]] ({get_comma_val(stats.most_visited_subgenre.visits)} visits).`
-		end
-		return intro
+	if stats.subgenre_count == 0 or not stats.top_subgenre or not stats.most_visited_subgenre then
+		return `No sub-genre breakdown available for {month_name} {target_year}.`
 	end
-	return `No sub-genre breakdown available for {month_name} {target_year}.`
+
+	local most_frequent = stats.top_subgenre
+	local most_popular = stats.most_visited_subgenre
+	local also = most_frequent.name == most_popular.name and 'also' or ''
+
+	return `This month saw {stats.subgenre_count} {stats.subgenre_count == 1 and 'sub-genre' or 'different sub-genres'} with the most frequent sub-genre of {month_name} {target_year} being the [[{most_frequent.name}]] sub-genre with a total of {most_frequent.count} {most_frequent.count == 1 and 'obby' or 'obbies'} in that sub-genre released with-in the month. The sub-genre that received the most visits was {also} the [[{most_popular.name}]] sub-genre with a total of '''{get_comma_val(most_popular.visits)} visits''' between all obbies in that sub-genre of the month. See the full list below:`
 end
 
 local function render_subgenre_table(by_subgenre)
@@ -344,19 +341,17 @@ function p.draw(frame)
 	})
 
 	local popular = stats.most_popular
+	local single_release = stats.release_count == 1
 	local day_note = ''
 	if popular.day ~= 0 then
-		day_note = `, released on the {ordinal(popular.day)} of {current_month_name}`
+		day_note = ` that was released on the {ordinal(popular.day)} of {current_month_name}`
 	end
 
-	local summary_line = `There {stats.release_count == 1 and 'was' or 'were'} '''{stats.release_count}''' {stats.release_count == 1 and 'obby' or 'obbies'} released in {current_month_name} of {target_year}`
-	if popular.name ~= '' then
-		summary_line ..= `, led by [[{popular.name}]] by [[{popular.creator}]] with '''{get_comma_val(popular.visits)} visits'''{day_note}`
-	end
-	summary_line ..= '.'
+	local summary_line =
+		`There {single_release and 'was' or 'were'} {stats.release_count} {single_release and 'obby' or 'obbies'} released in {current_month_name} of {target_year}, with the most popular obby released being [[{popular.name}]] by [[{popular.creator}]] with '''{get_comma_val(popular.visits)} visits'''{day_note}.\n`
 
 	-- Level-2 (==) headings: body h1 (=) is often disabled / not rendered as a section title.
-	local heading = `== Summary for {current_month_name} {target_year} ==`
+	local heading = frame:preprocess('== Summary for {current_month_name} {target_year} ==\n')
 
 	local parts = {
 		styles,
@@ -381,7 +376,7 @@ function p.draw(frame)
 	end
 
 	table.insert(parts, frame:preprocess(
-		`\n== Releases by sub-genre ==\n\n{render_subgenre_intro(stats, current_month_name, target_year)}\n`
+		`\n== Releases by Sub-genre ==\n\n{render_subgenre_intro(stats, current_month_name, target_year)}\n`
 	))
 	table.insert(parts, tostring(
 		mw.html.create('div'):addClass('ow-month-summary__section'):node(
