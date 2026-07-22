@@ -286,6 +286,22 @@ local function build_day_list(range)
 	return days
 end
 
+local FILLER_WEEKS = 24
+
+local function append_side_filler(parent, side)
+	local filler = parent:tag('div')
+		:addClass('ow-heatmap__filler')
+		:addClass('ow-heatmap__filler--' .. side)
+
+	for _ = 1, FILLER_WEEKS * 7 do
+		filler:tag('div')
+			:addClass('ow-heatmap__cell')
+			:addClass('ow-heatmap__cell--dummy')
+	end
+
+	return filler
+end
+
 local function render_heatmap(range, counts, total, mode)
 	local max_n = max_count(counts)
 	local day_list = build_day_list(range)
@@ -335,15 +351,11 @@ local function render_heatmap(range, counts, total, mode)
 			:wikitext(show and label or '')
 	end
 
-	body:tag('div')
-		:addClass('ow-heatmap__filler')
-		:addClass('ow-heatmap__filler--start')
+	append_side_filler(body, 'start')
 
 	local grid = body:tag('div'):addClass('ow-heatmap__grid')
 
-	body:tag('div')
-		:addClass('ow-heatmap__filler')
-		:addClass('ow-heatmap__filler--end')
+	append_side_filler(body, 'end')
 
 	-- leading empty pads for weekday alignment
 	for _ = 1, start_pad do
