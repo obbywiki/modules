@@ -155,7 +155,7 @@ local function aggregate_month(month_data)
 		local brand = row.creator or ''
 		if #developers > 0 then
 			local credited = {}
-			
+
 			for _, developer in ipairs(developers) do
 				if not credited[developer] then
 					credited[developer] = true
@@ -276,6 +276,19 @@ local function render_statsbar(frame, stats)
 	return frame:expandTemplate{
 		title = 'Statsbar',
 		args = args,
+	}
+end
+
+local function render_heatmap(frame, target_year, month_name)
+	return frame:expandTemplate{
+		title = 'Heatmap',
+		args = {
+			scope = 'month',
+			year = tostring(target_year),
+			month = month_name,
+			context = 'year',
+			mode = 'releases',
+		},
 	}
 end
 
@@ -577,6 +590,7 @@ function p.draw(frame)
 		:wikitext(summary_line)
 
 	root:wikitext(render_statsbar(frame, stats))
+	root:wikitext(render_heatmap(frame, target_year, current_month_name))
 
 	local top_releases = render_top_releases(stats.top_three)
 	if top_releases then

@@ -5,6 +5,10 @@
 	margin: 1rem 0;
 }
 
+.ow-month-summary .ow-heatmap {
+	margin: 0;
+}
+
 .ow-month-summary__section {
 	display: flex;
 	flex-direction: column;
