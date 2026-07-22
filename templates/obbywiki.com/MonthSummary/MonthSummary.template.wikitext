@@ -1,4 +1,6 @@
 <noinclude>
 Usage: {{Tl|MonthSummary|Year|MonthName}}
 Example: {{MonthSummary|2026|March}}
+
+Renders a visual month overview: stat cards, top releases, most active creators, and a sub-genre breakdown table.
 </noinclude><includeonly>{{#invoke:MonthSummary|draw}}</includeonly>
