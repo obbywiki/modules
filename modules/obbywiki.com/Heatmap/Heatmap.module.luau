@@ -89,7 +89,7 @@ local function resolve_month(raw)
 	return nil, nil
 end
 
-local function resolve_range(scope, year_arg, month_arg)
+local function resolve_range(scope, year_arg, month_arg, context)
 	local today = os.date('*t')
 	local end_y, end_m, end_d = today.year, today.month, today.day
 
@@ -113,6 +113,24 @@ local function resolve_range(scope, year_arg, month_arg)
 		if not month_index then
 			return nil, 'Heatmap: month scope requires a valid month (name or 1-12).'
 		end
+
+		local label = month_name .. ' ' .. tostring(year)
+
+		-- Full-year canvas with the selected month in focus
+		if context == 'year' then
+			return {
+				start_y = year,
+				start_m = 1,
+				start_d = 1,
+				end_y = year,
+				end_m = 12,
+				end_d = 31,
+				label = label,
+				focus_year = year,
+				focus_month = month_index,
+			}
+		end
+
 		local dim = days_in_month(year, month_index)
 		return {
 			start_y = year,
@@ -121,7 +139,9 @@ local function resolve_range(scope, year_arg, month_arg)
 			end_y = year,
 			end_m = month_index,
 			end_d = dim,
-			label = month_name .. ' ' .. tostring(year),
+			label = label,
+			focus_year = year,
+			focus_month = month_index,
 		}
 	end
 
@@ -137,8 +157,8 @@ local function resolve_range(scope, year_arg, month_arg)
 	}
 end
 
-local function build_where(scope, range)
-	if scope == 'month' then
+local function build_where(scope, range, context)
+	if scope == 'month' and context ~= 'year' then
 		return "year='"
 			.. cargo_escape(range.start_y)
 			.. "' AND month='"
@@ -146,8 +166,9 @@ local function build_where(scope, range)
 			.. "'"
 	end
 
-	if scope == 'year' then
-		return "year='" .. cargo_escape(range.start_y) .. "'"
+	if scope == 'year' or (scope == 'month' and context == 'year') then
+		local year = range.focus_year or range.start_y
+		return "year='" .. cargo_escape(year) .. "'"
 	end
 
 	-- last: pull spanning calendar years, filter in Lua
@@ -184,6 +205,8 @@ end
 local function bucket_counts(rows, range, metric_fn)
 	local counts = {}
 	local total = 0
+	local focus_total = 0
+	local has_focus = range.focus_month ~= nil
 
 	for _, row in ipairs(rows) do
 		local y = tonumber(row.year)
@@ -196,12 +219,25 @@ local function bucket_counts(rows, range, metric_fn)
 				if amount > 0 then
 					counts[key] = (counts[key] or 0) + amount
 					total += amount
+					if has_focus and y == range.focus_year and m == range.focus_month then
+						focus_total += amount
+					end
 				end
 			end
 		end
 	end
 
+	if has_focus then
+		return counts, focus_total
+	end
 	return counts, total
+end
+
+local function is_focus_day(day, range)
+	if not range.focus_month then
+		return true
+	end
+	return day.year == range.focus_year and day.month == range.focus_month
 end
 
 local function max_count(counts)
@@ -254,8 +290,13 @@ local function render_heatmap(range, counts, total, mode)
 	local max_n = max_count(counts)
 	local day_list = build_day_list(range)
 	local start_pad = weekday_index(range.start_y, range.start_m, range.start_d)
+	local has_focus = range.focus_month ~= nil
+		and (range.start_m ~= range.focus_month or range.end_m ~= range.focus_month)
 
 	local root = mw.html.create('div'):addClass('ow-heatmap')
+	if has_focus then
+		root:addClass('ow-heatmap--month-focus')
+	end
 
 	local caption_noun = 'releases'
 	if mode == 'releases' then
@@ -304,12 +345,13 @@ local function render_heatmap(range, counts, total, mode)
 	local week_count = 0
 	local cells_placed = start_pad
 	local last_month_label = nil
-	local month_labels = {} -- { week_index, label }
+	local month_labels = {} -- { week_index, label, month }
 
 	for _, day in ipairs(day_list) do
 		local count = counts[day.key] or 0
 		local level = intensity_level(count, max_n)
 		local week_index = math.floor(cells_placed / 7)
+		local focused = is_focus_day(day, range)
 
 		if day.month ~= last_month_label then
 			last_month_label = day.month
@@ -326,7 +368,11 @@ local function render_heatmap(range, counts, total, mode)
 			end
 
 			if should_add then
-				table.insert(month_labels, { week = week_index, label = month_name })
+				table.insert(month_labels, {
+					week = week_index,
+					label = month_name,
+					month = day.month,
+				})
 			end
 		end
 
@@ -338,8 +384,15 @@ local function render_heatmap(range, counts, total, mode)
 			cell:addClass('ow-heatmap__cell--has-data')
 		end
 
+		local day_classes = 'ow-heatmap__day'
+		if has_focus and not focused then
+			day_classes ..= ' ow-heatmap__day--dimmed'
+		elseif has_focus and focused then
+			day_classes ..= ' ow-heatmap__day--focus'
+		end
+
 		local tooltip = format_day_title(count, day.year, day.month, day.day, mode)
-		local day_html = '<div class="ow-heatmap__day">'
+		local day_html = '<div class="' .. day_classes .. '">'
 			.. FloatingUI.render(tostring(cell), tooltip)
 			.. '</div>'
 		grid:wikitext(day_html)
@@ -370,7 +423,15 @@ local function render_heatmap(range, counts, total, mode)
 	for w = 0, week_count - 1 do
 		local slot = months_track:tag('div'):addClass('ow-heatmap__month')
 		if label_index <= #month_labels and month_labels[label_index].week == w then
-			slot:wikitext(month_labels[label_index].label)
+			local entry = month_labels[label_index]
+			if has_focus then
+				if entry.month == range.focus_month then
+					slot:addClass('ow-heatmap__month--focus')
+				else
+					slot:addClass('ow-heatmap__month--dimmed')
+				end
+			end
+			slot:wikitext(entry.label)
 			label_index += 1
 		end
 	end
@@ -393,11 +454,20 @@ function p.draw(frame)
 	local args = frame:getParent().args
 	local scope = string.lower(mw.text.trim(args.scope or 'last'))
 	local mode = string.lower(mw.text.trim(args.mode or 'releases'))
+	local context = string.lower(mw.text.trim(args.context or ''))
 	local year_arg = args.year
 	local month_arg = args.month
 
 	if scope ~= 'year' and scope ~= 'month' and scope ~= 'last' then
 		return 'Heatmap: scope must be year, month, or last.'
+	end
+
+	if context ~= '' and context ~= 'year' then
+		return 'Heatmap: context must be year when set.'
+	end
+
+	if context == 'year' and scope ~= 'month' then
+		return 'Heatmap: context=year is only valid with scope=month.'
 	end
 
 	local metric_fn = METRICS[mode]
@@ -409,12 +479,12 @@ function p.draw(frame)
 		return 'Heatmap: month scope requires a month parameter.'
 	end
 
-	local range, range_err = resolve_range(scope, year_arg, month_arg)
+	local range, range_err = resolve_range(scope, year_arg, month_arg, context)
 	if not range then
 		return range_err
 	end
 
-	local rows, query_err = query_obbies(build_where(scope, range))
+	local rows, query_err = query_obbies(build_where(scope, range, context))
 	if not rows then
 		return query_err
 	end
