@@ -5,7 +5,33 @@
 	flex-direction: column;
 	gap: 0.5rem;
 	margin: 1rem 0;
+	padding: 0.875rem 1rem;
 	color: var(--color-base);
+	background-color: var(--color-surface-2);
+	border: 1px solid var(--border-color-base);
+	border-radius: var(--border-radius-large);
+	box-sizing: border-box;
+}
+
+.ow-heatmap__day {
+	position: relative;
+	width: var(--ow-heatmap-cell-size);
+	height: var(--ow-heatmap-cell-size);
+}
+
+.ow-heatmap__day .ext-floatingui-reference {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.ow-heatmap__day .ow-heatmap__cell {
+	display: block;
+}
+
+.ow-heatmap__day--empty {
+	pointer-events: none;
+	visibility: hidden;
 }
 
 .ow-heatmap__caption {
@@ -104,7 +130,7 @@
 }
 
 .ow-heatmap__cell--l1 {
-	background-color: var(--color-surface-2);
+	background-color: var(--color-surface-3);
 	border-color: var(--border-color-base);
 }
 

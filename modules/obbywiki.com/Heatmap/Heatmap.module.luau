@@ -1,5 +1,7 @@
 local p = {}
 
+local FloatingUI = require('Module:FloatingUI')
+
 local months_full = {
 	'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',
 }
@@ -291,7 +293,12 @@ local function render_heatmap(range, counts, total, mode)
 
 	-- leading empty pads for weekday alignment
 	for _ = 1, start_pad do
-		grid:tag('div'):addClass('ow-heatmap__cell'):addClass('ow-heatmap__cell--empty')
+		grid:tag('div')
+			:addClass('ow-heatmap__day')
+			:addClass('ow-heatmap__day--empty')
+			:tag('div')
+			:addClass('ow-heatmap__cell')
+			:addClass('ow-heatmap__cell--empty')
 	end
 
 	local week_count = 0
@@ -323,14 +330,19 @@ local function render_heatmap(range, counts, total, mode)
 			end
 		end
 
-		local cell = grid:tag('div')
+		local cell = mw.html.create('div')
 			:addClass('ow-heatmap__cell')
 			:addClass('ow-heatmap__cell--l' .. tostring(level))
-			:attr('title', format_day_title(count, day.year, day.month, day.day, mode))
 
 		if count > 0 then
 			cell:addClass('ow-heatmap__cell--has-data')
 		end
+
+		local tooltip = format_day_title(count, day.year, day.month, day.day, mode)
+		local day_html = '<div class="ow-heatmap__day">'
+			.. FloatingUI.render(tostring(cell), tooltip)
+			.. '</div>'
+		grid:wikitext(day_html)
 
 		cells_placed += 1
 		week_count = math.max(week_count, week_index + 1)
@@ -339,7 +351,12 @@ local function render_heatmap(range, counts, total, mode)
 	-- trailing pads to complete the last week column
 	local trailing = (7 - (cells_placed % 7)) % 7
 	for _ = 1, trailing do
-		grid:tag('div'):addClass('ow-heatmap__cell'):addClass('ow-heatmap__cell--empty')
+		grid:tag('div')
+			:addClass('ow-heatmap__day')
+			:addClass('ow-heatmap__day--empty')
+			:tag('div')
+			:addClass('ow-heatmap__cell')
+			:addClass('ow-heatmap__cell--empty')
 	end
 
 	if trailing > 0 then
@@ -359,9 +376,6 @@ local function render_heatmap(range, counts, total, mode)
 	end
 	months_track:css('grid-template-columns', 'repeat(' .. tostring(week_count) .. ', var(--ow-heatmap-cell-size))')
 
-	---
-
-	
 	local legend = root:tag('div'):addClass('ow-heatmap__legend')
 	legend:tag('span'):addClass('ow-heatmap__legend-label'):wikitext('Less')
 	for level = 0, 4 do
@@ -412,7 +426,7 @@ function p.draw(frame)
 		src = 'Template:Heatmap/styles.css',
 	})
 
-	return styles .. tostring(root)
+	return FloatingUI.load(frame) .. styles .. tostring(root)
 end
 
 return p
