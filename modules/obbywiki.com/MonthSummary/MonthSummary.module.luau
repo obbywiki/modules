@@ -1,7 +1,8 @@
 local p = {}
 
 local months_full = {
-	'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',
+	'January', 'February', 'March', 'April', 'May', 'June',
+	'July', 'August', 'September', 'October', 'November', 'December',
 }
 
 local PLACEHOLDER_THUMB = 'Standard11placeholder.webp'
@@ -81,6 +82,7 @@ local function aggregate_month(month_data)
 				creator = row.creator or '',
 				day = tonumber(row.day) or 0,
 				thumbnail = row.thumbnail or '',
+				subgenre = row.subgenre or '',
 			})
 		end
 
@@ -186,43 +188,37 @@ local function aggregate_month(month_data)
 	}
 end
 
-local function render_stat_cards(stats)
-	local grid = mw.html.create('div'):addClass('ow-month-summary__stats')
-
-	local function add_stat(label, value, sub)
-		local card = grid:tag('div'):addClass('ow-month-summary__stat')
-		card:tag('div'):addClass('ow-month-summary__stat-value'):wikitext(value)
-		card:tag('div'):addClass('ow-month-summary__stat-label'):wikitext(label)
-		if sub and sub ~= '' then
-			card:tag('div'):addClass('ow-month-summary__stat-sub'):wikitext(sub)
-		end
-	end
-
-	add_stat('Obbies released', tostring(stats.release_count))
-	add_stat('Total visits', get_comma_val(stats.total_visits))
+local function render_statsbar(frame, stats)
+	local args = {
+		label1 = 'Obbies released',
+		data1 = tostring(stats.release_count),
+		label2 = 'Total visits',
+		data2 = get_comma_val(stats.total_visits),
+	}
 
 	if stats.top_subgenre then
-		add_stat(
-			'Top sub-genre',
-			`[[{stats.top_subgenre.name}]]`,
-			`{stats.top_subgenre.count} release{stats.top_subgenre.count == 1 and '' or 's'}`
-		)
+		args.label3 = 'Top sub-genre'
+		args.data3 = `[[{stats.top_subgenre.name}]]`
+		args.desc3 = `{stats.top_subgenre.count} release{stats.top_subgenre.count == 1 and '' or 's'}`
 	else
-		add_stat('Top sub-genre', '—')
+		args.label3 = 'Top sub-genre'
+		args.data3 = '—'
 	end
 
 	local popular = stats.most_popular
 	if popular.name ~= '' then
-		add_stat(
-			'Most popular',
-			`[[{popular.name}]]`,
-			`{get_comma_val(popular.visits)} visits`
-		)
+		args.label4 = 'Most popular'
+		args.data4 = `[[{popular.name}]]`
+		args.desc4 = `{get_comma_val(popular.visits)} visits`
 	else
-		add_stat('Most popular', '—')
+		args.label4 = 'Most popular'
+		args.data4 = '—'
 	end
 
-	return grid
+	return frame:expandTemplate{
+		title = 'Statsbar',
+		args = args,
+	}
 end
 
 local function render_top_releases(top_three)
@@ -232,27 +228,27 @@ local function render_top_releases(top_three)
 
 	local grid = mw.html.create('div'):addClass('ow-month-summary__top')
 
-	for i, obby in ipairs(top_three) do
+	for _, obby in ipairs(top_three) do
 		local card = grid:tag('div'):addClass('ow-month-summary__release')
-		card:tag('div'):addClass('ow-month-summary__release-rank'):wikitext(tostring(i))
 
 		local thumb_name = normalize_thumbnail(obby.thumbnail)
 		card:tag('div')
 			:addClass('ow-month-summary__release-thumb')
-			:wikitext(`[[File:{thumb_name}|112px|alt={obby.name}|link=]]`)
+			:wikitext(`[[File:{thumb_name}|320px|alt={obby.name}|link=]]`)
 
 		local meta = card:tag('div'):addClass('ow-month-summary__release-meta')
-		meta:tag('div'):addClass('ow-month-summary__release-title'):wikitext(obby.name)
 
-		if obby.creator and obby.creator ~= '' then
-			meta:tag('div')
-				:addClass('ow-month-summary__release-creator')
-				:wikitext('by ' .. obby.creator)
+		if obby.subgenre and obby.subgenre ~= '' then
+			meta:tag('span')
+				:addClass('ow-month-summary__release-tag')
+				:wikitext(obby.subgenre)
+		else
+			meta:tag('span'):addClass('ow-month-summary__release-tag-spacer')
 		end
 
-		meta:tag('div')
+		meta:tag('span')
 			:addClass('ow-month-summary__release-visits')
-			:wikitext(`{get_comma_val(obby.visits)} visits`)
+			:wikitext(get_comma_val(obby.visits))
 
 		card:tag('span')
 			:addClass('ow-month-summary__release-link')
@@ -359,10 +355,13 @@ function p.draw(frame)
 	end
 	summary_line ..= '.'
 
+	-- Level-2 (==) headings: body h1 (=) is often disabled / not rendered as a section title.
+	local heading = `== Summary for {current_month_name} {target_year} ==`
+
 	local parts = {
 		styles,
-		frame:preprocess(`=Summary=\n\n{summary_line}`),
-		tostring(mw.html.create('div'):addClass('ow-month-summary'):node(render_stat_cards(stats))),
+		frame:preprocess(heading .. '\n\n' .. summary_line),
+		render_statsbar(frame, stats),
 	}
 
 	local top_releases = render_top_releases(stats.top_three)
@@ -390,7 +389,7 @@ function p.draw(frame)
 		)
 	))
 
-	return table.concat(parts)
+	return table.concat(parts) .. ' __NOEDITSECTION__'
 end
 
 return p
