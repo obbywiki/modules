@@ -1,8 +1,7 @@
 local p = {}
 
 local months_full = {
-	'January', 'February', 'March', 'April', 'May', 'June',
-	'July', 'August', 'September', 'October', 'November', 'December',
+	'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',
 }
 
 local PLACEHOLDER_THUMB = 'Standard11placeholder.webp'
