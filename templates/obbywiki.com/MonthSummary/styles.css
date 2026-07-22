@@ -1,5 +1,36 @@
+.ow-month-summary {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+	margin: 1rem 0;
+}
+
 .ow-month-summary__section {
-	margin-bottom: 1.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	margin: 0;
+}
+
+.ow-month-summary__heading {
+	margin: 0;
+	padding: 0;
+	border-bottom: 0;
+	font-size: 1.25rem;
+	font-weight: bold;
+	line-height: 1.3;
+	color: var(--color-emphasized);
+}
+
+.ow-month-summary h1.ow-month-summary__heading {
+	font-size: 1.5rem;
+}
+
+.ow-month-summary__intro {
+	margin: 0;
+	color: var(--color-base);
+	font-size: 0.9375rem;
+	line-height: 1.5;
 }
 
 .ow-month-summary__top {
@@ -86,8 +117,8 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
-	padding: 12px;
+	gap: 10px;
+	padding: 14px;
 	background-color: var(--background-color-interactive-subtle);
 	border: 1px solid var(--border-color-base);
 	border-radius: 10px;
@@ -105,7 +136,7 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	gap: 10px;
+	gap: 12px;
 	min-width: 0;
 }
 
@@ -139,7 +170,7 @@
 .ow-month-summary__creator-info {
 	display: flex;
 	flex-direction: column;
-	gap: 1px;
+	gap: 2px;
 	min-width: 0;
 }
 
@@ -203,7 +234,7 @@
 
 .ow-month-summary__table {
 	width: 100%;
-	margin-top: 0.5rem;
+	margin: 0;
 }
 
 @media (max-width: 900px) {
