@@ -16,6 +16,8 @@ const replacement_map = {
   "\\u{2014}": "—",
   "\\u{2705}": "✅",
   "\\u{00B7}": "·",
+  "\\u{00b7}": "·",
+  "\\u{b7}": "·",
 };
 
 function fix_unicode_syntax(input) {
