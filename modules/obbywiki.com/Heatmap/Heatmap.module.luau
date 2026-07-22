@@ -337,26 +337,21 @@ local function render_heatmap(range, counts, total, mode)
 	local scroll = root:tag('div'):addClass('ow-heatmap__scroll')
 	local calendar = scroll:tag('div'):addClass('ow-heatmap__calendar')
 
-	-- month labels: filler | spacer+track | filler (track aligns with main grid)
+	-- month labels: spacer | filler | track | filler
 	local months_row = calendar:tag('div'):addClass('ow-heatmap__months')
+	months_row:tag('div'):addClass('ow-heatmap__months-spacer')
 	months_row:tag('div')
 		:addClass('ow-heatmap__filler')
 		:addClass('ow-heatmap__filler--start')
-	local months_main = months_row:tag('div'):addClass('ow-heatmap__months-main')
-	months_main:tag('div'):addClass('ow-heatmap__months-spacer')
-	local months_track = months_main:tag('div'):addClass('ow-heatmap__months-track')
+	local months_track = months_row:tag('div'):addClass('ow-heatmap__months-track')
 	months_row:tag('div')
 		:addClass('ow-heatmap__filler')
 		:addClass('ow-heatmap__filler--end')
 
-	-- body: filler | weekdays+grid | filler
+	-- body: weekdays | filler | grid | filler
 	local body = calendar:tag('div'):addClass('ow-heatmap__body')
 
-	append_side_filler(body, 'start')
-
-	local main = body:tag('div'):addClass('ow-heatmap__main')
-
-	local labels = main:tag('div'):addClass('ow-heatmap__weekdays')
+	local labels = body:tag('div'):addClass('ow-heatmap__weekdays')
 	for i, label in ipairs(weekday_labels) do
 		-- only show Mon, Wed, Fri
 		local show = (i == 2 or i == 4 or i == 6)
@@ -365,7 +360,9 @@ local function render_heatmap(range, counts, total, mode)
 			:wikitext(show and label or '')
 	end
 
-	local grid = main:tag('div'):addClass('ow-heatmap__grid')
+	append_side_filler(body, 'start')
+
+	local grid = body:tag('div'):addClass('ow-heatmap__grid')
 
 	append_side_filler(body, 'end')
 
