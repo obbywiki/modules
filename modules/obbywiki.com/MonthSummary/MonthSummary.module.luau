@@ -55,7 +55,7 @@ local function query_month_obbies(target_year, month_name)
 	local month_index = table.find(months_full, month_name)
 	return mw.ext.cargo.query(
 		'Obbies',
-		'_pageName=name, visits, subgenre, creator, day, thumbnail',
+		'_pageName=name, visits, subgenre, creator, developers, day, thumbnail',
 		{
 			where = "month='" .. tostring(month_index) .. "' AND year='" .. target_year .. "'",
 			orderBy = 'visits DESC',
@@ -64,9 +64,54 @@ local function query_month_obbies(target_year, month_name)
 	)
 end
 
+local function parse_name_list(raw)
+	if type(raw) == 'table' then
+		local names = {}
+		for _, part in ipairs(raw) do
+			local name = mw.text.trim(tostring(part or ''))
+			if name ~= '' then
+				table.insert(names, name)
+			end
+		end
+		return names
+	end
+
+	if type(raw) ~= 'string' or raw == '' then
+		return {}
+	end
+
+	local names = {}
+	for _, part in ipairs(mw.text.split(raw, ',')) do
+		local name = mw.text.trim(part)
+		if name ~= '' then
+			table.insert(names, name)
+		end
+	end
+	return names
+end
+
+local function credit_developer(by_developer, name, visits, brand)
+	if not name or name == '' then
+		return
+	end
+
+	local entry = by_developer[name]
+	if entry then
+		entry.count += 1
+		entry.visits += visits
+	else
+		entry = { count = 1, visits = visits, brands = {} }
+		by_developer[name] = entry
+	end
+
+	if brand and brand ~= '' and brand ~= name then
+		entry.brands[brand] = true
+	end
+end
+
 local function aggregate_month(month_data)
 	local by_subgenre = {}
-	local by_creator = {}
+	local by_developer = {}
 	local total_visits = 0
 	local most_popular = { name = '', visits = 0, creator = '', day = 0, thumbnail = '' }
 	local top_three = {}
@@ -105,14 +150,20 @@ local function aggregate_month(month_data)
 			end
 		end
 
-		if row.creator and row.creator ~= '' then
-			local creator_entry = by_creator[row.creator]
-			if creator_entry then
-				creator_entry.count += 1
-				creator_entry.visits += visits
-			else
-				by_creator[row.creator] = { count = 1, visits = visits }
+		-- prefer individual developers listed on the page, then fall back to `creator` (studio/brand, sometimes an individual) when no developers field is set.
+		local developers = parse_name_list(row.developers)
+		local brand = row.creator or ''
+		if #developers > 0 then
+			local credited = {}
+			
+			for _, developer in ipairs(developers) do
+				if not credited[developer] then
+					credited[developer] = true
+					credit_developer(by_developer, developer, visits, brand)
+				end
 			end
+		elseif brand ~= '' then
+			credit_developer(by_developer, brand, visits, nil)
 		end
 
 		if row.name and visits > most_popular.visits then
@@ -140,16 +191,23 @@ local function aggregate_month(month_data)
 		end
 	end
 
-	local creator_list = {}
-	for name, entry in pairs(by_creator) do
-		table.insert(creator_list, {
+	local developer_list = {}
+	for name, entry in pairs(by_developer) do
+		local brands = {}
+		for brand_name in pairs(entry.brands) do
+			table.insert(brands, brand_name)
+		end
+		table.sort(brands)
+
+		table.insert(developer_list, {
 			name = name,
 			count = entry.count,
 			visits = entry.visits,
+			brands = brands,
 		})
 	end
 
-	table.sort(creator_list, function(a, b)
+	table.sort(developer_list, function(a, b)
 		if a.count ~= b.count then
 			return a.count > b.count
 		end
@@ -158,21 +216,21 @@ local function aggregate_month(month_data)
 
 	local top_creators = {}
 	local has_repeats = false
-	for _, creator in ipairs(creator_list) do
-		if creator.count >= 2 then
+	for _, developer in ipairs(developer_list) do
+		if developer.count >= 2 then
 			has_repeats = true
 			break
 		end
 	end
 
 	if has_repeats then
-		for _, creator in ipairs(creator_list) do
-			if creator.count >= 2 and #top_creators < 3 then
-				table.insert(top_creators, creator)
+		for _, developer in ipairs(developer_list) do
+			if developer.count >= 2 and #top_creators < 3 then
+				table.insert(top_creators, developer)
 			end
 		end
-	elseif #creator_list > 0 then
-		table.insert(top_creators, creator_list[1])
+	elseif #developer_list > 0 then
+		table.insert(top_creators, developer_list[1])
 	end
 
 	return {
@@ -375,6 +433,18 @@ local function render_top_creators(top_creators)
 
 		local extras = card:tag('div'):addClass('ow-month-summary__creator-extras')
 
+		if creator.brands and #creator.brands > 0 then
+			local brand_links = {}
+			for _, brand in ipairs(creator.brands) do
+				table.insert(brand_links, `[[{brand}]]`)
+			end
+			extras:tag('div')
+				:addClass('ow-month-summary__creator-extra')
+				:wikitext(
+					`via {table.concat(brand_links, ', ')}`
+				)
+		end
+
 		if profile.kind == 'player' and profile.has_page then
 			if profile.total_visits > 0 then
 				extras:tag('div')
@@ -397,7 +467,7 @@ local function render_top_creators(top_creators)
 					:addClass('ow-month-summary__creator-extra')
 					:wikitext(`{profile.total_obbies} documented obb{profile.total_obbies == 1 and 'y' or 'ies'}`)
 			end
-		else
+		elseif not profile.has_page then
 			extras:tag('div')
 				:addClass('ow-month-summary__creator-extra')
 				:addClass('ow-month-summary__creator-extra--muted')
@@ -515,7 +585,7 @@ function p.draw(frame)
 
 	local top_creators = render_top_creators(stats.top_creators)
 	if top_creators then
-		root:node(wrap_section('Most active creators', top_creators))
+		root:node(wrap_section('Most active developers', top_creators))
 	end
 
 	local subgenre_intro = mw.html.create('p')
