@@ -1,0 +1,11 @@
+<noinclude>
+Usage: {{Tl|Heatmap|scope=year/month/last|year=YYYY|month=MonthName|mode=releases}}
+
+Examples:
+* {{Heatmap|scope=last}} - rolling last 365 days
+* {{Heatmap|scope=year|year=2026}} - calendar year
+* {{Heatmap|scope=month|year=2026|month=March}} - single month
+* {{Heatmap|scope=year|year=2026|mode=releases}} - explicit metric mode
+
+Renders a GitHub-style heatmap of documented obby releases per day.
+</noinclude><includeonly>{{#invoke:Heatmap|draw}}</includeonly>
