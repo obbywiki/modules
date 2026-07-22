@@ -258,6 +258,82 @@ local function render_top_releases(top_three)
 	return grid
 end
 
+local function cargo_escape(value)
+	return tostring(value or ''):gsub("'", "''")
+end
+
+local function lookup_creator_profile(creator_name)
+	if not creator_name or creator_name == '' then
+		return nil
+	end
+
+	local is_user = string.sub(creator_name, 1, 1) == '@'
+
+	if is_user then
+		local username = string.sub(creator_name, 2)
+		local rows = mw.ext.cargo.query( 'Players', '_pageName=page, username, display_name, headshot, image, total_visits, total_obbies, most_popular_obby', {
+				where = "username='" .. cargo_escape(username) .. "'",
+				limit = 1,
+			}
+		)
+
+		if rows and rows[1] then
+			local row = rows[1]
+
+			return {
+				kind = 'player',
+				page = row.page or creator_name,
+				display_name = row.display_name or username,
+				handle = '@' .. (row.username or username),
+				avatar = normalize_thumbnail(row.headshot or row.image),
+				total_visits = tonumber(row.total_visits) or 0,
+				total_obbies = tonumber(row.total_obbies) or 0,
+				most_popular_obby = row.most_popular_obby or '',
+				has_page = true,
+			}
+		end
+
+		return {
+			kind = 'player',
+			page = creator_name,
+			display_name = username,
+			handle = creator_name,
+			avatar = PLACEHOLDER_THUMB,
+			has_page = false,
+		}
+	end
+
+	local escaped = cargo_escape(creator_name)
+	local studio_rows = mw.ext.cargo.query( 'Studios', '_pageName=page, name, thumbnail, members, total_obbies, owner', {
+			where = "_pageName='" .. escaped .. "' OR name='" .. escaped .. "'",
+			limit = 1,
+		}
+	)
+	if studio_rows and studio_rows[1] then
+		local row = studio_rows[1]
+		return {
+			kind = 'studio',
+			page = row.page or creator_name,
+			display_name = row.name or creator_name,
+			handle = 'Studio',
+			avatar = normalize_thumbnail(row.thumbnail),
+			members = tonumber(row.members) or 0,
+			total_obbies = tonumber(row.total_obbies) or 0,
+			owner = row.owner or '',
+			has_page = true,
+		}
+	end
+
+	return {
+		kind = 'unknown',
+		page = creator_name,
+		display_name = creator_name,
+		handle = '',
+		avatar = PLACEHOLDER_THUMB,
+		has_page = false,
+	}
+end
+
 local function render_top_creators(top_creators)
 	if not top_creators or #top_creators == 0 then
 		return nil
@@ -266,16 +342,71 @@ local function render_top_creators(top_creators)
 	local grid = mw.html.create('div'):addClass('ow-month-summary__creators')
 
 	for _, creator in ipairs(top_creators) do
-		local card = grid:tag('div'):addClass('ow-month-summary__creator')
-		card:tag('div'):addClass('ow-month-summary__creator-name'):wikitext(creator.name)
+		local profile = lookup_creator_profile(creator.name)
+		local card = grid:tag('div')
+			:addClass('ow-month-summary__creator')
+			:addClass('ow-month-summary__creator--' .. profile.kind)
+
+		if profile.has_page then
+			card:addClass('ow-month-summary__creator--has-page')
+		end
+
+		local top = card:tag('div'):addClass('ow-month-summary__creator-top')
+
+		local avatar = top:tag('div'):addClass('ow-month-summary__creator-avatar')
+		avatar:wikitext(`[[File:{profile.avatar}|64px|alt={profile.display_name}|link=]]`)
+
+		local info = top:tag('div'):addClass('ow-month-summary__creator-info')
+		info:tag('div')
+			:addClass('ow-month-summary__creator-name')
+			:wikitext(profile.display_name)
+
+		if profile.handle ~= '' then
+			info:tag('div')
+				:addClass('ow-month-summary__creator-handle')
+				:wikitext(profile.handle)
+		end
+
 		card:tag('div')
-			:addClass('ow-month-summary__creator-count')
+			:addClass('ow-month-summary__creator-month')
 			:wikitext(
-				`{creator.count} release{creator.count == 1 and '' or 's'} · {get_comma_val(creator.visits)} visits`
+				`{creator.count} release{creator.count == 1 and '' or 's'} this month · {get_comma_val(creator.visits)} visits`
 			)
+
+		local extras = card:tag('div'):addClass('ow-month-summary__creator-extras')
+
+		if profile.kind == 'player' and profile.has_page then
+			if profile.total_visits > 0 then
+				extras:tag('div')
+					:addClass('ow-month-summary__creator-extra')
+					:wikitext(`{get_comma_val(profile.total_visits)}+ career visits`)
+			end
+			if profile.most_popular_obby and profile.most_popular_obby ~= '' then
+				extras:tag('div')
+					:addClass('ow-month-summary__creator-extra')
+					:wikitext(`Best known for [[{profile.most_popular_obby}]]`)
+			end
+		elseif profile.kind == 'studio' and profile.has_page then
+			if profile.members > 0 then
+				extras:tag('div')
+					:addClass('ow-month-summary__creator-extra')
+					:wikitext(`{get_comma_val(profile.members)} members`)
+			end
+			if profile.total_obbies > 0 then
+				extras:tag('div')
+					:addClass('ow-month-summary__creator-extra')
+					:wikitext(`{profile.total_obbies} documented obb{profile.total_obbies == 1 and 'y' or 'ies'}`)
+			end
+		else
+			extras:tag('div')
+				:addClass('ow-month-summary__creator-extra')
+				:addClass('ow-month-summary__creator-extra--muted')
+				:wikitext('No wiki page yet')
+		end
+
 		card:tag('span')
 			:addClass('ow-month-summary__creator-link')
-			:wikitext(`[[{creator.name}]]`)
+			:wikitext(`[[{profile.page}]]`)
 	end
 
 	return grid
@@ -349,7 +480,7 @@ function p.draw(frame)
 
 	local summary_line = `There {single_release and 'was' or 'were'} {stats.release_count} {single_release and 'obby' or 'obbies'} released in {current_month_name} of {target_year}, with the most popular obby released being [[{popular.name}]] by [[{popular.creator}]] with '''{get_comma_val(popular.visits)} visits'''{day_note}.\n\n`
 
-	local heading = tostring(mw.html.create('h2'):wikitext(`Summary for {current_month_name} {target_year}`)) -- necessary for the first title for some reason
+	local heading = tostring(mw.html.create('h1'):wikitext(`Summary for {current_month_name} {target_year}`)) -- necessary for the first title for some reason
 
 
 	local parts = {
