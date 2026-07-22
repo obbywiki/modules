@@ -651,14 +651,20 @@ function methodtable.renderItem( self, data, content )
 
 	-- Linter does not like data.range.end
 	if data.range then
-		html:addClass( 'infobox__item--is-range' )
+		local bar_item = html:addClass( 'infobox__item--is-range' )
 			:tag( 'div' )
 			:addClass( 'infobox__bar' )
 			:tag( 'div' )
 			:addClass( 'infobox__bar-item' )
 			:css( '--infobox-bar-item-range-start', data.range['start'] )
 			:css( '--infobox-bar-item-range-end', data.range['end'] )
-			:allDone()
+
+		-- Optional solid fill (e.g. activity meters); defaults to success gradient
+		if data.range.color then
+			bar_item:css( 'background', data.range.color )
+		end
+
+		bar_item:allDone()
 	end
 
 	-- Handle tooltip if present

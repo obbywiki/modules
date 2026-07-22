@@ -39,6 +39,37 @@ local function ordinal(n)
     return n .. suffix
 end
 
+-- activity_score is 0–1
+local activity_tiers = {
+	{ min = 0.90, label = 'Very active', color = '#639922' },
+	{ min = 0.70, label = 'Active',       color = '#5DCAA5' },
+	{ min = 0.45, label = 'Moderate',     color = '#EF9F27' },
+	{ min = 0.20, label = 'Low',          color = '#F0997B' },
+	{ min = 0,    label = 'Dormant',      color = '#B4B2A9' },
+}
+
+local function activity_from_score(score)
+	local s = tonumber(score)
+	if s == nil then
+		return nil
+	end
+
+	s = math.max(0, math.min(1, s))
+	local pct = math.floor(s * 100 + 0.5)
+
+	for _, tier in ipairs(activity_tiers) do
+		if s >= tier.min then
+			return {
+				label = tier.label,
+				color = tier.color,
+				pct = pct,
+			}
+		end
+	end
+
+	return nil
+end
+
 local wiki_schema = {
 	_table = 'Wikis',
 	_drilldownTabs = 'Tab1(format=list;delimiter=\;;fields=creator)',
@@ -128,6 +159,9 @@ function WikiInfobox.main( frame )
         edits_per_page = 'N/A'
     end
 
+    local wiki_activity_score = args.activity_score or args.activity
+    local activity = activity_from_score(wiki_activity_score)
+
     ---
 
     infobox:renderImage( thumb )
@@ -163,17 +197,27 @@ function WikiInfobox.main( frame )
         end
     end
 
+    local quick_info_content = {
+		infobox:renderItem( 'Primary Language', 'English'),
+	}
+
+	if activity then
+		table.insert(quick_info_content, infobox:renderItem( {
+			label = 'Activity',
+			data = activity.label,
+			colspan = 2,
+			range = {
+				['start'] = '0%',
+				['end'] = activity.pct .. '%',
+				color = activity.color,
+			},
+		} ))
+	end
+
     infobox:renderSection( {
 		title = 'Quick Info',
 		col = 2,
-		content = {
-			infobox:renderItem( 'Primary Language', 'English'),
-            infobox:renderItem( {
-				label = 'Activity',
-				colspan = 2,
-				data = '<div class="activity-bar" style="background:#eee;border-radius:99px;height:8px;overflow:hidden"><div style="width:90%%;height:100%%;background:#EF9F27;border-radius:99px"></div></div> <div style="font-size:11px">Moderate</div>',
-			} ),
-		}
+		content = quick_info_content,
 	} )
 
     infobox:renderSection( {
