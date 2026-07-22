@@ -312,13 +312,18 @@ local function render_heatmap(range, counts, total, mode)
 	local scroll = root:tag('div'):addClass('ow-heatmap__scroll')
 	local calendar = scroll:tag('div'):addClass('ow-heatmap__calendar')
 
-	-- month labels row
+	-- month labels row (aligned with body: spacer | filler | track | filler)
 	local months_row = calendar:tag('div'):addClass('ow-heatmap__months')
 	months_row:tag('div'):addClass('ow-heatmap__months-spacer')
-
+	months_row:tag('div')
+		:addClass('ow-heatmap__filler')
+		:addClass('ow-heatmap__filler--start')
 	local months_track = months_row:tag('div'):addClass('ow-heatmap__months-track')
+	months_row:tag('div')
+		:addClass('ow-heatmap__filler')
+		:addClass('ow-heatmap__filler--end')
 
-	-- weekday labels + cells grid
+	-- weekday labels + side fillers + cells grid
 	local body = calendar:tag('div'):addClass('ow-heatmap__body')
 
 	local labels = body:tag('div'):addClass('ow-heatmap__weekdays')
@@ -330,7 +335,15 @@ local function render_heatmap(range, counts, total, mode)
 			:wikitext(show and label or '')
 	end
 
+	body:tag('div')
+		:addClass('ow-heatmap__filler')
+		:addClass('ow-heatmap__filler--start')
+
 	local grid = body:tag('div'):addClass('ow-heatmap__grid')
+
+	body:tag('div')
+		:addClass('ow-heatmap__filler')
+		:addClass('ow-heatmap__filler--end')
 
 	-- leading empty pads for weekday alignment
 	for _ = 1, start_pad do
