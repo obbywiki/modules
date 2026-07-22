@@ -130,22 +130,22 @@
 }
 
 .ow-heatmap__cell--l1 {
-	background-color: var(--background-color-progressive-subtle);
-	border-color: var(--border-color-progressive);
+	background-color: #d4e0f7;
+	border-color: transparent;
 }
 
 .ow-heatmap__cell--l2 {
-	background-color: var(--background-color-progressive-subtle--hover);
-	border-color: var(--border-color-progressive);
+	background-color: #9bb6e8;
+	border-color: transparent;
 }
 
 .ow-heatmap__cell--l3 {
-	background-color: var(--background-color-progressive-subtle--active);
+	background-color: #628cd8;
 	border-color: transparent;
 }
 
 .ow-heatmap__cell--l4 {
-	background-color: var(--background-color-progressive);
+	background-color: #3165cc;
 	border-color: transparent;
 }
 
