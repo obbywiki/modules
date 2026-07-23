@@ -12,6 +12,6 @@ Examples:
 
 Renders a GitHub-style heatmap of documented obby releases per day. Optional {{para|developer}} (aliases: {{para|player}}, {{para|creator}}) filters to that person or studio.
 
-{{Tl|Heatmap|scope=last}}
+{{Heatmap|scope=last}}
 
 </noinclude><includeonly>{{#invoke:Heatmap|draw}}</includeonly>
