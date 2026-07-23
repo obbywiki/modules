@@ -590,7 +590,6 @@ function p.draw(frame)
 		:wikitext(summary_line)
 
 	root:wikitext(render_statsbar(frame, stats))
-	root:wikitext(render_heatmap(frame, target_year, current_month_name))
 
 	local top_releases = render_top_releases(stats.top_three)
 	if top_releases then
@@ -611,6 +610,13 @@ function p.draw(frame)
 		subgenre_intro,
 		render_subgenre_table(stats.by_subgenre)
 	))
+
+	local frequency_intro = mw.html.create('p')
+		:addClass('ow-month-summary__intro')
+		:wikitext('View the frequency of releases in this month compared to other months of the year.')
+
+	local heatmap = render_heatmap(frame, target_year, current_month_name)
+	root:node(wrap_section('Releases by Frequency', frequency_intro, heatmap))
 
 	return styles .. tostring(root) .. ' __NOEDITSECTION__'
 end
