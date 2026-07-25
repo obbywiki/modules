@@ -616,7 +616,7 @@ function p.draw(frame)
 		:wikitext('View the frequency of releases in this month compared to other months of the year.')
 
 	local heatmap = render_heatmap(frame, target_year, current_month_name)
-	root:node(wrap_section('Releases by Frequency', frequency_intro, heatmap))
+	root:node(wrap_section('Release frequency', frequency_intro, heatmap))
 
 	return styles .. tostring(root) .. ' __NOEDITSECTION__'
 end
