@@ -297,7 +297,11 @@ function WikiInfobox.main( frame )
         pages = wiki_pages
 	})
 
-    return rendered .. '\n' .. table.concat(append_categories, '\n') .. (if wiki_dedicated_obby_page_name and wiki_dedicated_obby_page_name ~= '' then `\{\{#related:{wiki_dedicated_obby_page_name}}}` else '')
+    if wiki_dedicated_obby_page_name and wiki_dedicated_obby_page_name ~= '' then
+        frame:callParserFunction({ name = '#related', args = {wiki_dedicated_obby_page_name} })
+    end
+
+    return rendered .. '\n' .. table.concat(append_categories, '\n')
 end
 
 
