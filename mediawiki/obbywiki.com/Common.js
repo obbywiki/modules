@@ -272,3 +272,212 @@ mw.loader.using(['mediawiki.util'], function () {
         subtree: true
     });
 });
+
+mw.loader.using(['mediawiki.util'], function () {
+	'use strict';
+
+	var HELP_NS = 12;
+
+	var help_portal_links = [
+		{ title: 'Help:Contents', label: 'Help contents' },
+		{ title: 'Help:Contributing', label: 'Contributing' },
+		{ title: 'Help:Obby Page', label: 'Obby pages' },
+		{ title: 'Help:Article flow', label: 'Article flow' },
+		{ title: 'Help:Accounts', label: 'Accounts' },
+		{ title: 'Help:Supported obby genres', label: 'Supported genres' }
+	];
+
+	function is_help_namespace() {
+		return mw.config.get('wgNamespaceNumber') === HELP_NS;
+	}
+
+	function fold_edit_chrome_into_more_menu() {
+		var $cactions_list = $('#p-cactions ul.citizen-menu__content-list');
+		if (!$cactions_list.length) {
+			return;
+		}
+
+		$('#p-views li, #p-associated-pages li').each(function () {
+			var $item = $(this);
+			if ($item.attr('id') && $cactions_list.children('#' + $item.attr('id')).length) {
+				return;
+			}
+
+			$cactions_list.append($item);
+		});
+
+		$('#p-cactions').removeClass('emptyPortlet');
+	}
+
+	function add_help_badge() {
+		var $indicators = $('.firstHeading-container .mw-indicators').first();
+		if (!$indicators.length || $('#mw-indicator-help-ns').length) {
+			return;
+		}
+
+		var $badge = $('<div>')
+			.attr('id', 'mw-indicator-help-ns')
+			.addClass('mw-indicator')
+			.append(
+				$('<span>')
+					.addClass('ow-help-badge')
+					.attr({ title: 'Help page', role: 'img', 'aria-label': 'Help page' })
+					.text('?')
+			);
+
+		$indicators.append($badge);
+	}
+
+	function format_reviewed_ago(timestamp_seconds) {
+		var now_ms = Date.now();
+		var then_ms = timestamp_seconds * 1000;
+		var diff_ms = Math.max(0, now_ms - then_ms);
+		var day_ms = 24 * 60 * 60 * 1000;
+		var days = Math.floor(diff_ms / day_ms);
+
+		// floor short intervals
+		if (days < 1) {
+			return 'reviewed today';
+		}
+		if (days < 7) {
+			return days === 1 ? 'reviewed 1 day ago' : 'reviewed ' + days + ' days ago';
+		}
+
+		var weeks = Math.floor(days / 7);
+		if (days < 45) {
+			return weeks === 1 ? 'reviewed 1 week ago' : 'reviewed ' + weeks + ' weeks ago';
+		}
+
+		var months = Math.floor(days / 30.437);
+		if (days < 365) {
+			return months <= 1 ? 'reviewed 1 month ago' : 'reviewed ' + months + ' months ago';
+		}
+
+		var years = Math.floor(days / 365.25);
+		return years <= 1 ? 'reviewed 1 year ago' : 'reviewed ' + years + ' years ago';
+	}
+
+	function apply_reviewed_label($relative, label) {
+		var $text = $relative.children('span').not('.citizen-ui-icon').last();
+		if ($text.length) {
+			$text.text(label);
+		} else if ($relative.contents().length) {
+			$relative.contents().last()[0].textContent = label;
+		} else {
+			$relative.append(document.createTextNode(label));
+		}
+	}
+
+	function frame_lastmod_as_reviewed() {
+		var $nav = $('#citizen-sidebar-lastmod');
+		var $relative = $('#citizen-lastmod-relative');
+		if (!$nav.length || !$relative.length) {
+			return;
+		}
+
+		$nav.find('.citizen-menu__heading').first().text('Reviewed');
+
+		var timestamp = parseFloat($relative.attr('data-timestamp'));
+		if (isNaN(timestamp)) {
+			return;
+		}
+
+		var label = format_reviewed_ago(timestamp);
+		apply_reviewed_label($relative, label);
+
+		var tries = 0;
+		var timer = setInterval(function () {
+			apply_reviewed_label($relative, label);
+			tries += 1;
+
+			if (tries >= 12) {
+				clearInterval(timer);
+			}
+
+		}, 100);
+	}
+
+	function ensure_help_sidebar() {
+		var $sidebar = $('.citizen-page-sidebar').first();
+		if ($sidebar.length) {
+			return $sidebar;
+		}
+
+		var $container = $('.citizen-body-container').first();
+		if (!$container.length) {
+			return $();
+		}
+
+		document.documentElement.classList.add('citizen-toc-enabled');
+		$sidebar = $('<div>').addClass('citizen-page-sidebar');
+
+		var $footer = $container.children('.citizen-page-footer').first();
+		if ($footer.length) {
+			$footer.before($sidebar);
+		} else {
+			$container.append($sidebar);
+		}
+
+		return $sidebar;
+	}
+
+	function build_help_portal() {
+		if ($('#ow-help-portal').length) {
+			return;
+		}
+
+		var $sidebar = ensure_help_sidebar();
+		if (!$sidebar.length) {
+			return;
+		}
+
+		var current = mw.config.get('wgPageName');
+		var $list = $('<ul>').addClass('ow-help-portal__list citizen-menu__content-list');
+
+		help_portal_links.forEach(function (item) {
+			var href = mw.util.getUrl(item.title);
+			var is_current = current === item.title.replace(/ /g, '_');
+			var $a = $('<a>')
+				.attr('href', href)
+				.text(item.label);
+
+			if (is_current) {
+				$a.attr('aria-current', 'page');
+			}
+
+			$list.append(
+				$('<li>')
+					.addClass('mw-list-item' + (is_current ? ' selected' : ''))
+					.append($a)
+			);
+		});
+
+		var $portal = $('<nav>')
+			.attr('id', 'ow-help-portal')
+			.addClass('citizen-menu ow-help-portal')
+			.append(
+				$('<div>').addClass('citizen-menu__heading').text('Help portal'),
+				$('<div>').addClass('citizen-menu__content').append($list)
+			);
+
+		var $toc = $sidebar.children('#citizen-toc');
+		if ($toc.length) {
+			$toc.before($portal);
+		} else {
+			$sidebar.prepend($portal);
+		}
+	}
+
+	function init_help_namespace() {
+		if (!is_help_namespace()) {
+			return;
+		}
+
+		fold_edit_chrome_into_more_menu();
+		add_help_badge();
+		frame_lastmod_as_reviewed();
+		build_help_portal();
+	}
+
+	$(init_help_namespace);
+});

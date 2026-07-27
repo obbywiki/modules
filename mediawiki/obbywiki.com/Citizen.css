@@ -184,3 +184,91 @@ width: 16px;
    width: 20px;
    height: 20px;
 }
+
+/* help namespace styling*/
+
+.ns-12 .citizen-page-actions #p-views,
+.ns-12 .citizen-page-actions #p-associated-pages {
+	display: none;
+}
+
+.ns-12 #ca-view-sticky-header,
+.ns-12 #ca-subject-sticky-header,
+.ns-12 #ca-history-sticky-header,
+.ns-12 #ca-edit-sticky-header,
+.ns-12 #ca-ve-edit-sticky-header,
+.ns-12 #ca-viewsource-sticky-header,
+.ns-12 #ca-addsection-sticky-header {
+	display: none;
+}
+
+.ns-12 .ow-help-badge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.35rem;
+	height: 1.35rem;
+	margin-left: 0.4rem;
+	border: 1px solid var(--border-color-base);
+	border-radius: 999px;
+	background: var(--color-surface-2, var(--color-surface-1));
+	color: var(--color-subtle);
+	font-size: 0.75rem;
+	font-weight: var(--font-weight-medium, 500);
+	line-height: 1;
+	vertical-align: middle;
+	user-select: none;
+}
+
+.ns-12 #ow-help-portal {
+	order: 1;
+}
+
+.ns-12 #citizen-sidebar-lastmod {
+	order: 2;
+}
+
+.ns-12 #citizen-toc {
+	order: 3;
+}
+
+.ns-12 #ow-help-portal .citizen-menu__heading {
+	letter-spacing: 0.04em;
+}
+
+.ns-12 #ow-help-portal .ow-help-portal__list {
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.ns-12 #ow-help-portal .ow-help-portal__list a {
+	display: block;
+	padding: 0.25rem 0.4rem;
+	border-radius: var(--border-radius-base, 0.25rem);
+	color: var(--color-base);
+	text-decoration: none;
+}
+
+.ns-12 #ow-help-portal .ow-help-portal__list a:hover {
+	background: var(--color-surface-2, rgba(0, 0, 0, 0.04));
+}
+
+.ns-12 #ow-help-portal .ow-help-portal__list .selected > a,
+.ns-12 #ow-help-portal .ow-help-portal__list a[aria-current="page"] {
+	font-weight: var(--font-weight-medium, 500);
+	color: var(--color-progressive, var(--color-base));
+}
+
+.ns-12 .mw-parser-output > ol,
+.ns-12 .mw-parser-output :is(h2, h3, h4) + ol {
+	padding-left: 1.4rem;
+}
+
+.ns-12 .mw-parser-output > ol > li,
+.ns-12 .mw-parser-output :is(h2, h3, h4) + ol > li {
+	margin-block: 0.35em;
+}
