@@ -278,17 +278,26 @@ mw.loader.using(['mediawiki.util'], function () {
 
 	var HELP_NS = 12;
 
+	// Curated sibling help pages only — not the whole help catalog
 	var help_portal_links = [
-		{ title: 'Help:Contents', label: 'Help contents' },
+		{ title: 'Help:Contents', label: 'Contents' },
 		{ title: 'Help:Contributing', label: 'Contributing' },
-		{ title: 'Help:Obby Page', label: 'Obby pages' },
-		{ title: 'Help:Article flow', label: 'Article flow' },
 		{ title: 'Help:Accounts', label: 'Accounts' },
-		{ title: 'Help:Supported obby genres', label: 'Supported genres' }
+		{ title: 'Help:Article flow', label: 'Article flow' }
 	];
 
 	function is_help_namespace() {
 		return mw.config.get('wgNamespaceNumber') === HELP_NS;
+	}
+
+	function quiet_menu_link($item) {
+		$item.find('a').each(function () {
+			var $a = $(this);
+			$a.removeClass(
+				'cdx-button--weight-primary cdx-button--action-progressive citizen-cdx-button--size-large'
+			);
+			$a.addClass('cdx-button--weight-quiet');
+		});
 	}
 
 	function fold_edit_chrome_into_more_menu() {
@@ -297,14 +306,36 @@ mw.loader.using(['mediawiki.util'], function () {
 			return;
 		}
 
+		// Prefer read-oriented items first; edit last among page actions
+		var preferred_order = [
+			'ca-view',
+			'ca-nstab-help',
+			'ca-talk',
+			'ca-history',
+			'ca-edit',
+			'ca-ve-edit',
+			'ca-viewsource'
+		];
+
 		$('#p-views li, #p-associated-pages li').each(function () {
 			var $item = $(this);
-			if ($item.attr('id') && $cactions_list.children('#' + $item.attr('id')).length) {
+			var id = $item.attr('id');
+			if (id && $cactions_list.children('#' + id).length) {
 				return;
 			}
-
+			quiet_menu_link($item);
 			$cactions_list.append($item);
 		});
+
+		preferred_order.forEach(function (id) {
+			var $item = $cactions_list.children('#' + id);
+			if ($item.length) {
+				$cactions_list.append($item);
+			}
+		});
+
+		// Destructive admin actions stay hidden via CSS; also strip from menu DOM noise
+		$('#ca-delete, #ca-move, #ca-protect').appendTo($cactions_list);
 
 		$('#p-cactions').removeClass('emptyPortlet');
 	}
@@ -335,7 +366,6 @@ mw.loader.using(['mediawiki.util'], function () {
 		var day_ms = 24 * 60 * 60 * 1000;
 		var days = Math.floor(diff_ms / day_ms);
 
-		// floor short intervals
 		if (days < 1) {
 			return 'reviewed today';
 		}
@@ -389,11 +419,9 @@ mw.loader.using(['mediawiki.util'], function () {
 		var timer = setInterval(function () {
 			apply_reviewed_label($relative, label);
 			tries += 1;
-
 			if (tries >= 12) {
 				clearInterval(timer);
 			}
-
 		}, 100);
 	}
 
@@ -435,34 +463,42 @@ mw.loader.using(['mediawiki.util'], function () {
 		var $list = $('<ul>').addClass('ow-help-portal__list citizen-menu__content-list');
 
 		help_portal_links.forEach(function (item) {
-			var href = mw.util.getUrl(item.title);
 			var is_current = current === item.title.replace(/ /g, '_');
-			var $a = $('<a>')
-				.attr('href', href)
-				.text(item.label);
+			var $li = $('<li>').addClass('mw-list-item');
 
 			if (is_current) {
-				$a.attr('aria-current', 'page');
+				$li.append(
+					$('<span>')
+						.addClass('ow-help-portal__current')
+						.attr('aria-current', 'page')
+						.text(item.label)
+				);
+			} else {
+				$li.append(
+					$('<a>')
+						.attr('href', mw.util.getUrl(item.title))
+						.text(item.label)
+				);
 			}
 
-			$list.append(
-				$('<li>')
-					.addClass('mw-list-item' + (is_current ? ' selected' : ''))
-					.append($a)
-			);
+			$list.append($li);
 		});
 
 		var $portal = $('<nav>')
-			.attr('id', 'ow-help-portal')
+			.attr({
+				id: 'ow-help-portal',
+				'aria-label': 'Help portal'
+			})
 			.addClass('citizen-menu ow-help-portal')
 			.append(
 				$('<div>').addClass('citizen-menu__heading').text('Help portal'),
 				$('<div>').addClass('citizen-menu__content').append($list)
 			);
 
+		// DOM order after TOC when present; CSS order keeps TOC first either way
 		var $toc = $sidebar.children('#citizen-toc');
 		if ($toc.length) {
-			$toc.before($portal);
+			$toc.after($portal);
 		} else {
 			$sidebar.prepend($portal);
 		}

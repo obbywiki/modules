@@ -185,7 +185,7 @@ width: 16px;
    height: 20px;
 }
 
-/* help namespace styling*/
+/* Help: namespace (ns-12) */
 
 .ns-12 .citizen-page-actions #p-views,
 .ns-12 .citizen-page-actions #p-associated-pages {
@@ -200,6 +200,42 @@ width: 16px;
 .ns-12 #ca-viewsource-sticky-header,
 .ns-12 #ca-addsection-sticky-header {
 	display: none;
+}
+
+/* Demote edit inside the "..." menu — no primary blue bar */
+.ns-12 #p-cactions #ca-edit a,
+.ns-12 #p-cactions #ca-ve-edit a,
+.ns-12 #p-cactions #ca-viewsource a {
+	background: transparent !important;
+	color: inherit !important;
+	font-weight: inherit !important;
+}
+
+.ns-12 #p-cactions #ca-edit a:hover,
+.ns-12 #p-cactions #ca-ve-edit a:hover,
+.ns-12 #p-cactions #ca-viewsource a:hover {
+	background: var(--background-color-interactive-subtle, rgba(255, 255, 255, 0.06)) !important;
+}
+
+/* Keep destructive admin actions out of casual help browsing */
+.ns-12 #ca-delete,
+.ns-12 #ca-move,
+.ns-12 #ca-protect {
+	display: none !important;
+}
+
+/* Section pencils: hover-only */
+.ns-12 .mw-editsection {
+	opacity: 0;
+	transition: opacity var(--transition-duration-base, 0.15s) ease;
+}
+
+.ns-12 .mw-heading:hover > .mw-editsection,
+.ns-12 .mw-heading:focus-within > .mw-editsection,
+.ns-12 .citizen-section-heading:hover > .mw-editsection,
+.ns-12 .citizen-section-heading:focus-within > .mw-editsection,
+.ns-12 section[data-mw-section-id]:hover > .mw-heading > .mw-editsection {
+	opacity: 1;
 }
 
 .ns-12 .ow-help-badge {
@@ -220,26 +256,31 @@ width: 16px;
 	user-select: none;
 }
 
-.ns-12 #ow-help-portal {
+/* Page-local TOC first, then help siblings, then reviewed */
+.ns-12 #citizen-toc {
 	order: 1;
 }
 
-.ns-12 #citizen-sidebar-lastmod {
+.ns-12 #ow-help-portal {
 	order: 2;
 }
 
-.ns-12 #citizen-toc {
+.ns-12 #citizen-sidebar-lastmod {
 	order: 3;
 }
 
 .ns-12 #ow-help-portal .citizen-menu__heading {
+	color: var(--color-subtle);
+	font-size: var(--font-size-x-small, 0.75rem);
+	font-weight: var(--font-weight-normal, 400);
 	letter-spacing: 0.04em;
+	pointer-events: none;
 }
 
 .ns-12 #ow-help-portal .ow-help-portal__list {
 	display: flex;
 	flex-direction: column;
-	gap: 0.15rem;
+	gap: 0.1rem;
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -249,26 +290,19 @@ width: 16px;
 	display: block;
 	padding: 0.25rem 0.4rem;
 	border-radius: var(--border-radius-base, 0.25rem);
-	color: var(--color-base);
+	color: var(--color-base) !important;
 	text-decoration: none;
 }
 
 .ns-12 #ow-help-portal .ow-help-portal__list a:hover {
-	background: var(--color-surface-2, rgba(0, 0, 0, 0.04));
+	background: var(--color-surface-2, rgba(255, 255, 255, 0.06));
 }
 
-.ns-12 #ow-help-portal .ow-help-portal__list .selected > a,
-.ns-12 #ow-help-portal .ow-help-portal__list a[aria-current="page"] {
+/* Current page: inert, not a competing link */
+.ns-12 #ow-help-portal .ow-help-portal__current {
+	display: block;
+	padding: 0.25rem 0.4rem;
+	color: var(--color-subtle);
 	font-weight: var(--font-weight-medium, 500);
-	color: var(--color-progressive, var(--color-base));
-}
-
-.ns-12 .mw-parser-output > ol,
-.ns-12 .mw-parser-output :is(h2, h3, h4) + ol {
-	padding-left: 1.4rem;
-}
-
-.ns-12 .mw-parser-output > ol > li,
-.ns-12 .mw-parser-output :is(h2, h3, h4) + ol > li {
-	margin-block: 0.35em;
+	cursor: default;
 }
