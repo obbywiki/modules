@@ -1,3 +1,5 @@
+--- @class WikiInfobox
+
 local WikiInfobox = {}
 
 local months_full = {'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'}
@@ -89,6 +91,14 @@ local wiki_schema = {
     pages = 'Integer',
 }
 
+--- Declares the schema for the WikiInfobox.
+---
+--- @within WikiInfobox
+--- @private
+--- @param frame table -- The frame object
+---
+--- @return string -- Returns the declared as a string.
+
 -- from ObbyGameInfobox
 function WikiInfobox.declare(frame)
 	local declare_args = {}
@@ -104,6 +114,15 @@ function WikiInfobox.declare(frame)
     return frame:callParserFunction{ name = '#cargo_declare', args = declare_args }
 end
 
+--- Stores the data for the WikiInfobox.
+---
+--- @within WikiInfobox
+--- @private
+--- @param frame table -- The frame object
+--- @param data table -- The data to store
+---
+--- @return string -- Returns the stored as a string.
+
 function WikiInfobox.store(frame, data)
 	local store_args = { '_table=' .. wiki_schema._table }
 
@@ -115,6 +134,14 @@ function WikiInfobox.store(frame, data)
 
 	return frame:callParserFunction{ name = '#cargo_store', args = store_args }
 end
+
+--- Renders the WikiInfobox as a string.
+---
+--- @within WikiInfobox
+--- @private
+--- @param frame table -- The frame object
+---
+--- @return string -- Returns the rendered as a string.
 
 function WikiInfobox.main( frame )
     local InfoboxNeue = require( 'Module:InfoboxNeue' )
