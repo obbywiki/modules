@@ -88,7 +88,7 @@ function PlayerObbiesList.main( frame )
         local total_likes = tonumber(v.likes) or 0
         local total_dislikes = tonumber(v.dislikes) or 0
 
-        const m_y = `{month_by_index(tonumber(v.month))} {v.year}`
+        local m_y = `{month_by_index(tonumber(v.month))} {v.year}`
 
         row:tag("td"):wikitext(`[[{v.name}]]`)
         row:tag("td"):wikitext(`{get_comma_val(v.visits)}`)

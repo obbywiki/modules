@@ -3,11 +3,13 @@ on:
   push:
     paths:
       - 'modules/**'
-      - 'modules/*'
+      - '.luacheckrc'
+      - '.github/workflows/luacheck.yml'
   pull_request:
     paths:
       - 'modules/**'
-      - 'modules/*'
+      - '.luacheckrc'
+      - '.github/workflows/luacheck.yml'
 
 jobs:
   luacheck:

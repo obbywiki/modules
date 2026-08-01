@@ -1,0 +1,56 @@
+name: Darklua
+on:
+  # push:
+  #   paths:
+  #     - 'modules/**/*.module.luau'
+  #     - '.darklua.json5'
+  #     - 'scripts/polyfill.js'
+  #     - 'scripts/compatibility.js'
+  #     - 'scripts/compat/**'
+  #     - '.github/workflows/darklua.yml'
+  pull_request:
+    paths:
+      - 'modules/**/*.module.luau'
+      - '.darklua.json5'
+      - 'scripts/polyfill.js'
+      - 'scripts/compatibility.js'
+      - 'scripts/compat/**'
+      - '.github/workflows/darklua.yml'
+
+jobs:
+  darklua:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Darklua
+        run: |
+          wget -q https://github.com/seaofvoices/darklua/releases/download/v0.19.0/darklua-linux-x86_64.zip
+          unzip -q darklua-linux-x86_64.zip
+          chmod +x darklua
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup Lua 5.1
+        uses: leafo/gh-actions-lua@v12
+        with:
+          luaVersion: "5.1.5"
+
+      - name: Transpile all Luau modules
+        shell: bash
+        run: |
+          set -euo pipefail
+          out_dir="$(mktemp -d)"
+          while IFS= read -r -d '' path; do
+            rel="${path#modules/}"
+            out_path="${out_dir}/${rel%.module.luau}.module.lua"
+            mkdir -p "$(dirname "$out_path")"
+            ./darklua process --config .darklua.json5 "$path" "$out_path"
+            node scripts/polyfill.js "$out_path"
+            node scripts/compatibility.js "$out_path"
+            luac -p "$out_path"
+          done < <(find modules -type f -name '*.module.luau' -print0)

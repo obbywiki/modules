@@ -6,15 +6,23 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky",
-    "lint:wikitext": "wikilint --config enwiki --recursive --ext .wikitext --no-color ."
+    "lint:wikitext": "wikilint --config enwiki --recursive --ext .wikitext --no-color .",
+    "lint:css": "stylelint \"**/*.css\"",
+    "lint:i18n": "node scripts/check-i18n-keys.js",
+    "lint:js": "eslint \"mediawiki/**/*.js\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.12.1",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.8.0",
+    "globals": "^17.8.0",
     "husky": "^9.1.7",
     "moonwave": "^1.4.2",
+    "stylelint": "^17.14.1",
+    "stylelint-config-standard": "^40.0.0",
     "wikilint": "^2.46.2"
   }
 }

@@ -1,0 +1,7 @@
+---
+base: luau
+globals:
+  mw:
+    any: true
+  unpack:
+    any: true

@@ -1,11 +1,11 @@
-const p = {}
+local p = {}
 
-const navplate = require( 'Module:Navplate' )
+local navplate = require( 'Module:Navplate' )
 
-const cargo = mw.ext.cargo
+local cargo = mw.ext.cargo
 
 local function render()
-    const results = cargo.query(
+    local results = cargo.query(
         'Wikis',
         '_pageName, name, domain_no_protocol, platform, pages',
         {
@@ -21,7 +21,7 @@ local function render()
     local platforms = {}
 
     for _, row in ipairs( results ) do
-        const label = row.platform or 'Other'
+        local label = row.platform or 'Other'
         local label2 = tonumber(row.pages) <= 10 and 'sub10' or tonumber(row.pages) <= 50 and 'sub50' or tonumber(row.pages) <= 100 and 'sub100' or tonumber(row.pages) <= 500 and 'sub500' or 'post500'
 
         if not grouping[label] then

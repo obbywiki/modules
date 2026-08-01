@@ -23,10 +23,10 @@ jQuery( function ( $ ) {
   $( '#t-upload' ).attr("href", "/wiki/Special:Upload");
 });
 
-const a = document.querySelector('#t-upload > a');
-
-a.setAttribute('href', '/wiki/Special:Upload')
-
+var upload_link = document.querySelector('#t-upload > a');
+if (upload_link) {
+  upload_link.setAttribute('href', '/wiki/Special:Upload');
+}
 /**
  * Redirects %2527 to %27
 */
@@ -83,11 +83,6 @@ mw.hook('wikipage.content').add(function ($content) {
         // Touch and Mouse Drag Support
         let isDragging = false;
         let startX = 0;
-        let currentTranslate = 0;
-        let prevTranslate = 0;
-        // let animationID; // Unused
-        // let autoSlideInterval; // Removed in favor of CSS animation sync
-
         // Drive auto-slide via CSS animation end event
         // The progress bar animation determines the timing. 
         // When it ends, we go to next slide.
@@ -158,13 +153,11 @@ mw.hook('wikipage.content').add(function ($content) {
             if (!isDragging) return;
             const currentX = getPositionX(event);
             const diff = currentX - startX;
-            const walk = diff * 1.5; // Sensitivity
 
             // Calculate potential translation
             // -currentIndex * 100 is base percentage. We need to convert pixel diff to percentage relative to track width
             const trackWidth = $carousel.width();
-            const translateOffset = (diff / trackWidth) * 100;
-            const currentPercentage = -(currentIndex * 100) + translateOffset;
+            const translateOffset = (diff / trackWidth) * 100;            const currentPercentage = -(currentIndex * 100) + translateOffset;
 
             $track.css('transform', `translateX(${currentPercentage}%)`);
         }
