@@ -4,10 +4,10 @@ exclude = [
   "modules/shared/_imported/**",
   "*.d.lua",
   "*.d.luau",
+  "modules/common/**",
 ]
 
 [lints]
-# Common in Scribunto/MediaWiki module style; keep structural issues.
 multiple_statements = "allow"
 empty_if = "allow"
 unused_variable = "allow"
