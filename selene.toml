@@ -11,3 +11,4 @@ exclude = [
 multiple_statements = "allow"
 empty_if = "allow"
 unused_variable = "allow"
+mixed_table = "allow"
