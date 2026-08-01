@@ -1,0 +1,7 @@
+{
+  "rules": {
+    "no-arg": "off",
+    "unknown-page": "off",
+    "lonely-http": "off"
+  }
+}

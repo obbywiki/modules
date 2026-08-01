@@ -1,0 +1,34 @@
+name: WikiLint
+on:
+  push:
+    paths:
+      - '**/*.wikitext'
+      - '.wikilintrc.json'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/wikilint.yml'
+  pull_request:
+    paths:
+      - '**/*.wikitext'
+      - '.wikilintrc.json'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/wikilint.yml'
+
+jobs:
+  wikilint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Lint wikitext
+        run: pnpm lint:wikitext
