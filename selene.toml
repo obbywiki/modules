@@ -4,7 +4,11 @@ exclude = [
   "modules/shared/_imported/**",
   "*.d.lua",
   "*.d.luau",
-  "modules/common/**",
+  "modules/**/scw:*",
+  "modules/**/w:*",
+  "modules/**/runescape:*",
+  "modules/**/utgw:*",
+  "modules/**/i:*",
 ]
 
 [lints]
