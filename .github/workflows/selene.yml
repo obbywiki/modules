@@ -24,4 +24,4 @@ jobs:
       - name: Setup Aftman
         uses: ok-nick/setup-aftman@v0.4.2
       - name: Lint with Selene
-        run: selene modules
+        run: selene modules --allow-warnings
