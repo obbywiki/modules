@@ -141,12 +141,13 @@ html.technical-info-clientpref-0 .infobox__section[data-source-title="Technical"
 
 /* make the random obby button look like a sub-action */
 
-.citizen-menu__content #n-randomobby {
+.citizen-menu__content #n-randomobby a {
     min-height: 0px;
     margin-left: 1rem;
     height: 2rem;
     color: var(--color-base--subtle);
 }
+
 .mw-ui-icon-controller::before {
     background-color: transparent;
 }
