@@ -132,10 +132,19 @@ html.technical-info-clientpref-0 .infobox__section[data-source-title="Technical"
 
 /* extra sidebar icons */
 
-.mw-ui-icon-controller::before { 
+/* .mw-ui-icon-controller::before { 
    -webkit-mask-image: url("https://2q2bp9cu5u.ufs.sh/f/jHfjIa1SBA5fpSiBSBJgqywLYCGxut7EZvFN4M0ebkJcaizR");
    mask-image: url("https://2q2bp9cu5u.ufs.sh/f/jHfjIa1SBA5fpSiBSBJgqywLYCGxut7EZvFN4M0ebkJcaizR");
    background-color: currentColor;
+} */
+
+/* make the random obby button look like a sub-action */
+
+.citizen-menu__content #n-randomobby {
+    min-height: 0px;
+    margin-left: 1rem;
+    height: 2rem;
+    color: var(--color-base--subtle);
 }
 
 #p-navigation .citizen-keyboard-hint-key {
