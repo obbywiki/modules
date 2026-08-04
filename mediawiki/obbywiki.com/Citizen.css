@@ -21,6 +21,23 @@ details[open]::details-content {
 	opacity: 1;
 }
 
+/* blog background */
+
+/* background adapted from https://stellasora.miraheze.org/wiki/Stella_Sora_Wiki */
+.ns-3008 .citizen-page-container::before {
+    background-image: url("https://2q2bp9cu5u.ufs.sh/f/jHfjIa1SBA5fv3eQUBSGjTOVJINCb1Sfo4DyaLnhgZ7qHYQl");
+    background-position-x: center;
+    background-position-y: 70%;
+    background-size: cover;
+    block-size: 300px;
+    content: "";
+    inset: 0;
+    mask-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1) 50%, transparent 100% );
+    pointer-events: none;
+    position: absolute;
+    z-index: -1;
+}
+
 /* apply project meta css to every page in ns-4 (Project). its both cleaner and faster. also cache issues with the old {{CSS}} module. */
 
 .ns-4 .citizen-page-container::before {
