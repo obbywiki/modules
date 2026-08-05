@@ -2,8 +2,23 @@
 
 .ow-playability-box {
     padding: 0.75rem;
+}
+
+.ow-playability-box.verified {
     background-color: #1eac1e73;
     border: 2px solid green;
+    border-radius: var(--border-radius-large);
+}
+
+.ow-playability-box.unstable {
+    background-color: #d0a90f73;
+    border: 2px solid orange;
+    border-radius: var(--border-radius-large);
+}
+
+.ow-playability-box.broken {
+    background-color: #e51b0d73;
+    border: 2px solid red;
     border-radius: var(--border-radius-large);
 }
 

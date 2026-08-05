@@ -821,6 +821,18 @@ function ObbyGameInfobox.main( frame )
 	const playability_box = mw.html.create('div')
 	playability_box:addClass('ow-playability-box')
 
+	if obby_verified_status == 'verified' then
+		playability_box:addClass('verified')
+	end
+
+	if obby_verified_status == 'unstable' then
+		playability_box:addClass('unstable')
+	end
+
+	if obby_verified_status == 'does_not_load' then
+		playability_box:addClass('broken')
+	end
+
 	const playability_inner = playability_box:tag('div')
 
 	playability_inner:wikitext( obby_verified_status == 'verified' and '[[File:Verified-check-green-96.webp|36px|alt=Verified|link=]]' or (obby_verified_status == 'unstable' or obby_verified_status == 'broken' or obby_verified_status == 'does_not_load') and '[[File:Verified-dash-red-72.webp|36px|alt=Unstable|link=]]' or obby_verified_status == 'unknown' and '[[File:Verified-dash-orange-72.webp|36px|alt=Unknown|link=]]\n')
