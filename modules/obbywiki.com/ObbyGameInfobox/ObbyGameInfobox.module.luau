@@ -825,7 +825,7 @@ function ObbyGameInfobox.main( frame )
 		playability_box:addClass('verified')
 	end
 
-	if obby_verified_status == 'unstable' then
+	if obby_verified_status == 'unstable' or obby_verified_status == 'unknown' then
 		playability_box:addClass('unstable')
 	end
 
