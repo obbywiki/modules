@@ -1,5 +1,14 @@
 /* playability */
 
 .ow-playability-box {
-    display: none;
+    padding: 0.75rem;
+    background-color: #1eac1e73;
+    border: 2px solid green;
+    border-radius: var(--border-radius-large);
+}
+
+.ow-playability-box div {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
 }
