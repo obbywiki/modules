@@ -798,23 +798,43 @@ function ObbyGameInfobox.main( frame )
 	local verified_info_key = verified_info_map[obby_verified_status] or 'verified_unknown'
 	local verified_info_text = i18n:get(verified_info_key)
 
+	-- test:renderSection({
+	-- 	title = i18n:get('section_playability'),
+	-- 	col = 2,
+	-- 	content = {
+	-- 		test:renderItem(
+	-- 			{
+	-- 				label = i18n:get('field_status'),
+	-- 				plainlinks_enabled = true,
+	-- 				data = obby_verified_status == 'verified' and '[[File:Verified-check-green-96.webp|36px|alt=Verified|link=]]' or (obby_verified_status == 'unstable' or obby_verified_status == 'broken' or obby_verified_status == 'does_not_load') and '[[File:Verified-dash-red-72.webp|36px|alt=Unstable|link=]]' or obby_verified_status == 'unknown' and '[[File:Verified-dash-orange-72.webp|36px|alt=Unknown|link=]]'
+	-- 			}
+	-- 		),
+	-- 		test:renderItem(
+	-- 			{
+	-- 				label = i18n:get('field_info'),
+	-- 				data = verified_info_text
+	-- 			}
+	-- 		)
+	-- 	}
+	-- })
+
 	test:renderSection({
 		title = i18n:get('section_playability'),
 		col = 2,
 		content = {
 			test:renderItem(
 				{
-					label = i18n:get('field_status'),
+					label = '',
+					colspan = 2,
 					plainlinks_enabled = true,
-					data = obby_verified_status == 'verified' and '[[File:Verified-check-green-96.webp|36px|alt=Verified|link=]]' or (obby_verified_status == 'unstable' or obby_verified_status == 'broken' or obby_verified_status == 'does_not_load') and '[[File:Verified-dash-red-72.webp|36px|alt=Unstable|link=]]' or obby_verified_status == 'unknown' and '[[File:Verified-dash-orange-72.webp|36px|alt=Unknown|link=]]'
+					data = mw.html.create('div')
+						:addClass('ow-playability-box')
+						:tag('div')
+						:wikitext( obby_verified_status == 'verified' and '[[File:Verified-check-green-96.webp|36px|alt=Verified|link=]]' or (obby_verified_status == 'unstable' or obby_verified_status == 'broken' or obby_verified_status == 'does_not_load') and '[[File:Verified-dash-red-72.webp|36px|alt=Unstable|link=]]' or obby_verified_status == 'unknown' and '[[File:Verified-dash-orange-72.webp|36px|alt=Unknown|link=]]')
+						:tag('br')
+						:wikitext(verified_info_text)
 				}
 			),
-			test:renderItem(
-				{
-					label = i18n:get('field_info'),
-					data = verified_info_text
-				}
-			)
 		}
 	})
 
@@ -1150,7 +1170,7 @@ function ObbyGameInfobox.main( frame )
 		append_categories = new_append_categories
 	end
 
-    return frame:preprocess(shortdesc) .. rendered .. (cargo_debug_res or '') .. (cargo_store_res or '') .. '\n' .. table.concat(append_categories, '\n')
+    return frame:preprocess(shortdesc) .. rendered .. (cargo_debug_res or '') .. (cargo_store_res or '') .. '\n' .. table.concat(append_categories, '\n') .. frame:extensionTag('templatestyles', '', { src = 'Module:ObbyGameInfobox/styles.css' })
 end
 
 return ObbyGameInfobox
