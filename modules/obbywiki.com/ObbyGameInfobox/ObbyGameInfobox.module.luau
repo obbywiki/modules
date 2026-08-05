@@ -818,6 +818,14 @@ function ObbyGameInfobox.main( frame )
 	-- 	}
 	-- })
 
+	const playability_box = mw.html.create('div')
+	playability_box:addClass('ow-playability-box')
+
+	const playability_inner = playability_box:tag('div')
+
+	playability_inner:wikitext( obby_verified_status == 'verified' and '[[File:Verified-check-green-96.webp|36px|alt=Verified|link=]]' or (obby_verified_status == 'unstable' or obby_verified_status == 'broken' or obby_verified_status == 'does_not_load') and '[[File:Verified-dash-red-72.webp|36px|alt=Unstable|link=]]' or obby_verified_status == 'unknown' and '[[File:Verified-dash-orange-72.webp|36px|alt=Unknown|link=]]\n')
+	playability_inner:wikitext(verified_info_text)
+
 	test:renderSection({
 		title = i18n:get('section_playability'),
 		col = 2,
@@ -827,11 +835,7 @@ function ObbyGameInfobox.main( frame )
 					label = '',
 					colspan = 2,
 					plainlinks_enabled = true,
-					data = mw.html.create('div')
-						:addClass('ow-playability-box')
-						:tag('div')
-						:wikitext( obby_verified_status == 'verified' and '[[File:Verified-check-green-96.webp|36px|alt=Verified|link=]]' or (obby_verified_status == 'unstable' or obby_verified_status == 'broken' or obby_verified_status == 'does_not_load') and '[[File:Verified-dash-red-72.webp|36px|alt=Unstable|link=]]' or obby_verified_status == 'unknown' and '[[File:Verified-dash-orange-72.webp|36px|alt=Unknown|link=]]\n')
-						:wikitext(verified_info_text)
+					data = tostring(playability_box)
 				}
 			),
 		}
