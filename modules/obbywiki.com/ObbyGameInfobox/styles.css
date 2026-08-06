@@ -6,9 +6,13 @@
 }
 
 .ow-playability-box.verified {
-    background-color: #1eac1e73;
+    background-color: #88ff8873;
     border: 2px solid green;
     border-radius: var(--border-radius-large);
+}
+
+.skin-theme-clientpref-night .ow-playability-box.verified {
+    background-color: #01760173;
 }
 
 .ow-playability-box.unstable {
@@ -35,12 +39,12 @@
 
 }
 
-.ow-playability-box--text .header span {
+.ow-playability-box--text .header {
     color: var(--color-emphasized);
     font-weight: var(--font-weight-bold);
 }
 
-.ow-playability-box--text .details span {
+.ow-playability-box--text .details {
     color: var(--color-subtle);
 }
 
