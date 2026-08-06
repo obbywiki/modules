@@ -847,6 +847,10 @@ function ObbyGameInfobox.main( frame )
 	playability_text:tag('span'):addClass('header'):wikitext(verified_info_text_header)
 	playability_text:tag('span'):addClass('details'):wikitext(verified_info_text_details)
 
+	playability_box:tag('span')
+            :addClass('ow-playability-box--link')
+            :wikitext('[[Obby_Wiki:Playability]]')
+
 	test:renderSection({
 		title = i18n:get('section_playability'),
 		col = 2,
