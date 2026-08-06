@@ -141,7 +141,9 @@ html.technical-info-clientpref-0 .infobox__section[data-source-title="Technical"
 
 /* make the random obby button look like a sub-action */
 
-.citizen-menu__content #n-randomobby a {
+.citizen-menu__content #n-randomobby a,
+.citizen-menu__content #n-randomwiki a,
+.citizen-menu__content #n-randomstudio a {
     min-height: 0px;
     margin-left: 1rem;
     height: 2rem;

@@ -1,0 +1,57 @@
+
+* navigation
+** mainpage|mainpage-description
+** recentchanges-url|recentchanges
+** randompage-url|randompage
+** randomobby-url|randomobby
+** randomstudio-url|randomstudio
+** randomwiki-url|randomwiki
+* SEARCH
+* LANGUAGES
+* Obby Sub-genres
+** Category:Classic_Obby|Classic Obbies
+** Category:Tower_Obby|Tower Obbies
+** Category:Tower_Stage_Obby|Tower Stage Obbies
+** Category:Time_Trial_Obby|Time Trial Obbies
+** Category:Difficulty_Chart_Obby|Difficulty Chart Obbies
+Category:Gimmick_Obby|Gimmick Obbies
+** Category:Tier_Obby|Tier Obbies
+* General
+** Category:Obby|Obbies
+** Category:Developer|Developers
+<!--** Category:Publisher|Publishers-->
+** Category:Studio|Studios
+** Category:Community|Community
+** Category:Content_Creator|Content Creators
+** Category:Difficulty|Difficulties
+<!--** Category:Glitch|Glitches-->
+** Obby|About Obbies
+* Popular Obbies
+<!--** Flood_Escape_2|Flood Escape 2-->
+** obby_but_you're_a_bird|obby but you're a bird
+** Master's_Difficulty_Chart_Obby|Master's Difficulty Chart Obby
+** Tower Of Fantasy|Tower Of Fantasy
+** Eternal_Towers_of_Hell|Eternal Towers of Hell
+<!--** NO_JUMPING_OBBY|NO JUMPING OBBY-->
+* Development
+** Development:Get_Started|Get Started
+** Category:Obby_System|Obby Systems
+<!--** EToH_Kit|EToH Kit v5.5-->
+* Misc
+** Special:AllPages|Timeline
+** Special:AllPages|Wiki Integration
+** :Category:{{CURRENTMONTHNAME}} {{CURRENTYEAR}}|Releases this month
+* Wiki
+** Project:About|About
+** Help:Contributing|Contributing
+** helppage|help-mediawiki
+<!--** Project:Style_Guide|Style Guide-->
+** Project:Attributions|Wiki Attributions & Credits
+** Special:AllPages|allpages
+** Special:RobloxPlaceMediaExtractor|Roblox Place Media Extractor
+* External
+** https://wou.gg|WOU.gg
+** |sidebar-label-socials
+** https://github.com/obbywiki|sidebar-icon-github
+** |sidebar-label-featured-release
+** Autumn_Stage_Tower|Autumn Stage Tower
