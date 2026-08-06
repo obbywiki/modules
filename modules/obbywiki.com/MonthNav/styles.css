@@ -11,8 +11,8 @@
     flex: 1 1 calc(16% - 12px);
     min-width: 90px;
     padding: 15px 5px;
-    background-color: var(--background-color-interactive-subtle, #f8f9fa);
-    border: 1px solid var(--border-color-base, #a2a9b1);
+    background-color: var(--background-color-interactive-subtle);
+    border: 1px solid var(--border-color-base);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -22,8 +22,8 @@
 }
 
 .ow-month-card:hover {
-    background-color: var(--background-color-interactive, #eaecf0);
-    border-color: var(--border-color-primary, #36c);
+    background-color: var(--background-color-interactive);
+    border-color: var(--border-color-primary);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -74,8 +74,8 @@
     min-width: 16px;
     max-width: 60px;
     padding: 5px 4px;
-    background-color: var(--background-color-interactive-subtle, #f8f9fa);
-    border: 1px solid var(--border-color-base, #a2a9b1);
+    background-color: var(--background-color-interactive-subtle);
+    border: 1px solid var(--border-color-base);
     border-radius: 3rem;
     display: flex;
     flex-direction: column;

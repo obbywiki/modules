@@ -69,7 +69,7 @@ function p.draw(frame)
             :wikitext('[[:Category:' .. current_month_name .. '_' .. v .. ' ]]')
     end
 
-    return frame:extensionTag('templatestyles', '', { src = 'Template:MonthNav/styles.css' }) .. frame:preprocess(meta) .. precontent .. tostring(container) .. '\n' .. tostring(years_container)
+    return frame:extensionTag('templatestyles', '', { src = 'Module:MonthNav/styles.css' }) .. frame:preprocess(meta) .. precontent .. tostring(container) .. '\n' .. tostring(years_container)
 end
 
 return p
