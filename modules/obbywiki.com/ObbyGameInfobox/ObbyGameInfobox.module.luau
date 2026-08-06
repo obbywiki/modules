@@ -796,7 +796,9 @@ function ObbyGameInfobox.main( frame )
 		['does_not_load'] = 'verified_does_not_load'
 	}
 	local verified_info_key = verified_info_map[obby_verified_status] or 'verified_unknown'
-	local verified_info_text = i18n:get(verified_info_key)
+
+	local verified_info_text_header = i18n:get(`{verified_info_key}_header`)
+	local verified_info_text_details = i18n:get(`{verified_info_key}_details`)
 
 	-- test:renderSection({
 	-- 	title = i18n:get('section_playability'),
@@ -836,7 +838,11 @@ function ObbyGameInfobox.main( frame )
 	const playability_inner = playability_box:tag('div')
 
 	playability_inner:wikitext( obby_verified_status == 'verified' and '[[File:Verified-check-green-96.webp|36px|alt=Verified|link=]]' or (obby_verified_status == 'unstable' or obby_verified_status == 'broken' or obby_verified_status == 'does_not_load') and '[[File:Verified-dash-red-72.webp|36px|alt=Unstable|link=]]' or obby_verified_status == 'unknown' and '[[File:Verified-dash-orange-72.webp|36px|alt=Unknown|link=]]\n')
-	playability_inner:wikitext(verified_info_text)
+	
+	const playability_text = playability_inner:tag('div')
+
+	playability_text:tag('span'):addClass('header'):wikitext(verified_info_text_header)
+	playability_text:tag('span'):addClass('details'):wikitext(verified_info_text_details)
 
 	test:renderSection({
 		title = i18n:get('section_playability'),

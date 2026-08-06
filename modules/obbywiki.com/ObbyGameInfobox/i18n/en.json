@@ -104,11 +104,16 @@
 
   "genre_obby": "Obby & Platformer",
 
-  "verified_verified": "Verified - Fully Possible - All Devices",
-  "verified_unstable": "Unstable - Partially Possible - Some Devices",
-  "verified_broken": "Broken - Not Possible",
-  "verified_does_not_load": "Unplayable - Does not load",
-  "verified_unknown": "Unknown",
+  "verified_verified_header": "Verified",
+  "verified_verified_details": "Fully Possible - All Devices",
+  "verified_unstable_header": "Unstable",
+  "verified_unstable_details": "Partially Possible - Some Devices",
+  "verified_broken_header": "Broken",
+  "verified_broken_details": "Not Possible",
+  "verified_does_not_load_header": "Unplayable",
+  "verified_does_not_load_details": "Does not load",
+  "verified_unknown_header": "Unknown",
+  "verified_unknown_header_details": "No details",
 
   "ai_branding": "Use in branding, promotional images, or other",
   "ai_stated_none": "The developer has stated that no GenAI was used.",

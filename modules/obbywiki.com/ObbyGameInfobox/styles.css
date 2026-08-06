@@ -27,3 +27,7 @@
     gap: 1rem;
     align-items: center;
 }
+
+.ow-playability-text.details span {
+    color: var(--color-subtle);
+}
