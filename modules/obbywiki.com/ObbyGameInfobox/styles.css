@@ -34,11 +34,11 @@
 
 }
 
-.ow-playability-box--text.header span {
+.ow-playability-box--text .header span {
     color: var(--color-emphasized);
     font-weight: var(--font-weight-bold);
 }
 
-.ow-playability-box--text.details span {
+.ow-playability-box--text .details span {
     color: var(--color-subtle);
 }
