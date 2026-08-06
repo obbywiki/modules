@@ -836,10 +836,13 @@ function ObbyGameInfobox.main( frame )
 	end
 
 	const playability_inner = playability_box:tag('div')
+	playability_box:addClass('ow-playability-box--inner')
 
 	playability_inner:wikitext( obby_verified_status == 'verified' and '[[File:Verified-check-green-96.webp|36px|alt=Verified|link=]]' or (obby_verified_status == 'unstable' or obby_verified_status == 'broken' or obby_verified_status == 'does_not_load') and '[[File:Verified-dash-red-72.webp|36px|alt=Unstable|link=]]' or obby_verified_status == 'unknown' and '[[File:Verified-dash-orange-72.webp|36px|alt=Unknown|link=]]\n')
 	
 	const playability_text = playability_inner:tag('div')
+
+	playability_text:addClass('ow-playability-box--text')
 
 	playability_text:tag('span'):addClass('header'):wikitext(verified_info_text_header)
 	playability_text:tag('span'):addClass('details'):wikitext(verified_info_text_details)

@@ -22,12 +22,23 @@
     border-radius: var(--border-radius-large);
 }
 
-.ow-playability-box div {
+.ow-playability-box--inner {
     display: flex;
     gap: 1rem;
     align-items: center;
 }
 
-.ow-playability-text.details span {
+.ow-playability-box--text {
+    display: grid;
+    margin-left: 0.5rem;
+
+}
+
+.ow-playability-box--text.header span {
+    color: var(--color-emphasized);
+    font-weight: var(--font-weight-bold);
+}
+
+.ow-playability-box--text.details span {
     color: var(--color-subtle);
 }
