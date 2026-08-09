@@ -19,4 +19,8 @@ function p.doc( frame )
     )
 end
 
+function p.main ( frame )
+    return p.doc(frame)
+end
+
 return p
