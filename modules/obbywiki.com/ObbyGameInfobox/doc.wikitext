@@ -1,3 +1,4 @@
+{{Documentation}}
 {{ImportantModule}}
 
 Please refer to any documentation for the Obby Infobox template at: https://obby.wiki/Template:ObbyGameInfobox.
