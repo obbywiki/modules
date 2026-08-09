@@ -18,3 +18,5 @@ function p.doc( frame )
         { icon = 'WikimediaUI-Code.svg' }
     )
 end
+
+return p
