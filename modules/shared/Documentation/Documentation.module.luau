@@ -22,8 +22,16 @@ function p.doc( frame )
     if args.luau then
         table.insert(rets, mbox(
             `'''{title}''' was automatically transpiled from Luau.`,
-            `This module was originally written in Luau. The code on this page was transpiled from the original Luau source code to be compatible with Lua 5.1.5. Transpilated code is not intended to be viewed by humans, and reading it may be difficult. Language features such as types and comments have been removed. Please view the original module's code on [https://github.com/obbywiki/modules GitHub].`,
+            `This module was originally written in Luau. The code on this page was transpiled from the original Luau source code to be compatible with Lua 5.1.5. Transpilated code is not intended to be viewed by humans, and reading it may be difficult. Language features such as types and comments have been removed. Please view the module's original code on [https://github.com/obbywiki/modules GitHub].`,
             { icon = 'Luau.svg' }
+        ))
+    end
+
+    if args.important then
+        table.insert(rets, mbox(
+            `'''{title}''' is heavily used across the Obby Wiki.`,
+            `This {page_type} has been marked as important. A breaking change could damage the functionality of the Obby Wiki largely. Be careful when making edits.`,
+            { icon = 'WikimediaUI-Code.svg' }
         ))
     end
 
