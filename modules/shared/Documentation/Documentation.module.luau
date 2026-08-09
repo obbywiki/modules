@@ -39,7 +39,7 @@ function p.doc( frame )
         table.insert(rets, mbox(
             `'''{title}''' is heavily used across the Obby Wiki.`,
             `This {page_type} has been marked as important. A breaking change could damage the functionality of the Obby Wiki largely. Be careful when making edits.`,
-            { icon = 'WikimediaUI-Code.svg' }
+            { icon = 'OOjs_UI_icon_alert.svg' }
         ))
     end
 
