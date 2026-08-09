@@ -12,8 +12,8 @@ function p.doc( frame )
 
     local banners = {}
 
-    if args.imported then
-        if args.imported == 'wikipedia' then
+    if args.imported or args.wikipedia then
+        if args.imported == 'wikipedia' or args.wikipedia then
             table.insert(banners, mbox(
                 `'''{title}''' was imported from [https://en.wikipedia.org/wiki/{title} {title}] on Wikipedia.`,
                 `This {page_type} was imported from the English Wikipedia originally, but may contain modifications.`,
