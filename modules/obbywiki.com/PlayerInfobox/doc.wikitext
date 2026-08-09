@@ -1,5 +1,4 @@
-{{ImportantModule}}
-{{SharedModule}}
+{{Documentation|synced=true|luau=true|important=true|agpl=true|owsmt_location=obbywiki.com/PlayerInfobox}}
 
 Please refer to any documentation for the Player Infobox template at: https://obbywiki.com/wiki/Template:PlayerInfobox.
 
