@@ -1,4 +1,4 @@
-{{Documentation|synced=true|luau=true|important=true}}
+{{Documentation|synced=true|luau=true|important=true|agpl=true}}
 
 Please refer to any documentation for the Obby Infobox template at: https://obby.wiki/Template:ObbyGameInfobox.
 

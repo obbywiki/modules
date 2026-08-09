@@ -19,6 +19,14 @@ function p.doc( frame )
         ))
     end
 
+    if args.agpl then
+        table.insert(rets, mbox(
+            `'''{title}''' is licensed under [https://obby.wiki/Obby_Wiki:Attributions AGPL v3].`,
+            `This {page_type} was (likely) made by the Obby Wiki and is licensed under the [https://obby.wiki/Obby_Wiki:Attributions GNU Affero General Public License v3.0] and has its origin available publicly on the [https://github.com/obbywiki/modules OWSMT] repository on GitHub. However, the modules, templates, and other resources it may depend on are subject to their own licenses, especially resources that are imported.`,
+            { icon = 'OOjs_UI_icon_key.svg' }
+        ))
+    end
+
     if args.luau then
         table.insert(rets, mbox(
             `'''{title}''' was automatically transpiled from Luau.`,
