@@ -1,0 +1,1 @@
+{{Documentation|synced=true|luau=true|agpl=true|owsmt_location=obbywiki.com/WikiInfobox}}
