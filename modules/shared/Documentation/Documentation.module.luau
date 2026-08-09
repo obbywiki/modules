@@ -13,7 +13,7 @@ function p.doc( frame )
 
     if args.synced then
         table.insert(rets, mbox(
-            `'''{title}''' is maintained and synced from the [https://github.com/obbywiki/modules OWSMT] repository on GitHub`,
+            `'''{title}''' is maintained and synced from the [https://github.com/obbywiki/modules OWSMT] repository on GitHub.`,
             `This {page_type} is synced from the upstream OWSMT repository. Any changes should be made or proposed on GitHub, as upstream changes will overwrite any changes here.`,
             { icon = 'WikimediaUI-Code.svg' }
         ))
@@ -21,9 +21,9 @@ function p.doc( frame )
 
     if args.luau then
         table.insert(rets, mbox(
-            `'''{title}''' is automatically transpiled from Luau on sync`,
-            `This module was originally written in Luau. The code on this page was transpiled from Luau to be compatible with Lua 5.1.5 and may look odd. Please view the original module's code on [https://github.com/obbywiki/modules GitHub].`,
-            { icon = 'WikimediaUI-Code.svg' }
+            `'''{title}''' was automatically transpiled from Luau.`,
+            `This module was originally written in Luau. The code on this page was transpiled from the original Luau source code to be compatible with Lua 5.1.5. Transpilated code is not intended to be viewed by humans, and reading it may be difficult. Language features such as types and comments have been removed. Please view the original module's code on [https://github.com/obbywiki/modules GitHub].`,
+            { icon = 'Luau.svg' }
         ))
     end
 
