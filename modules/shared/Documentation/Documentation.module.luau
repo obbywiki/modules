@@ -11,13 +11,13 @@ function p.doc( frame )
 
     local rets = {}
 
-    if args.synced == true then
+    -- if args.synced == true then
         table.insert(rets, mbox(
             `{title} is maintained and synced from the [https://github.com/obbywiki/modules OWSMT] repository on GitHub`,
             `This {page_type} is synced from the upstream OWSMT repository. Any changes should be made or proposed on GitHub, as upstream changes will overwrite any changes here.`,
             { icon = 'WikimediaUI-Code.svg' }
         ))
-    end
+    -- end
 
     return table.concat(rets)
 end
