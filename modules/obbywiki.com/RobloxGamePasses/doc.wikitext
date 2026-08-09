@@ -1,0 +1,3 @@
+{{Documentation|synced=true|luau=true|important=true|agpl=true|owsmt_location=obbywiki.com/RobloxGamePasses}}
+
+RobloxGamePasses collects and displays game passes from any given Roblox game via its universe ID alone.
