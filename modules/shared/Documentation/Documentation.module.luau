@@ -2,6 +2,7 @@ local p = {}
 
 local libutil = require('libraryUtil')
 local mbox = require( 'Module:Mbox' )._mbox
+local hatnote = require( 'Module:Hatnote' )._hatnote
 
 function p.doc( frame )
     local title = mw.title.getCurrentTitle()
@@ -40,6 +41,13 @@ function p.doc( frame )
             `'''{title}''' is heavily used across the Obby Wiki.`,
             `This {page_type} has been marked as important. A breaking change could damage the functionality of the Obby Wiki largely. Be careful when making edits.`,
             { icon = 'OOjs_UI_icon_alert.svg' }
+        ))
+    end
+
+    if mw.title.new( title.fullText .. '/styles.css' ).exists then
+        table.insert(rets, hatnote(
+            `'''{title}''' loads styles from [[{title.fullText}/styles.css]]`,
+            { icon = 'WikimediaUI-Palette.svg' }
         ))
     end
 

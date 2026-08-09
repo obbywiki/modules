@@ -1,0 +1,3 @@
+{{Documentation|synced=true}}
+
+The implementation of this module was inspired by the Star Citizen Wiki, with some implementations adapted.
