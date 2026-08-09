@@ -1,3 +1,5 @@
+# currently disabled because it does not support current luau syntax (consts)
+
 name: Selene
 on:
   push:
