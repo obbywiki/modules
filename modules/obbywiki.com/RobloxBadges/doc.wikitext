@@ -1,0 +1,3 @@
+{{Documentation|synced=true|luau=true|important=true|agpl=true|owsmt_location=obbywiki.com/RobloxBadges}}
+
+RobloxBadges collects and displays badges from any given Roblox game via its universe ID alone.
