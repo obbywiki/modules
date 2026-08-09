@@ -41,11 +41,21 @@ function p.doc( frame )
     end
 
     if args.synced then
-        table.insert(banners, mbox(
-            `'''{title}''' is maintained and synced from the [https://github.com/obbywiki/modules OWSMT] repository on GitHub.`,
-            `This {page_type} is synced from the upstream OWSMT repository. Any changes should be made or proposed on GitHub, as upstream changes will overwrite any changes here.`,
-            { icon = 'WikimediaUI-Code.svg' }
-        ))
+        if args.owsmt_location then
+            const owsmt_approx = `https://github.com/obbywiki/modules/blob/main/{page_type}s/{args.owsmt_location}`
+
+            table.insert(banners, mbox(
+                `'''{title}''' is maintained and synced from the [https://github.com/obbywiki/modules OWSMT] repository on GitHub.`,
+                `This {page_type} is synced from the upstream OWSMT repository. Any changes should be made or proposed on GitHub, as upstream changes will overwrite any changes here.`,
+                { icon = 'WikimediaUI-Code.svg' }
+            ))
+        else
+            table.insert(banners, mbox(
+                `'''{title}''' is maintained and synced from the [https://github.com/obbywiki/modules OWSMT] repository on GitHub.`,
+                `This {page_type} is synced from the upstream OWSMT repository. Any changes should be made or proposed on GitHub, as upstream changes will overwrite any changes here.`,
+                { icon = 'WikimediaUI-Code.svg' }
+            ))
+        end
     end
 
     if args.agpl then
