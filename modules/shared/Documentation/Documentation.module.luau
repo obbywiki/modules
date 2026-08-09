@@ -31,6 +31,12 @@ function p.doc( frame )
                 `This {page_type} was imported from the English Star Citizen Wiki originally, but may contain modifications.`,
                 { icon = 'OOjs_UI_icon_download.svg' }
             ))
+        elseif args.imported == 'rs' or args.imported == 'runescape' then
+            table.insert(banners, mbox(
+                `'''{title}''' was imported from [https://runescape.wiki/w/{title} {title}] on the Runescape Wiki.`,
+                `This {page_type} was imported from the Runescape Wiki originally, but may contain modifications.`,
+                { icon = 'OOjs_UI_icon_download.svg' }
+            ))
         end
     end
 
