@@ -45,7 +45,7 @@ function p.doc( frame )
             const owsmt_approx = `https://github.com/obbywiki/modules/blob/main/{page_type}s/{args.owsmt_location}`
 
             table.insert(banners, mbox(
-                `'''{title}''' is maintained and synced from the [https://github.com/obbywiki/modules OWSMT] repository on GitHub.`,
+                `'''{title}''' is maintained and synced from the [{owsmt_approx} OWSMT] repository on GitHub.`,
                 `This {page_type} is synced from the upstream OWSMT repository. Any changes should be made or proposed on GitHub, as upstream changes will overwrite any changes here.`,
                 { icon = 'WikimediaUI-Code.svg' }
             ))

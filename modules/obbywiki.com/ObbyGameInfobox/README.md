@@ -13,4 +13,4 @@ The 2nd version of the Obby infobox, succeeding `{{Obby}}`.
 * InfoboxNeue
 * i18n2
 * Arguments
-* edge.obbywiki.com
+* edge.obbywiki.com (OW infra; dependent on roblox.com availability)
