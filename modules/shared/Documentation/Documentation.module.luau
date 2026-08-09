@@ -89,6 +89,16 @@ function p.doc( frame )
         ))
     end
 
+    if page_type == 'module' then
+        if mw.title.new( title.fullText .. '/i18n/en.json', 'Module' ).exists or mw.title.new( title.fullText .. '/i18n/qqq.json', 'Module' ).exists then
+            table.insert(banners, mbox(
+                `'''{title}''' has existing strings available.`,
+                `This {page_type} has i18n strings associated with it.`,
+                { icon = 'OOjs_UI_icon_language-ltr.svg' }
+            ))
+        end
+    end
+
     return table.concat(banners)
 end
 
