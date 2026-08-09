@@ -13,6 +13,23 @@
 
 This is the OWSMT repository, also known as the Obby Wiki Shared Modules and Templates repository. This is the central repository where the majority of OW-developed modules and templates are stored in their raw source form, often in Luau.
 
+## 1.1. Layout
+
+The layout and organization of this repository is governed by WikiWire's format:
+
+* `modules/` for modules,
+* `templates/` for templates,
+* and `mediawiki/` for all MediaWiki: namespace items/pages
+
+Under any of these folders are three types of sub-folders:
+
+* host folders (i.e., obbywiki.com) that contain modules only for that specific site (i.e., ObbyGameInfobox)
+* the shared folder or shared site-groups folders
+* the common folder
+* (as well as any junk folders like _legacy)
+
+More information on WikiWire here: https://github.com/obbywiki/wikiwire
+
 # 2. Why Luau?
 
 Some people may believe that Luau is Roblox-specific and can only be used in Roblox. While Luau is both developed by Roblox and most commonly applied to that use case, many programmers have built tooling around Luau because of its worthwhile benefits over vanilla Lua. In this case, Luau is not used directly, as Scribunto and MediaWiki do not support it. Instead, here, Luau is transpiled to Lua via the automated production CI pipeline (WikiWire & DarkLua) and patched with the necessary polyfills and compatibility scripts to function correctly.
