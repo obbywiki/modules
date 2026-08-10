@@ -1,0 +1,363 @@
+a[href$=":Wlft"] {
+    color: #00ff00;
+    font-weight: bold;
+}
+
+a[href$=":ObbyWikiBot"] {
+    color: #0061F3;
+    font-weight: bold;
+}
+
+a[href$=":WikiWireBot"] {
+    color: #0061F3;
+    font-weight: bold;
+}
+
+/*CALLOUT*/
+.ow-callout {
+    --ow-callout-color: var(--color-progressive, #36c);
+
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+    margin: 1rem 0;
+    padding: 12px 14px 12px 6px;
+    border: 1px solid var(--border-color-base, rgba(0, 0, 0, 0.08));
+    border-radius: 12px;
+    background: var(--color-surface-1, #fff);
+    font-size: 0.875rem;
+    line-height: 1.55;
+}
+
+.ow-callout-bar {
+    flex-shrink: 0;
+    width: 3px;
+    border-radius: 2px;
+    background: color-mix(in srgb, var(--ow-callout-color) 50%, transparent);
+}
+
+.ow-callout-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+}
+
+.ow-callout-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ow-callout-title {
+    margin: 0;
+    font-weight: 600;
+    font-size: large;
+    color: var(--color-emphasized);
+}
+
+.ow-callout-body {
+    color: var(--color-subtle);
+    margin: 0;
+}
+
+.ow-callout-body:empty {
+    display: none;
+}
+
+.ow-callout-body p {
+    margin: 0;
+}
+
+.ow-callout--info {
+    --ow-callout-color: var(--color-progressive, #36c);
+}
+.ow-callout--info .ow-callout-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%233366cc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 16v-4'/%3E%3Cpath d='M12 8h.01'/%3E%3C/svg%3E");
+}
+
+.ow-callout--warning {
+    --ow-callout-color: var(--color-warning, #edab00);
+}
+.ow-callout--warning .ow-callout-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23edab00' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/%3E%3Cpath d='M12 9v4'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E");
+}
+
+.ow-callout--error {
+    --ow-callout-color: var(--color-destructive, #d33);
+}
+.ow-callout--error .ow-callout-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d33' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m15 9-6 6'/%3E%3Cpath d='m9 9 6 6'/%3E%3C/svg%3E");
+}
+
+.ow-callout--success {
+    --ow-callout-color: var(--color-success, #14866d);
+}
+.ow-callout--success .ow-callout-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2314866d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E");
+}
+
+/* --- */
+
+.ns-category-talk li#ca-talk {
+    display: none;
+}
+
+/*EXPERIMENTAL*/
+
+/* Infobox Carousel Styles */
+.infobox__carousel {
+    position: relative;
+    width: 100%;
+    margin-bottom: 8px;
+    /* Standard spacing for infobox items */
+    user-select: none;
+}
+
+.infobox__carousel-wrapper {
+    overflow: hidden;
+    width: 100%;
+    border-radius: var(--border-radius-base, 2px);
+    /* Use variable */
+    position: relative;
+    /* Ensure overlay positions correctly */
+}
+
+/* Gradient Overlay */
+/* Gradient Overlay */
+.infobox__carousel-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to bottom, transparent, var(--color-surface-1));
+    /* Match surface color */
+    z-index: 1;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.infobox__carousel:hover .infobox__carousel-wrapper::after {
+    opacity: 0.2;
+    /* Reduce on hover to reveal image */
+}
+
+.infobox__carousel-track {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    /* Smooth eased slide */
+    width: 100%;
+}
+
+.infobox__carousel-item {
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infobox__carousel-item img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    user-drag: none;
+}
+
+.infobox__carousel-btn {
+    position: absolute;
+    top: 50%;
+    background: rgba(0, 0, 0, 0.4);
+    
+    color: rgba(255, 255, 255, 0.9);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 14px;
+    z-index: 2;
+    border-radius: var(--border-radius-base, 2px);
+
+    
+    opacity: 0;
+    
+    transition: opacity 0.2s ease, background 0.2s ease, transform var(--transition-duration-base) ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+}
+
+.infobox__carousel:hover .infobox__carousel-btn {
+    opacity: 1;
+}
+
+.infobox__carousel-btn:hover {
+    background: var(--background-color-progressive, #00aff0);
+	transform: scale(1.1);
+    color: #fff;
+}
+
+.infobox__carousel-prev {
+    left: 8px;
+    /* Added spacing */
+}
+
+.infobox__carousel-next {
+    right: 8px;
+    /* Added spacing */
+}
+
+.infobox__carousel-indicators {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    z-index: 2;
+    padding: 8px 0;
+    background-image: linear-gradient(to bottom,transparent,var(--color-surface-1)100%);
+}
+
+.infobox__carousel-dot {
+    width: 32px;
+    height: 4px;
+    border-radius: var(--border-radius-base, 2px);
+    background: rgb(from var(--color-emphasized) r g b / 0.2);
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.infobox__carousel-dot.active {
+    background: rgb(from var(--color-emphasized) r g b / 0.6);
+}
+
+.infobox__carousel-dot.active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #55acff;
+    transform: translateX(-100%);
+    animation: carousel-progress 5s linear forwards;
+}
+
+.infobox__carousel:hover .infobox__carousel-dot.active::after {
+    animation-play-state: paused;
+}
+
+@keyframes carousel-progress {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0%);
+    }
+}
+
+.infobox__carousel-wrapper.is-dragging {
+    cursor: grabbing;
+}
+
+//---
+
+#ca-talk {
+   display: none !important;
+}
+
+/**
+.mw-parser-output a.external::after {
+   display: none !important;
+}
+**/
+
+span.border-radius-8px a img {
+   border-radius: 8px;
+}
+
+.social-icon{
+transition-property: all;
+transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+transition-duration: 300ms; 
+margin: 4px;
+font-size: 30px;
+width: 40px;
+opacity: 0.5; 
+}
+
+.skin-theme-clientpref-day .social-icon {
+	filter: invert(1);
+}
+
+.social-icon:hover{
+opacity: 1; 
+}
+
+/* --- Timeline --- */
+
+
+.citizen-timeline {
+	position: relative;
+	margin: 2em 0;
+	padding-left: 30px;
+	border-left: 3px solid var(--color-surface-4, #b4bdec);
+	display: flow-root;
+}
+
+.timeline-event {
+	position: relative;
+	margin-bottom: 2em;
+}
+
+.timeline-point {
+	position: absolute;
+	left: -38px;
+	top: 5px;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background-color: var(--color-surface-0, #eff2fc);
+	border: 3px solid var(--color-primary, #0059ff);
+	z-index: 1;
+}
+
+.timeline-date {
+	font-weight: bold;
+	color: var(--color-emphasized, #282d52);
+	margin-bottom: 0.5em;
+}
+
+.timeline-title {
+	font-weight: bold;
+	color: var(--color-emphasized, #282d52);
+	margin-bottom: 0.3em;
+	font-size: 1.1em;
+}
+
+.timeline-subtext {
+	font-size: 0.85em;
+	color: var(--color-text-secondary, #6a7187);
+	font-weight: normal;
+	margin-top: -0.2em;
+	margin-bottom: 0.5em;
+}
+
+.timeline-content a {
+	color: var(--color-link, #0059ff);
+}
