@@ -1,0 +1,3 @@
+{{Documentation|synced=true|luau=true|important=true|agpl=true|owsmt_location=obbywiki.com/ContributingBanner}}
+
+ContributingBanner is used on [[Help:Contributing]] to guide new potential contributors to the right place faster.

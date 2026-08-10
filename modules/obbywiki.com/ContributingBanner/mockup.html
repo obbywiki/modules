@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 160px;
+        }
+
+        .ow-cb-container {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            gap: 20px
+        }
+
+        .ow-cb-container div {
+            background-color: darkslategrey;
+            position: relative;
+            isolation: isolate;
+            border-radius: 20px;
+            color: white;
+            min-height: 200px;
+            background-image: url('https://obby.wiki/extensions/ObbyWikiHomePage/resources/images/cl/ow_cl_v2_1_1x.webp');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1 1 0;
+            overflow: hidden;
+            background-repeat: no-repeat;
+        }
+
+        .ow-cb-container div::before {
+            background-color: rgba(0,0,0,0.40);
+            position: absolute;
+            inset: 0;
+            content: '';
+            border-radius: inherit;
+            z-index: 1;
+        }
+
+        .ow-cb-container div span {
+            z-index: 2;
+            position: relative;
+            padding: 0.5rem 0.75rem;
+            overflow: hidden;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    Create a new article
+    <br />
+    <br />
+    <div class="ow-cb-container">
+        <div>
+            <span>
+                Obby Article
+            </span>
+        </div>
+
+        <div>
+            <span>
+                Developer Article
+            </span>
+        </div>
+
+        <div>
+            <span>
+                Studio Article
+            </span>
+        </div>
+    </div>
+</body>
+</html>
