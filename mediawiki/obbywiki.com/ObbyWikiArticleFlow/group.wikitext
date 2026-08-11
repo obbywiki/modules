@@ -1,0 +1,16 @@
+== meta ==
+api_key|group
+default_variation|default
+id_param|group_id
+questions_intro|Paste a Roblox group URL or enter the numeric group ID to automatically load the group's data and prefill the page for you.
+customize_intro|Choose what kind of group page you want, then continue to fetch Roblox data.
+
+== questions ==
+* group_id|type=text|normalize=roblox_group_id|label=Group ID|help=Accepts a numeric group ID or a Roblox group URL (e.g. /groups/235710202/...)|required=1|placeholder=https://www.roblox.com/groups/235710202/Towerable
+* social_links|type=social_bundle|phase=postfetch|required=0|collapsed=1|platforms=discord,x_twitter,youtube,twitch,website|label_i18n=owaf-group-social-links-label
+
+== customize ==
+* type|type=variation|label=Type of group
+
+== variations ==
+* Studio|variation_id=default|template=Template:ArticleFlow/Group/Studio|default=1

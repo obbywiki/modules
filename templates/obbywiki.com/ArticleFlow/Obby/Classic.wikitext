@@ -1,0 +1,96 @@
+{{ObbyGameInfobox
+| name = {{PAGENAME}}
+| image = {{OWAF:thumbnail_file}}
+| root_place_id = {{OWAF:root_place_id}}
+| developer = {{OWAF:developer}}
+| subgenre = classic
+| maturity = {{OWAF:maturity}}
+| year = {{OWAF:year}}
+| month = {{OWAF:month}}
+| tier = {{OWAF:tier}} <!-- leave 0 if unknown -->
+
+| stages = {{OWAF:stages}}
+| stages_total = {{OWAF:stages_total}}
+
+| avatar_type = {{OWAF:avatar_type}}
+| verified = {{OWAF:verified}}
+| ai = {{OWAF:ai}}
+| unreleased = {{OWAF:unreleased}}
+| system = {{OWAF:system}}
+
+| peak_ccu = {{OWAF:peak_ccu}}
+
+| discord = {{OWAF:discord}}
+| twitter = {{OWAF:x_twitter}}
+| youtube = {{OWAF:youtube}}
+| website = {{OWAF:website}}
+
+| pc = true
+| tablet = true
+| phone = true
+| vr = true
+| console = true
+}}
+
+{{Stub}} <!-- Remove the Stub notice when this page is long enough -->
+
+'''{{PAGENAME}}''' is...
+
+= Trivia =
+* <!-- replace this comment with some random fact, like "You can press R to reset and go back to your checkpoint quickly" -->
+
+= Development Team =
+
+== Core Developers ==
+{{OWAF:developer_wiki_list_item}}
+<!-- OR: There are no other known core developers for {{PAGENAME}} currently. -->
+
+== Contributors ==
+{{OWAF:contributors_wiki_list_item}}
+<!-- OR: There are no other known contributors for {{PAGENAME}} currently. -->
+
+= Media =
+== Thumbnails ==
+<tabber>
+|-|English=
+<gallery mode="packed" widths=300>
+{{OWAF:thumbnail_gallery}}
+</gallery>
+</tabber>
+
+== Icons ==
+<tabber>
+|-|English=
+<gallery mode="packed" widths=300>
+{{OWAF:icon_gallery}}
+</gallery>
+</tabber>
+
+== Trailers ==
+
+This obby has no official trailers about it and no other video advertising.
+
+== Community Videos ==
+
+Currently, there are no known relevant community videos featuring this obby yet.
+
+= Promotional Codes =
+
+No known promotional or in-game codes exist or have been found for this obby.
+
+= FAQ =
+{{ObbyFAQ}} <!-- auto faq questions and answers, use the {{FAQ}} template to add your own -->
+
+= Monetization =
+
+== Passes ==
+
+{{RobloxGamePasses|uid={{OWAF:universe_id}}}}
+
+= Badges =
+{{RobloxBadges|uid={{OWAF:universe_id}}}}
+
+=References=
+<references />
+
+{{AlsoBy|{{OWAF:developer}}}}

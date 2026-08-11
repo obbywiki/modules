@@ -1,0 +1,17 @@
+== Obby ==
+* Obby|flow:obby
+
+== Community ==
+* User|flow:player
+
+== Groups ==
+* Group|flow:group
+
+== Wikis ==
+* Wiki|flow:wiki
+
+== recommend ==
+* title_prefix|@|suggest_layout|flow:player|message|owaf-recommend-player-layout
+* title_regex|[oO][bB][bB][yY]|suggest_layout|flow:obby|message|owaf-recommend-obby-layout
+* title_regex|[tT][oO][wW][eE][rR]|suggest_layout|flow:obby|message|owaf-recommend-obby-layout
+* title_regex|[wW][iI][kK][iI]|suggest_layout|flow:wiki|message|owaf-recommend-obby-layout

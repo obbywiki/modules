@@ -1,0 +1,36 @@
+== meta ==
+api_key|obby
+default_variation|classic
+variation_template_prefix|Template:ArticleFlow/Obby
+customize_intro|Pick the obby genre that best matches this game. You can change infobox fields later in the editor.
+
+== customize ==
+* genre|type=variation|label=Obby genre
+
+== questions ==
+* root_place_id|type=text|normalize=roblox_place_id|label_i18n=owaf-root-place-id-label|help_i18n=owaf-root-place-id-help|required=1
+* stages|type=number|label=Stages|help=How many stages are currently playable?|required=0|phase=postfetch|min=0|default=0|total=1
+* difficulties|type=number|label=Difficulties|help=How many difficulties are currently playable?|required=0|phase=postfetch|min=0|default=0|total=1|variations=dco
+* towers|type=number|label_i18n=owaf-towers-label|help_i18n=owaf-towers-help|required=0|phase=postfetch|min=0|default=0|total=1|variations=tower
+
+* tier|type=select|label=Tier|help=Difficulty tier 0-18.|required=0|phase=postfetch|default=0|options=0=Unknown;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18
+
+* verified|type=select|label_i18n=owaf-verified-label|help_i18n=owaf-verified-help|placeholder_i18n=owaf-verified-placeholder|required=0|phase=postfetch|options=true=Verified;false=Unstable;broken=Broken;does_not_load=Does not load
+* maturity|type=select|label_i18n=owaf-maturity-label|help_i18n=owaf-maturity-help|required=0|phase=postfetch|options=minimal=Minimal;mild=Mild;mature=Mature;restricted=Restricted;none=None;na=Not applicable;unrated=Unrated
+* ai|type=select|label_i18n=owaf-ai-label|help_i18n=owaf-ai-help|required=0|phase=postfetch|default=unknown|options=unknown=Unknown;stated_none=No AI used;branding=Branding or thumbnails;description=Description
+* unreleased|type=checkbox|label_i18n=owaf-unreleased-label|help_i18n=owaf-unreleased-help|required=0|phase=postfetch|default=0
+* system|type=text|label_i18n=owaf-system-label|help_i18n=owaf-system-help|required=0|phase=postfetch
+* peak_ccu|type=number|label_i18n=owaf-peak-ccu-label|help_i18n=owaf-peak-ccu-help|required=0|phase=postfetch|min=0|default=0
+
+* social_links|type=social_bundle|phase=postfetch|required=0|collapsed=1|platforms=discord,x_twitter,youtube,website|label_i18n=owaf-obby-social-links-label
+
+== recommend ==
+* title_regex|[tT][oO][wW][eE][rR]|suggest_variation|tower
+* title_regex|[cC][hH][aA][rR][tT]|suggest_variation|dco
+
+
+== variations ==
+* Classic|variation_id=classic|template=Template:ArticleFlow/Obby/Classic|subgenre=classic|stages=0|towers=0|tier=0|maturity=minimal|default=1
+* Tower|variation_id=tower|template=Template:ArticleFlow/Obby/Tower|subgenre=tower|stages=0|towers=0|tier=0|maturity=minimal
+* Difficulty Chart Obby|variation_id=dco|template=Template:ArticleFlow/Obby/Difficulty_Chart_Obby|subgenre=dco|stages=0|difficulties=0|tier=0|maturity=minimal
+* Tier|variation_id=tier|template=Template:ArticleFlow/Obby/Tier|subgenre=tier|stages=0|towers=0|tier=0|maturity=minimal

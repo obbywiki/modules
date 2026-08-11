@@ -1,0 +1,15 @@
+== meta ==
+api_key|player
+default_variation|default
+id_param|user_id
+questions_intro|Paste a Roblox profile URL or enter the numeric user ID to automatically load the player's data and prefill the page for you.
+
+== questions ==
+* user_id|type=text|normalize=roblox_user_id|label_i18n=owaf-user-id-label|help_i18n=owaf-user-id-help|required=1|placeholder_i18n=owaf-user-id-placeholder
+
+== customize ==
+* type|type=variation|label=Type of player
+
+== variations ==
+* Regular Player|variation_id=default|template=Template:ArticleFlow/Player/Player|default=1
+* Developer|variation_id=developer|template=Template:ArticleFlow/Player/Developer

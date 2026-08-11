@@ -1,0 +1,24 @@
+{{DISPLAYTITLE:{{OWAF:name}}}}
+{{SHORTDESC:Obby Development Group - {{OWAF:creation_year}}}}
+
+{{GroupInfobox
+| name = {{PAGENAME}}
+| group_id = {{OWAF:group_id}}
+| image = {{OWAF:thumbnail_file}}
+| owner = @{{OWAF:owner}}
+| developers = @{{OWAF:owner}}
+| year = {{OWAF:creation_year}}
+| month = {{OWAF:creation_month}}
+| discord = {{OWAF:discord}}
+| twitter = {{OWAF:x_twitter}}
+| youtube = {{OWAF:youtube}}
+| twitch = {{OWAF:twitch}}
+| website = {{OWAF:website}}
+}}
+
+'''{{PAGENAME}}''' is a obby development group.
+
+= References =
+<references />
+
+{{AlsoBy|{{OWAF:name}}}}

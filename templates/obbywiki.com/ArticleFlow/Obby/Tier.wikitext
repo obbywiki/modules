@@ -1,0 +1,92 @@
+{{ObbyGameInfobox
+| name = {{PAGENAME}}
+| image = {{OWAF:thumbnail_file}}
+| root_place_id = {{OWAF:root_place_id}}
+| developer = {{OWAF:developer}}
+| subgenre = tier
+| maturity = {{OWAF:maturity}}
+| year = {{OWAF:year}}
+| month = {{OWAF:month}}
+| tier = {{OWAF:tier}}
+
+| avatar_type = {{OWAF:avatar_type}}
+| verified = {{OWAF:verified}}
+| ai = {{OWAF:ai}}
+| unreleased = {{OWAF:unreleased}}
+| system = {{OWAF:system}}
+
+| peak_ccu = {{OWAF:peak_ccu}}
+
+| discord = {{OWAF:discord}}
+| twitter = {{OWAF:x_twitter}}
+| youtube = {{OWAF:youtube}}
+| website = {{OWAF:website}}
+
+| pc = true
+| tablet = true
+| phone = true
+| vr = true
+| console = true
+}}
+
+{{Stub}}
+
+'''{{PAGENAME}}''' is a [[Tier Obby|tier {{OWAF:tier}} obby]] by [[{{OWAF:developer}}]].
+
+= Trivia =
+* {{PAGENAME}} was released to the public in [[:Category:{{OWAF:month:name}}|{{OWAF:month:name}}]] of [[:Category:{{OWAF:year}}|{{OWAF:year}}]] on Roblox.
+* {{if:tier}}While {{PAGENAME}} is rated at a [[:Category:Tier Obby/{{OWAF:tier}}|tier {{OWAF:tier}}]], its actual difficulty may vary.{{else}}{{PAGENAME}} has not been assigned a tier yet on the Obby Wiki. This can be because of many different reasons. If you know what tier this obby is, consider [{{fullurl:{{PAGENAME}}|veaction=edit}} editing this page] and adding the tier.{{/if}}
+
+= Development Team =
+
+== Core Developers ==
+{{if:developer_wiki_list_item}}{{OWAF:developer_wiki_list_item}}{{else}}There are no other known core developers for {{PAGENAME}} currently. If you know any core developers for {{PAGENAME}}, please help the ObbyWiki and [{{fullurl:{{PAGENAME}}|veaction=edit}} edit this page].{{/if}}
+
+== Contributors ==
+{{if:contributors_wiki_list_item}}{{OWAF:developer_wiki_list_item}}{{else}}There are no other known contributors for {{PAGENAME}} currently. If you know any contributors for {{PAGENAME}}, please help the ObbyWiki and [{{fullurl:{{PAGENAME}}|veaction=edit}} edit this page].{{/if}}
+
+= Media =
+== Thumbnails ==
+<tabber>
+|-|English=
+<gallery mode="packed" widths=300>
+{{OWAF:thumbnail_gallery}}
+</gallery>
+</tabber>
+
+== Icons ==
+<tabber>
+|-|English=
+<gallery mode="packed" widths=300>
+{{OWAF:icon_gallery}}
+</gallery>
+</tabber>
+
+== Trailers ==
+
+This obby has no official trailers about it and no other video advertising.
+
+== Community Videos ==
+
+Currently, there are no known relevant community videos featuring this obby yet.
+
+= Promotional Codes =
+
+No known promotional or in-game codes exist or have been found for this obby.
+
+= FAQ =
+{{ObbyFAQ}}
+
+= Monetization =
+
+== Passes ==
+
+{{RobloxGamePasses|uid={{OWAF:universe_id}}}}
+
+= Badges =
+{{RobloxBadges|uid={{OWAF:universe_id}}}}
+
+=References=
+<references />
+
+{{AlsoBy|{{OWAF:developer}}}}

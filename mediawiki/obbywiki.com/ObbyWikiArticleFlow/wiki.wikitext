@@ -1,0 +1,17 @@
+== meta ==
+default_variation|default
+
+== questions ==
+* wiki_domain|type=text|label=Wiki Domain|help=Requires a domain with no protocol or path|required=1|placeholder=mywiki.fandom.com
+* platform|type=select|label=Platform (host)|help=Where is the wiki hosted?|required=1|default=fandom|options=fandom=Fandom;miraheze=Miraheze;independent=Independent
+* year|type=number|label=Year Founded|help=What year was the wiki founded in? (Tip: view the first edit of the main page)|required=1|placeholder=2025
+* month|type=select|label=Month Founded|help=What month was the wiki founded in?|required=0|default=1|options=1=January;2=February;3=March;4=April;5=May;6=June;7=July;8=August;9=September;10=October;11=November;12=December
+* day|type=number|label=Founding Day|help=What day was the wiki founded on? (Tip: view the first edit of the main page)|required=1|placeholder=1
+* article_count|type=number|label=Articles|help=How many articles are on the wiki? (Tip: check Special:Statistics, this is listed under "content pages")|required=1|placeholder=0
+* all_pages|type=number|label=Total Pages|help=How many pages are on the wiki? (Tip: check Special:Statistics, this is listed under "total pages")|required=1|placeholder=0
+* active_members|type=number|label=Active Members|help=How active contributors are on the wiki?|required=1|placeholder=0
+* edits|type=number|label=Total Edits|help=The total number of edits on the wiki.|required=1|placeholder=0
+
+
+== variations ==
+* Wiki|variation_id=default|template=Template:ArticleFlow/Wiki|default=1

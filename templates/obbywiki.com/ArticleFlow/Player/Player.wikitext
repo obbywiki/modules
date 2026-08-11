@@ -1,0 +1,17 @@
+{{DEFAULTSORT:{{OWAF:username}}}}
+
+{{PlayerInfobox
+| id = {{OWAF:user_id}}
+| image = {{OWAF:image_file}}
+| headshot = {{OWAF:headshot_file}}
+| type = player
+}}
+
+{{Stub}} <!-- remove when page is big enough -->
+
+{{OWAF:username}} is an obby player on Roblox engaged in obbies and the obby community.
+
+= References =
+<references />
+
+{{AlsoBy|@{{OWAF:username}}}}

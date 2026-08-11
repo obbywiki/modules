@@ -1,0 +1,104 @@
+{{ObbyGameInfobox
+| name = {{PAGENAME}}
+| image = {{OWAF:thumbnail_file}}
+| root_place_id = {{OWAF:root_place_id}}
+| developer = {{OWAF:developer}}
+| subgenre = dco
+| maturity = {{OWAF:maturity}}
+| year = {{OWAF:year}}
+| month = {{OWAF:month}}
+| tier = {{OWAF:tier}} <!-- leave 0 if unknown -->
+
+| stages = {{OWAF:stages}}
+| stages_total = {{OWAF:stages_total}}
+| difficulties = {{OWAF:difficulties}}
+| difficulties_total = {{OWAF:difficulties_total}}
+
+| avatar_type = {{OWAF:avatar_type}}
+| verified = {{OWAF:verified}}
+| ai = {{OWAF:ai}}
+| unreleased = {{OWAF:unreleased}}
+| system = {{OWAF:system}}
+
+| peak_ccu = {{OWAF:peak_ccu}}
+
+| discord = {{OWAF:discord}}
+| twitter = {{OWAF:x_twitter}}
+| youtube = {{OWAF:youtube}}
+| website = {{OWAF:website}}
+
+| pc = true
+| tablet = true
+| phone = true
+| vr = true
+| console = true
+}}
+
+{{Stub}} <!-- Remove the Stub notice when this page is long enough -->
+
+'''{{PAGENAME}}''' is a [[Difficulty Chart Obby]] by [[{{OWAF:developer}}]] with {{OWAF:stages}} stages across {{OWAF:difficulties}} difficulties which overall {{if:tier}}is [[Tiers|rated at tier {{OWAF:tier}}]]{{else}}has not been rated with a [[Tiers|tier]]{{/if}}. {{PAGENAME}} was released to the public in [[:Category:{{OWAF:month:name}}|{{OWAF:month:name}}]] of [[:Category:{{OWAF:year}}|{{OWAF:year}}]] on Roblox{{if:stages_total}} and currently has {{OWAF:stages_total}} stages and {{OWAF:difficulties_total}} difficulties planned in total{{/if}}.
+
+= Gameplay =
+
+== Difficulties ==
+
+'''{{PAGENAME}}''' has '''{{OWAF:difficulties}} difficulties''' across '''{{OWAF:stages}} stages''' currently playable in-game as of now{{if:difficulties_total}}, with {{OWAF:difficulties_total}} difficulties planned in total{{/if}}.
+
+= Trivia =
+* You can press R to reset and go back to your checkpoint quickly.
+* Use the stage selector at the top of your screen to go back and forth between your reached checkpoints, or skip the stage you're at with Robux.
+{{if:tier}}* {{PAGENAME}} has been rated at a [[Tiers|tier {{OWAF:tier}}]].{{else}}* {{PAGENAME}} has not been rated with a [[Tiers|tier]] yet.{{/if}}
+
+= Development Team =
+
+== Core Developers ==
+{{if:developer_wiki_list_item}}{{OWAF:developer_wiki_list_item}}{{else}}There are no other known core developers for {{PAGENAME}} currently. If you know any core developers for {{PAGENAME}}, please help the ObbyWiki and [{{fullurl:{{PAGENAME}}|veaction=edit}} edit this page].{{/if}}
+
+== Contributors ==
+{{if:contributors_wiki_list_item}}{{OWAF:developer_wiki_list_item}}{{else}}There are no other known contributors for {{PAGENAME}} currently. If you know any contributors for {{PAGENAME}}, please help the ObbyWiki and [{{fullurl:{{PAGENAME}}|veaction=edit}} edit this page].{{/if}}
+
+= Media =
+== Thumbnails ==
+<tabber>
+|-|English=
+<gallery mode="packed" widths=300>
+{{OWAF:thumbnail_gallery}}
+</gallery>
+</tabber>
+
+== Icons ==
+<tabber>
+|-|English=
+<gallery mode="packed" widths=300>
+{{OWAF:icon_gallery}}
+</gallery>
+</tabber>
+
+== Trailers ==
+
+This obby has no official trailers about it and no other video advertising.
+
+== Community Videos ==
+
+Currently, there are no known relevant community videos featuring this obby yet.
+
+= Promotional Codes =
+
+No known promotional or in-game codes exist or have been found for this obby.
+
+= FAQ =
+{{ObbyFAQ}} <!-- auto faq questions and answers, use the {{FAQ}} template to add your own -->
+
+= Monetization =
+
+== Passes ==
+
+{{RobloxGamePasses|uid={{OWAF:universe_id}}}}
+
+= Badges =
+{{RobloxBadges|uid={{OWAF:universe_id}}}}
+
+=References=
+<references />
+
+{{AlsoBy|{{OWAF:developer}}}}

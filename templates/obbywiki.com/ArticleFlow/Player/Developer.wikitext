@@ -1,0 +1,19 @@
+{{PlayerInfobox
+| id = {{OWAF:user_id}}
+| image = {{OWAF:image_file}}
+| headshot = {{OWAF:headshot_file}}
+}}
+
+{{Stub}} <!-- remove when page is big enough -->
+
+{{OWAF:username}} is an obby developer on Roblox.
+
+= Obbies =
+{{PlayerObbiesList|username={{OWAF:username}}}}
+
+= References =
+<references />
+
+{{AlsoBy|@{{OWAF:username}}}}
+
+{{DEFAULTSORT:{{OWAF:username}}}}
