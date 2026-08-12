@@ -440,13 +440,18 @@ function PlayerInfobox.main( frame )
 	-- 	}
 	-- } )
 
+	local other_section = {
+		test:renderItem( 'Joined Roblox', player_creation_month .. ' ' .. player_creation_year )
+	}
+
+	if most_popular_group.name ~= '' then
+		table.insert(other_section, test:renderItem( 'Most Popular Group', `[[{most_popular_group.name}]] — {get_comma_val(tostring(most_popular_group.members))} members` ))
+	end
+
     test:renderSection( {
 		title = 'Other',
 		col = 2,
-		content = {
-			test:renderItem( 'Joined Roblox', player_creation_month .. ' ' .. player_creation_year ),
-			test:renderItem( 'Most Popular Group', `[[{most_popular_group.name}]] — {get_comma_val(tostring(most_popular_group.members))} members` ),
-		}
+		content = other_section
 	} )
 
 	local social_icons_wikitext = {}
