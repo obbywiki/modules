@@ -1,1 +1,1 @@
-⠀<div class="owaf-new-article-trigger">[[#|Several improvements have been made to the Article Flow modal for new users!]]</div>
+<div style="padding:8px;" class="owaf-new-article-trigger">[[#|Several improvements have been made to the Article Flow modal for new users!]]</div>
