@@ -1,0 +1,4 @@
+<div class="mbox mbox-autocat" role="presentation"><span class="mbox-title"><span class="mbox-icon metadata">[[File:OOjs_UI_icon_notice.svg|14px|link=]]</span>This category is automatically added to pages by the following template: {{Tl|{{{1}}}}}</span>
+<div class="mbox-text">This category is automatically added to by the {{Tl|{{{1}}}}} template. This category should not be deleted even if no pages are in it.</div>
+</div><templatestyles src="Module:Mbox/styles.css" /><includeonly>[[Category:Automatic Categories]]</includeonly><noinclude>
+{{/doc}}</noinclude>
