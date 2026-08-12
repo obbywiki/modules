@@ -54,6 +54,13 @@ details[open]::details-content {
     z-index: -1;
 }
 
+.ns-4 .citizen-header,
+.ns-3008 .citizen-header {
+    background-color: color-mix(in srgb,var(--color-surface-0) 55%,transparent) !important;
+    backdrop-filter: saturate(1.15) blur(16px);
+    -webkit-backdrop-filter: saturate(1.15) blur(16px);
+}
+
 .ns-4 .citizen-page-actions #p-views,
 .ns-4 .citizen-page-actions #p-associated-pages,
 .ns-4 .firstHeading-container .mw-indicators,
