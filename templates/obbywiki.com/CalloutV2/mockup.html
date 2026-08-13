@@ -12,7 +12,7 @@
             flex-wrap: wrap;
             gap: 10px;
             margin: 1rem 0;
-            background-color: #36c;
+            background-color: var(--ow-callout-color);
             color: white;
             padding: 16px;
             border-radius: 12px;
@@ -39,10 +39,35 @@
         }
 
         .ow-callout-2--info {
-            --ow-callout-color: var(#36c);
+            --ow-callout-color: #36c;
         }
+
         .ow-callout-2--info .ow-callout-2-icon {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='20px' viewBox='0 -960 960 960' width='20px' fill='%23FFFFFF'%3E%3Cpath d='M424-267h112v-261H424v261Zm98.5-335.86q17.5-16.87 17.5-42.75 0-25.89-16.86-43.14Q506.27-706 480.39-706q-25.89 0-43.14 16.86Q420-672.27 420-646.39q0 25.89 17.11 43.14Q454.23-586 479.61-586q25.39 0 42.89-16.86ZM480.28-50q-88.92 0-167.75-33.1-78.82-33.11-137.57-91.86T83.1-312.49Q50-391.28 50-480.46q0-89.44 33.16-167.49 33.17-78.05 92.18-136.94 59.01-58.89 137.53-92Q391.39-910 480.46-910q89.43 0 167.52 33.09 78.09 33.1 136.96 91.97 58.87 58.87 91.97 137.21Q910-569.38 910-480.19t-33.11 167.52q-33.11 78.32-92 137.33Q726-116.33 647.72-83.16 569.45-50 480.28-50Z'/%3E%3C/svg%3E");
+        }
+
+        .ow-callout-2--warning {
+            --ow-callout-color: #edab00;
+        }
+
+        .ow-callout-2--warning .ow-callout-2-icon {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='20px' viewBox='0 -960 960 960' width='20px' fill='%23FFFFFF'%3E%3Cpath d='m-1-111 481-805 481 805H-1Zm513.5-159.29q13.5-13.29 13.5-32t-13.29-32.21q-13.29-13.5-32-13.5T448-334.71q-14 13.29-14 32t13.79 32.21q13.79 13.5 32.5 13.5t32.21-13.29ZM439-382h82v-183h-82v183Z'/%3E%3C/svg%3E");
+        }
+
+        .ow-callout-2--error {
+            --ow-callout-color: #d33;
+        }
+
+        .ow-callout-2--error .ow-callout-2-icon {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='20px' viewBox='0 -960 960 960' width='20px' fill='%23FFFFFF'%3E%3Cpath d='M529-267.39q20-19.38 20-49 0-29.61-19.39-50.11-19.38-20.5-49-20.5Q451-387 431-366.89q-20 20.12-20 49.73 0 29.62 19.39 49.39 19.38 19.77 49 19.77Q509-248 529-267.39ZM416-431h128v-265H416v265Zm64.28 381q-88.92 0-167.75-33.1-78.82-33.11-137.57-91.86T83.1-312.49Q50-391.28 50-480.46q0-89.44 33.16-167.49 33.17-78.05 92.02-136.97 58.85-58.91 137.53-92Q391.39-910 480.46-910q89.43 0 167.47 33.08 78.04 33.09 136.97 92.02 58.93 58.93 92.02 137.22Q910-569.38 910-480.19q0 89.19-33.08 167.68-33.09 78.48-92 137.33-58.92 58.85-137.2 92.02Q569.45-50 480.28-50Z'/%3E%3C/svg%3E");
+        }
+
+        .ow-callout-2--success {
+            --ow-callout-color: #14866d;
+        }
+
+        .ow-callout-2--success .ow-callout-2-icon {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='20px' viewBox='0 -960 960 960' width='20px' fill='%23FFFFFF'%3E%3Cpath d='m426-308 261-261-84-86-177 176-74-73-85 86 159 158Zm54 258q-88.64 0-167.47-33.1-78.82-33.11-137.57-91.86T83.1-312.53Q50-391.36 50-480q0-89.9 33.16-167.95 33.17-78.05 92.02-136.97 58.85-58.91 137.57-92Q391.48-910 480-910q89.89 0 167.93 33.08 78.04 33.09 136.97 92.02 58.93 58.93 92.02 137Q910-569.83 910-479.92q0 88.92-33.08 167.41-33.09 78.48-92 137.33Q726-116.33 647.95-83.16 569.9-50 480-50Z'/%3E%3C/svg%3E");
         }
 
         .ow-callout-2-head {
@@ -59,7 +84,7 @@
     </style>
 </head>
 <body>
-    <div class="ow-callout-2 ow-callout-2--info">
+    <div class="ow-callout-2 ow-callout-2--success">
         <div class="ow-callout-2-head">
             <div class="ow-callout-2-icon"></div>
             <p class="ow-callout-2-title">{{{title}}}</p>
