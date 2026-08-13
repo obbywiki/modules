@@ -4,7 +4,8 @@
     flex-wrap: wrap;
     gap: 10px;
     margin: 1rem 0;
-    background-color: var(--ow-callout-color);
+    background-color: var(--color-surface-2);
+    border: 3px solid var(--ow-callout-color);
     color: white;
     padding: 16px;
     border-radius: 12px;
@@ -72,4 +73,5 @@
 .ow-callout-2-title {
     margin: 0;
     font-weight: bold;
+    font-size: medium;
 }
