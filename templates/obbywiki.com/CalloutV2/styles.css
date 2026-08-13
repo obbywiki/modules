@@ -1,0 +1,50 @@
+.ow-callout-2 {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 1rem 0;
+    background-color: #36c;
+    color: white;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    line-height: 1.55;
+}
+
+.ow-callout-2-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+}
+
+.ow-callout-2-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    gap: 4px;
+}
+
+.ow-callout-2--info {
+    --ow-callout-color: var(#36c);
+}
+.ow-callout-2--info .ow-callout-2-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='20px' viewBox='0 -960 960 960' width='20px' fill='%23FFFFFF'%3E%3Cpath d='M424-267h112v-261H424v261Zm98.5-335.86q17.5-16.87 17.5-42.75 0-25.89-16.86-43.14Q506.27-706 480.39-706q-25.89 0-43.14 16.86Q420-672.27 420-646.39q0 25.89 17.11 43.14Q454.23-586 479.61-586q25.39 0 42.89-16.86ZM480.28-50q-88.92 0-167.75-33.1-78.82-33.11-137.57-91.86T83.1-312.49Q50-391.28 50-480.46q0-89.44 33.16-167.49 33.17-78.05 92.18-136.94 59.01-58.89 137.53-92Q391.39-910 480.46-910q89.43 0 167.52 33.09 78.09 33.1 136.96 91.97 58.87 58.87 91.97 137.21Q910-569.38 910-480.19t-33.11 167.52q-33.11 78.32-92 137.33Q726-116.33 647.72-83.16 569.45-50 480.28-50Z'/%3E%3C/svg%3E");
+}
+
+.ow-callout-2-head {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+}
+
+.ow-callout-2-title {
+    margin: 0;
+    font-weight: bold;
+}

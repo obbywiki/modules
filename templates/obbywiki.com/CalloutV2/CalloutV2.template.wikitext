@@ -1,0 +1,10 @@
+<div class="ow-callout-2 ow-callout-2--{{lc:{{{type|info}}}}}">
+    <div class="ow-callout-2-head">
+        <div class="ow-callout-2-icon"></div>
+        {{#if:{{{title|}}}|<p class="ow-callout-2-title">{{{title}}}</p>}}
+    </div>
+    <div class="ow-callout-2-content">
+        <div class="ow-callout-2-body">{{{body|{{{1|}}}}}}</div>
+    </div>
+</div>
+<templatestyles src="Template:CalloutV2/styles.css" />
