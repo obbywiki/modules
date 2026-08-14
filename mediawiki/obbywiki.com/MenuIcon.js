@@ -55,7 +55,7 @@
 			if (target && target.parentNode) {
 				popoutData.forEach(relatedWikisConfig => {
 					const popoutElement = createPopout(relatedWikisConfig);
-					target.parentNode.insertBefore(popoutElement, target);
+					target.insertBefore(popoutElement, target);
 				});
 			}
 			
