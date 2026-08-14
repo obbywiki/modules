@@ -51,7 +51,7 @@
 			});
 		
 			// 1. Create and insert popout menus
-			const target = document.querySelector('.citizen-header__inner');
+			const target = document.querySelector('.citizen-header__end');
 			if (target && target.parentNode) {
 				popoutData.forEach(relatedWikisConfig => {
 					const popoutElement = createPopout(relatedWikisConfig);
