@@ -1,4 +1,4 @@
-// imported from https://dev.miraheze.org/w/index.php?title=User:Splatched/MenuIcon.js&action=raw&ctype=text/javascript 2026-08-14
+// imported from https://dev.miraheze.org/w/index.php?title=User:Splatched/MenuIcon.js&action=raw&ctype=text/javascript 2026-08-14 (modified)
 // thank you https://aurorcorporation.miraheze.org
 
 (function() {
@@ -25,8 +25,8 @@
 				`).join(``);
 						popoutWrapper.innerHTML = `
 					<details class="citizen-dropdown-details">
-						<summary class="citizen-dropdown-summary" title="${popoutHeading}" aria-details="citizen-relatedwikis__card">
-							<img width="24" height="24" class="${popoutClass}" src="${popoutIcon}"></img>
+						<summary class="citizen-dropdown-summary citizen-cdx-button--size-large cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--icon-only cdx-button--weight-quiet" title="${popoutHeading}" aria-details="citizen-relatedwikis__card">
+							<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" aria-hidden="true" focusable="false" fill="currentColor"><path d="M153.78-47.78q-44.3 0-75.15-30.85-30.85-30.85-30.85-75.15v-572.44h106v572.44h572.44v106H153.78Zm186-186q-44.3 0-75.15-30.85-30.85-30.85-30.85-75.15v-466.44q0-44.3 30.85-75.15 30.85-30.85 75.15-30.85h466.44q44.3 0 75.15 30.85 30.85 30.85 30.85 75.15v466.44q0 44.3-30.85 75.15-30.85 30.85-75.15 30.85H339.78ZM534.7-526.22l100-60 100 60v-280h-200v280Z"/></svg>
 						</summary>
 					</details>
 					<div id="citizen-relatedwikis__card" class="citizen-drawer__card citizen-popout__card citizen-menu__card">
