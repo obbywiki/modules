@@ -1,1 +1,0 @@
-<div style="margin-top:12px;" class="owaf-new-article-trigger">[[#|Several improvements have been made to the Article Flow modal for new users!]]</div>
