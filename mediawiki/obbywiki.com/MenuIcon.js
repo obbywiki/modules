@@ -51,11 +51,11 @@
 			});
 		
 			// 1. Create and insert popout menus
-			const target = document.querySelector('.citizen-header__end');
+			const target = document.querySelector('.citizen-preferences-dropdown');
 			if (target && target.parentNode) {
 				popoutData.forEach(relatedWikisConfig => {
 					const popoutElement = createPopout(relatedWikisConfig);
-					target.insertBefore(popoutElement, target);
+					target.parentNode.insertBefore(popoutElement, target);
 				});
 			}
 			
