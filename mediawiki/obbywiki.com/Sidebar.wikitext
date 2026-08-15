@@ -53,5 +53,3 @@ Category:Gimmick_Obby|Gimmick Obbies
 ** https://wou.gg|WOU.gg
 ** |sidebar-label-socials
 ** https://github.com/obbywiki|sidebar-icon-github
-** |sidebar-label-featured-release
-** Autumn_Stage_Tower|Autumn Stage Tower
