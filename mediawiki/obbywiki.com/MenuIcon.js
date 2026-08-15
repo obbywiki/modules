@@ -8,8 +8,6 @@
 		mw.loader.using(['mediawiki.util']).done(function () {
 			function createPopout(config) {
 				const popoutHeading = config.heading ? config.heading : 'Related wikis';
-				const popoutIcon = config.icon ? config.icon : 'https://static.wikitide.net/utgwiki/2/2b/Collections_bookmark.svg';
-				const popoutClass = config.icon ? 'citizen-popout-icon' : 'citizen-popout-icon invert-darkmode';
 				
 				const popoutWrapper = document.createElement('div');
 				popoutWrapper.className = `citizen-popout citizen-header__item citizen-dropdown`;
@@ -53,6 +51,7 @@
 			// 1. Create and insert popout menus
 			const target = document.querySelector('.citizen-preferences-dropdown');
 			if (target && target.parentNode) {
+				// eslint-disable-next-line
 				popoutData.forEach(relatedWikisConfig => {
 					const popoutElement = createPopout(relatedWikisConfig);
 					target.parentNode.insertBefore(popoutElement, target);
