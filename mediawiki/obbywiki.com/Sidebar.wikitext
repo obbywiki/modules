@@ -58,3 +58,6 @@ Category:Gimmick_Obby|Gimmick Obbies
 ** |sidebar-label-socials
 ** https://github.com/obbywiki|sidebar-icon-github
 ** https://twitter.com/obbywiki|sidebar-icon-twitter
+** |sidebar-label-account
+** Special:Preferences|Preferences
+** Special:CreateAccount|Sign up
