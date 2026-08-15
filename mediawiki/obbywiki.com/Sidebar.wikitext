@@ -50,7 +50,7 @@ Category:Gimmick_Obby|Gimmick Obbies
 ** Special:AllPages|allpages
 ** Special:RobloxPlaceMediaExtractor|Roblox Place Media Extractor
 * External
-** #?owaftitle=|+
+** https://obby.wiki/?owaftitle=|+
 ** |sidebar-label-service
 ** https://status.obby.wiki|Status
 ** |sidebar-label-socials
