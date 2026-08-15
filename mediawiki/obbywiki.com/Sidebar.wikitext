@@ -52,7 +52,7 @@ Category:Gimmick_Obby|Gimmick Obbies
 * Legacy
 ** Special:RobloxPlaceMediaExtractor|Roblox Place Media Extractor
 * External
-** https://obby.wiki/?owaftitle=|+
+** https://obby.wiki/?owaftitle=|＋
 ** |sidebar-label-service
 ** https://status.obby.wiki|Status
 ** |sidebar-label-socials
