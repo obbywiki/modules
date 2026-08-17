@@ -1,0 +1,6 @@
+{{CalloutV2
+| type  = info
+| title = This category is an editing category
+| body  = This category is used to collect pages for improvement goals or informational purposes related to the Obby Wiki.
+}}
+<includeonly>__NOINDEX__ [[Category:Editing_categories]]</includeonly>

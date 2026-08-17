@@ -1,0 +1,6 @@
+{{CalloutV2
+| type  = info
+| title = This is a hidden category
+| body  = This category is used to collect pages for informational purposes related to the Obby Wiki, normally technical reasons.
+}}
+<includeonly>__HIDDENCAT__</includeonly>
