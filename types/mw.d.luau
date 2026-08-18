@@ -51,8 +51,8 @@ declare mw : {
 			query : ( tables : string, fields : string, options : cargo_query_options? ) -> cargo_query_result,
 		},
 		jsonld : {
-			setMainEntity : ( args : { [string] : any } ) -> void,
-			addData : ( args : { [string] : any } ) -> void,
+			setMainEntity : ( args : { [string] : any } ) -> {},
+			addData : ( args : { [string] : any } ) -> {}, -- always returns an empty table
 		}
 	},
 	getCurrentFrame : () -> frame,
