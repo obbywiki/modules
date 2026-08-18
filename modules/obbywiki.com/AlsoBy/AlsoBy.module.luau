@@ -153,7 +153,7 @@ end
 ---
 --- @tag invoked
 
-function p.main( frame )
+function p.main( frame : frame ) : string
     local args = require( 'Module:Arguments' ).getArgs( frame )
 
     return render( args[1] )
