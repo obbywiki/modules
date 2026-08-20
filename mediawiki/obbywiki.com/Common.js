@@ -39,6 +39,18 @@ if (upload_link) {
   }
 
 
+// removes redlink params from User: pages
+mw.hook('wikipage.content').add(function ($content) {
+  $content.find('a.new[href*="User:"]').each(function () {
+    var $link = $(this);
+    var href = $link.attr('href');
+
+    if (href) {
+      $link.attr( 'href', href.replace(/[?&]veaction=edit(&redlink=1)?/g, '') );
+    };
+  });
+});
+
 // EXPERIMENTAL
 
 /* Infobox Carousel Logic */
