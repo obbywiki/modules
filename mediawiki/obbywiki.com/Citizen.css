@@ -107,9 +107,9 @@ details[open]::details-content {
   mask-size: contain;
 }
 
-/* .mw-collapsible-toggle {
+.mw-collapsible-toggle.mw-collapsible-toggle-default {
   display: none !important;
-} */
+}
 
 /* hide last item TODO improve */
 html.technical-info-clientpref-0 .infobox__section[data-source-title="Technical"] {
