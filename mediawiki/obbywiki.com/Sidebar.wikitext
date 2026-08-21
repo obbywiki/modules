@@ -6,6 +6,7 @@
 ** randomobby-url|randomobby
 ** randomstudio-url|randomstudio
 ** randomwiki-url|randomwiki
+** specialpages-url|specialpages
 * SEARCH
 * LANGUAGES
 * Obby Sub-genres
