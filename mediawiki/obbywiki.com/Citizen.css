@@ -61,6 +61,10 @@ details[open]::details-content {
     -webkit-backdrop-filter: saturate(1.15) blur(16px);
 }
 
+.citizen-menu__card-content {
+    backdrop-filter: var(--backdrop-filter-frosted-glass);
+}
+
 .ns-4 .citizen-page-actions #p-views,
 .ns-4 .citizen-page-actions #p-associated-pages,
 .ns-4 .firstHeading-container .mw-indicators,
