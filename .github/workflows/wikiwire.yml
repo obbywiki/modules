@@ -35,7 +35,7 @@ jobs:
           chmod +x darklua
 
       - name: Setup Lua 5.1
-        uses: leafo/gh-actions-lua@v12
+        uses: leafo/gh-actions-lua@v13
         with:
           luaVersion: "5.1.5"
 
