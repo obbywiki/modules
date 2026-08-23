@@ -1,5 +1,20 @@
 /* All CSS here will be loaded for users of the Citizen skin */
 
+
+/* dim */
+
+/* TODO: make it not look terrible */
+.skin-theme-clientpref-dim {
+    color-scheme: dark;
+    --opacity-glass: 0.8;
+    --shadow-opacity: 0.44;
+    --font-grade: 0;
+    --filter-invert: invert( 1 ) hue-rotate( 180deg );
+
+    --color-neutral-1000: #19191d;
+    --color-neutral-900: #19191d;
+}
+
 /*  */
 
 .mw-ui-icon-wikimedia-share:before {

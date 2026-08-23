@@ -1,0 +1,30 @@
+{
+	"sections": {
+		"game-pages": {
+			"label": "Obby Pages"
+		}
+	},
+	"preferences": {
+		"technical-info": {
+			"section": "game-pages",
+			"type": "switch",
+			"options": [
+				"0",
+				"1"
+			],
+			"default": 1,
+			"label": "Technical",
+			"description": "Display technical data on every obby page"
+		},
+
+        "skin-theme": {
+            "options": [
+                { "value": "os", "labelMsg": "citizen-theme-os-label" },
+                { "value": "day", "labelMsg": "citizen-theme-day-label" },
+                { "value": "dim", "label": "Dim" },
+                { "value": "night", "labelMsg": "citizen-theme-night-label" },
+                { "value": "black", "labelMsg": "citizen-theme-black-label" }
+            ]
+        }
+	}
+}
