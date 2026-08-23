@@ -3,16 +3,17 @@
 
 /* dim */
 
-/* TODO: make it not look terrible */
 .skin-theme-clientpref-dim {
     color-scheme: dark;
     --opacity-glass: 0.8;
     --shadow-opacity: 0.44;
     --font-grade: 0;
     --filter-invert: invert( 1 ) hue-rotate( 180deg );
-
-    --color-neutral-1000: #19191d;
-    --color-neutral-900: #141415;
+    
+    /* courtesy of twitter and https://github.com/Manaiakalani/x-twitter-dim-mode/blob/main/extension/content.css */
+    --color-neutral-1000: #16212c;
+    --color-neutral-900: #192734;
+    --color-neutral-800: #22303C;
 }
 
 /*  */
