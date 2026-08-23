@@ -16,6 +16,10 @@
     --color-neutral-800: #22303C;
 }
 
+.skin-theme-clientpref-dim .obbywiki-homepage {
+    background-image: radial-gradient(ellipse 85% 60% at 50% 0%,color-mix(in srgb,#fff 34%,transparent) 0%,color-mix(in srgb,#fff 18%,transparent) 22%,color-mix(in srgb,#fff 8%,transparent) 48%,transparent 78%);
+}
+
 /*  */
 
 .mw-ui-icon-wikimedia-share:before {
