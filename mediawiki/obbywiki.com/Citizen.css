@@ -14,6 +14,8 @@
     --color-neutral-1000: #16212c;
     --color-neutral-900: #192734;
     --color-neutral-800: #22303C;
+
+    --border-color-base: #38424d;
 }
 
 .skin-theme-clientpref-dim .obbywiki-homepage {
