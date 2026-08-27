@@ -28,13 +28,6 @@ Category:Gimmick_Obby|Gimmick Obbies
 <!--** Category:Glitch|Glitches-->
 ** Obby|About Obbies
 ** :Category:{{CURRENTMONTHNAME}} {{CURRENTYEAR}}|Releases this month
-* Popular Obbies
-<!--** Flood_Escape_2|Flood Escape 2-->
-** obby_but_you're_a_bird|obby but you're a bird
-** Master's_Difficulty_Chart_Obby|Master's Difficulty Chart Obby
-** Tower Of Fantasy|Tower Of Fantasy
-** Eternal_Towers_of_Hell|Eternal Towers of Hell
-<!--** NO_JUMPING_OBBY|NO JUMPING OBBY-->
 * Wiki
 ** Project:About|About
 ** Help:Contributing|Contributing
