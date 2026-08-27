@@ -301,3 +301,9 @@ width: 16px;
    width: 20px;
    height: 20px;
 }
+
+/* from MetaDoc (TemplateStyles rejects ::-webkit-details-marker) */
+.ow-rule-summary::-webkit-details-marker,
+.ow-rule-fold-summary::-webkit-details-marker {
+	display: none;
+}
