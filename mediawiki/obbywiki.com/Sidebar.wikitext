@@ -27,6 +27,7 @@ Category:Gimmick_Obby|Gimmick Obbies
 ** Category:Difficulty|Difficulties
 <!--** Category:Glitch|Glitches-->
 ** Obby|About Obbies
+** :Category:{{CURRENTMONTHNAME}} {{CURRENTYEAR}}|Releases this month
 * Popular Obbies
 <!--** Flood_Escape_2|Flood Escape 2-->
 ** obby_but_you're_a_bird|obby but you're a bird
@@ -34,14 +35,6 @@ Category:Gimmick_Obby|Gimmick Obbies
 ** Tower Of Fantasy|Tower Of Fantasy
 ** Eternal_Towers_of_Hell|Eternal Towers of Hell
 <!--** NO_JUMPING_OBBY|NO JUMPING OBBY-->
-* Development
-** Development:Get_Started|Get Started
-** Category:Obby_System|Obby Systems
-<!--** EToH_Kit|EToH Kit v5.5-->
-* Misc
-** Special:AllPages|Timeline
-** Special:AllPages|Wiki Integration
-** :Category:{{CURRENTMONTHNAME}} {{CURRENTYEAR}}|Releases this month
 * Wiki
 ** Project:About|About
 ** Help:Contributing|Contributing
@@ -50,8 +43,6 @@ Category:Gimmick_Obby|Gimmick Obbies
 ** Project:Attributions|Wiki Attributions & Credits
 ** Special:AllPages|allpages
 ** Blog:Timeline|Blog
-* Legacy
-** Special:RobloxPlaceMediaExtractor|Roblox Place Media Extractor
 * External
 ** https://obby.wiki/?owaftitle=|＋
 ** |sidebar-label-service
