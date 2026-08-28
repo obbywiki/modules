@@ -3,4 +3,4 @@
 | title = This article is a [[:Category:Stubs|stub]].
 | body  = This page is too short! You can help the Obby Wiki by [{{fullurl:{{FULLPAGENAME}}|action=edit}} expanding it].
 }}
-<includeonly>[[Category:Stubs]]</includeonly>
+<includeonly>[[Category:Stubs]]</includeonly><noinclude>{{/doc}}</noinclude>
