@@ -1,0 +1,25 @@
+{{Documentation|synced=true|luau=true|agpl=true|owsmt_location=obbywiki.com/MetaDoc}}
+
+MetaDoc is a large module that is responsible for rendering building blocks for project documentation pages.
+
+== Templates ==
+
+{| class="wikitable"
+! Template !! Invoke !! Purpose
+|-
+| {{tl|Tldr}} || <code>tldr</code> || Summary box at the top of a meta page
+|-
+| {{tl|Ask}} || <code>ask</code> || Discord help strip under the TL;DR
+|-
+| {{tl|Rule}} || <code>rule</code> || Collapsible guideline with severity
+|-
+| {{tl|Do}} || <code>dos</code> || Do card (list, example, and/or note)
+|-
+| {{tl|Dont}} || <code>dont</code> || Don't card (list, example, and/or note)
+|-
+| {{tl|Hl}} || || Highlight a word inside an example sentence
+|-
+| {{tl|SeverityKey}} || <code>legend</code> || Severity legend
+|-
+| {{tl|ScopeKey}} || <code>scopekey</code> || Where a rule applies letter legend
+|}
