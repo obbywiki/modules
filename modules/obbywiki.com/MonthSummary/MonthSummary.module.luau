@@ -560,8 +560,19 @@ function p.draw(frame)
 
 	local month_data = query_month_obbies(target_year, current_month_name)
 
+	--
+
+	local root = mw.html.create('div'):addClass('ow-month-summary')
+
+	local summary_section = root:tag('div'):addClass('ow-month-summary__section')
+	summary_section:tag('h1')
+		:addClass('ow-month-summary__heading')
+		:wikitext(`Summary for {current_month_name} {target_year}`)
+
+	--
+
 	if not month_data or #month_data == 0 then
-		return 'No relevant data for this month to display.'
+		return tostring(root) .. '\nNo relevant data for this month to display.'
 	end
 
 	local stats = aggregate_month(month_data)
@@ -579,12 +590,8 @@ function p.draw(frame)
 	local summary_line =
 		`There {single_release and 'was' or 'were'} {stats.release_count} {single_release and 'obby' or 'obbies'} released in {current_month_name} of {target_year}, with the most popular obby released being [[{popular.name}]] by [[{popular.creator}]] with '''{get_comma_val(popular.visits)} visits'''{day_note}.`
 
-	local root = mw.html.create('div'):addClass('ow-month-summary')
+	--
 
-	local summary_section = root:tag('div'):addClass('ow-month-summary__section')
-	summary_section:tag('h1')
-		:addClass('ow-month-summary__heading')
-		:wikitext(`Summary for {current_month_name} {target_year}`)
 	summary_section:tag('p')
 		:addClass('ow-month-summary__intro')
 		:wikitext(summary_line)
