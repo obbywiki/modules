@@ -561,8 +561,7 @@ local function render_reference_markup(frame, args)
 
 	local caption = body:tag('div')
 	caption:addClass('ow-cite-caption')
-	caption:tag('span'):addClass('ow-cite-caption-icon'):attr('aria-hidden', 'true')
-	caption:tag('span'):wikitext('Renders as')
+	caption:tag('span'):wikitext('Renders as:')
 
 	-- the rendered result
 	local prose = body:tag('p')

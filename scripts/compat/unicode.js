@@ -18,6 +18,7 @@ const replacement_map = {
   "\\u{00B7}": "·",
   "\\u{00b7}": "·",
   "\\u{b7}": "·",
+  "\\u{2191}": "↑",
 };
 
 function fix_unicode_syntax(input) {
