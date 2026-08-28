@@ -1,4 +1,4 @@
-{{Documentation}}
+{{documentation|synced=true|imported=scw}}
 
 Imported from the [https://starcitizen.tools/Template:Cards Star Citizen Wiki].
 
