@@ -341,7 +341,8 @@
 
 .ow-rule-notice-icon,
 .ow-rule-fold-icon,
-.ow-ask-icon {
+.ow-ask-icon,
+.ow-markup-icon {
 	flex-shrink: 0;
 	width: 1em;
 	height: 1em;
@@ -439,6 +440,150 @@
 .ow-rule-fold-body ul {
 	margin: 0;
 	padding-inline-start: 1.25em;
+}
+
+.ow-markup {
+	background-color: var(--color-surface-2);
+	border: var(--border-width-base) solid var(--border-color-base);
+	border-radius: var(--border-radius-large);
+	margin-block: var(--space-md);
+	overflow: hidden;
+}
+
+.ow-markup-label {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs);
+	padding: var(--space-sm) var(--space-md);
+	font-weight: var(--font-weight-semi-bold);
+	font-size: var(--font-size-small);
+	color: var(--color-emphasized);
+	border-bottom: var(--border-width-base) solid var(--border-color-base);
+}
+
+.ow-markup-icon {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px' fill='%23fff'%3E%3Cpath d='M320-242 80-482l242-242 43 43-199 199 197 197-43 43Zm318 2-43-43 199-199-197-197 43-43 240 240-242 242Z'/%3E%3C/svg%3E");
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px' fill='%23fff'%3E%3Cpath d='M320-242 80-482l242-242 43 43-199 199 197 197-43 43Zm318 2-43-43 199-199-197-197 43-43 240 240-242 242Z'/%3E%3C/svg%3E");
+}
+
+.ow-markup-body {
+	padding: var(--space-md);
+	color: var(--color-base);
+	line-height: var(--line-height-base);
+}
+
+.ow-markup-body .mw-highlight,
+.ow-markup-body .mw-geshi {
+	margin: 0;
+	background-color: var(--color-surface-0);
+	border-radius: var(--border-radius-medium);
+	overflow-x: auto;
+}
+
+.ow-markup-body .mw-highlight pre,
+.ow-markup-body .mw-geshi pre {
+	margin: 0;
+	padding: var(--space-sm) var(--space-md);
+	background-color: transparent;
+	overflow: visible;
+}
+
+.ow-markup-note {
+	margin: 0;
+	padding: var(--space-sm) var(--space-md);
+	border-top: var(--border-width-base) solid var(--border-color-base);
+	color: var(--color-subtle);
+	font-size: var(--font-size-small);
+	line-height: var(--line-height-base);
+}
+
+.ow-markup--headings .ow-markup-body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--space-xs);
+	padding-block: var(--space-lg);
+	overflow-x: auto;
+}
+
+.ow-markup-heading {
+	display: flex;
+	align-items: baseline;
+	justify-content: center;
+	gap: var(--space-sm);
+	font-weight: var(--font-weight-semi-bold);
+	line-height: 1.2;
+	white-space: nowrap;
+}
+
+.ow-markup-heading .mw-highlight,
+.ow-markup-heading .mw-geshi,
+.ow-markup-heading .mw-highlight pre,
+.ow-markup-heading .mw-geshi pre,
+.ow-markup-heading .mw-highlight code,
+.ow-markup-heading .mw-geshi code {
+	margin: 0;
+	padding: 0;
+	background-color: transparent;
+	border: 0;
+	font-size: inherit;
+	font-weight: inherit;
+	font-family: var(--font-family-monospace);
+	line-height: inherit;
+	white-space: nowrap;
+	overflow: visible;
+}
+
+.ow-markup-heading--2 {
+	font-size: calc(var(--font-size-xx-large) * 1.85);
+	color: var(--color-emphasized);
+}
+
+.ow-markup-heading--3 {
+	font-size: calc(var(--font-size-x-large) * 1.4);
+	color: var(--color-emphasized);
+}
+
+.ow-markup-heading--4 {
+	font-size: calc(var(--font-size-large) * 1.15);
+	color: var(--color-emphasized);
+}
+
+.ow-markup-heading--5 {
+	font-size: var(--font-size-medium);
+	color: var(--color-base);
+}
+
+.ow-markup-heading--6 {
+	font-size: var(--font-size-small);
+	color: var(--color-base);
+}
+
+.ow-markup-heading--never {
+	align-items: center;
+	margin-top: var(--space-sm);
+	font-size: var(--font-size-small);
+	font-weight: var(--font-weight-medium);
+	color: var(--color-subtle);
+}
+
+.ow-markup-heading-x {
+	flex-shrink: 0;
+	width: 1.1em;
+	height: 1.1em;
+	background-color: var(--color-destructive);
+	mask-repeat: no-repeat;
+	mask-position: center;
+	mask-size: contain;
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
+}
+
+.ow-markup-heading-flag {
+	font-size: var(--font-size-x-small);
+	font-weight: var(--font-weight-semi-bold);
+	letter-spacing: 0.04em;
+	color: var(--color-destructive);
 }
 
 @media screen and (max-width: 639px) {

@@ -147,6 +147,7 @@ local function severity_hint(severity)
 			return LEGEND_ITEMS[i].body
 		end
 	end
+	
 	return ''
 end
 
@@ -170,9 +171,7 @@ local function parse_scopes(value)
 	end
 
 	local raw = mw.text.trim(tostring(value))
-	if raw == '' then
-		return nil
-	end
+	if raw == '' then return nil end
 
 	local lower = mw.ustring.lower(raw)
 	if lower == 'all' or lower == 'everywhere' or lower == 'any' then
@@ -187,9 +186,11 @@ local function parse_scopes(value)
 	local normalized = mw.ustring.gsub(raw, '[,;/]+', ',')
 	local parts = mw.text.split(normalized, ',', true)
 	local seen = {}
+
 	for i = 1, #parts do
 		local token = mw.ustring.lower(mw.text.trim(parts[i]))
 		local id = SCOPE_ALIASES[token]
+
 		if id then
 			seen[id] = true
 		end
@@ -198,6 +199,7 @@ local function parse_scopes(value)
 	local ordered = {}
 	for i = 1, #SCOPE_ORDER do
 		local id = SCOPE_ORDER[i]
+
 		if seen[id] then
 			ordered[#ordered + 1] = id
 		end
@@ -236,8 +238,7 @@ local function render_scope_chips(scopes)
 	return tostring(cluster)
 end
 
--- Build real <ul><li> so `*` is not left on the same line as <div> (parser
--- will not start a list there, which broke TL;DR and do/don't formatting).
+-- TODO: i18n
 local EXAMPLE_LABELS = {
 	['do'] = 'Do',
 	dont = 'Don\'t',
@@ -248,18 +249,22 @@ local function list_item_text(line)
 	if trimmed == '' then
 		return nil
 	end
+
 	local item = mw.ustring.gsub(trimmed, '^[*#]+%s*', '')
 	if item == '' then
 		return nil
 	end
+	
 	return item
 end
 
 local function is_list_wikitext(wikitext)
 	local lines = mw.text.split(wikitext, '\n', true)
 	local saw_item = false
+
 	for i = 1, #lines do
 		local trimmed = mw.text.trim(lines[i])
+
 		if trimmed ~= '' then
 			if not mw.ustring.match(trimmed, '^[*#]') then
 				return false
@@ -267,6 +272,7 @@ local function is_list_wikitext(wikitext)
 			saw_item = true
 		end
 	end
+
 	return saw_item
 end
 
@@ -275,14 +281,17 @@ local function parse_side(main, example, note)
 		example = example,
 		note = note,
 	}
+
 	if not main then
 		return content
 	end
+
 	if is_list_wikitext(main) then
 		content.list = main
 	elseif not example then
 		content.example = main
 	end
+
 	return content
 end
 
@@ -293,6 +302,7 @@ end
 local function render_list(parent, wikitext)
 	local ul = parent:tag('ul')
 	local lines = mw.text.split(wikitext, '\n', true)
+
 	for i = 1, #lines do
 		local item = list_item_text(lines[i])
 		if item then
@@ -304,6 +314,7 @@ end
 local function render_example(kind, content)
 	local box = mw.html.create('div')
 	box:addClass('ow-example')
+
 	if kind == 'do' then
 		box:addClass('ow-example--do')
 		box:addClass('ow-do')
@@ -319,6 +330,7 @@ local function render_example(kind, content)
 
 	if content.example then
 		local sample = box:tag('div')
+
 		sample:addClass('ow-example-sample')
 		sample:wikitext('\n' .. mw.text.trim(content.example) .. '\n')
 	end
@@ -343,6 +355,7 @@ end
 
 local function add_pair_head(parent, kind)
 	local head = parent:tag('div')
+
 	head:addClass('ow-example-head')
 	head:addClass('ow-example--' .. kind)
 	head:addClass('ow-pair-head')
@@ -440,12 +453,86 @@ local function append_fold(parent, frame, class_name, heading, wikitext)
 	parent:wikitext(details)
 end
 
+local function highlight(frame, code, lang, inline)
+	local tag_args = {
+		lang = lang or 'wikitext',
+	}
+	if inline then
+		tag_args.inline = '1'
+	end
+	return frame:extensionTag('syntaxhighlight', code, tag_args)
+end
+
+local HEADING_DEMO = {
+	{ level = 2, class_name = 'ow-markup-heading--2' },
+	{ level = 3, class_name = 'ow-markup-heading--3' },
+	{ level = 4, class_name = 'ow-markup-heading--4' },
+	{ level = 5, class_name = 'ow-markup-heading--5' },
+	{ level = 6, class_name = 'ow-markup-heading--6' },
+}
+
+local function heading_source(level, title)
+	local marks = string.rep('=', level)
+	return marks .. ' ' .. title .. ' ' .. marks
+end
+
+local function render_heading_markup(frame, heading)
+	local box = mw.html.create('div')
+	box:addClass('ow-markup')
+	box:addClass('ow-markup--headings')
+
+	local label = box:tag('div')
+	label:addClass('ow-markup-label')
+	label:tag('span'):addClass('ow-markup-icon'):attr('aria-hidden', 'true')
+	label:tag('span'):wikitext(heading or 'Markup')
+
+	local body = box:tag('div')
+	body:addClass('ow-markup-body')
+
+	for i = 1, #HEADING_DEMO do
+		local item = HEADING_DEMO[i]
+		local row = body:tag('div')
+
+		row:addClass('ow-markup-heading')
+		row:addClass(item.class_name)
+		row:wikitext(highlight(frame, heading_source(item.level, 'Title'), 'wikitext', true))
+	end
+
+	local never = body:tag('div')
+	never:addClass('ow-markup-heading')
+	never:addClass('ow-markup-heading--never')
+	never:tag('span'):addClass('ow-markup-heading-x'):attr('aria-hidden', 'true')
+	never:wikitext(highlight(frame, heading_source(1, 'Title'), 'wikitext', true))
+	never:tag('span'):addClass('ow-markup-heading-flag'):wikitext('Never used')
+
+	local note = box:tag('p')
+	note:addClass('ow-markup-note')
+	note:wikitext('Spaces around the title are preferred for readability purposes. Don\'t skip a level.')
+
+	return box
+end
+
+local function render_code_markup(frame, code, lang, heading)
+	local box = mw.html.create('div')
+	box:addClass('ow-markup')
+
+	local label = box:tag('div')
+	label:addClass('ow-markup-label')
+	label:tag('span'):addClass('ow-markup-icon'):attr('aria-hidden', 'true')
+	label:tag('span'):wikitext(heading or 'Markup')
+
+	local body = box:tag('div')
+	body:addClass('ow-markup-body')
+	body:wikitext(highlight(frame, code, lang, false))
+
+	return box
+end
+
 local function append_do_dont(parent, do_content, dont_content)
 	local has_do = side_has_content(do_content)
 	local has_dont = side_has_content(dont_content)
-	if not has_do and not has_dont then
-		return
-	end
+
+	if not has_do and not has_dont then return end
 
 	local pair = parent:tag('div')
 	pair:addClass('ow-do-dont')
@@ -453,11 +540,13 @@ local function append_do_dont(parent, do_content, dont_content)
 		pair:addClass('ow-do-dont--pair')
 		add_pair_head(pair, 'do')
 		add_pair_head(pair, 'dont')
+
 		if do_content.example or dont_content.example then
 			pair:addClass('ow-do-dont--has-sample')
 			add_pair_sample(pair, 'do', do_content)
 			add_pair_sample(pair, 'dont', dont_content)
 		end
+
 		add_pair_body(pair, 'do', do_content)
 		add_pair_body(pair, 'dont', dont_content)
 		return
@@ -597,6 +686,30 @@ function p.scopekey(frame)
 	end
 
 	return with_styles(list, frame)
+end
+
+function p.markup(frame)
+	local args = get_args(frame)
+	local type_key = args.type or args.demo
+	if not type_key and args[1] then
+		type_key = mw.ustring.lower(mw.text.trim(args[1]))
+	elseif type_key then
+		type_key = mw.ustring.lower(mw.text.trim(type_key))
+	end
+
+	if type_key == 'headings' or type_key == 'heading' or type_key == 'sections' then
+		return with_styles(render_heading_markup(frame, args.title), frame)
+	end
+
+	local code = args.code or args[1]
+	if not code or mw.text.trim(code) == '' then
+		return ''
+	end
+
+	return with_styles(
+		render_code_markup(frame, mw.text.trim(code), args.lang, args.title),
+		frame
+	)
 end
 
 local DISCORD_INVITE = 'https://discord.gg/vuJsnzKkKY'
