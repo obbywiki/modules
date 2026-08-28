@@ -1,0 +1,3 @@
+AutomaticCategoryNotice (aka. {{Tl|autocat}}) is an mbox which provides a notice to readers when a category is being filled automatically by a template or module. This lets administrators know not to delete a category even when there are no pages in it.
+
+Usage: {{Tl|TemplateName|arg1|arg2|key=value}}
