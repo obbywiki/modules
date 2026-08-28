@@ -573,29 +573,113 @@ local LAYOUT_ALIASES = {
 	['parser functions'] = 'parser',
 }
 
-local LAYOUT_BLOCK_CLASS = {
-	parser = 'meta',
-	related = 'related',
-	maintenance = 'maint',
-	stub = 'maint',
-	infobox = 'infobox',
-	image = 'image',
-	lead = 'lead',
-	nav = 'nav',
-	categories = 'cats',
+-- see LAYOUT_KEY_ITEMS
+local LAYOUT_BLOCK_ROLE = {
+	lead = 'text',
+	image = 'text',
+	infobox = 'template',
+	nav = 'template',
+	related = 'template',
+	maintenance = 'template',
+	stub = 'template',
+	parser = 'hidden',
+	categories = 'hidden',
 }
 
-local LAYOUT_BLOCK_KICKER = {
-	parser = 'Parser functions',
+local LAYOUT_BLOCK_LABEL = {
+	lead = 'Lead',
+	image = 'Images (if there is no infobox)',
+	infobox = 'Infobox',
+	nav = 'Navplate',
 	related = 'Related articles',
 	maintenance = 'Maintenance templates',
-	image = 'Images (if no infobox)',
-	lead = 'Lead',
+	stub = 'Stub notice',
+	parser = 'Parser functions',
 	categories = 'Categories',
 }
 
+-- TODO: i18n
+local LAYOUT_BLOCK_TIP = {
+	lead = '1-3 short paragraphs saying what the page is about. Bold the subject in the first sentence.',
+	image = 'Only use images here when the page has no infobox, otherwise use the Media section.',
+	infobox = 'A card of key facts about the subject. It always goes first, above the lead.',
+	nav = 'A box of links that ties this page to related ones.',
+	related = 'A short list of pages a reader may want to open next. Optional. Consider using the Related Articles parser function instead.',
+	maintenance = 'Notices asking other editors to fix or finish something on the page. Only applies to pages that need it.',
+	stub = 'Marks a page that is still too short and needs more content.',
+	parser = 'Magic words that change how the page is titled, indexed, or how it behaves. They are invisible but may interfere with other elements if placed before content.',
+	categories = 'Categories group this page with similar ones. They appear in the page footer.',
+}
+
+-- defaults
+local LAYOUT_TIP_ALIASES = {
+	lead = 'lead',
+	introduction = 'lead',
+	['lead section'] = 'lead',
+	image = 'image',
+	images = 'image',
+	infobox = 'infobox',
+	nav = 'nav',
+	navplate = 'nav',
+	related = 'related',
+	['related articles'] = 'related',
+	maintenance = 'maintenance',
+	['maintenance templates'] = 'maintenance',
+	stub = 'stub',
+	parser = 'parser',
+	['parser functions'] = 'parser',
+	categories = 'categories',
+	category = 'categories',
+}
+
+-- for full-width strips rather than stacked blocks
+local LAYOUT_BAND_KINDS = {
+	nav = true,
+	related = true,
+	maintenance = true,
+	stub = true,
+}
+
+-- for anything that belongs under the body once the article text has ended
+local LAYOUT_BOTTOM_FORMS = {
+	nav = true,
+	related = true,
+	maintenance = true,
+	stub = true,
+	parser = true,
+	categories = true,
+}
+
+local LAYOUT_KEY_ITEMS = {
+	{
+		id = 'text',
+		label = 'Text',
+		body = 'Headings and prose you write yourself.',
+	},
+	{
+		id = 'template',
+		label = 'Template',
+		code = '{{ }}',
+		body = 'Templates you place, like infoboxes and navplates.',
+	},
+	{
+		id = 'hidden',
+		label = 'Hidden',
+		body = 'Categories and parser functions. Nothing shows up where you put them.',
+	},
+	{
+		id = 'optional',
+		flag = 'optional',
+		body = 'Only include it when the page needs it.',
+	},
+}
+
+local LAYOUT_BOTTOM_REGION = 'Bottom matter'
 local LAYOUT_DEFAULT_NOTE = 'Layouts are subject to change.'
 local LAYOUT_DEFAULT_PLACE = 'Always put the infobox at the top of the page.'
+
+-- approx.
+local LAYOUT_INFOBOX_GROUPS = { 3, 2, 3 }
 
 local function split_named_list(value)
 	if value == nil then
@@ -643,9 +727,8 @@ end
 
 local function template_display(value)
 	local name = template_name(value)
-	if name == '' then
-		return nil
-	end
+
+	if name == '' then return nil end
 
 	return '{{' .. name .. '}}'
 end
@@ -658,9 +741,8 @@ local function parse_layout_heading(line)
 		level = mw.ustring.len(marks)
 	else
 		local stars, item = mw.ustring.match(line, '^([*]+)[ \t]*(.+)$')
-		if not stars then
-			return nil
-		end
+
+		if not stars then return nil end
 
 		level = mw.ustring.len(stars) + 1
 		title = item
@@ -844,20 +926,19 @@ local function add_layout_token(page, kind, display, optional)
 end
 
 local function parse_layout_outline(wikitext)
-	local page = {
-		blocks = {},
-	}
+	local page = {blocks = {}}
+
 	local raw = raw_layout_arg(wikitext)
-	if not raw then
-		return page
-	end
+	if not raw then return page end
 
 	local lines = mw.text.split(raw, '\n', true)
 
 	for i = 1, #lines do
 		local line = mw.text.trim(lines[i])
+
 		if line ~= '' then
 			local heading = parse_layout_heading(line)
+
 			if heading then
 				page.blocks[#page.blocks + 1] = heading
 				page.blocks[#page.blocks].kind = 'heading'
@@ -891,6 +972,92 @@ local function parse_layout_categories(value)
 	end
 
 	return items
+end
+
+local function parse_layout_tips(value)
+	local raw = raw_layout_arg(value)
+	if not raw then
+		return nil
+	end
+
+	local lines = mw.text.split(raw, '\n', true)
+	local tips = nil
+	local key = nil
+
+	for i = 1, #lines do
+		local line = lines[i]
+		local name, text = mw.ustring.match(line, '^%s*([^=]-)%s*=%s*(.*)$')
+
+		if name and name ~= '' then
+			key = mw.ustring.lower(name)
+			tips = tips or {}
+			tips[key] = mw.text.trim(text)
+		elseif key and mw.text.trim(line) ~= '' then
+			tips[key] = mw.text.trim(tips[key] .. ' ' .. mw.text.trim(line))
+		end
+	end
+
+	if not tips then
+		return nil
+	end
+
+	-- lets `Navplate =` reach the `nav` block, and so on
+	for name, alias in pairs(LAYOUT_TIP_ALIASES) do
+		if tips[name] and not tips[alias] then
+			tips[alias] = tips[name]
+		end
+	end
+
+	return tips
+end
+
+local function merge_layout_tips(base, overlay)
+	if not overlay then
+		return base
+	end
+	if not base then
+		return overlay
+	end
+
+	-- selene: allow(manual_table_clone)
+	-- table.clone is luau only TODO
+	local merged = {}
+	for name, text in pairs(base) do
+		merged[name] = text
+	end
+	for name, text in pairs(overlay) do
+		merged[name] = text
+	end
+
+	return merged
+end
+
+local function layout_tip_for(tips, kind, name, label)
+	if tips then
+		if name then
+			local bare = mw.ustring.match(name, '^{{(.*)}}$') or name
+			local found = tips[mw.ustring.lower(bare)]
+			if found then
+				return found
+			end
+		end
+
+		if kind then
+			local found = tips[kind]
+			if found then
+				return found
+			end
+		end
+
+		if label then
+			local found = tips[mw.ustring.lower(label)]
+			if found then
+				return found
+			end
+		end
+	end
+
+	return kind and LAYOUT_BLOCK_TIP[kind] or nil
 end
 
 local function parse_parser_list(value)
@@ -1027,6 +1194,10 @@ local function apply_layout_fields(page, fields)
 		page.categories = parse_layout_categories(fields.categories)
 	end
 
+	if fields.tips ~= nil then
+		page.tips = parse_layout_tips(fields.tips)
+	end
+
 	if fields.label then
 		page.label = fields.label
 	end
@@ -1121,8 +1292,9 @@ local function numbered_layout_fields(args, n)
 	local place = raw_layout_arg(args['place' .. n])
 	local categories = args['categories' .. n]
 	local lead = args['lead' .. n]
+	local tips = args['tips' .. n]
 
-	if not (label or outline or headings or infobox or nav or maintenance or parsers or place or categories or lead) then
+	if not (label or outline or headings or infobox or nav or maintenance or parsers or place or categories or lead or tips) then
 		return nil
 	end
 
@@ -1137,6 +1309,7 @@ local function numbered_layout_fields(args, n)
 		place = place,
 		categories = categories,
 		lead = lead,
+		tips = tips,
 	}
 end
 
@@ -1144,6 +1317,8 @@ local LAYOUT_RESERVED_KEYS = {
 	title = true,
 	heading = true,
 	note = true,
+	key = true,
+	tips = true,
 	tabs = true,
 	place = true,
 	categories = true,
@@ -1160,7 +1335,7 @@ local LAYOUT_RESERVED_KEYS = {
 	label = true,
 }
 
-local LAYOUT_NUMBERED_KEY = '^(tab|label|layout|page|headings|infobox|nav|navplate|maintenance|stub|parsers|place|categories|lead)%d+$'
+local LAYOUT_NUMBERED_KEY = '^(tab|label|layout|page|headings|infobox|nav|navplate|maintenance|stub|parsers|place|categories|lead|tips)%d+$'
 
 local LAYOUT_PREFERRED_TABS = {
 	'Universal',
@@ -1177,6 +1352,7 @@ local function is_layout_reserved_key(key)
 	if LAYOUT_RESERVED_KEYS[lower] then
 		return true
 	end
+
 	if mw.ustring.match(lower, LAYOUT_NUMBERED_KEY) then
 		return true
 	end
@@ -1188,9 +1364,11 @@ local function layout_tab_has_body(outline, fields)
 	if raw_layout_arg(outline) then
 		return true
 	end
+
 	if not fields then
 		return false
 	end
+
 	if fields.outline or fields.headings or fields.infobox or fields.nav or fields.maintenance or fields.parsers then
 		return true
 	end
@@ -1233,6 +1411,8 @@ local function add_layout_tab_page(pages, args, label, fields)
 	else
 		page.lead = yesno(page.lead, true)
 	end
+
+	page.tips = merge_layout_tips(parse_layout_tips(args.tips), page.tips)
 
 	finalize_layout_page(page)
 	pages[#pages + 1] = page
@@ -1292,6 +1472,7 @@ local function collect_layout_pages(args)
 				page.categories = parse_layout_categories(args.categories)
 			end
 
+			page.tips = merge_layout_tips(parse_layout_tips(args.tips), page.tips)
 			page.lead = yesno(fields.lead or args.lead, true)
 			finalize_layout_page(page)
 			pages[#pages + 1] = page
@@ -1315,6 +1496,7 @@ local function collect_layout_pages(args)
 			place = raw_layout_arg(args.place),
 			categories = args.categories,
 			lead = args.lead,
+			tips = args.tips,
 		})
 
 		page.lead = yesno(args.lead, true)
@@ -1330,217 +1512,385 @@ local function collect_layout_pages(args)
 	return pages
 end
 
-local function add_layout_lines(parent, count)
+local function add_skeleton_text(parent, count)
+	local text = parent:tag('div')
+	text:addClass('ow-layout-text')
+	text:attr('aria-hidden', 'true')
+
 	for i = 1, count do
-		parent:tag('div'):addClass('ow-layout-lines'):attr('aria-hidden', 'true')
+		text:tag('div'):addClass('ow-layout-line')
 	end
+
+	return text
 end
 
-local function add_layout_block(parent, kind, kicker, line_count)
-	local block = parent:tag('div')
-	block:addClass('ow-layout-block')
-	block:addClass('ow-layout-block--' .. kind)
+-- a rough layout of how citizen looks vaguely
+local function add_layout_chrome(parent)
+	local chrome = parent:tag('div')
+	chrome:addClass('ow-layout-chrome')
+	chrome:attr('aria-hidden', 'true')
 
-	if kind == 'infobox' then
-		if kicker then
-			block:tag('div'):addClass('ow-layout-kicker'):wikitext(kicker)
-		end
+	local text = chrome:tag('div')
+	text:addClass('ow-layout-chrome-text')
+	text:tag('div'):addClass('ow-layout-chrome-title')
+	text:tag('div'):addClass('ow-layout-chrome-sub')
 
-		block:tag('div'):addClass('ow-layout-thumb'):attr('aria-hidden', 'true')
+	local actions = chrome:tag('div')
+	actions:addClass('ow-layout-chrome-actions')
 
-		local fields = block:tag('div')
-		fields:addClass('ow-layout-fields')
-
-		for i = 1, 9 do
-			fields:tag('div'):addClass('ow-layout-field'):attr('aria-hidden', 'true')
-		end
-
-		return block
+	for i = 1, 3 do
+		actions:tag('span'):addClass('ow-layout-chrome-action')
 	end
 
-	if kicker then
-		block:tag('div'):addClass('ow-layout-kicker'):wikitext(kicker)
-	end
-	add_layout_lines(block, line_count or 2)
-	return block
+	return chrome
 end
 
-local function render_layout_headings(parent, headings)
+local function add_layout_chips(parent, items, tag_name)
+	if not items or #items == 0 then
+		return nil
+	end
+
+	local row = parent:tag('div')
+	row:addClass('ow-layout-chips')
+
+	for i = 1, #items do
+		row:tag(tag_name or 'span'):addClass('ow-layout-chip'):wikitext(mw.text.nowiki(items[i]))
+	end
+
+	return row
+end
+
+local function bare_template_name(display)
+	if not display then
+		return nil
+	end
+
+	local inner = mw.ustring.match(display, '^{{(.*)}}$')
+	return inner or display
+end
+
+local function add_layout_flag(parent, text)
+	parent:tag('span'):addClass('ow-layout-flag'):wikitext(text)
+end
+
+local function add_layout_tip(parent, label, text)
+	if not text or text == '' then
+		return
+	end
+
+	local icon = mw.html.create('span')
+	icon:addClass('ow-layout-tip')
+	icon:attr('aria-hidden', 'true')
+
+	local tooltip = FloatingUI.renderSection({
+		label = label,
+		desc = text,
+		inline = true,
+	})
+
+	parent:wikitext(FloatingUI.render(tostring(icon), tooltip, true))
+end
+
+local function add_layout_block_head(block, kind, name, optional, tips)
+	local head = block:tag('div')
+	head:addClass('ow-layout-block-head')
+
+	local label = LAYOUT_BLOCK_LABEL[kind]
+	local title = label
+
+	if name then
+		head:tag('code'):addClass('ow-layout-name'):wikitext(mw.text.nowiki(name))
+
+		local bare = bare_template_name(name)
+		title = bare or label
+
+		if label and bare and mw.ustring.lower(bare) == mw.ustring.lower(label) then
+			label = nil
+		end
+	end
+
+	if label then
+		head:tag('span'):addClass('ow-layout-kicker'):wikitext(label)
+	end
+
+	add_layout_tip(head, title, layout_tip_for(tips, kind, name, LAYOUT_BLOCK_LABEL[kind]))
+
+	if optional then
+		add_layout_flag(head, 'optional')
+	end
+
+	return head
+end
+
+local function render_layout_region(parent, label)
+	if not label then
+		return nil
+	end
+
+	local region = parent:tag('div')
+	region:addClass('ow-layout-region')
+	region:wikitext(label)
+
+	return region
+end
+
+local function render_layout_headings(parent, headings, tips)
 	if not headings then
 		return
 	end
 
-	local current = nil
 	for i = 1, #headings do
 		local item = headings[i]
 		local level = item.level or 2
-		local section
 
-		if level <= 2 or not current then
-			section = parent:tag('div')
-			current = section
-		else
-			section = current:tag('div')
+		if level < 2 then
+			level = 2
+		elseif level > 6 then
+			level = 6
 		end
 
-		section:addClass('ow-layout-section')
-
-		if level > 2 then
-			section:addClass('ow-layout-section--sub')
-		end
+		local section = parent:tag('div')
+		section:addClass('ow-layout-heading')
+		section:addClass('ow-layout-heading--' .. level)
 
 		if item.optional then
-			section:addClass('ow-layout-section--optional')
+			section:addClass('ow-layout-heading--optional')
 		end
 
-		section:tag('div'):addClass('ow-layout-section-title'):wikitext(
+		local row = section:tag('div')
+		row:addClass('ow-layout-heading-row')
+		row:tag('span'):addClass('ow-layout-heading-toggle'):attr('aria-hidden', 'true')
+		row:tag('span'):addClass('ow-layout-heading-text'):wikitext(item.label)
+		row:tag('code'):addClass('ow-layout-tag'):wikitext(
 			mw.text.nowiki(heading_source(level, item.label))
 		)
 
-		if level <= 2 then
-			add_layout_lines(section, 1)
+		add_layout_tip(row, item.label, tips and tips[mw.ustring.lower(item.label)] or nil)
+
+		if item.optional then
+			add_layout_flag(row, 'optional')
+		end
+
+		-- a heading that only introduces deeper headings carries no prose of its own
+		local next_item = headings[i + 1]
+		local next_level = next_item and (next_item.level or 2)
+
+		if not (next_level and next_level > level) then
+			add_skeleton_text(section, level <= 2 and 2 or 1)
 		end
 	end
 end
 
-local function add_layout_chips(parent, kind, kicker, items)
-	local block = parent:tag('div')
-	block:addClass('ow-layout-block')
-	block:addClass('ow-layout-block--' .. kind)
+local function render_layout_infobox(parent, block, tips)
+	local card = parent:tag('div')
+	card:addClass('ow-layout-infobox')
 
-	if kicker then
-		block:tag('div'):addClass('ow-layout-kicker'):wikitext(kicker)
+	if block.optional then
+		card:addClass('ow-layout-block--optional')
 	end
 
-	if items and #items > 0 then
-		local row = block:tag('div')
-		row:addClass('ow-layout-chips')
-		for i = 1, #items do
-			row:tag('span'):addClass('ow-layout-chip'):wikitext(mw.text.nowiki(items[i]))
+	local name = block.kicker or '{{Infobox}}'
+	local head = card:tag('div')
+
+	head:addClass('ow-layout-infobox-head')
+	head:tag('span'):addClass('ow-layout-heading-toggle'):attr('aria-hidden', 'true')
+	head:tag('code'):addClass('ow-layout-name'):wikitext(mw.text.nowiki(name))
+	add_layout_tip(
+		head,
+		bare_template_name(name),
+		layout_tip_for(tips, 'infobox', name, LAYOUT_BLOCK_LABEL.infobox)
+	)
+
+	card:tag('div'):addClass('ow-layout-infobox-media'):attr('aria-hidden', 'true')
+
+	local body = card:tag('div')
+	body:addClass('ow-layout-infobox-body')
+	body:attr('aria-hidden', 'true')
+
+	for group_index = 1, #LAYOUT_INFOBOX_GROUPS do
+		local group = body:tag('div')
+		group:addClass('ow-layout-infobox-group')
+		group:tag('div'):addClass('ow-layout-infobox-group-title')
+
+		for row_index = 1, LAYOUT_INFOBOX_GROUPS[group_index] do
+			group:tag('div'):addClass('ow-layout-infobox-row')
 		end
 	end
 
-	return block
+	card:tag('div'):addClass('ow-layout-infobox-action'):attr('aria-hidden', 'true')
+
+	return card
 end
 
 local function render_layout_block(parent, block, extras)
 	local kind = block.kind
-	local class_name = LAYOUT_BLOCK_CLASS[kind] or kind
-	local kicker = block.kicker or LAYOUT_BLOCK_KICKER[kind]
-	local node
+	local role = LAYOUT_BLOCK_ROLE[kind] or 'text'
 
-	if kind == 'region' then
-		node = parent:tag('div')
-		node:addClass('ow-layout-region')
-		if block.label == 'Bottom matter' then
-			node:addClass('ow-layout-region--bottom')
-		end
-		node:wikitext(block.label)
-		return node
+	local node = parent:tag('div')
+	node:addClass('ow-layout-block')
+	node:addClass('ow-layout-block--' .. kind)
+	node:addClass('ow-layout-block--' .. role)
+
+	if LAYOUT_BAND_KINDS[kind] then
+		node:addClass('ow-layout-block--band')
 	end
 
-	if kind == 'infobox' then
-		parent:tag('div'):addClass('ow-layout-place'):wikitext(extras.place or LAYOUT_DEFAULT_PLACE)
-		node = add_layout_block(parent, 'infobox', mw.text.nowiki(kicker), 2)
-	elseif kind == 'lead' then
-		node = add_layout_block(parent, 'lead', kicker, 4)
-	elseif kind == 'image' then
-		node = parent:tag('div')
-		node:addClass('ow-layout-block')
-		node:addClass('ow-layout-block--image')
-		node:tag('div'):addClass('ow-layout-kicker'):wikitext(kicker)
-		node:tag('div'):addClass('ow-layout-thumb'):attr('aria-hidden', 'true')
-	elseif kind == 'parser' then
-		node = add_layout_chips(parent, class_name, kicker, block.items)
-	elseif kind == 'categories' then
-		node = add_layout_chips(parent, class_name, kicker, block.items or extras.categories)
-	elseif kind == 'related' then
-		local items = nil
-
-		if block.kicker then
-			items = { block.kicker }
-		end
-
-		node = add_layout_chips(parent, class_name, LAYOUT_BLOCK_KICKER.related, items)
-
-		if not items then
-			add_layout_lines(node, 2)
-		end
-	elseif kind == 'maintenance' then
-		node = add_layout_block(parent, class_name, LAYOUT_BLOCK_KICKER.maintenance, 2)
-
-		if block.kicker then
-			node:tag('div'):addClass('ow-layout-kicker'):wikitext(mw.text.nowiki(block.kicker))
-		end
-	else
-		node = add_layout_block(parent, class_name, kicker and mw.text.nowiki(kicker) or nil, 1)
-	end
-
-	if block.optional and node then
+	if block.optional then
 		node:addClass('ow-layout-block--optional')
+	end
+
+	add_layout_block_head(node, kind, block.kicker, block.optional, extras.tips)
+
+	if kind == 'lead' then
+		add_skeleton_text(node, 3)
+	elseif kind == 'image' then
+		node:tag('div'):addClass('ow-layout-media'):attr('aria-hidden', 'true')
+	elseif kind == 'parser' then
+		add_layout_chips(node, block.items, 'code')
+	elseif kind == 'categories' then
+		add_layout_chips(node, block.items or extras.categories, 'span')
+	else
+		add_skeleton_text(node, 1)
 	end
 
 	return node
 end
 
-local function should_clear_layout_block(block, seen_infobox)
-	if not seen_infobox then
-		return false
+local function layout_bottom_start(blocks)
+	local at = #blocks + 1
+
+	for i = #blocks, 1, -1 do
+		local block = blocks[i]
+
+		if block.kind == 'region' then
+			if block.label == LAYOUT_BOTTOM_REGION then
+				return i
+			end
+		elseif LAYOUT_BOTTOM_FORMS[block.kind] then
+			at = i
+		else
+			break
+		end
 	end
 
-	if block.kind == 'lead' or block.kind == 'heading' or block.kind == 'image' or block.kind == 'infobox' then
-		return false
-	end
-
-	if block.kind == 'region' and block.label ~= 'Bottom matter' then
-		return false
-	end
-
-	return true
+	return at
 end
 
-local function render_layout_page(page_type)
-	local page = mw.html.create('div')
-	page:addClass('ow-layout-page')
-	if page_type.infobox then
-		page:addClass('ow-layout-page--infobox')
-	end
+local function render_layout_blocks(parent, blocks, from, to, extras, aside)
+	local i = from
 
-	local blocks = page_type.blocks or {}
-	local extras = {
-		place = page_type.place,
-		categories = page_type.categories,
-	}
-	local seen_infobox = false
-	local i = 1
-
-	while i <= #blocks do
+	while i <= to do
 		local block = blocks[i]
+
 		if block.kind == 'heading' then
 			local headings = {}
 
-			while i <= #blocks and blocks[i].kind == 'heading' do
+			while i <= to and blocks[i].kind == 'heading' do
 				headings[#headings + 1] = blocks[i]
 				i = i + 1
 			end
 
-			render_layout_headings(page, headings)
+			render_layout_headings(parent, headings, extras.tips)
 		else
-			if block.kind == 'infobox' then
-				seen_infobox = true
+			if block.kind == 'region' then
+				render_layout_region(parent, block.label)
+			elseif block.kind == 'infobox' then
+				if aside then
+					render_layout_infobox(aside, block, extras.tips)
+				end
+			else
+				render_layout_block(parent, block, extras)
 			end
 
-			local node = render_layout_block(page, block, extras)
-
-			if node and should_clear_layout_block(block, seen_infobox and block.kind ~= 'infobox') then
-				node:addClass('ow-layout-clear')
-			end
-			-- related currently may add two nodes; the chips one is last
 			i = i + 1
 		end
 	end
+end
 
-	return tostring(page)
+local function render_layout_page(page_type)
+	local blocks = page_type.blocks or {}
+	local extras = {
+		categories = page_type.categories,
+		tips = page_type.tips,
+	}
+
+	local root = mw.html.create('div')
+	root:addClass('ow-layout')
+
+	local infobox = find_layout_block(page_type, 'infobox')
+	local hint = page_type.place or (infobox and LAYOUT_DEFAULT_PLACE)
+
+	if hint then
+		local note = root:tag('div')
+		note:addClass('ow-layout-hint')
+		note:tag('span'):addClass('ow-layout-hint-icon'):attr('aria-hidden', 'true')
+		note:tag('span'):wikitext(hint)
+	end
+
+	local frame = root:tag('div')
+	frame:addClass('ow-layout-frame')
+	add_layout_chrome(frame)
+
+	local grid = frame:tag('div')
+	grid:addClass('ow-layout-grid')
+
+	local main = grid:tag('div')
+	main:addClass('ow-layout-main')
+
+	local aside = nil
+	if infobox then
+		grid:addClass('ow-layout-grid--split')
+		aside = grid:tag('div')
+		aside:addClass('ow-layout-aside')
+	end
+
+	local bottom_at = layout_bottom_start(blocks)
+	local foot = nil
+
+	if bottom_at <= #blocks then
+		foot = grid:tag('div')
+		foot:addClass('ow-layout-foot')
+	end
+
+	render_layout_blocks(main, blocks, 1, bottom_at - 1, extras, aside)
+
+	if foot then
+		if blocks[bottom_at].kind ~= 'region' then
+			render_layout_region(foot, LAYOUT_BOTTOM_REGION)
+		end
+
+		render_layout_blocks(foot, blocks, bottom_at, #blocks, extras, aside)
+	end
+
+	return tostring(root)
+end
+
+local function render_layout_key()
+	local list = mw.html.create('ul')
+	list:addClass('ow-layout-key')
+
+	for i = 1, #LAYOUT_KEY_ITEMS do
+		local item = LAYOUT_KEY_ITEMS[i]
+		local li = list:tag('li')
+		li:addClass('ow-layout-key-item')
+		li:addClass('ow-layout-key-item--' .. item.id)
+
+		if item.flag then
+			add_layout_flag(li, item.flag)
+		elseif item.code then
+			li:tag('code'):addClass('ow-layout-name'):wikitext(mw.text.nowiki(item.code))
+		else
+			li:tag('span'):addClass('ow-layout-swatch'):attr('aria-hidden', 'true')
+		end
+
+		if item.label then
+			li:tag('b'):wikitext(item.label)
+		end
+
+		li:tag('span'):addClass('ow-layout-key-text'):wikitext(item.body)
+	end
+
+	return list
 end
 
 local function layout_note_text(value)
@@ -1592,6 +1942,10 @@ local function render_layout(frame, args)
 			name = 'tabber',
 			content = table.concat(tabs),
 		}))
+	end
+
+	if yesno(args.key, true) then
+		box:node(render_layout_key())
 	end
 
 	local note_text = layout_note_text(args.note)
@@ -1790,7 +2144,7 @@ end
 
 function p.layout(frame)
 	local args = get_args(frame)
-	return with_styles(render_layout(frame, args), frame)
+	return FloatingUI.load(frame) .. with_styles(render_layout(frame, args), frame)
 end
 
 local DISCORD_INVITE = 'https://discord.gg/vuJsnzKkKY'
