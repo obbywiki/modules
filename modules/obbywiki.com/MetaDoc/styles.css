@@ -672,8 +672,8 @@
 }
 
 .ow-layout-chrome-action {
-	width: 2.75em;
-	height: 1.3em;
+	width: 1.5em;
+	height: 1.5em;
 	border-radius: var(--border-radius-base);
 	background-color: var(--color-surface-2);
 }
@@ -687,7 +687,7 @@
 }
 
 .ow-layout-grid--split {
-	grid-template-columns: minmax(0, 1fr) 17em;
+	grid-template-columns: minmax(0, 1fr) 19em;
 }
 
 .ow-layout-main {
