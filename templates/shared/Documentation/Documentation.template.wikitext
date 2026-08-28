@@ -1,1 +1,1 @@
-{{#invoke:Documentation|main}}
+<includeonly>{{#invoke:Documentation|main}}</includeonly><noinclude>{{/doc}}</noinclude>

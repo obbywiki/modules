@@ -1,0 +1,3 @@
+{{Documentation|synced=true}}
+
+Invokes [[Module:Documentation]].
