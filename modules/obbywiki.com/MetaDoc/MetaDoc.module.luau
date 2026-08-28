@@ -528,6 +528,59 @@ local function render_code_markup(frame, code, lang, heading)
 	return box
 end
 
+-- TODO: i18n
+local REFERENCE_DEFAULTS = {
+	text = 'Tower of Hell has been played over 20 billion times.',
+	marker = '1',
+	source = '"Tower of Hell". Roblox. Retrieved 2026-01-01.',
+}
+
+local function render_reference_markup(frame, args)
+	local box = mw.html.create('div')
+	box:addClass('ow-markup')
+	box:addClass('ow-markup--reference')
+
+	local label = box:tag('div')
+	label:addClass('ow-markup-label')
+	label:tag('span'):addClass('ow-markup-icon'):attr('aria-hidden', 'true')
+	label:tag('span'):wikitext(args.title or 'Reference')
+
+	local body = box:tag('div')
+	body:addClass('ow-markup-body')
+
+	-- args[1] is the markup type ("reference"); positional text/source start at [2]
+	local marker = mw.text.trim(args.marker or args.number or REFERENCE_DEFAULTS.marker)
+	local text = mw.text.trim(args.text or args[2] or REFERENCE_DEFAULTS.text)
+	local source = mw.text.trim(args.source or args.ref or args[3] or REFERENCE_DEFAULTS.source)
+
+	-- the wikitext an editor actually types
+	local code = text .. '<ref>' .. source .. '</ref>\n\n== References ==\n<references />'
+	local markup = body:tag('div')
+	markup:addClass('ow-cite-source')
+	markup:wikitext(highlight(frame, code, 'wikitext', false))
+
+	local caption = body:tag('div')
+	caption:addClass('ow-cite-caption')
+	caption:tag('span'):addClass('ow-cite-caption-icon'):attr('aria-hidden', 'true')
+	caption:tag('span'):wikitext('Renders as')
+
+	-- the rendered result
+	local prose = body:tag('p')
+	prose:addClass('ow-cite-prose')
+	prose:wikitext(text)
+	prose:tag('sup'):addClass('ow-cite-marker'):wikitext('[' .. marker .. ']')
+
+	local list = body:tag('ol')
+	list:addClass('ow-cite-list')
+
+	local item = list:tag('li')
+	item:addClass('ow-cite-item')
+	item:tag('span'):addClass('ow-cite-backref'):attr('aria-hidden', 'true'):wikitext('↑')
+	item:tag('span'):addClass('ow-cite-source-text'):wikitext(source)
+
+	return box
+end
+
 local LAYOUT_PARSER_NAMES = {
 	displaytitle = true,
 	shortdesc = true,
@@ -2129,6 +2182,10 @@ function p.markup(frame)
 
 	if type_key == 'headings' or type_key == 'heading' or type_key == 'sections' then
 		return with_styles(render_heading_markup(frame, args.title), frame)
+	end
+
+	if type_key == 'reference' or type_key == 'references' or type_key == 'cite' or type_key == 'citation' then
+		return with_styles(render_reference_markup(frame, args), frame)
 	end
 
 	local code = args.code or args[1]

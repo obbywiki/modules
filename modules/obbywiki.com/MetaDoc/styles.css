@@ -603,6 +603,67 @@
 	padding: var(--space-md);
 }
 
+/* Reference visual */
+
+.ow-markup--reference .ow-markup-body {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+}
+
+.ow-cite-caption {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs);
+	color: var(--color-subtle);
+	font-size: var(--font-size-small);
+}
+
+.ow-cite-caption-icon {
+	flex-shrink: 0;
+	width: 1em;
+	height: 1em;
+	background-color: currentColor;
+	mask-repeat: no-repeat;
+	mask-position: center;
+	mask-size: contain;
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+}
+
+.ow-cite-prose {
+	margin: 0;
+	color: var(--color-base);
+	line-height: var(--line-height-base);
+}
+
+.ow-cite-marker {
+	color: var(--color-link, #0059ff);
+	font-weight: var(--font-weight-medium);
+	white-space: nowrap;
+}
+
+.ow-cite-list {
+	margin: 0;
+	padding: var(--space-sm) var(--space-md);
+	padding-inline-start: calc(var(--space-md) + 1.5em);
+	border-top: var(--border-width-base) solid var(--border-color-base);
+	background-color: var(--color-surface-0);
+	border-radius: var(--border-radius-medium);
+	color: var(--color-subtle);
+	font-size: var(--font-size-small);
+	line-height: var(--line-height-base);
+}
+
+.ow-cite-item {
+	padding-inline-start: var(--space-xs);
+}
+
+.ow-cite-backref {
+	margin-inline-end: var(--space-xs);
+	color: var(--color-link, #0059ff);
+}
+
 /* Layout preview */
 
 .ow-layout {
