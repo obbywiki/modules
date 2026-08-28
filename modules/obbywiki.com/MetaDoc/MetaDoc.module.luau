@@ -1140,6 +1140,64 @@ local function numbered_layout_fields(args, n)
 	}
 end
 
+local LAYOUT_RESERVED_KEYS = {
+	title = true,
+	heading = true,
+	note = true,
+	tabs = true,
+	place = true,
+	categories = true,
+	lead = true,
+	layout = true,
+	headings = true,
+	infobox = true,
+	nav = true,
+	navplate = true,
+	maintenance = true,
+	stub = true,
+	parsers = true,
+	tab = true,
+	label = true,
+}
+
+local LAYOUT_NUMBERED_KEY = '^(tab|label|layout|page|headings|infobox|nav|navplate|maintenance|stub|parsers|place|categories|lead)%d+$'
+
+local LAYOUT_PREFERRED_TABS = {
+	'Universal',
+	'Obby',
+	'Community',
+	'Developer',
+	'Studio',
+	'Wiki',
+	'Blog',
+}
+
+local function is_layout_reserved_key(key)
+	local lower = mw.ustring.lower(key)
+	if LAYOUT_RESERVED_KEYS[lower] then
+		return true
+	end
+	if mw.ustring.match(lower, LAYOUT_NUMBERED_KEY) then
+		return true
+	end
+
+	return false
+end
+
+local function layout_tab_has_body(outline, fields)
+	if raw_layout_arg(outline) then
+		return true
+	end
+	if not fields then
+		return false
+	end
+	if fields.outline or fields.headings or fields.infobox or fields.nav or fields.maintenance or fields.parsers then
+		return true
+	end
+
+	return false
+end
+
 local function layout_arg_named(args, name)
 	if name == nil then
 		return nil
@@ -1160,6 +1218,26 @@ local function layout_arg_named(args, name)
 	return nil
 end
 
+local function add_layout_tab_page(pages, args, label, fields)
+	local page = parse_layout_outline(layout_arg_named(args, label))
+	fields = fields or {}
+	fields.label = label
+	apply_layout_fields(page, fields)
+
+	if page.categories == nil then
+		page.categories = parse_layout_categories(args.categories)
+	end
+
+	if page.lead == nil then
+		page.lead = yesno(args.lead, true)
+	else
+		page.lead = yesno(page.lead, true)
+	end
+
+	finalize_layout_page(page)
+	pages[#pages + 1] = page
+end
+
 local function collect_layout_pages(args)
 	local pages = {}
 	local tab_names = split_named_list(args.tabs)
@@ -1167,33 +1245,42 @@ local function collect_layout_pages(args)
 	if #tab_names > 0 then
 		for i = 1, #tab_names do
 			local label = tab_names[i]
-			local page = parse_layout_outline(layout_arg_named(args, label))
 			local fields = numbered_layout_fields(args, i) or {}
-
-			fields.label = label
-			apply_layout_fields(page, fields)
-
-			if page.categories == nil then
-				page.categories = parse_layout_categories(args.categories)
+			if layout_tab_has_body(layout_arg_named(args, label), fields) then
+				add_layout_tab_page(pages, args, label, fields)
 			end
-
-			if page.lead == nil then
-				page.lead = yesno(args.lead, true)
-			else
-				page.lead = yesno(page.lead, true)
-			end
-
-			finalize_layout_page(page)
-			pages[#pages + 1] = page
 		end
 
+		return pages
+	end
+
+	local seen = {}
+	for i = 1, #LAYOUT_PREFERRED_TABS do
+		local label = LAYOUT_PREFERRED_TABS[i]
+		local fields = numbered_layout_fields(args, i) or {}
+		if layout_tab_has_body(layout_arg_named(args, label), fields) then
+			seen[mw.ustring.lower(label)] = true
+			add_layout_tab_page(pages, args, label, fields)
+		end
+	end
+
+	for key, value in pairs(args) do
+		if type(key) == 'string' and not is_layout_reserved_key(key) and not seen[mw.ustring.lower(key)] then
+			if layout_tab_has_body(value, nil) then
+				seen[mw.ustring.lower(key)] = true
+				add_layout_tab_page(pages, args, key, {})
+			end
+		end
+	end
+
+	if #pages > 0 then
 		return pages
 	end
 
 	for i = 1, 30 do
 		local fields = numbered_layout_fields(args, i)
 
-		if fields then
+		if fields and layout_tab_has_body(fields.outline, fields) then
 			local page = parse_layout_outline(fields.outline)
 			apply_layout_fields(page, fields)
 
@@ -1458,7 +1545,7 @@ end
 
 local function layout_note_text(value)
 	local flag = yesno(value, nil)
-	
+
 	if flag == false then
 		return nil
 	end
