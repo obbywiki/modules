@@ -23,6 +23,6 @@
     "moonwave": "^1.4.2",
     "stylelint": "^17.14.1",
     "stylelint-config-standard": "^40.0.0",
-    "wikilint": "^2.46.2"
+    "wikilint": "^2.46.3"
   }
 }

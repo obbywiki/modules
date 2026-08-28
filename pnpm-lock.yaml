@@ -30,8 +30,8 @@ importers:
         specifier: ^40.0.0
         version: 40.0.0(stylelint@17.14.1)
       wikilint:
-        specifier: ^2.46.2
-        version: 2.46.2(stylelint-config-recommended@18.0.0(stylelint@17.14.1))(stylelint@17.14.1)
+        specifier: ^2.46.3
+        version: 2.46.3(stylelint-config-recommended@18.0.0(stylelint@17.14.1))(stylelint@17.14.1)
 
 packages:
 
@@ -43,8 +43,8 @@ packages:
     resolution: {integrity: sha512-qehxGkRj55h/ff8EMaJ+cYhyaKlHIxqYDn682wQD7RNp9UujOQsHog2uS0r2vzr4pW+sXf90NeeayjcNaX3fFg==}
     engines: {node: '>=6.9.0'}
 
-  '@bhsd/cm-util@2.4.0':
-    resolution: {integrity: sha512-S7DcPnR3ps9uF1Xk/cpYhys5MbauUI78189ReQrD/7bVg6QtBI25msOqBJeyBHDy6BfO5yOMDo5oNp50hokYBA==}
+  '@bhsd/cm-util@2.4.1':
+    resolution: {integrity: sha512-62sNuWI5IB5wA46jPvIObRl/YuMG0T4MO6BtiEDP+LDQ8ZmAWJIxxSBLuwrTpZQ2J6y2/8AfNQcfP2yiFzBwOQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24.11.0}
     peerDependencies:
       '@codemirror/state': ^6.0.0
@@ -58,8 +58,8 @@ packages:
       monaco-editor:
         optional: true
 
-  '@bhsd/common@4.0.1':
-    resolution: {integrity: sha512-GPqXjGaAp6tmTo54wUeUU+MVAgHM/yVNe7mvwAoIsJr4GXwFvFUZ0A99OeAvaZkxS57ImWI3Ldlh6+Y0p59Jpg==}
+  '@bhsd/common@4.1.0':
+    resolution: {integrity: sha512-+VGMTayOgeH9/8HzZbkA4cGHcZWOUFb9QsPM5uK99/PxyVyKv2A67qHjUcf/L14n7ho0PY+i9J3UbLnnpGeeVQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24.11.0}
     peerDependencies:
       culori: ^4.0.0
@@ -1061,8 +1061,8 @@ packages:
     engines: {node: '>= 8'}
     hasBin: true
 
-  wikilint@2.46.2:
-    resolution: {integrity: sha512-M4vZsU40i8UgxPAbYHmMm0EwqBex3FSAb7qOixJjLKs3ZmiLMmkY54T7P7Cb9szEJN0FTnUC2Q1HPSs8W8S//w==}
+  wikilint@2.46.3:
+    resolution: {integrity: sha512-Z+DSNws5NXAE+SYSplA2TdBNoC2yJYqklYo3/TOJduO+X13ITVFsKSJZc+o4sFg8AMQ0Sj+JcAKP1DNwqc+2WA==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24.11.0}
     hasBin: true
     peerDependencies:
@@ -1124,9 +1124,9 @@ snapshots:
 
   '@babel/helper-validator-identifier@7.29.7': {}
 
-  '@bhsd/cm-util@2.4.0': {}
+  '@bhsd/cm-util@2.4.1': {}
 
-  '@bhsd/common@4.0.1(culori@4.0.2)':
+  '@bhsd/common@4.1.0(culori@4.0.2)':
     optionalDependencies:
       culori: 4.0.2
 
@@ -2081,10 +2081,10 @@ snapshots:
     dependencies:
       isexe: 2.0.0
 
-  wikilint@2.46.2(stylelint-config-recommended@18.0.0(stylelint@17.14.1))(stylelint@17.14.1):
+  wikilint@2.46.3(stylelint-config-recommended@18.0.0(stylelint@17.14.1))(stylelint@17.14.1):
     dependencies:
-      '@bhsd/cm-util': 2.4.0
-      '@bhsd/common': 4.0.1(culori@4.0.2)
+      '@bhsd/cm-util': 2.4.1
+      '@bhsd/common': 4.1.0(culori@4.0.2)
       '@bhsd/stylelint-util': 1.1.0(stylelint-config-recommended@18.0.0(stylelint@17.14.1))
       culori: 4.0.2
       entities: 8.0.0
