@@ -16,10 +16,6 @@
 	font-size: var(--font-size-small);
 }
 
-.documentation-usage {
-	margin-block: var(--space-md);
-}
-
 .documentation-usage caption {
 	font-weight: var(--font-weight-semi-bold);
 	text-align: left;
