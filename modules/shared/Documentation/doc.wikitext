@@ -1,3 +1,28 @@
 {{Documentation|synced=true}}
+{{Documentation/usage
+| name = Documentation
+| description = Hatnotes and framing for template and module documentation pages.
+| usage = {{Tl|Documentation}}
+}}
 
 The implementation of this module was inspired by the Star Citizen Wiki, with some implementations adapted.
+
+== Header ==
+
+{{Tl|Documentation}} always outputs a '''Documentation''' header under any hatnotes, with view, talk, and edit links for the documentation page.
+
+== Usage table ==
+
+Use {{Tl|Documentation/usage}} for a compact quick-look table.
+
+{| class="wikitable"
+! Parameter !! Description
+|-
+| <code>name</code> || Subject's name. Defaults to the template or module page text.
+|-
+| <code>description</code> || Short description of when to use the template or module. Omitted if empty.
+|-
+| <code>usage</code> || Typical invoke, usually via {{Tl|Tl}}. Omitted if empty.
+|}
+
+The name row label is '''Template name''' or '''Module name''' based on the subject namespace.

@@ -4,11 +4,68 @@ local libutil = require('libraryUtil')
 local mbox = require( 'Module:Mbox' )._mbox
 local hatnote = require( 'Module:Hatnote' )._hatnote
 
+local function styles(frame)
+    return frame:extensionTag('templatestyles', '', { src = 'Module:Documentation/styles.css' })
+end
+
+local function resolve_pages(title)
+    if title.subpageText == 'doc' then
+        return title.basePageTitle, title
+    end
+
+    return title, mw.title.new(title.fullText .. '/doc')
+end
+
+local function page_type_of(title)
+    return title.namespace == 828 and 'module' or 'template'
+end
+
+local function make_header(subject, doc_page)
+    local header = mw.html.create('div')
+        :addClass('documentation-header')
+
+    header:tag('span')
+        :addClass('documentation-header__title')
+        :wikitext('Documentation')
+
+    local vte = header:tag('span')
+        :addClass('documentation-header__vte')
+        :addClass('noprint')
+        :addClass('plainlinks')
+
+    vte:tag('a')
+        :attr('href', doc_page:localUrl())
+        :attr('title', 'View')
+        :wikitext('v')
+
+    vte:wikitext(' · ')
+
+    local talk = subject.talkPageTitle
+    if talk then
+        vte:tag('a')
+            :attr('href', talk:localUrl())
+            :attr('title', 'Talk')
+            :wikitext('t')
+    else
+        vte:wikitext('t')
+    end
+
+    vte:wikitext(' · ')
+
+    vte:tag('a')
+        :attr('href', doc_page:localUrl({ action = 'edit' }))
+        :attr('title', 'Edit')
+        :wikitext('e')
+
+    return tostring(header)
+end
+
 function p.doc( frame )
     local title = mw.title.getCurrentTitle()
     local args = require( 'Module:Arguments' ).getArgs( frame )
+    local subject, doc_page = resolve_pages(title)
 
-    local page_type = title.namespace == 828 and 'module' or 'template'
+    local page_type = page_type_of(subject)
 
     local banners = {}
 
@@ -99,7 +156,43 @@ function p.doc( frame )
         end
     end
 
+    table.insert(banners, styles(frame))
+    table.insert(banners, make_header(subject, doc_page))
+
     return table.concat(banners)
+end
+
+function p.usage(frame)
+    local args = require('Module:Arguments').getArgs(frame)
+    local title = mw.title.getCurrentTitle()
+    local subject = resolve_pages(title)
+    local page_type = page_type_of(subject)
+
+    local name = args.name or subject.text
+    local description = args.description
+    local usage = args.usage
+
+    local table_el = mw.html.create('table')
+        :addClass('wikitable')
+        :addClass('documentation-usage')
+
+    local name_row = table_el:tag('tr')
+    name_row:tag('th'):wikitext(page_type == 'module' and 'Module name' or 'Template name')
+    name_row:tag('td'):wikitext(name)
+
+    if description then
+        local description_row = table_el:tag('tr')
+        description_row:tag('th'):wikitext('Description')
+        description_row:tag('td'):wikitext(description)
+    end
+
+    if usage then
+        local usage_row = table_el:tag('tr')
+        usage_row:tag('th'):wikitext('Usage')
+        usage_row:tag('td'):wikitext(usage)
+    end
+
+    return styles(frame) .. tostring(table_el)
 end
 
 function p.main ( frame )

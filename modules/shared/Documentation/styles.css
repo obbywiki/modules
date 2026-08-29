@@ -1,0 +1,27 @@
+.documentation-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-block: var(--space-md);
+	padding-block: var(--space-xs);
+	border-bottom: var(--border-base);
+}
+
+.documentation-header__title {
+	font-weight: var(--font-weight-semi-bold);
+}
+
+.documentation-header__vte {
+	font-weight: normal;
+	font-size: var(--font-size-small);
+}
+
+.documentation-usage {
+	margin-block: var(--space-md);
+}
+
+.documentation-usage th {
+	width: 10em;
+	color: var(--color-subtle);
+	font-weight: var(--font-weight-normal, normal);
+}
