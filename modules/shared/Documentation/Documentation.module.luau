@@ -33,29 +33,16 @@ local function make_header(subject, doc_page)
         :addClass('noprint')
         :addClass('plainlinks')
 
-    vte:tag('a')
-        :attr('href', doc_page:localUrl())
-        :attr('title', 'View')
-        :wikitext('v')
-
-    vte:wikitext(' · ')
-
     local talk = subject.talkPageTitle
-    if talk then
-        vte:tag('a')
-            :attr('href', talk:localUrl())
-            :attr('title', 'Talk')
-            :wikitext('t')
-    else
-        vte:wikitext('t')
-    end
+    local talk_link = talk and ('[[' .. talk.fullText .. '|t]]') or 't'
 
-    vte:wikitext(' · ')
-
-    vte:tag('a')
-        :attr('href', doc_page:localUrl({ action = 'edit' }))
-        :attr('title', 'Edit')
-        :wikitext('e')
+    vte:wikitext(table.concat({
+        '[[' .. doc_page.fullText .. '|v]]',
+        ' · ',
+        talk_link,
+        ' · ',
+        '[' .. doc_page:fullUrl({ action = 'edit' }) .. ' e]',
+    }))
 
     return tostring(header)
 end
@@ -170,27 +157,27 @@ function p.usage(frame)
 
     local name = args.name or subject.text
     local description = args.description
+    local when_to_use = args.when_to_use or args.when or args['when to use']
     local usage = args.usage
 
     local table_el = mw.html.create('table')
         :addClass('wikitable')
         :addClass('documentation-usage')
 
-    local name_row = table_el:tag('tr')
-    name_row:tag('th'):wikitext(page_type == 'module' and 'Module name' or 'Template name')
-    name_row:tag('td'):wikitext(name)
+    local function add_row(label, value, bold)
+        if not value then
+            return
+        end
 
-    if description then
-        local description_row = table_el:tag('tr')
-        description_row:tag('th'):wikitext('Description')
-        description_row:tag('td'):wikitext(description)
+        local row = table_el:tag('tr')
+        row:tag('th'):wikitext(label)
+        row:tag('td'):wikitext(bold and ("'''" .. value .. "'''") or value)
     end
 
-    if usage then
-        local usage_row = table_el:tag('tr')
-        usage_row:tag('th'):wikitext('Usage')
-        usage_row:tag('td'):wikitext(usage)
-    end
+    add_row(page_type == 'module' and 'Module name' or 'Template name', name, true)
+    add_row('Description', description)
+    add_row('When to use', when_to_use)
+    add_row('Usage', usage)
 
     return styles(frame) .. tostring(table_el)
 end

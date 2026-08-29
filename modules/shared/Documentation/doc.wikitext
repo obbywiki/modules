@@ -2,6 +2,7 @@
 {{Documentation/usage
 | name = Documentation
 | description = Hatnotes and framing for template and module documentation pages.
+| when = On template and module /doc pages.
 | usage = {{Tl|Documentation}}
 }}
 
@@ -20,7 +21,9 @@ Use {{Tl|Documentation/usage}} for a compact quick-look table.
 |-
 | <code>name</code> || Subject's name. Defaults to the template or module page text.
 |-
-| <code>description</code> || Short description of when to use the template or module. Omitted if empty.
+| <code>description</code> || Short description of the template or module. Omitted if empty.
+|-
+| <code>when</code> || When to use it. Also accepts <code>when_to_use</code>. Omitted if empty.
 |-
 | <code>usage</code> || Typical invoke, usually via {{Tl|Tl}}. Omitted if empty.
 |}
