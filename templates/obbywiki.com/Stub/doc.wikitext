@@ -7,3 +7,11 @@
 | where = Top of page
 | usage = <syntaxhighlight lang="wikitext">{{Stub}}</syntaxhighlight>
 }}
+
+== Visual ==
+
+{{CalloutV2
+| type  = info
+| title = This article is a [[:Category:Stubs|stub]].
+| body  = This page is too short! You can help the Obby Wiki by [{{fullurl:{{FULLPAGENAME}}|action=edit}} expanding it].
+}}
