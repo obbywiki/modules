@@ -165,7 +165,7 @@ function p.usage(frame)
         :addClass('wikitable wikitable--fluid mw-collapsible mw-made-collapsible plainlinks')
         :addClass('documentation-usage')
 
-    table_el:tag('caption'):wikitext('Quick Info')
+    table_el:tag('caption'):wikitext('Overview')
 
     local function add_row(label, value, bold)
         if not value then
@@ -180,8 +180,8 @@ function p.usage(frame)
     add_row(page_type == 'module' and 'Module name' or 'Template name', name, true)
     add_row('Description', description)
     add_row('When to use', when_to_use)
-    add_row('Placement', placement)
     add_row('Usage', usage)
+    add_row('Placement', placement)
 
     return styles(frame) .. tostring(table_el)
 end
