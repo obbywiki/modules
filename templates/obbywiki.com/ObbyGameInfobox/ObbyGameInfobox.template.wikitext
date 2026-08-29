@@ -2,6 +2,14 @@
 <!-- declare cargo table only on template page -->
 {{#invoke:ObbyGameInfobox|declare}}
 </noinclude><noinclude>
+{{Documentation|synced=true}}
+{{Documentation/usage
+| name = ObbyGameInfobox
+| description = The largest and most important infobox of the Obby Wiki, responsible for rendering the infobox display on every obby page and categorizing them automatically.
+| when = On every single obby page.
+| where = Absolute top of page, before the lead
+| usage = {{Tl|ObbyGameInfobox|...}} (see below)
+}}
 {{Tl|ObbyGameInfobox}} is a large and complex template (which invokes [[Module:ObbyGameInfobox]]). Please refer to the below documentation about how each parameter is used.
 
 Please note that only the <code>root_place_id</code> and <code>name</code> parameters are truly required for an ideal template. Most information is automatically fetched based on the place id. The root place id should be the number/id in the url when you open the game.
