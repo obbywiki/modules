@@ -158,11 +158,14 @@ function p.usage(frame)
     local name = args.name or subject.text
     local description = args.description
     local when_to_use = args.when_to_use or args.when or args['when to use']
+    local placement = args.where or args.placement or args.position
     local usage = args.usage
 
     local table_el = mw.html.create('table')
-        :addClass('wikitable')
+        :addClass('wikitable wikitable--fluid mw-collapsible mw-made-collapsible plainlinks')
         :addClass('documentation-usage')
+
+    table_el:tag('caption'):wikitext('Quick Info')
 
     local function add_row(label, value, bold)
         if not value then
@@ -177,6 +180,7 @@ function p.usage(frame)
     add_row(page_type == 'module' and 'Module name' or 'Template name', name, true)
     add_row('Description', description)
     add_row('When to use', when_to_use)
+    add_row('Placement', placement)
     add_row('Usage', usage)
 
     return styles(frame) .. tostring(table_el)

@@ -20,6 +20,11 @@
 	margin-block: var(--space-md);
 }
 
+.documentation-usage caption {
+	font-weight: var(--font-weight-semi-bold);
+	text-align: left;
+}
+
 .documentation-usage th {
 	width: 10em;
 	color: var(--color-subtle);
