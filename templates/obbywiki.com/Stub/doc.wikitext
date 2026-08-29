@@ -1,3 +1,7 @@
-Stub is a maintenance callout/template which lets other editors know when a page needs work. Use it when a page is lacking in length or is missing a large amount of content.
 
-Usage: {{Tl|Stub}}
+{{Documentation|synced=true}}
+{{Documentation/usage
+| name = Styb
+| description = Stub is a maintenance callout/template which lets other editors know when a page needs work. Use it when a page is lacking in length or is missing a large amount of content.
+| usage = {{Tl|Stub}}
+}}
