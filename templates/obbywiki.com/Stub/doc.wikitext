@@ -5,5 +5,5 @@
 | description = Stub is a maintenance callout/template which lets other editors know when a page needs work. Use it when a page is lacking in length or is missing a large amount of content.
 | when = Use this template when a page is too short or needs attention.
 | where = Top of page
-| usage = <syntaxhighlight lang="wikitext">{{Tl|Stub}}</syntaxhighlight>
+| usage = <syntaxhighlight lang="wikitext">{{Stub}}</syntaxhighlight>
 }}
