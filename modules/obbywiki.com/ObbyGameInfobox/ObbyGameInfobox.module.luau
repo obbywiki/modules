@@ -81,11 +81,11 @@ local smm = {
 		url = 'https://',
 		display = 'Website',
 	},
-	wiki = {
-		icon = 'External MediaWiki White Small.png',
-		url = 'https://',
-		display = 'MediaWiki',
-	},
+	-- wiki = {
+	-- 	icon = 'External MediaWiki White Small.png',
+	-- 	url = 'https://',
+	-- 	display = 'MediaWiki',
+	-- },
 }
 
 local obby_schema = {
