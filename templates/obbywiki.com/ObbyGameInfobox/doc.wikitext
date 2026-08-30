@@ -499,7 +499,13 @@ The config reference of this template is provided below. This reference is also 
 				"9",
 				"10",
 				"11",
-				"12"
+				"12",
+                "13",
+                "14",
+                "15",
+                "16",
+                "17",
+                "18"
 			],
 			"default": "0"
 		},
