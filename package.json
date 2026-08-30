@@ -17,8 +17,8 @@
   "packageManager": "pnpm@10.12.1",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "eslint": "^10.8.0",
-    "globals": "^17.8.0",
+    "eslint": "^10.9.0",
+    "globals": "^17.11.0",
     "husky": "^9.1.7",
     "moonwave": "^1.4.2",
     "stylelint": "^17.14.1",
