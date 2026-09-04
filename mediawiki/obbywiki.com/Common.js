@@ -53,8 +53,12 @@ mw.hook('wikipage.content').add(function ($content) {
 
 // EXPERIMENTAL
 
-/* Infobox Carousel Logic */
+// CAROUSEL (used in: Module:ObbyGameInfobox)
 mw.hook('wikipage.content').add(function ($content) {
+    const auto_advance_ms = 5000;
+    const swipe_threshold_px = 50;
+    const slide_transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
+    const prefers_reduced_motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const carousels = $content.find('.infobox__carousel').not('.is-initialized');
 
     carousels.each(function () {
@@ -63,146 +67,174 @@ mw.hook('wikipage.content').add(function ($content) {
 
         const $track = $carousel.find('.infobox__carousel-track');
         const $items = $carousel.find('.infobox__carousel-item');
-        const itemCount = $items.length;
+        const item_count = $items.length;
 
-        // If only one item, no need for controls
-        if (itemCount <= 1) return;
+        if (item_count <= 1) { return };
 
-        let currentIndex = 0;
+        let current_index = 0;
+        let is_dragging = false;
+        let start_x = 0;
+        let autoplay_timer = null;
+        let autoplay_remaining_ms = auto_advance_ms;
+        let autoplay_started_at = 0;
+        let is_hover_paused = false;
 
-        // Create Controls
-        // Using Unicode arrows for simplicity and compatibility
-        const $prevBtn = $('<button class="infobox__carousel-btn infobox__carousel-prev">\u276E</button>'); // ❮
-        const $nextBtn = $('<button class="infobox__carousel-btn infobox__carousel-next">\u276F</button>'); // ❯
+        const $prev_btn = $('<button type="button" class="infobox__carousel-btn infobox__carousel-prev">\u276E</button>');
+        const $next_btn = $('<button type="button" class="infobox__carousel-btn infobox__carousel-next">\u276F</button>');
         const $indicators = $('<div class="infobox__carousel-indicators"></div>');
 
-        // Generate indicators
-        for (let i = 0; i < itemCount; i++) {
+        for (let i = 0; i < item_count; i++) {
             const $dot = $('<div class="infobox__carousel-dot"></div>');
             if (i === 0) $dot.addClass('active');
 
-            // Allow clicking dots to jump
             $dot.on('click', function (e) {
                 e.preventDefault();
-                goToSlide(i);
+                go_to_slide(i);
             });
 
             $indicators.append($dot);
         }
 
-        $carousel.append($prevBtn, $nextBtn, $indicators);
+        $carousel.append($prev_btn, $next_btn, $indicators);
 
-        // Touch and Mouse Drag Support
-        let isDragging = false;
-        let startX = 0;
-        // Drive auto-slide via CSS animation end event
-        // The progress bar animation determines the timing. 
-        // When it ends, we go to next slide.
-        // Pausing is handled natively by CSS (animation-play-state: paused on hover).
-        $carousel.on('animationend', '.infobox__carousel-dot.active', function (e) {
-            if (e.originalEvent.animationName === 'carousel-progress') {
-                nextSlide();
-            }
-        });
-
-        // Core slide function
-        function goToSlide(index) {
-            currentIndex = index;
-            updateCarousel();
+        function motion_reduced() {
+            return prefers_reduced_motion.matches;
         }
 
-        function updateCarousel() {
-            const translateX = -(currentIndex * 100);
-            $track.css('transform', `translateX(${translateX}%)`);
+        function track_transition() {
+            return motion_reduced() ? 'none' : slide_transition;
+        }
 
-            // Update dots
+        function clear_autoplay() {
+            if (autoplay_timer === null) { return };
+            
+            clearTimeout(autoplay_timer);
+            autoplay_timer = null;
+        }
+
+        function schedule_autoplay() {
+            clear_autoplay();
+            if (is_hover_paused || is_dragging) { return };
+
+            autoplay_started_at = Date.now();
+            autoplay_timer = setTimeout(function () {
+                autoplay_remaining_ms = auto_advance_ms;
+                next_slide();
+            }, autoplay_remaining_ms);
+        }
+
+        function pause_autoplay() {
+            if (autoplay_timer === null) { return };
+            autoplay_remaining_ms = Math.max(0, autoplay_remaining_ms - (Date.now() - autoplay_started_at));
+            clear_autoplay();
+        }
+
+        function reset_autoplay() {
+            autoplay_remaining_ms = auto_advance_ms;
+            schedule_autoplay();
+        }
+
+        function go_to_slide(index) {
+            current_index = index;
+            update_carousel();
+            reset_autoplay();
+        }
+
+        function update_carousel() {
+            $track.css({
+                transition: track_transition(),
+                transform: 'translateX(' + (-(current_index * 100)) + '%)'
+            });
+
             $indicators.children().removeClass('active');
-            $indicators.children().eq(currentIndex).addClass('active');
+            $indicators.children().eq(current_index).addClass('active');
         }
 
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % itemCount;
-            updateCarousel();
+        function next_slide() {
+            current_index = (current_index + 1) % item_count;
+            update_carousel();
+            reset_autoplay();
         }
 
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + itemCount) % itemCount;
-            updateCarousel();
+        function prev_slide() {
+            current_index = (current_index - 1 + item_count) % item_count;
+            update_carousel();
+            reset_autoplay();
         }
 
-        // Event Listeners for Buttons
-        $nextBtn.on('click', function (e) {
+        $next_btn.on('click', function (e) {
             e.preventDefault();
-            nextSlide();
+            next_slide();
         });
 
-        $prevBtn.on('click', function (e) {
+        $prev_btn.on('click', function (e) {
             e.preventDefault();
-            prevSlide();
+            prev_slide();
         });
 
-        // Drag/Swipe Logic
-        $track.on('mousedown touchstart', dragStart);
-        $track.on('mouseup touchend', dragEnd);
-        $track.on('mousemove touchmove', dragAction);
-        $track.on('mouseleave', dragEnd);
+        $carousel.on('mouseenter', function () {
+            is_hover_paused = true;
+            pause_autoplay();
+        });
 
-        function getPositionX(event) {
+        $carousel.on('mouseleave', function () {
+            is_hover_paused = false;
+            schedule_autoplay();
+        });
+
+        $track.on('mousedown touchstart', drag_start);
+        $track.on('mouseup touchend', drag_end);
+        $track.on('mousemove touchmove', drag_action);
+        $track.on('mouseleave', drag_end);
+
+        function get_position_x(event) {
             return event.type.includes('mouse') ? event.pageX : event.originalEvent.touches[0].clientX;
         }
 
-        function dragStart(event) {
-            isDragging = true;
-            startX = getPositionX(event);
+        function drag_start(event) {
+            is_dragging = true;
+            start_x = get_position_x(event);
             $carousel.addClass('is-dragging');
-            // CSS pause handles implicit pause if hovered/active due to interaction
-
-            // Disable transition for instant follow
+            pause_autoplay();
             $track.css('transition', 'none');
         }
 
-        function dragAction(event) {
-            if (!isDragging) return;
-            const currentX = getPositionX(event);
-            const diff = currentX - startX;
+        function drag_action(event) {
+            if (!is_dragging) return;
+            const current_x = get_position_x(event);
+            const diff = current_x - start_x;
+            const track_width = $carousel.width();
+            const translate_offset = (diff / track_width) * 100;
+            const current_percentage = -(current_index * 100) + translate_offset;
 
-            // Calculate potential translation
-            // -currentIndex * 100 is base percentage. We need to convert pixel diff to percentage relative to track width
-            const trackWidth = $carousel.width();
-            const translateOffset = (diff / trackWidth) * 100;            const currentPercentage = -(currentIndex * 100) + translateOffset;
-
-            $track.css('transform', `translateX(${currentPercentage}%)`);
+            $track.css('transform', 'translateX(' + current_percentage + '%)');
         }
 
-        function dragEnd(event) {
-            if (!isDragging) return;
-            isDragging = false;
+        function drag_end(event) {
+            if (!is_dragging) { return };
+            is_dragging = false;
             $carousel.removeClass('is-dragging');
-            $track.css('transition', 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)'); // Restore transition
+            $track.css('transition', track_transition());
 
-            // Determine if we dragged enough to change slide
-            // We need the end X. For mouseup it is pageX, for touchend we need changedTouches 
-            let endX;
+            let end_x;
             if (event.type.includes('mouse')) {
-                endX = event.pageX;
+                end_x = event.pageX;
             } else {
-                endX = event.originalEvent.changedTouches[0].clientX;
+                end_x = event.originalEvent.changedTouches[0].clientX;
             }
 
-            const diff = endX - startX;
-            const threshold = 50; // min pixels to swipe
+            const diff = end_x - start_x;
 
-            if (Math.abs(diff) > threshold) {
-                if (diff > 0) prevSlide();
-                else nextSlide();
+            if (Math.abs(diff) > swipe_threshold_px) {
+                if (diff > 0) prev_slide();
+                else next_slide();
             } else {
-                updateCarousel(); // Snap back
+                update_carousel();
+                schedule_autoplay();
             }
-
-            // Resume auto slide if mouse leaves, but here we just wait for mouseleave event or separate interaction
-            // To be safe, we don't immediately restart auto-slide if mouse is still technically possibly "over"
-            // The mouseleave event on $carousel will handle restart.
         }
+
+        schedule_autoplay();
     });
 });
 

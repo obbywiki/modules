@@ -273,6 +273,17 @@ a[href$=":WikiWireBot"] {
     }
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .infobox__carousel-track {
+        transition: none;
+    }
+
+    .infobox__carousel-dot.active::after {
+        animation: none;
+        transform: none;
+    }
+}
+
 .infobox__carousel-wrapper.is-dragging {
     cursor: grabbing;
 }
