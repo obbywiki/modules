@@ -182,19 +182,20 @@ a[href$=":WikiWireBot"] {
     display: flex;
     align-items: center;
     gap: 0;
-    padding: 0.375rem 0.5rem;
+    padding: 0.375rem 0.75rem;
     z-index: 5;
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(14px) saturate(1.2);
     -webkit-backdrop-filter: blur(14px) saturate(1.2);
     border-radius: var(--border-radius-large);
     opacity: 0.55;
-    transition: opacity 0.2s ease, gap 0.2s ease;
+    transition: opacity 0.2s ease, gap 0.2s ease, padding 0.2s ease;
 }
 
 .infobox__carousel:hover .infobox__carousel-nav {
     opacity: 1;
     gap: 0.375rem;
+    padding: 0.375rem 0.5rem;
 }
 
 .infobox__carousel--many-thumbs .infobox__carousel-nav {
