@@ -549,12 +549,12 @@
 	border-bottom-left-radius: var(--border-radius-medium);
 	border-bottom-right-radius: var(--border-radius-medium);
 	padding: var(--space-sm) var(--space-md);
-	background-color: var(--color-progressive);
+	background-color: var(--background-color-progressive);
 	cursor: pointer;
 }
 
 .infobox__button:hover {
-	background-color: var(--color-progressive--hover);
+	background-color: var(--background-color-progressive--hover);
 }
 
 .infobox__buttonLabel {
