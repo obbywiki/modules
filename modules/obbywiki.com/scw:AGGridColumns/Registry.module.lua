@@ -1,0 +1,22 @@
+require('strict')
+
+--- The keyed registry of column kinds. Adding a kind = one require line here +
+--- one Module:AGGridColumns/Kind/X module satisfying Module:AGGridColumns/Contract +
+--- one paired renderer in MediaWiki:Gadget-aggridRenderers.js (for scw* types).
+
+return {
+	image = require('Module:AGGridColumns/Kind/Image'),
+	link = require('Module:AGGridColumns/Kind/Link'),
+	linkList = require('Module:AGGridColumns/Kind/LinkList'),
+	valueList = require('Module:AGGridColumns/Kind/ValueList'),
+	text = require('Module:AGGridColumns/Kind/Text'),
+	date = require('Module:AGGridColumns/Kind/Date'),
+	smart = require('Module:AGGridColumns/Kind/Smart'),
+	number = require('Module:AGGridColumns/Kind/Number'),
+	card = require('Module:AGGridColumns/Kind/Card'),
+	stackedValue = require('Module:AGGridColumns/Kind/StackedValue'),
+	badge = require('Module:AGGridColumns/Kind/Badge'),
+	badgeList = require('Module:AGGridColumns/Kind/BadgeList'),
+	boolean = require('Module:AGGridColumns/Kind/Boolean'),
+	signedBar = require('Module:AGGridColumns/Kind/SignedBar'),
+}
