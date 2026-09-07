@@ -1,3 +1,3 @@
 {{Documentation|synced=true|agpl=true|owsmt_location=obbywiki.com/RobloxBadgesV2}}
 
-See [[Module:RobloxBadgesV2]].
+Invoke [[Module:RobloxBadgesV2]] specifically. Use [[Template:RobloxBadges]] to invoke the latest version.

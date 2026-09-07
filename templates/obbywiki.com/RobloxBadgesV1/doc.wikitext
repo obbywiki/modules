@@ -1,0 +1,3 @@
+{{Documentation|synced=true|agpl=true|owsmt_location=obbywiki.com/RobloxBadgesV1}}
+
+Invoke [[Module:RobloxBadgesV1]] specifically. Use [[Template:RobloxBadges]] to invoke the latest version.
