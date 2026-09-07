@@ -8,3 +8,7 @@ For a better writing experience, you can use:
 * Some function annotations/declarations like @deprecated
 * String interpolation (e.g., `String with a {variable} inserted`)
 * Other features stripped by Darklua
+
+# Standards
+
+Some standards from the OW Standards repo apply here: https://github.com/obbywiki/standards.
