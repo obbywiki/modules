@@ -296,47 +296,84 @@ function methodtable.renderCarousel( self, images )
 	return item
 end
 
---- Return the HTML of the infobox indicator component as string
+--- Normalize renderIndicator input into a list of indicator tables
 ---
---- @param data table {data, class, tooltip, color)
+--- @param data table {data, class, tooltip, color, icon} or a list of those
+--- @return table
+local function getIndicatorItems( data )
+	if data == nil then
+		return {}
+	end
+
+	if data['data'] ~= nil then
+		if data['data'] == '' then
+			return {}
+		end
+		return { data }
+	end
+
+	local items = {}
+	for _, item in ipairs( data ) do
+		if type( item ) == 'table' and item['data'] ~= nil and item['data'] ~= '' then
+			table.insert( items, item )
+		end
+	end
+
+	return items
+end
+
+--- Return the HTML of a single indicator chip
+---
+--- @param item table {data, class, tooltip, color, icon}
+--- @return string html
+function methodtable.renderIndicatorItem( self, item )
+	local htmlClasses = {
+		'infobox__indicator'
+	}
+
+	if item['class'] then
+		table.insert( htmlClasses, item['class'] )
+	end
+
+	if item['color'] then
+		table.insert( htmlClasses, 'infobox__indicator--' .. item['color'] )
+	end
+
+	return self:renderItem( {
+		['data'] = item['data'],
+		['class'] = table.concat( htmlClasses, ' ' ),
+		['tooltip'] = item.tooltip,
+		['icon'] = item.icon,
+		row = true,
+		spacebetween = true
+	} )
+end
+
+--- Return the HTML of the infobox indicator component as string
+--- Accepts a single indicator table or a list of indicator tables
+---
+--- @param data table {data, class, tooltip, color, icon} or a list of those
 --- @return string html
 function methodtable.renderIndicator( self, data )
 	checkType( 'Module:InfoboxNeue.renderIndicator', 1, self, 'table' )
 	checkType( 'Module:InfoboxNeue.renderIndicator', 2, data, 'table' )
 
-	if data == nil or data['data'] == nil or data['data'] == '' then return '' end
+	local items = getIndicatorItems( data )
+	if #items == 0 then
+		return ''
+	end
 
 	local html = mw.html.create( 'div' ):addClass( 'infobox__indicators' )
 
-	local htmlClasses = {
-		'infobox__indicator'
-	}
-
-	if data['class'] then
-		table.insert( htmlClasses, data['class'] )
+	for _, item in ipairs( items ) do
+		html:wikitext( self:renderIndicatorItem( item ) )
 	end
 
-	if data['color'] then
-		table.insert( htmlClasses, 'infobox__indicator--' .. data['color'] )
-	end
+	local rendered = tostring( html )
 
-	html:wikitext(
-		self:renderItem(
-			{
-				['data'] = data['data'],
-				['class'] = table.concat( htmlClasses, ' ' ),
-				['tooltip'] = data.tooltip,
-				row = true,
-				spacebetween = true
-			}
-		)
-	)
+	table.insert( self.entries, rendered )
 
-	local item = tostring( html )
-
-	table.insert( self.entries, item )
-
-	return item
+	return rendered
 end
 
 --- Return the HTML of the infobox header component as string

@@ -54,6 +54,8 @@
     "status_unreleased": "未リリース",
     "tooltip_public": "このオビーはRobloxで公開されています。",
     "tooltip_private": "このオビーは非公開で、すべてのユーザーがアクセスできるわけではありません。",
+    "tooltip_unreleased": "このオビーはまだリリースされていません。",
+    "tooltip_roblox": "このゲームはRobloxで利用できます。",
     "tooltip_peak_ccu": "過去最高の同時接続プレイヤー数",
     "maturity_minimal": "最小 - 5歳以上",
     "maturity_mild": "軽度 - 9歳以上",

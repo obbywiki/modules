@@ -64,6 +64,8 @@
 
   "tooltip_public": "This obby is publicly accessible on Roblox.",
   "tooltip_private": "This obby is private and is not accessible to all users.",
+  "tooltip_unreleased": "This obby has not been released yet.",
+  "tooltip_roblox": "This game is available on Roblox.",
   "tooltip_peak_ccu": "All-time highest amount of players",
 
   "maturity_minimal": "Minimal - Ages 5+",

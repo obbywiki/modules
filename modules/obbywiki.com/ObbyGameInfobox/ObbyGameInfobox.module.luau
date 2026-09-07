@@ -640,10 +640,37 @@ function ObbyGameInfobox.main( frame )
 	local obby_status = i18n:get(obby_status_key)
 	local obby_status_raw = args.unreleased == 'true' and 'Unreleased' or obby_is_public and 'Public' or 'Private'
 
+	local visibility_icons = {
+		Public = 'GoogleMaterialIcons-Globe.svg',
+		Private = nil, -- placeholder
+		Unreleased = nil, -- placeholder
+	}
+
+	local visibility_tooltips = {
+		Public = 'tooltip_public',
+		Private = 'tooltip_private',
+		Unreleased = 'tooltip_unreleased',
+	}
+
+	local visibility_colors = {
+		Public = 'green',
+		Private = 'red',
+		Unreleased = 'gray',
+	}
+
 	test:renderIndicator( {
-		data = obby_status,
-		color = obby_status_raw == 'Unreleased' and 'gray' or obby_status_raw == 'Public' and 'green' or 'red',
-		tooltip = (obby_is_public and i18n:get('tooltip_public') or i18n:get('tooltip_private'))
+		{
+			data = obby_status,
+			color = visibility_colors[obby_status_raw],
+			icon = visibility_icons[obby_status_raw],
+			tooltip = i18n:get(visibility_tooltips[obby_status_raw]),
+		},
+		{
+			data = i18n:get('link_roblox'),
+			color = 'roblox',
+			icon = 'External Roblox White Small.png',
+			tooltip = i18n:get('tooltip_roblox'),
+		},
 	} )
 
     test:renderHeader( {

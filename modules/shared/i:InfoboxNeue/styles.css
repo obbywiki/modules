@@ -186,26 +186,55 @@
 	color: var(--color-base);
 	border-radius: var(--border-radius-base);
 	line-height: var(--line-height-xxx-small);
+	display: flex;
+	align-items: center;
+	column-gap: var(--space-xxs);
+}
+
+.infobox__indicator.infobox__item--hasIcon {
+	column-gap: var(--space-xxs);
 }
 
 .infobox__indicator .infobox__data {
 	font-size: var(--font-size-x-small);
 	font-weight: var(--font-weight-medium);
+	color: inherit;
+}
+
+.infobox__indicator .infobox__icon img {
+	width: 16px;
+	height: 16px;
+	filter: none;
+	opacity: 1;
+}
+
+.infobox__indicator .infobox__icon img[src$='.svg'] {
+	filter: brightness(0) invert(1);
 }
 
 .infobox__indicator.infobox__indicator--red {
-	background-color: var(--background-color-destructive-subtle);
-	color: var(--color-destructive);
+	background-color: #dc2626;
+	color: #fff;
 }
 
 .infobox__indicator.infobox__indicator--yellow {
-	background-color: var(--background-color-warning-subtle);
-	color: var(--color-warning);
+	background-color: #ca8a04;
+	color: #fff;
 }
 
 .infobox__indicator.infobox__indicator--green {
-	background-color: var(--background-color-success-subtle);
-	color: var(--color-success);
+	background-color: #16a34a;
+	color: #fff;
+}
+
+.infobox__indicator.infobox__indicator--gray {
+	background-color: #6b7280;
+	color: #fff;
+}
+
+.infobox__indicator.infobox__indicator--roblox {
+	background-color: #00a2ff;
+	color: #fff;
 }
 
 .infobox__header,
