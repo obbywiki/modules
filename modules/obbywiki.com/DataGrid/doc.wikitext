@@ -1,0 +1,1 @@
+{{Documentation|synced=true|luau=true|imported=scw|agpl=true|owsmt_location=obbywiki.com/DataGrid}}
