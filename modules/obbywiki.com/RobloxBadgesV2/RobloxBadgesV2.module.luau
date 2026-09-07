@@ -5,7 +5,7 @@ local p = {}
 local ED = mw.ext.externalData
 local aggrid = require('mw.ext.aggrid')
 
-local DEFAULT_ICON_PX = 40
+local DEFAULT_ICON_PX = 72
 local ROW_PAD = 16
 local MIN_ROW_HEIGHT = 48
 local BADGE_HREF = 'https://www.roblox.com/badges/%s/badge'
@@ -269,7 +269,7 @@ function p.render(frame)
 	end
 
 	local thumbs = fetch_thumbnails(badges) or {}
-	
+
 	return build_grid(badges, thumbs, icon_px, frame)
 end
 
