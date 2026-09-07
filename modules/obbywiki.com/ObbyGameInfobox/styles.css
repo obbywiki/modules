@@ -1,4 +1,4 @@
-/* playability */
+/* PLAYABILITY */
 
 .ow-playability-box {
     position: relative;
@@ -6,13 +6,9 @@
 }
 
 .ow-playability-box.verified {
-    background-color: #88ff8873;
+    background-color: light-dark(#88ff8873, #01760173);
     border: 2px solid green;
     border-radius: var(--border-radius-large);
-}
-
-.skin-theme-clientpref-night .ow-playability-box.verified {
-    background-color: #01760173;
 }
 
 .ow-playability-box.unstable {
