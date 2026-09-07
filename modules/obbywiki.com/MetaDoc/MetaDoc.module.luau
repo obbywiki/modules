@@ -495,14 +495,14 @@ local function render_heading_markup(frame, heading)
 
 		row:addClass('ow-markup-heading')
 		row:addClass(item.class_name)
-		row:wikitext(highlight(frame, heading_source(item.level, 'Title'), 'wikitext', true))
+		row:wikitext(highlight(frame, heading_source(item.level, 'Heading'), 'wikitext', true))
 	end
 
 	local never = body:tag('div')
 	never:addClass('ow-markup-heading')
 	never:addClass('ow-markup-heading--never')
 	never:tag('span'):addClass('ow-markup-heading-x'):attr('aria-hidden', 'true')
-	never:wikitext(highlight(frame, heading_source(1, 'Title'), 'wikitext', true))
+	never:wikitext(highlight(frame, heading_source(1, 'Heading'), 'wikitext', true))
 	never:tag('span'):addClass('ow-markup-heading-flag'):wikitext('Never used')
 
 	local note = box:tag('p')
