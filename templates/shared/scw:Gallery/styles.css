@@ -1,0 +1,27 @@
+.template-gallery {
+	margin-top: var( --space-md );
+	display: flex;
+	gap: var( --space-xs );
+}
+
+.template-gallery a.mw-file-description {
+	display: block;
+    border-radius: var( --border-radius-base );
+    overflow: hidden;
+}
+
+.template-gallery a.mw-file-description img {
+    transition: transform 250ms ease;
+}
+
+.template-gallery a.mw-file-description:hover img {
+    transform: scale(1.1);
+}
+
+.template-gallery video {
+	max-width: none !important;
+	max-height: 120px !important;
+    width: auto !important;
+    overflow: hidden;
+    border-radius: var( --border-radius-base );
+}

@@ -1,0 +1,1 @@
+<includeonly>{{#if:{{{1|}}}|{{#invoke:Gallery|main}}}}<templatestyles src="Template:Gallery/styles.css"/></includeonly><noinclude>{{/doc}}</noinclude>
