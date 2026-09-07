@@ -155,7 +155,6 @@ local function build_grid(badges, thumb_map, icon_px, frame)
 			aggrid.linkColumn({
 				field = 'name',
 				header = 'Name',
-				filter = 'agTextColumnFilter',
 				sortable = false,
 				flex = 1,
 				minWidth = 160,
@@ -163,7 +162,6 @@ local function build_grid(badges, thumb_map, icon_px, frame)
 			{
 				field = 'description',
 				headerName = 'Description',
-				filter = 'agTextColumnFilter',
 				sortable = false,
 				flex = 2,
 				minWidth = 180,
