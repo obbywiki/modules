@@ -1,0 +1,22 @@
+.t-robloxbadges {
+	margin-block: var(--space-md);
+}
+
+.t-robloxbadges .ext-aggrid {
+	min-height: 16rem;
+	height: 50vh;
+}
+
+.t-robloxbadges .ag-cell {
+	display: flex;
+	align-items: center;
+}
+
+.t-robloxbadges .ag-cell.ag-right-aligned-cell {
+	justify-content: flex-end;
+}
+
+.t-robloxbadges .ag-cell img {
+	max-height: 100%;
+	object-fit: contain;
+}

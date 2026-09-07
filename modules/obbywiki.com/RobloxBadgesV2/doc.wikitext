@@ -1,0 +1,5 @@
+{{Documentation|synced=true|luau=true|important=true|agpl=true|owsmt_location=obbywiki.com/RobloxBadgesV2}}
+
+PROTOTYPE.
+
+RobloxBadgesV2 lists a game's badges in an AG Grid from the universe ID alone. Same fetch as {{tl|RobloxBadges}}.
