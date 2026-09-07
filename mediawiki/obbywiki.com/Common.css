@@ -175,101 +175,143 @@ a[href$=":WikiWireBot"] {
     user-drag: none;
 }
 
-.infobox__carousel-btn {
+.infobox__carousel-nav {
     position: absolute;
-    top: 50%;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0.375rem 0.5rem;
+    z-index: 5;
     background: rgba(0, 0, 0, 0.4);
-    
-    color: rgba(255, 255, 255, 0.9);
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    font-size: 14px;
-    z-index: 2;
-    border-radius: var(--border-radius-base, 2px);
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    border-radius: var(--border-radius-large);
+    opacity: 0.55;
+    transition: opacity 0.2s ease, gap 0.2s ease;
+}
 
-    
-    opacity: 0;
-    
-    transition: opacity 0.2s ease, background 0.2s ease, transform var(--transition-duration-base) ease;
+.infobox__carousel:hover .infobox__carousel-nav {
+    opacity: 1;
+    gap: 0.375rem;
+}
+
+.infobox__carousel--many-thumbs .infobox__carousel-nav {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+}
+
+.infobox__carousel-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-}
-
-.infobox__carousel:hover .infobox__carousel-btn {
-    opacity: 1;
-}
-
-.infobox__carousel-btn:hover {
-    background: var(--background-color-progressive, #00aff0);
-	transform: scale(1.1);
+    width: 22px;
+    height: 22px;
+    max-width: 0;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
     color: #fff;
+    cursor: pointer;
+    overflow: hidden;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: max-width 0.2s ease, opacity 0.2s ease, transform 0.2s ease, background 0.15s ease;
 }
 
 .infobox__carousel-prev {
-    left: 8px;
-    /* Added spacing */
+    transform: translateX(-6px);
 }
 
 .infobox__carousel-next {
-    right: 8px;
-    /* Added spacing */
+    transform: translateX(6px);
 }
 
-.infobox__carousel-indicators {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+.infobox__carousel:hover .infobox__carousel-btn {
+    max-width: 22px;
+    opacity: 1;
+    transform: none;
+}
+
+.infobox__carousel-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.infobox__carousel-btn svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.infobox__carousel-bars {
     display: flex;
-    justify-content: center;
-    gap: 4px;
-    z-index: 2;
-    padding: 8px 0;
-    background-image: linear-gradient(to bottom,transparent,var(--color-surface-1)100%);
+    align-items: stretch;
+    gap: 5px;
+    width: 96px;
+    height: calc(22px + 0.75rem);
+    margin-top: -0.375rem;
+    margin-bottom: -0.375rem;
 }
 
-.infobox__carousel-dot {
-    width: 32px;
-    height: 4px;
-    border-radius: var(--border-radius-base, 2px);
-    background: rgb(from var(--color-emphasized) r g b / 0.2);
-    cursor: pointer;
-    overflow: hidden;
-    position: relative;
+.infobox__carousel--many-thumbs .infobox__carousel-bars {
+    width: 200px;
+}
+
+.infobox__carousel-bar {
+    display: block;
+    flex: 1;
     border: none;
-    transition: background-color 0.3s ease;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
 }
 
-.infobox__carousel-dot.active {
-    background: rgb(from var(--color-emphasized) r g b / 0.6);
-}
-
-.infobox__carousel-dot.active::after {
+.infobox__carousel-bar::before {
     content: '';
     position: absolute;
-    top: 0;
     left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: #55acff;
-    transform: translateX(-100%);
-    animation: carousel-progress 5s linear forwards;
+    right: 0;
+    top: 50%;
+    height: 3px;
+    margin-top: -1.5px;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: background-color 0.2s ease;
+    pointer-events: none;
 }
 
-.infobox__carousel:hover .infobox__carousel-dot.active::after {
-    animation-play-state: paused;
+.infobox__carousel-bar:hover::before {
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
-@keyframes carousel-progress {
+.infobox__carousel-bar-fill {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 3px;
+    margin-top: -1.5px;
+    width: 0%;
+    background-color: #fff;
+    border-radius: 999px;
+    pointer-events: none;
+}
+
+.infobox__carousel-bar--active .infobox__carousel-bar-fill {
+    animation: infobox-carousel-bar-progress 5s linear forwards;
+}
+
+@keyframes infobox-carousel-bar-progress {
     from {
-        transform: translateX(-100%);
+        width: 0%;
     }
 
     to {
-        transform: translateX(0%);
+        width: 100%;
     }
 }
 
@@ -278,17 +320,22 @@ a[href$=":WikiWireBot"] {
         transition: none;
     }
 
-    .infobox__carousel-dot.active::after {
+    .infobox__carousel-nav,
+    .infobox__carousel-btn {
+        transition: none;
+    }
+
+    .infobox__carousel-bar--active .infobox__carousel-bar-fill {
         animation: none;
-        transform: none;
+        width: 100%;
     }
 }
 
-.infobox__carousel-wrapper.is-dragging {
+.infobox__carousel.is-dragging {
     cursor: grabbing;
 }
 
-//---
+/* --- */
 
 #ca-talk {
    display: none !important;

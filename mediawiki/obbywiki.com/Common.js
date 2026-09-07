@@ -79,23 +79,38 @@ mw.hook('wikipage.content').add(function ($content) {
         let autoplay_started_at = 0;
         let is_hover_paused = false;
 
-        const $prev_btn = $('<button type="button" class="infobox__carousel-btn infobox__carousel-prev">\u276E</button>');
-        const $next_btn = $('<button type="button" class="infobox__carousel-btn infobox__carousel-next">\u276F</button>');
-        const $indicators = $('<div class="infobox__carousel-indicators"></div>');
+        if (item_count >= 6) {
+            $carousel.addClass('infobox__carousel--many-thumbs');
+        }
+
+        const chevron_prev = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>';
+        const chevron_next = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>';
+
+        const $nav = $('<div class="infobox__carousel-nav"></div>');
+        const $prev_btn = $('<button type="button" class="infobox__carousel-btn infobox__carousel-prev" aria-label="Previous thumbnail"></button>').html(chevron_prev);
+        const $next_btn = $('<button type="button" class="infobox__carousel-btn infobox__carousel-next" aria-label="Next thumbnail"></button>').html(chevron_next);
+        const $bars = $('<div class="infobox__carousel-bars"></div>');
 
         for (let i = 0; i < item_count; i++) {
-            const $dot = $('<div class="infobox__carousel-dot"></div>');
-            if (i === 0) $dot.addClass('active');
+            const $bar = $('<button type="button" class="infobox__carousel-bar"></button>');
+            const $fill = $('<span class="infobox__carousel-bar-fill"></span>');
 
-            $dot.on('click', function (e) {
+            $bar.attr('aria-label', 'Slide ' + (i + 1));
+            if (i === 0) {
+                $bar.addClass('infobox__carousel-bar--active');
+            }
+
+            $bar.append($fill);
+            $bar.on('click', function (e) {
                 e.preventDefault();
                 go_to_slide(i);
             });
 
-            $indicators.append($dot);
+            $bars.append($bar);
         }
 
-        $carousel.append($prev_btn, $next_btn, $indicators);
+        $nav.append($prev_btn, $bars, $next_btn);
+        $carousel.append($nav);
 
         function motion_reduced() {
             return prefers_reduced_motion.matches;
@@ -140,14 +155,42 @@ mw.hook('wikipage.content').add(function ($content) {
             reset_autoplay();
         }
 
+        function update_bars() {
+            $bars.children().each(function (j) {
+                const $bar = $(this);
+                const fill = $bar.find('.infobox__carousel-bar-fill').get(0);
+
+                if (j === current_index) {
+                    $bar.addClass('infobox__carousel-bar--active');
+                    if (fill) {
+                        fill.style.animation = 'none';
+                        void fill.offsetWidth;
+                        fill.style.animation = '';
+                    }
+                } else {
+                    $bar.removeClass('infobox__carousel-bar--active');
+                    if (fill) {
+                        fill.style.animation = 'none';
+                        fill.style.width = (j < current_index) ? '100%' : '0%';
+                    }
+                }
+            });
+        }
+
+        function set_bar_play_state(play_state) {
+            const fill = $carousel.find('.infobox__carousel-bar--active .infobox__carousel-bar-fill').get(0);
+            if (fill) {
+                fill.style.animationPlayState = play_state;
+            }
+        }
+
         function update_carousel() {
             $track.css({
                 transition: track_transition(),
                 transform: 'translateX(' + (-(current_index * 100)) + '%)'
             });
 
-            $indicators.children().removeClass('active');
-            $indicators.children().eq(current_index).addClass('active');
+            update_bars();
         }
 
         function next_slide() {
@@ -175,10 +218,12 @@ mw.hook('wikipage.content').add(function ($content) {
         $carousel.on('mouseenter', function () {
             is_hover_paused = true;
             pause_autoplay();
+            set_bar_play_state('paused');
         });
 
         $carousel.on('mouseleave', function () {
             is_hover_paused = false;
+            set_bar_play_state('running');
             schedule_autoplay();
         });
 
