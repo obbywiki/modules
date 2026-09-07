@@ -660,16 +660,16 @@ function ObbyGameInfobox.main( frame )
 
 	test:renderIndicator( {
 		{
-			data = obby_status,
-			color = visibility_colors[obby_status_raw],
-			icon = visibility_icons[obby_status_raw],
-			tooltip = i18n:get(visibility_tooltips[obby_status_raw]),
-		},
-		{
 			data = i18n:get('link_roblox'),
 			color = 'roblox',
 			icon = 'External Roblox White Small.png',
 			tooltip = i18n:get('tooltip_roblox'),
+		},
+		{
+			data = obby_status,
+			color = visibility_colors[obby_status_raw],
+			icon = visibility_icons[obby_status_raw],
+			tooltip = i18n:get(visibility_tooltips[obby_status_raw]),
 		},
 	} )
 
