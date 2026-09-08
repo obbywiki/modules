@@ -30,8 +30,8 @@ importers:
         specifier: ^40.0.0
         version: 40.0.0(stylelint@17.14.1)
       wikilint:
-        specifier: ^2.46.3
-        version: 2.46.3(stylelint-config-recommended@18.0.0(stylelint@17.14.1))(stylelint@17.14.1)
+        specifier: ^2.46.4
+        version: 2.46.4(stylelint-config-recommended@18.0.0(stylelint@17.14.1))(stylelint@17.14.1)
 
 packages:
 
@@ -1045,8 +1045,8 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
-  vscode-languageserver-types@3.18.0:
-    resolution: {integrity: sha512-8TsGPNMIMiiBdkORgRSvLjuiEIiAFtO+KssmYWxQ+uSVvlf7RjK8YKCOjPzZ+YA04jXEV7+7LvkSmHkhpNS99g==}
+  vscode-languageserver-types@3.18.3:
+    resolution: {integrity: sha512-XIlzJ7Qp/jzSI1ds7/FwPAWrPeTZA7pAtlW4hdJ1J6xXWJL6dR9QYnDhJOdLzdKhUQ5Mm6mvUMw+3DcOQQasPw==}
 
   web-streams-polyfill@3.3.3:
     resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
@@ -1061,8 +1061,8 @@ packages:
     engines: {node: '>= 8'}
     hasBin: true
 
-  wikilint@2.46.3:
-    resolution: {integrity: sha512-Z+DSNws5NXAE+SYSplA2TdBNoC2yJYqklYo3/TOJduO+X13ITVFsKSJZc+o4sFg8AMQ0Sj+JcAKP1DNwqc+2WA==}
+  wikilint@2.46.4:
+    resolution: {integrity: sha512-9YEDfa864cE9HoKA1j3o1VZUZYylGqqNfQvvYfhtWNwEzJnXqzo/8F4Lb79yqvZbrL0ak4MvGehcnsxkugSSMQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24.11.0}
     hasBin: true
     peerDependencies:
@@ -2069,7 +2069,7 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vscode-languageserver-types@3.18.0: {}
+  vscode-languageserver-types@3.18.3: {}
 
   web-streams-polyfill@3.3.3: {}
 
@@ -2081,14 +2081,14 @@ snapshots:
     dependencies:
       isexe: 2.0.0
 
-  wikilint@2.46.3(stylelint-config-recommended@18.0.0(stylelint@17.14.1))(stylelint@17.14.1):
+  wikilint@2.46.4(stylelint-config-recommended@18.0.0(stylelint@17.14.1))(stylelint@17.14.1):
     dependencies:
       '@bhsd/cm-util': 2.4.1
       '@bhsd/common': 4.1.0(culori@4.0.2)
       '@bhsd/stylelint-util': 1.1.0(stylelint-config-recommended@18.0.0(stylelint@17.14.1))
       culori: 4.0.2
       entities: 8.0.0
-      vscode-languageserver-types: 3.18.0
+      vscode-languageserver-types: 3.18.3
     optionalDependencies:
       stylelint: 17.14.1
     transitivePeerDependencies:
