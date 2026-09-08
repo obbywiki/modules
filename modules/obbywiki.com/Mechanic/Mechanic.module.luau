@@ -1,0 +1,3 @@
+local Mechanic = {}
+
+return Mechanic

@@ -1,0 +1,3 @@
+<includeonly>{{#invoke:Mechanic|main}}</includeonly><noinclude>
+{{/doc}}
+</noinclude>
