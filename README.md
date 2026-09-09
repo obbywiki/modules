@@ -32,9 +32,7 @@ More information on WikiWire here: https://github.com/obbywiki/wikiwire
 
 # 2. Why Luau?
 
-Some people may believe that Luau is Roblox-specific and can only be used in Roblox. While Luau is both developed by Roblox and most commonly applied to that use case, many programmers have built tooling around Luau because of its worthwhile benefits over vanilla Lua. In this case, Luau is not used directly, as Scribunto and MediaWiki do not support it. Instead, here, Luau is transpiled to Lua via the automated production CI pipeline (WikiWire & DarkLua) and patched with the necessary polyfills and compatibility scripts to function correctly.
-
-With this, Luau offers significant advantages such as modern Lua features, typing, and the Luau language server protocol (Luau-LSP).
+See [CONTRIBUTING.md].
 
 # 3. Contributing
 
