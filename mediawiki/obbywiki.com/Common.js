@@ -16,18 +16,6 @@ $(document).ready(function() {
 });
 
 /**
- * Temporary UploadWizard replacement
-*/
-
-jQuery( function ( $ ) {
-  $( '#t-upload' ).attr("href", "/wiki/Special:Upload");
-});
-
-var upload_link = document.querySelector('#t-upload > a');
-if (upload_link) {
-  upload_link.setAttribute('href', '/wiki/Special:Upload');
-}
-/**
  * Redirects %2527 to %27
 */
 
