@@ -30,8 +30,8 @@ importers:
         specifier: ^40.0.0
         version: 40.0.0(stylelint@17.15.0)
       wikilint:
-        specifier: ^2.46.4
-        version: 2.46.4(stylelint-config-recommended@18.0.0(stylelint@17.15.0))(stylelint@17.15.0)
+        specifier: ^2.47.0
+        version: 2.47.0(stylelint-config-recommended@18.0.0(stylelint@17.15.0))(stylelint@17.15.0)
 
 packages:
 
@@ -376,8 +376,8 @@ packages:
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
 
-  entities@8.0.0:
-    resolution: {integrity: sha512-zwfzJecQ/Uej6tusMqwAqU/6KL2XaB2VZ2Jg54Je6ahNBGNH6Ek6g3jjNCF0fG9EWQKGZNddNjU5F1ZQn/sBnA==}
+  entities@8.1.0:
+    resolution: {integrity: sha512-kxL7msIffSuh9aaFAMD7rxAIuTRMAHMeBtgHW2yUdWw732ZNh4MehkF2gdjvtdmikkaIP9bFDDJOPlsvm7avrA==}
     engines: {node: '>=20.19.0'}
 
   env-paths@2.2.1:
@@ -1047,8 +1047,8 @@ packages:
     engines: {node: '>= 8'}
     hasBin: true
 
-  wikilint@2.46.4:
-    resolution: {integrity: sha512-9YEDfa864cE9HoKA1j3o1VZUZYylGqqNfQvvYfhtWNwEzJnXqzo/8F4Lb79yqvZbrL0ak4MvGehcnsxkugSSMQ==}
+  wikilint@2.47.0:
+    resolution: {integrity: sha512-ojJG06zHfV8hfT3nTznYVTagLoh/jEz145mHYWW3lPODOTK7fnWWGqQpLZjedwIMjJ5/cUj+qeQSx1zoX6Jn3Q==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24.11.0}
     hasBin: true
     peerDependencies:
@@ -1375,7 +1375,7 @@ snapshots:
 
   emoji-regex@8.0.0: {}
 
-  entities@8.0.0: {}
+  entities@8.1.0: {}
 
   env-paths@2.2.1: {}
 
@@ -2053,13 +2053,13 @@ snapshots:
     dependencies:
       isexe: 2.0.0
 
-  wikilint@2.46.4(stylelint-config-recommended@18.0.0(stylelint@17.15.0))(stylelint@17.15.0):
+  wikilint@2.47.0(stylelint-config-recommended@18.0.0(stylelint@17.15.0))(stylelint@17.15.0):
     dependencies:
       '@bhsd/cm-util': 2.4.1
       '@bhsd/common': 4.1.0(culori@4.0.2)
       '@bhsd/stylelint-util': 1.1.0(stylelint-config-recommended@18.0.0(stylelint@17.15.0))
       culori: 4.0.2
-      entities: 8.0.0
+      entities: 8.1.0
       vscode-languageserver-types: 3.18.3
     optionalDependencies:
       stylelint: 17.15.0
