@@ -14,3 +14,8 @@ The 2nd version of the Obby infobox, succeeding `{{Obby}}`.
 * i18n2
 * Arguments
 * edge.obbywiki.com (OW infra; dependent on roblox.com availability)
+
+## Contributing
+
+* Commit shortcuts are supported for this module (i.e., `feat-ogi:` -> `feat(ObbyGameInfobox):`)
+* Strings for languages other than `en` are not required.
