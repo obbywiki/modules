@@ -227,6 +227,7 @@ function ObbyGameInfobox.main( frame )
 		['wraparounddifficultychartobby'] = 'subgenre_wdco',
 		['wraparoundperdifficultychartobby'] = 'subgenre_wpdco',
 		['coopobby'] = 'subgenre_coop',
+		['coop'] = 'subgenre_coop',
 		['2playerobby'] = 'subgenre_coop',
 		['tierobby'] = 'subgenre_tier',
 		['tier'] = 'subgenre_tier',
