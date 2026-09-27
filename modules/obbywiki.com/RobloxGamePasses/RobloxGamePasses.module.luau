@@ -1,18 +1,18 @@
 local p = {}
 
-local ED = mw.ext.externalData
+local apiunto = mw.ext.Apiunto
 local html = mw.html
 
-local function fetch_json(url)
-	local data, errs = ED.getExternalData{ url = url }
-	if errs and #errs > 0 then
-		return nil, table.concat(errs, "; ")
-	end
-	if not data or not data.__json then
-		return nil, "no JSON"
-	end
-	return data.__json, nil
+local function fetch_json(source, uri, args)
+	local raw = apiunto.fetch(source, uri, args)
+	if type(raw) ~= 'string' or raw == '' or raw == 'Could not retrieve API Data' then return nil, raw or 'no response' end
+
+	local ok, decoded = pcall(mw.text.jsonDecode, raw)
+	if not ok or type(decoded) ~= 'table' then return nil, 'invalid JSON' end
+
+	return decoded
 end
+
 
 local function format_date_timestamp(iso_date)
 	local timestamp = iso_date or '2025-11-08T21:49:17.671+00:00'
@@ -35,14 +35,10 @@ local function gather_passes(universe_id)
 	-- local tries = 0
 	-- repeat
 		-- tries = tries + 1
-		local url = string.format(
-			-- "https://badges.roblox.com/v1/universes/%s/badges?limit=100&sortOrder=Asc%s",
-			-- 'https://oxalyl.apis.wolf1te.com/roblox.com/badges/v1/universes/%s/badges?limit=100&sortOrder=Asc%s&wlft_auth=public-key-obbywiki-14-11-25-Vx9q7VCbM2Srn38LVDDhMk58GKf5bxD14KpPkS5XFzNEcM2FRHEaXNMbran621QySY0ueSUXZL5y4pTwjZ55nyyHhBTBuJ9BFnCAHzFLyPB3CfB9k9FGxBhAFST9qygnqtjd3PfUYtEEd4BRvhPpdQ25bLDjmjNhfucKqfE1DWJ2qkGuDubMSCGCqJGyLSFY5t2dpmTg4ij8viyCbu5dunfJfuZ71pCiz1ia4MUNBHdaPDSkg6wvWd9AJZGcHUT9&oxalyl_convert_int=true',
-			'https://apis.roblox.com/game-passes/v1/universes/%s/game-passes?pageSize=50&passView=Full',
-			tostring(universe_id)
-			-- cursor and ("&cursor=" .. mw.uri.encode(cursor)) or ""
-		)
-		local json, err = fetch_json(url)
+		local json, err = fetch_json('RobloxApis', 'game-passes/v1/universes/' .. tostring(universe_id) .. '/game-passes', {
+			pageSize = 50,
+			passView = 'Full',
+		})
 		if not json then return nil, err end
 		if json.gamePasses then
 			for _, g in ipairs(json.gamePasses) do
@@ -72,16 +68,12 @@ local function fetch_thumbnails(passes)
 	local csv, n = {}, 0
 
 	local function pull(ids_csv)
-		local url = (
-			-- 'https://thumbnails.roblox.com/v1/badges/icons?badgeIds=%s&size=150x150&format=Png&isCircular=false&returnPolicy=PlaceHolder'
-			-- 'https://oxalyl.apis.wolf1te.com/roblox.com/thumbnails/v1/badges/icons?badgeIds=%s&size=150x150&format=Png&isCircular=false&returnPolicy=PlaceHolder&wlft_auth=public-key-obbywiki-14-11-25-Vx9q7VCbM2Srn38LVDDhMk58GKf5bxD14KpPkS5XFzNEcM2FRHEaXNMbran621QySY0ueSUXZL5y4pTwjZ55nyyHhBTBuJ9BFnCAHzFLyPB3CfB9k9FGxBhAFST9qygnqtjd3PfUYtEEd4BRvhPpdQ25bLDjmjNhfucKqfE1DWJ2qkGuDubMSCGCqJGyLSFY5t2dpmTg4ij8viyCbu5dunfJfuZ71pCiz1ia4MUNBHdaPDSkg6wvWd9AJZGcHUT9&oxalyl_convert_int=true'
-			'https://thumbnails.roblox.com/v1/game-passes?gamePassIds=%s&size=150x150&format=Webp&isCircular=false'
-		)
-			:format(ids_csv)
-		local data, errs = ED.getExternalData{ url = url, cache = 3600 }
-		if errs and #errs > 0 then return end
-
-		local json = data and data.__json
+		local json = fetch_json('RobloxThumbnails', 'v1/game-passes', {
+			gamePassIds = ids_csv,
+			size = '150x150',
+			format = 'Webp',
+			isCircular = 'false',
+		})
 		if not json or not json.data then return end
 
 		for _, item in ipairs(json.data) do

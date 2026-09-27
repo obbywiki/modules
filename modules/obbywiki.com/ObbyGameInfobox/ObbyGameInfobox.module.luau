@@ -44,6 +44,18 @@ local function format_with_total(value, total)
 	return value or ''
 end
 
+local apiunto = mw.ext.Apiunto
+
+local function fetch_json(source, uri, args)
+	local raw = apiunto.fetch(source, uri, args)
+	if type(raw) ~= 'string' or raw == '' or raw == 'Could not retrieve API Data' then return nil, raw or 'no response' end
+
+	local ok, decoded = pcall(mw.text.jsonDecode, raw)
+	if not ok or type(decoded) ~= 'table' then return nil, 'invalid JSON' end
+
+	return decoded
+end
+
 
 local smm = {
 	twitter = {
@@ -342,189 +354,11 @@ function ObbyGameInfobox.main( frame )
 	
 	local thumb = args.image or args.thumbnail or args.thumb
 
-	--
-
-	-- local universe_id
-
-	-- local _, res = pcall(function() 
-	-- 	return mw.ext.externalData.getExternalData{
-	-- 		url = 'https://apis.roblox.com/universes/v1/places/' .. obby_starter_place_id .. '/universe',
-	-- 		format = 'json'
-	-- 	};
-	--  end)
-
-	-- universe_id = res and res.__json and res.__json.universeId
-
-
-	-- ---
-
-	-- local last_updated = ''
-	-- if universe_id then
-	-- 	local game_res = mw.ext.externalData.getExternalData{
-	-- 		url = 'https://games.roblox.com/v1/games?universeIds=' .. tostring(universe_id),
-	-- 		format = 'json'
-	-- 	}
-		
-	-- 	local game_json = game_res and game_res.__json
-	-- 	local row = game_json and game_json.data and game_json.data[1]
-	-- 	mw.log(game_res, row)
-
-	-- 	if row and row.creator then
-	-- 		local c = row.creator
-	-- 		local base = (c.type == 'Group') and 'communities' or 'users'
-			
-	-- 		obby_developer_raw = obby_developer -- TODO remove
-
-	-- 		if page_exists(c.type == 'Group' and c.name or '@' .. c.name) then
-	-- 			obby_developer = '[[' .. c.name .. ']]' .. (c.hasVerifiedBadge and ' [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=' .. obby_developer_raw .. ']]' or '')
-	-- 		else
-	-- 			obby_developer = string.format(
-	-- 				'[https://roblox.com/%s/%s/%s %s%s]',
-	-- 				base, c.id, base == 'communities' and (string.gsub(c.name, ' ', '_') .. '#!/about') or 'profile', (c.type == 'User' and '@' or '') .. c.name,
-	-- 				(c.hasVerifiedBadge and '  [[File:Roblox_Verification_Badge.svg|12px|alt=Verified|link=]]') or ''
-	-- 			)
-
-	-- 			obby_developer_was_corrected = true
-	-- 		end
-
-	-- 		obby_developer_canonical = c.type == 'User' and '@'.. c.name or c.name
-	-- 	end
-
-	-- 	if row then
-	-- 		obby_stats_visits = row.visits or obby_stats_visits
-	-- 		obby_stats_favorites = row.favoritedCount or 'N/A'
-	-- 		if row.visits and tonumber(obby_stats_visits) ~= nil then obby_stats_visits_raw = tonumber(obby_stats_visits); obby_stats_visits = get_comma_val(obby_stats_visits) end
-	-- 		if row.favoritedCount and tonumber(obby_stats_favorites) ~= nil then obby_stats_favorites = get_comma_val(obby_stats_favorites) end
-
-	-- 		if row.updated then
-	-- 			last_updated = row.updated -- iso, e.g., 2026-03-07T09:29:16.4508416Z
-	-- 		end
-	-- 	end
-
-	-- 	---
-
-	-- 	local votes_res = mw.ext.externalData.getExternalData{
-	-- 		url = 'https://games.roblox.com/v1/games/votes?universeIds=' .. tostring(universe_id),
-	-- 		format = 'json'
-	-- 	}
-
-	-- 	local votes_json = votes_res and votes_res.__json
-	-- 	local vrow = votes_json and votes_json.data and votes_json.data[1]
-
-	-- 	if vrow then
-	-- 		if vrow.upVotes and tonumber(vrow.upVotes) ~= nil then obby_stats_likes = tonumber(vrow.upVotes) end
-	-- 		if vrow.downVotes and tonumber(vrow.downVotes) ~= nil then obby_stats_dislikes = tonumber(vrow.downVotes) end
-	-- 	end
-	-- end
-
-	-- local thumbs
-	-- local use_external_thumbs = false
-	-- if universe_id then
-	-- 	local thumb_overall_s, thumb_overall_err = pcall(function()
-
-	-- 		-- request needs to route through oxalyl due to integer overflow issues on roblox's end
-	-- 		--- imageIds are in some cases too large for int32 and arent returned as strings, use oxalyl to get them returned as strings
-	-- 		local media_res = mw.ext.externalData.getExternalData{
-	-- 			-- url = 'https://games.roblox.com/v2/games/' .. tostring(universe_id) .. '/media',
-	-- 			-- 'https://oxalyl.apis.wolf1te.com/roblox.com/thumbnails/v1/badges/icons?badgeIds=%s&size=150x150&format=Png&isCircular=false&returnPolicy=PlaceHolder&wlft_auth=public-key-obbywiki-14-11-25-Vx9q7VCbM2Srn38LVDDhMk58GKf5bxD14KpPkS5XFzNEcM2FRHEaXNMbran621QySY0ueSUXZL5y4pTwjZ55nyyHhBTBuJ9BFnCAHzFLyPB3CfB9k9FGxBhAFST9qygnqtjd3PfUYtEEd4BRvhPpdQ25bLDjmjNhfucKqfE1DWJ2qkGuDubMSCGCqJGyLSFY5t2dpmTg4ij8viyCbu5dunfJfuZ71pCiz1ia4MUNBHdaPDSkg6wvWd9AJZGcHUT9&oxalyl_convert_int=true'
-	-- 			url = 'https://oxalyl.apis.wolf1te.com/roblox.com/games/v2/games/' .. tostring(universe_id) .. '/media?fetchAllExperienceRelatedMedia=false&oxalyl_convert_int=true&wlft_auth=public-key-obbywiki-14-11-25-Vx9q7VCbM2Srn38LVDDhMk58GKf5bxD14KpPkS5XFzNEcM2FRHEaXNMbran621QySY0ueSUXZL5y4pTwjZ55nyyHhBTBuJ9BFnCAHzFLyPB3CfB9k9FGxBhAFST9qygnqtjd3PfUYtEEd4BRvhPpdQ25bLDjmjNhfucKqfE1DWJ2qkGuDubMSCGCqJGyLSFY5t2dpmTg4ij8viyCbu5dunfJfuZ71pCiz1ia4MUNBHdaPDSkg6wvWd9AJZGcHUT9',
-	-- 			format = 'json'
-	-- 		}
-
-	-- 		local media_json = media_res and media_res.__json
-	-- 		local mdata = media_json and media_json.data
-
-	-- 		local image_ids = {}
-	-- 		local thumb_urls = {}
-	-- 		local thumb_found = false
-
-	-- 		if mdata then
-	-- 			for _, v in ipairs(mdata) do
-	-- 				if v.assetType == 'Image' and v.imageId and (v.assetTypeId == 1 or v.assetTypeId == '1') then
-	-- 					-- 
-	-- 					if v.approved == true then
-	-- 						table.insert(image_ids, v.imageId)
-	-- 						thumb_found = true
-	-- 					end
-	-- 				end
-	-- 			end
-
-	-- 			if thumb_found and #image_ids > 0 then
-	-- 				local thumb_res = mw.ext.externalData.getExternalData{
-	-- 					url = 'https://thumbnails.roblox.com/v1/games/' .. tostring(universe_id) .. '/thumbnails?thumbnailIds=' .. table.concat(image_ids, ',') .. '&size=768x432&format=Webp&isCircular=false',
-	-- 					format = 'json'
-	-- 				}
-
-	-- 				local thumb_json = thumb_res and thumb_res.__json
-	-- 				local tdata = thumb_json and thumb_json.data
-
-	-- 				if tdata then
-	-- 					for _, v in ipairs(tdata) do
-	-- 						if v.state == 'Completed' and v.imageUrl then
-	-- 							table.insert(thumb_urls, v.imageUrl)
-	-- 							use_external_thumbs = true
-	-- 						end
-	-- 					end
-						
-	-- 					thumbs = thumb_urls
-	-- 				end
-	-- 			end
-	-- 		end
-	-- 	end)
-
-	-- 	if not thumb_overall_s then
-	-- 		mw.log('Error fetching thumbnail: ' .. tostring(thumb_overall_err))
-	-- 	end
-	-- end
-
-	-- local s2, universe_data = pcall(function()
-	-- 	return mw.ext.externalData.getExternalData{
-	-- 		data = {
-	-- 			creator_name = 'json.data[0].creator.name',
-	-- 			creator_id   = 'json.data[0].creator.id',
-	-- 			is_verified  = 'json.data[0].creator.hasVerifiedBadge'
-	-- 		},
-	-- 		url = 'https://games.roblox.com/v1/games?universeIds=' .. universe_id,
-	-- 		format = 'json',
-	-- 	}
-	-- end)
-
-	-- if s2 and universe_data then
-	-- 	if universe_data.creator_name then
-	-- 		obby_developer = universe_data.creator.name or obby_developer
-
-	-- 		if universe_data.is_verified == 'true' or universe_data.is_verified == true then obby_developer = obby_developer .. ' [[File:Roblox_Verification_Badge.svg|12px|link=|alt=Verified]]' end
-	-- 	end
-	-- end
-
-	-- local universe
-
-	-- if universe_id then
-	-- 	local universe_data = mw.ext.externalData.getExternalData{
-	-- 		url = 'https://games.roblox.com/v1/games?universeIds=' .. universe_id
-	-- 	}
-	
-	-- 	universe = universe_data and universe_data[1]
-	
-	-- 	if universe then
-	-- 		obby_developer = universe.creator and universe.creator.name or obby_developer
-	-- 	end
-	-- end
-
-	---
-
-	local s, res = pcall(function()
-		return mw.ext.externalData.getExternalData{
-			url = 'https://edge.obbywiki.com/v1/get-obby/' .. obby_starter_place_id,
-			-- a new endpoint which collects and fetches all data needed for the infobox in typescript and node,
-			-- about 3s faster due to concurrency being possible in the environment!
-			format = 'json'
-		}
-	end)
-	
-	
-	
-	local obby_wiki_edge_res = res and res.__json
+	-- edge aggregates all infobox Roblox data in typescript/node
+	local s, obby_wiki_edge_res = pcall(fetch_json, 'ObbyEdge', 'v1/get-obby/' .. obby_starter_place_id)
+	if not s then
+		obby_wiki_edge_res = nil
+	end
 
 	local universe_id, thumbs
 	local last_updated = ''

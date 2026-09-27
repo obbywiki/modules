@@ -2,7 +2,7 @@ local p = {}
 
 -- PROTOTYPE
 
-local ED = mw.ext.externalData
+local apiunto = mw.ext.Apiunto
 local aggrid = require('mw.ext.aggrid')
 
 local DEFAULT_ICON_PX = 64
@@ -10,16 +10,16 @@ local ROW_PAD = 16
 local MIN_ROW_HEIGHT = 48
 local BADGE_HREF = 'https://www.roblox.com/badges/%s/badge'
 
-local BADGES_URL = 'https://oxalyl.apis.wolf1te.com/roblox.com/badges/v1/universes/%s/badges?limit=100&sortOrder=Asc%s&wlft_auth=public-key-obbywiki-14-11-25-Vx9q7VCbM2Srn38LVDDhMk58GKf5bxD14KpPkS5XFzNEcM2FRHEaXNMbran621QySY0ueSUXZL5y4pTwjZ55nyyHhBTBuJ9BFnCAHzFLyPB3CfB9k9FGxBhAFST9qygnqtjd3PfUYtEEd4BRvhPpdQ25bLDjmjNhfucKqfE1DWJ2qkGuDubMSCGCqJGyLSFY5t2dpmTg4ij8viyCbu5dunfJfuZ71pCiz1ia4MUNBHdaPDSkg6wvWd9AJZGcHUT9&oxalyl_convert_int=true'
-local THUMBS_URL = 'https://oxalyl.apis.wolf1te.com/roblox.com/thumbnails/v1/badges/icons?badgeIds=%s&size=150x150&format=Webp&isCircular=false&returnPolicy=PlaceHolder&wlft_auth=public-key-obbywiki-14-11-25-Vx9q7VCbM2Srn38LVDDhMk58GKf5bxD14KpPkS5XFzNEcM2FRHEaXNMbran621QySY0ueSUXZL5y4pTwjZ55nyyHhBTBuJ9BFnCAHzFLyPB3CfB9k9FGxBhAFST9qygnqtjd3PfUYtEEd4BRvhPpdQ25bLDjmjNhfucKqfE1DWJ2qkGuDubMSCGCqJGyLSFY5t2dpmTg4ij8viyCbu5dunfJfuZ71pCiz1ia4MUNBHdaPDSkg6wvWd9AJZGcHUT9&oxalyl_convert_int=true'
+local oxalyl_auth = 'public-key-obbywiki-14-11-25-Vx9q7VCbM2Srn38LVDDhMk58GKf5bxD14KpPkS5XFzNEcM2FRHEaXNMbran621QySY0ueSUXZL5y4pTwjZ55nyyHhBTBuJ9BFnCAHzFLyPB3CfB9k9FGxBhAFST9qygnqtjd3PfUYtEEd4BRvhPpdQ25bLDjmjNhfucKqfE1DWJ2qkGuDubMSCGCqJGyLSFY5t2dpmTg4ij8viyCbu5dunfJfuZ71pCiz1ia4MUNBHdaPDSkg6wvWd9AJZGcHUT9'
 
-local function fetch_json(url)
-	local data, errs = ED.getExternalData{ url = url }
+local function fetch_json(source, uri, args)
+	local raw = apiunto.fetch(source, uri, args)
+	if type(raw) ~= 'string' or raw == '' or raw == 'Could not retrieve API Data' then return nil, raw or 'no response' end
 
-	if errs and #errs > 0 then return nil, table.concat(errs, '; ') end
-	if not data or not data.__json then return nil, 'no JSON' end
+	local ok, decoded = pcall(mw.text.jsonDecode, raw)
+	if not ok or type(decoded) ~= 'table' then return nil, 'invalid JSON' end
 
-	return data.__json, nil
+	return decoded
 end
 
 local function gather_badges(universe_id)
@@ -29,12 +29,13 @@ local function gather_badges(universe_id)
 
 	repeat
 		tries = tries + 1
-		local url = string.format(
-			BADGES_URL,
-			tostring(universe_id),
-			cursor and ('&cursor=' .. mw.uri.encode(cursor)) or ''
-		)
-		local json, err = fetch_json(url)
+		local json, err = fetch_json('Oxalyl', 'roblox.com/badges/v1/universes/' .. tostring(universe_id) .. '/badges', {
+			limit = 100,
+			sortOrder = 'Asc',
+			cursor = cursor,
+			wlft_auth = oxalyl_auth,
+			oxalyl_convert_int = 'true',
+		})
 
 		if not json then return nil, err end
 
@@ -74,10 +75,15 @@ local function fetch_thumbnails(badges)
 	local csv, n = {}, 0
 
 	local function pull(ids_csv)
-		local data, errs = ED.getExternalData{ url = THUMBS_URL:format(ids_csv), cache = 3600 }
-		if errs and #errs > 0 then return end
-
-		local json = data and data.__json
+		local json = fetch_json('Oxalyl', 'roblox.com/thumbnails/v1/badges/icons', {
+			badgeIds = ids_csv,
+			size = '150x150',
+			format = 'Webp',
+			isCircular = 'false',
+			returnPolicy = 'PlaceHolder',
+			wlft_auth = oxalyl_auth,
+			oxalyl_convert_int = 'true',
+		})
 		if not json or not json.data then return end
 
 		for _, item in ipairs(json.data) do
