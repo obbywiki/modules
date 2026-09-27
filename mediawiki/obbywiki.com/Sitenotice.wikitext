@@ -1,1 +1,1 @@
-The site is back online, but features that require email are currently disabled. Additionally, you may need to log in again.
+The site is back online, but features that require email are currently disabled. Additionally, you may need to log in again. Please read this [[Blog:Important_Security_Notice|important security notice]] if you have an Obby Wiki account.
