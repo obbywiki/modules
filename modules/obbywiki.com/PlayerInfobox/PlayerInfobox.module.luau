@@ -28,6 +28,19 @@ local function page_exists(page_title)
     return title and title.exists
 end
 
+local apiunto = mw.ext.Apiunto
+
+local function fetch_json(source, uri, args)
+	local raw = apiunto.fetch(source, uri, args)
+	if type(raw) ~= 'string' or raw == '' or raw == 'Could not retrieve API Data' then return nil, raw or 'no response' end
+
+	local ok, decoded = pcall(mw.text.jsonDecode, raw)
+	if not ok or type(decoded) ~= 'table' then return nil, 'invalid JSON' end
+
+	return decoded
+end
+
+
 
 local smm = {
 	twitter = {
@@ -167,14 +180,11 @@ function PlayerInfobox.main( frame )
 	local player_is_terminated = false
 
 	if player_user_id then
-		local user_res = mw.ext.externalData.getExternalData{
-			url = 'https://users.roblox.com/v1/users/'.. tostring(player_user_id),
-			format = 'json'
-		}
-		
-		local user_json = user_res and user_res.__json
-		local row = user_json
-		mw.log(user_json, row)
+		local s, row = pcall(fetch_json, 'RobloxUsers', 'v1/users/' .. tostring(player_user_id))
+		if not s then
+			row = nil
+		end
+		mw.log(row)
 
 		if row and row.name then
 			player_user_name_raw = '@' .. row.name

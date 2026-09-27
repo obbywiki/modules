@@ -28,6 +28,19 @@ local function page_exists(page_title)
     return title and title.exists
 end
 
+local apiunto = mw.ext.Apiunto
+
+local function fetch_json(source, uri, args)
+	local raw = apiunto.fetch(source, uri, args)
+	if type(raw) ~= 'string' or raw == '' or raw == 'Could not retrieve API Data' then return nil, raw or 'no response' end
+
+	local ok, decoded = pcall(mw.text.jsonDecode, raw)
+	if not ok or type(decoded) ~= 'table' then return nil, 'invalid JSON' end
+
+	return decoded
+end
+
+
 
 local smm = {
 	twitter = {
@@ -210,31 +223,12 @@ function GroupInfobox.main( frame )
 	
 	local thumb = args.image or args.thumbnail or args.thumb
 
-	--
-
-	-- local universe_id
-
-	-- local _, res = pcall(function() 
-	-- 	return mw.ext.externalData.getExternalData{
-	-- 		url = 'https://apis.roblox.com/universes/v1/places/' .. obby_starter_place_id .. '/universe',
-	-- 		format = 'json'
-	-- 	};
-	--  end)
-
-	-- universe_id = res and res.__json and res.__json.universeId
-
-
-	---
-
 	if group_id then
-		local group_res = mw.ext.externalData.getExternalData{
-			url = 'https://groups.roblox.com/v1/groups/'.. tostring(group_id),
-			format = 'json'
-		}
-		
-		local group_json = group_res and group_res.__json
-		local row = group_json
-		mw.log(group_res, row)
+		local s, row = pcall(fetch_json, 'RobloxGroups', 'v1/groups/' .. tostring(group_id))
+		if not s then
+			row = nil
+		end
+		mw.log(row)
 
 		if row and row.owner then
 			local c = row.owner
@@ -280,40 +274,6 @@ function GroupInfobox.main( frame )
 			if row.memberCount and tonumber(group_stats_members) ~= nil then group_stats_members = get_comma_val(group_stats_members) end
 		end
 	end
-
-	-- local s2, universe_data = pcall(function()
-	-- 	return mw.ext.externalData.getExternalData{
-	-- 		data = {
-	-- 			creator_name = 'json.data[0].creator.name',
-	-- 			creator_id   = 'json.data[0].creator.id',
-	-- 			is_verified  = 'json.data[0].creator.hasVerifiedBadge'
-	-- 		},
-	-- 		url = 'https://games.roblox.com/v1/games?universeIds=' .. universe_id,
-	-- 		format = 'json',
-	-- 	}
-	-- end)
-
-	-- if s2 and universe_data then
-	-- 	if universe_data.creator_name then
-	-- 		obby_developer = universe_data.creator.name or obby_developer
-
-	-- 		if universe_data.is_verified == 'true' or universe_data.is_verified == true then obby_developer = obby_developer .. ' [[File:Roblox_Verification_Badge.svg|12px|link=|alt=Verified]]' end
-	-- 	end
-	-- end
-
-	-- local universe
-
-	-- if universe_id then
-	-- 	local universe_data = mw.ext.externalData.getExternalData{
-	-- 		url = 'https://games.roblox.com/v1/games?universeIds=' .. universe_id
-	-- 	}
-	
-	-- 	universe = universe_data and universe_data[1]
-	
-	-- 	if universe then
-	-- 		obby_developer = universe.creator and universe.creator.name or obby_developer
-	-- 	end
-	-- end
 
 	---
 
