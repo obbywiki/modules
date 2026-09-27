@@ -1,1 +1,1 @@
-Some parts of the site may not be working correctly, currently. This will be resolved shortly. You may need to log in again.
+The site is back online, but features that require email are currently disabled. Additionally, you may need to log in again.
