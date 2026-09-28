@@ -1,1 +1,1 @@
-'''Alert:''' Features that require email are currently disabled, following the [[Blog:Important_Security_Notice|incident on the 26th of September]].
+The Obby Wiki is currently under maintenance.
