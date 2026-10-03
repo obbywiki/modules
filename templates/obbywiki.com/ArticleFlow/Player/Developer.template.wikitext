@@ -4,8 +4,6 @@
 | headshot = {{OWAF:headshot_file}}
 }}
 
-{{Stub}} <!-- remove when page is big enough -->
-
 {{OWAF:username}} is an obby developer on Roblox.
 
 = Obbies =
@@ -13,6 +11,8 @@
 
 = References =
 <references />
+
+{{Stub}} <!-- remove when page is big enough -->
 
 {{AlsoBy|@{{OWAF:username}}}}
 
