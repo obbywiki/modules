@@ -1,0 +1,46 @@
+{
+    "moderators": {
+        "type": "TEXT",
+        "index": false
+    },
+    "group_id": {
+        "type": "TEXT",
+        "index": false
+    },
+    "owner": {
+        "type": "TEXT",
+        "index": false
+    },
+    "members": {
+        "type": "DOUBLE"
+    },
+    "contributors": {
+        "type": "TEXT",
+        "index": false
+    },
+    "year": {
+        "type": "INTEGER"
+    },
+    "total_obbies": {
+        "type": "INTEGER"
+    },
+    "month": {
+        "type": "INTEGER"
+    },
+    "admins": {
+        "type": "TEXT",
+        "index": false
+    },
+    "developers": {
+        "type": "TEXT",
+        "index": false
+    },
+    "thumbnail": {
+        "type": "TEXT",
+        "index": false
+    },
+    "name": {
+        "type": "TEXT",
+        "index": false
+    }
+}
