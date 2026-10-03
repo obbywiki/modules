@@ -1,0 +1,52 @@
+{
+    "most_recent_obby": {
+        "type": "TEXT",
+        "index": false
+    },
+    "activity": {
+        "type": "TEXT",
+        "index": false
+    },
+    "day": {
+        "type": "INTEGER"
+    },
+    "image": {
+        "type": "TEXT",
+        "index": false
+    },
+    "year": {
+        "type": "INTEGER"
+    },
+    "headshot": {
+        "type": "TEXT",
+        "index": false
+    },
+    "user_id": {
+        "type": "TEXT",
+        "index": false
+    },
+    "username": {
+        "type": "TEXT",
+        "index": false
+    },
+    "total_obbies": {
+        "type": "INTEGER"
+    },
+    "month": {
+        "type": "INTEGER"
+    },
+    "most_popular_obby": {
+        "type": "TEXT",
+        "index": false
+    },
+    "total_visits": {
+        "type": "DOUBLE"
+    },
+    "display_name": {
+        "type": "TEXT",
+        "index": false
+    },
+    "is_verified": {
+        "type": "BOOLEAN"
+    }
+}
