@@ -7,7 +7,7 @@
 | maturity = {{OWAF:maturity}}
 | year = {{OWAF:year}}
 | month = {{OWAF:month}}
-| tier = {{OWAF:tier}} <!-- leave 0 if unknown -->
+| tier = {{OWAF:tier}}
 
 | stages = {{OWAF:stages}}
 | stages_total = {{OWAF:stages_total}}
@@ -31,8 +31,6 @@
 | vr = true
 | console = true
 }}
-
-{{Stub}} <!-- Remove the Stub notice when this page is long enough -->
 
 '''{{PAGENAME}}''' is...
 
@@ -92,5 +90,7 @@ No known promotional or in-game codes exist or have been found for this obby.
 
 =References=
 <references />
+
+{{Stub}} <!-- Remove the Stub notice when this page is long enough -->
 
 {{AlsoBy|{{OWAF:developer}}}}

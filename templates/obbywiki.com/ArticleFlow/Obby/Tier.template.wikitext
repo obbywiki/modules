@@ -29,8 +29,6 @@
 | console = true
 }}
 
-{{Stub}}
-
 '''{{PAGENAME}}''' is a [[Tier Obby|tier {{OWAF:tier}} obby]] by [[{{OWAF:developer}}]].
 
 = Trivia =
@@ -88,5 +86,7 @@ No known promotional or in-game codes exist or have been found for this obby.
 
 =References=
 <references />
+
+{{Stub}}
 
 {{AlsoBy|{{OWAF:developer}}}}
