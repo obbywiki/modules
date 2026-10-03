@@ -1,0 +1,34 @@
+{
+    "platform": {
+        "type": "TEXT",
+        "index": false
+    },
+    "pages": {
+        "type": "INTEGER"
+    },
+    "primary_language": {
+        "type": "TEXT",
+        "index": false
+    },
+    "day": {
+        "type": "INTEGER"
+    },
+    "year": {
+        "type": "INTEGER"
+    },
+    "month": {
+        "type": "INTEGER"
+    },
+    "domain_no_protocol": {
+        "type": "TEXT",
+        "index": false
+    },
+    "name": {
+        "type": "TEXT",
+        "index": false
+    },
+    "thumbnail": {
+        "type": "TEXT",
+        "index": false
+    }
+}
