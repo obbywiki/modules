@@ -1,0 +1,72 @@
+{
+    "name": {
+        "type": "TEXT"
+    },
+    "creator": {
+        "type": "TEXT"
+    },
+    "developers": {
+        "type": "TEXT",
+        "repeated": true
+    },
+    "contributors": {
+        "type": "TEXT",
+        "repeated": true
+    },
+    "publisher": {
+        "type": "TEXT"
+    },
+    "subgenre": {
+        "type": "TEXT"
+    },
+    "tier": {
+        "type": "INTEGER"
+    },
+    "stages": {
+        "type": "INTEGER",
+        "index": false
+    },
+    "year": {
+        "type": "INTEGER"
+    },
+    "month": {
+        "type": "INTEGER"
+    },
+    "day": {
+        "type": "INTEGER"
+    },
+    "visits": {
+        "type": "DOUBLE"
+    },
+    "likes": {
+        "type": "DOUBLE",
+        "index": false
+    },
+    "dislikes": {
+        "type": "DOUBLE",
+        "index": false
+    },
+    "favorites": {
+        "type": "DOUBLE",
+        "index": false
+    },
+    "is_public": {
+        "type": "BOOLEAN"
+    },
+    "avatar_type": {
+        "type": "TEXT"
+    },
+    "playability": {
+        "type": "TEXT"
+    },
+    "universe_id": {
+        "type": "TEXT"
+    },
+    "root_place_id": {
+        "type": "TEXT"
+    },
+    "thumbnail": {
+        "type": "TEXT",
+        "index": false
+    }
+}
