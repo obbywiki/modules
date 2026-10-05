@@ -1,1 +1,1 @@
-
+[[Blog:Moderation_changes|You can now make edits (up to 30/day) without waiting for moderation. Moderation still applies to files.]]
