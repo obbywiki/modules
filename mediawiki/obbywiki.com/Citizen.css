@@ -83,6 +83,16 @@ details[open]::details-content {
     -webkit-backdrop-filter: saturate(1.15) blur(16px);
 }
 
+.ns-3008 .citizen-sitenotice-container {
+    background-color: color-mix(in srgb,var(--color-surface-2,var(--background-color-base,#fff)) 55%,transparent) !important;
+    backdrop-filter: saturate(1.15) blur(16px) !important;
+}
+
+.ns-4 .citizen-sitenotice-container {
+    background-color: color-mix(in srgb,var(--color-surface-2,var(--background-color-base,#fff)) 55%,transparent) !important;
+    backdrop-filter: saturate(1.15) blur(16px) !important;
+}
+
 .citizen-menu__card-content {
     backdrop-filter: var(--backdrop-filter-frosted-glass);
 }
