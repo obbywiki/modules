@@ -365,19 +365,19 @@ width: 16px;
 
 .citizen-discord-button:hover .citizen-discord-logo__outer,
 .citizen-discord-button:focus-visible .citizen-discord-logo__outer {
-	--spin-scale: 1.12;
+	--spin-scale: 1.38;
 	animation: citizen-discord-spin 700ms cubic-bezier(0.5, 0, 0.3, 1), citizen-discord-spin-scale 700ms ease-in-out;
 }
 
 .citizen-discord-button:hover .citizen-discord-logo__middle,
 .citizen-discord-button:focus-visible .citizen-discord-logo__middle {
-	--spin-scale: 1.09;
+	--spin-scale: 1.28;
 	animation: citizen-discord-spin 700ms cubic-bezier(0.35, 0, 0.25, 1), citizen-discord-spin-scale 700ms ease-in-out;
 }
 
 .citizen-discord-button:hover .citizen-discord-logo__inner,
 .citizen-discord-button:focus-visible .citizen-discord-logo__inner {
-	--spin-scale: 1.06;
+	--spin-scale: 1.18;
 	animation: citizen-discord-spin 700ms cubic-bezier(0.2, 0, 0.2, 1), citizen-discord-spin-scale 700ms ease-in-out;
 }
 
