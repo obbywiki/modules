@@ -317,3 +317,96 @@ width: 16px;
 .ow-rule-fold-summary::-webkit-details-marker {
 	display: none;
 }
+
+/* Discord header button (spin adapted from https://github.com/wlft/discord-logo-2021) */
+.citizen-discord:hover {
+	z-index: 1;
+}
+
+.citizen-discord-button.cdx-button {
+	overflow: visible;
+	color: var(--color-base);
+	text-decoration: none;
+	transition: background-color var(--transition-duration-base), color var(--transition-duration-base);
+}
+
+.citizen-discord-button.cdx-button:hover,
+.citizen-discord-button.cdx-button:focus-visible {
+	color: #fff;
+	background-color: #5865f2 !important;
+	text-decoration: none;
+}
+
+.citizen-discord-button.cdx-button:active {
+	color: #fff;
+	background-color: #4752c4 !important;
+}
+
+.citizen-discord-button > span {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	white-space: nowrap;
+	clip-path: inset(50%);
+}
+
+.citizen-discord-logo {
+	overflow: visible;
+	pointer-events: none;
+}
+
+.citizen-discord-logo__original,
+.citizen-discord-logo__outer,
+.citizen-discord-logo__middle,
+.citizen-discord-logo__inner {
+	transform-origin: 50% 50%;
+}
+
+.citizen-discord-button:hover .citizen-discord-logo__outer,
+.citizen-discord-button:focus-visible .citizen-discord-logo__outer {
+	--spin-scale: 1.12;
+	animation: citizen-discord-spin 700ms cubic-bezier(0.5, 0, 0.3, 1), citizen-discord-spin-scale 700ms ease-in-out;
+}
+
+.citizen-discord-button:hover .citizen-discord-logo__middle,
+.citizen-discord-button:focus-visible .citizen-discord-logo__middle {
+	--spin-scale: 1.09;
+	animation: citizen-discord-spin 700ms cubic-bezier(0.35, 0, 0.25, 1), citizen-discord-spin-scale 700ms ease-in-out;
+}
+
+.citizen-discord-button:hover .citizen-discord-logo__inner,
+.citizen-discord-button:focus-visible .citizen-discord-logo__inner {
+	--spin-scale: 1.06;
+	animation: citizen-discord-spin 700ms cubic-bezier(0.2, 0, 0.2, 1), citizen-discord-spin-scale 700ms ease-in-out;
+}
+
+.citizen-discord-button:hover .citizen-discord-logo__original,
+.citizen-discord-button:focus-visible .citizen-discord-logo__original {
+	visibility: hidden;
+}
+
+@keyframes citizen-discord-spin {
+	from { rotate: 0deg; }
+	to { rotate: 360deg; }
+}
+
+@keyframes citizen-discord-spin-scale {
+	50% { scale: var(--spin-scale); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.citizen-discord-button:hover .citizen-discord-logo__original,
+	.citizen-discord-button:focus-visible .citizen-discord-logo__original {
+		visibility: visible;
+	}
+
+	.citizen-discord-button:hover .citizen-discord-logo__outer,
+	.citizen-discord-button:hover .citizen-discord-logo__middle,
+	.citizen-discord-button:hover .citizen-discord-logo__inner,
+	.citizen-discord-button:focus-visible .citizen-discord-logo__outer,
+	.citizen-discord-button:focus-visible .citizen-discord-logo__middle,
+	.citizen-discord-button:focus-visible .citizen-discord-logo__inner {
+		animation: none;
+	}
+}
