@@ -1,9 +1,83 @@
 /* All CSS here will be loaded for users of the Citizen skin */
 
 
+/* EXPERIMENTAL */
+
+@property --page-tint-strength {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+}
+
+@property --page-tint-saturation {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 1;
+}
+
+@property --page-tint-color {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: oklch(51% 0.04 262.29);
+}
+
+/* see https://raw.githubusercontent.com/StarCitizenTools/mediawiki-skins-Citizen/6f39357882099039c1d17cb5314190b9175d4484/resources/skins.citizen.tokens.new/primitives-citizen.less  */
+
+:root.citizen-v4 {
+    --page-tint-color: oklch(51% 0.04 var(--color-neutral-oklch__h));
+    --page-tint-strength: 0;
+    --page-tint-saturation: 1;
+    --page-tint-mode-scale: 1;
+    --page-tint-idle-chroma: 1;
+    --page-tint-canvas-l: 11%;
+
+    transition: --page-tint-strength 600ms ease, --page-tint-saturation 600ms ease, --page-tint-color 600ms ease;
+}
+
+:root.citizen-v4,
+:root.citizen-v4.skin-theme-clientpref-black {
+    --color-neutral-1000: oklch(from var(--page-tint-color) var(--page-tint-canvas-l) calc((0.01 * var(--page-tint-idle-chroma) + var(--page-tint-strength) * 0.04 * var(--page-tint-mode-scale)) * var(--page-tint-saturation)) h);
+    --color-neutral-900: oklch(from var(--page-tint-color) 17% calc((0.012 * var(--page-tint-idle-chroma) + var(--page-tint-strength) * 0.065 * var(--page-tint-mode-scale)) * var(--page-tint-saturation)) h);
+    --color-neutral-800: oklch(from var(--page-tint-color) 22% calc((0.02 * var(--page-tint-idle-chroma) + var(--page-tint-strength) * 0.09 * var(--page-tint-mode-scale)) * var(--page-tint-saturation)) h);
+    --color-neutral-700: oklch(from var(--page-tint-color) 30% calc((0.028 * var(--page-tint-idle-chroma) + var(--page-tint-strength) * 0.11 * var(--page-tint-mode-scale)) * var(--page-tint-saturation)) h);
+    --color-neutral-600: oklch(from var(--page-tint-color) 39% calc((0.035 * var(--page-tint-idle-chroma) + var(--page-tint-strength) * 0.13 * var(--page-tint-mode-scale)) * var(--page-tint-saturation)) h);
+    --color-neutral-500: oklch(from var(--page-tint-color) 51% calc((0.04 * var(--page-tint-idle-chroma) + var(--page-tint-strength) * 0.13 * var(--page-tint-mode-scale)) * var(--page-tint-saturation)) h);
+    --color-neutral-400: oklch(from var(--page-tint-color) 73% calc((0.035 * var(--page-tint-idle-chroma) + var(--page-tint-strength) * 0.11 * var(--page-tint-mode-scale)) * var(--page-tint-saturation)) h);
+    --color-neutral-300: oklch(from var(--page-tint-color) 84% calc((0.028 * var(--page-tint-idle-chroma) + var(--page-tint-strength) * 0.09 * var(--page-tint-mode-scale)) * var(--page-tint-saturation)) h);
+    --color-neutral-200: oklch(from var(--page-tint-color) 90% calc((0.02 * var(--page-tint-idle-chroma) + var(--page-tint-strength) * 0.065 * var(--page-tint-mode-scale)) * var(--page-tint-saturation)) h);
+    --color-neutral-100: oklch(from var(--page-tint-color) 94% calc((0.012 * var(--page-tint-idle-chroma) + var(--page-tint-strength) * 0.04 * var(--page-tint-mode-scale)) * var(--page-tint-saturation)) h);
+    --color-neutral-50: oklch(from var(--page-tint-color) 98% calc((0.005 * var(--page-tint-idle-chroma) + var(--page-tint-strength) * 0.016 * var(--page-tint-mode-scale)) * var(--page-tint-saturation)) h);
+
+    --page-tint-canvas-light: oklch(from var(--page-tint-color) 100% calc(var(--page-tint-strength) * 0.028 * var(--page-tint-saturation)) h);
+    --color-surface-0: light-dark(var(--page-tint-canvas-light), var(--color-neutral-1000));
+    --background-color-base: light-dark(var(--page-tint-canvas-light), var(--color-neutral-1000));
+}
+
+:root.citizen-v4.skin-theme-clientpref-night {
+    --page-tint-mode-scale: 0.8;
+}
+
+:root.citizen-v4.skin-theme-clientpref-black {
+    --page-tint-idle-chroma: 0;
+    --page-tint-mode-scale: 0.85;
+    --page-tint-canvas-l: calc(var(--page-tint-strength) * 7%);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root.citizen-v4.skin-theme-clientpref-os {
+        --page-tint-mode-scale: 0.8;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root.citizen-v4 {
+        transition: none;
+    }
+}
+
 /* dim */
 
-.skin-theme-clientpref-dim {
+:root.skin-theme-clientpref-dim {
     color-scheme: dark;
     --opacity-glass: 0.8;
     --shadow-opacity: 0.44;
