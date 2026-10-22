@@ -13,6 +13,8 @@ on:
       - 'templates/*'
       - 'mediawiki/**'
       - 'mediawiki/*'
+      - 'bucket/**'
+      - 'bucket/*'
 
 jobs:
   wikiwire:
