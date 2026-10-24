@@ -361,7 +361,12 @@ width: 16px;
 	mask-position: center;
 }
 
-#n-sidebar-icon-discord a:before {
+/* .noarticletext-discord-icon for Template:No_article_text */
+#n-sidebar-icon-discord a:before,
+.noarticletext-discord-icon {
+	mask-size: contain;
+	mask-repeat: no-repeat;
+	mask-position: center;
 	mask-image: url( https://2q2bp9cu5u.ufs.sh/f/jHfjIa1SBA5f4v36BHmiArxKSEWbsm23Yk91zcNIwgoTvLUa );
 }
 

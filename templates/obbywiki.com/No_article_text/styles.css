@@ -1,0 +1,160 @@
+.noarticletext {
+	display: flex;
+	flex-wrap: wrap;
+	margin-block: var(--space-md);
+	overflow: hidden;
+	border: 1px solid var(--border-color-base);
+	border-radius: var(--border-radius-large);
+}
+
+.noarticletext-main,
+.noarticletext-options {
+	flex: 1 1 18rem;
+	min-width: 0;
+	padding: var(--space-xxl);
+}
+
+/* left */
+.noarticletext-main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.noarticletext-404 {
+	color: var(--color-subtle);
+	font-size: 6rem;
+	font-weight: var(--font-weight-semi-bold);
+	line-height: 1;
+	letter-spacing: 0.05em;
+}
+
+.noarticletext-title {
+	margin-top: var(--space-sm);
+	color: var(--color-emphasized);
+	font-size: var(--font-size-x-large);
+	font-weight: var(--font-weight-semi-bold);
+	line-height: var(--line-height-xx-small);
+}
+
+.noarticletext-caption {
+	margin-top: var(--space-xs);
+	color: var(--color-subtle);
+}
+
+/* right */
+.noarticletext-options {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: var(--space-md);
+	background-color: var(--color-surface-1);
+}
+
+.noarticletext .noarticletext-create a,
+.noarticletext .noarticletext-discord a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-sm);
+	padding: var(--space-sm) var(--space-md);
+	border-radius: var(--border-radius-base);
+	font-weight: var(--font-weight-semi-bold);
+	text-decoration: none;
+	transition: background-color var(--transition-duration-base), color var(--transition-duration-base);
+}
+
+.noarticletext .noarticletext-create a:hover,
+.noarticletext .noarticletext-discord a:hover {
+	text-decoration: none;
+}
+
+/* create article */
+.noarticletext .noarticletext-create a,
+.noarticletext .noarticletext-create a:visited {
+	min-height: 3rem;
+	color: var(--color-inverted-fixed, #fff);
+	background-color: var(--background-color-progressive);
+	font-size: var(--font-size-large);
+}
+
+.noarticletext .noarticletext-create a:hover {
+	color: var(--color-inverted-fixed, #fff);
+	background-color: var(--background-color-progressive--hover);
+}
+
+.noarticletext .noarticletext-create a:active {
+	color: var(--color-inverted-fixed, #fff);
+	background-color: var(--background-color-progressive--active);
+}
+
+.noarticletext-create-icon {
+	display: block;
+	flex-shrink: 0;
+	width: 1em;
+	height: 1em;
+	background-image: linear-gradient(currentColor, currentColor), linear-gradient(currentColor, currentColor);
+	background-size: 100% 2px, 2px 100%;
+	background-position: center, center;
+	background-repeat: no-repeat;
+}
+
+/* divider */
+.noarticletext-or {
+	display: flex;
+	align-items: center;
+	gap: var(--space-md);
+	color: var(--color-subtle);
+	font-size: var(--font-size-x-small);
+	font-weight: var(--font-weight-semi-bold);
+	letter-spacing: 0.1em;
+}
+
+.noarticletext-or::before,
+.noarticletext-or::after {
+	content: "";
+	flex: 1;
+	border-top: 1px solid var(--border-color-base);
+}
+
+/* secondary links */
+.noarticletext-links {
+	margin: 0 0 0 1.25em;
+	padding: 0;
+	list-style: disc;
+	font-size: var(--font-size-small);
+	color: var(--color-subtle);
+}
+
+.noarticletext-links li {
+	margin: 0;
+	padding-block: var(--space-xxs);
+}
+
+/* discord */
+.noarticletext .noarticletext-discord a,
+.noarticletext .noarticletext-discord a:visited {
+	padding: var(--space-xs) var(--space-md);
+	color: var(--color-base);
+	background-color: transparent;
+	font-size: var(--font-size-small);
+}
+
+.noarticletext .noarticletext-discord a:hover {
+	color: #fff;
+	background-color: #5865f2;
+}
+
+.noarticletext .noarticletext-discord a:active {
+	color: #fff;
+	background-color: #4752c4;
+}
+
+/* icon mask is in MediaWiki:Citizen.css */
+.noarticletext-discord-icon {
+	display: block;
+	flex-shrink: 0;
+	width: 1.25em;
+	height: 1.25em;
+	background-color: currentColor;
+}

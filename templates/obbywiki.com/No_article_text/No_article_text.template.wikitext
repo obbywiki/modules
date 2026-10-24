@@ -1,0 +1,14 @@
+<includeonly><templatestyles src="Template:No article text/styles.css"/><div class="mw-parser-output"><div class="noarticletext plainlinks"><!--
+
+Left: 404 + subtext
+
+--><div class="noarticletext-main"><div class="noarticletext-404">404</div><div class="noarticletext-title">This page doesn't exist yet.</div><div class="noarticletext-caption">There is currently no text on this page. Consider writing it!</div></div><!--
+
+Right: options
+
+--><div class="noarticletext-options">{{#if:{{{nopermission|}}}||<div class="noarticletext-create">[{{fullurl:{{FULLPAGENAME}}|owaftitle={{urlencode:{{FULLPAGENAME}}}}}} <span class="noarticletext-create-icon"></span><span>Create article</span>]</div>}}<div class="noarticletext-discord">[https://discord.gg/vuJsnzKkKY <span class="noarticletext-discord-icon"></span><span>Ask on Discord</span>]</div><div class="noarticletext-or">OR</div><ul class="noarticletext-links">
+<li>[[Special:Search/{{PAGENAME}}|Search for this title]] in other pages</li>
+<li>[{{fullurl:{{#Special:Log}}|page={{urlencode:{{FULLPAGENAME}}}}}} Search the related logs]</li>{{#if:{{{nopermission|}}}||
+<li>Read the [[Obby Wiki:Style guide|style guide]] before writing</li>
+<li>New here? See [[Help:Contents|Help]]</li>}}
+</ul></div></div></div></includeonly>
