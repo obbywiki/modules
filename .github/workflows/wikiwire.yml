@@ -1,6 +1,8 @@
 # this CI workflow is very specific to the OW and contains multiple technical work-arounds that might not apply to your wiki.
 # learn more about WikiWire: https://github.com/obbywiki/wikiwire
 
+# (!) The security of this workflow is prioritized, as injections could compromise site-wide JS/CSS.
+
 name: WikiWire
 
 on:
@@ -37,7 +39,7 @@ jobs:
           chmod +x darklua
 
       - name: Setup Lua 5.1
-        uses: leafo/gh-actions-lua@v13
+        uses: leafo/gh-actions-lua@32909a2dea0a48c433aec79e7fcd31b4cd55800f # v13.1.0
         with:
           luaVersion: "5.1.5"
 
