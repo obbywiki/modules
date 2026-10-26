@@ -15,3 +15,13 @@ api = "https://obby.wiki/api.php"
 default_branch = "main"
 css_content_model = "css"
 common = true
+shared_groups = ["project"]
+
+[[sites]]
+id = "testwiki"
+host = "test.obby.wiki"
+api = "https://test.obby.wiki/api.php"
+default_branch = "main"
+css_content_model = "css"
+common = true
+shared_groups = ["project", "staging"]
