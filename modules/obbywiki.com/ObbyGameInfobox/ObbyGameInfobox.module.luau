@@ -586,7 +586,7 @@ function ObbyGameInfobox.main( frame )
 
 	local subgenre_text = page_exists(obby_subgenre) and '[[' .. obby_subgenre .. ']]' or obby_subgenre
 
-	if obby_subgenre == 'Tier Obby' then
+	if obby_subgenre == 'Tiered Obby' then
 		subgenre_text ..= ` ([[:Category:Tier_Obby/{tostring(obby_tier)}|{tostring(obby_tier)}]])`
 	end
 
@@ -846,7 +846,7 @@ function ObbyGameInfobox.main( frame )
 		table.insert(append_categories, '[[Category:' .. obby_subgenre .. ']]')
 	end
 
-	if obby_subgenre == 'Tier Obby' then
+	if obby_subgenre == 'Tiered Obby' then
 		table.insert(append_categories, `[[Category:{obby_subgenre}/{obby_tier == '0' and 'Unrated' or obby_tier}]]`)
 	end
 
