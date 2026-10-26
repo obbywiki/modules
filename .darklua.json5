@@ -7,7 +7,7 @@
     "require_mode": {
       "name": "path",
       "sources": {
-        "Module": "./modules"
+        "Module": "./src/modules"
       }
     },
     "excludes": ["Module?*", "Module?*/**", "libraryUtil", "mw.ext.*"]
