@@ -2,7 +2,7 @@
   "extends": ["stylelint-config-standard"],
   "ignoreFiles": [
     "**/node_modules/**",
-    "modules/shared/_imported/**"
+    "src/modules/shared/_imported/**"
   ],
   "rules": {
     "selector-class-pattern": null,
