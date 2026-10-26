@@ -2,14 +2,14 @@ name: ESLint
 on:
   push:
     paths:
-      - 'mediawiki/**/*.js'
+      - 'src/mediawiki/**/*.js'
       - 'eslint.config.mjs'
       - 'package.json'
       - 'pnpm-lock.yaml'
       - '.github/workflows/eslint.yml'
   pull_request:
     paths:
-      - 'mediawiki/**/*.js'
+      - 'src/mediawiki/**/*.js'
       - 'eslint.config.mjs'
       - 'package.json'
       - 'pnpm-lock.yaml'
