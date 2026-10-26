@@ -2,7 +2,7 @@ name: Darklua
 on:
   # push:
   #   paths:
-  #     - 'modules/**/*.module.luau'
+  #     - 'src/modules/**/*.module.luau'
   #     - '.darklua.json5'
   #     - 'scripts/polyfill.js'
   #     - 'scripts/compatibility.js'
@@ -46,11 +46,11 @@ jobs:
           set -euo pipefail
           out_dir="$(mktemp -d)"
           while IFS= read -r -d '' path; do
-            rel="${path#modules/}"
+            rel="${path#src/modules/}"
             out_path="${out_dir}/${rel%.module.luau}.module.lua"
             mkdir -p "$(dirname "$out_path")"
             ./darklua process --config .darklua.json5 "$path" "$out_path"
             node scripts/polyfill.js "$out_path"
             node scripts/compatibility.js "$out_path"
             luac -p "$out_path"
-          done < <(find modules -type f -name '*.module.luau' -print0)
+          done < <(find src/modules -type f -name '*.module.luau' -print0)

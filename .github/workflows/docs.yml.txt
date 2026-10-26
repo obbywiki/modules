@@ -5,8 +5,8 @@ on:
   push:
     branches: ["main"]
     paths:
-      - 'modules/**'
-      - 'modules/*'
+      - 'src/modules/**'
+      - 'src/modules/*'
       - 'moonwave.toml'
     paths-ignore:
       - '*.md'
@@ -31,6 +31,6 @@ jobs:
           git config --global user.email "support+actions@github.com"
           git config --global user.name "github-actions-bot"
 
-          moonwave build --publish --code modules/obbywiki.com
+          moonwave build --publish --code src/modules/obbywiki.com
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

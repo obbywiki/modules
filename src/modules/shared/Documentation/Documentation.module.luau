@@ -86,7 +86,7 @@ function p.doc( frame )
 
     if args.synced then
         if args.owsmt_location then
-            const owsmt_approx = `https://github.com/obbywiki/modules/blob/main/{page_type}s/{args.owsmt_location}`
+            const owsmt_approx = `https://github.com/obbywiki/modules/blob/main/src/{page_type}s/{args.owsmt_location}`
 
             table.insert(banners, mbox(
                 `'''{title}''' is maintained and synced from the [{owsmt_approx} OWSMT] repository on GitHub.`,

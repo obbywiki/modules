@@ -44,9 +44,9 @@ jobs:
           fi
 
           mapfile -t changed < <(
-            git diff --name-only --diff-filter=ACMR "$base" "$tip" -- modules \
+            git diff --name-only --diff-filter=ACMR "$base" "$tip" -- src/modules \
               | grep -E '\.lua$' \
-              | grep -vE '^modules/_legacy/|^modules/shared/_imported/' || true
+              | grep -vE '^src/modules/_legacy/|^src/modules/shared/_imported/' || true
           )
 
           if [ "${#changed[@]}" -eq 0 ]; then

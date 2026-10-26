@@ -17,9 +17,10 @@ This is the OWSMT repository, also known as the Obby Wiki Shared Modules and Tem
 
 The layout and organization of this repository is governed by WikiWire's format:
 
-* `modules/` for modules,
-* `templates/` for templates,
-* and `mediawiki/` for all MediaWiki: namespace items/pages
+* `src/modules/` for modules,
+* `src/templates/` for templates,
+* `src/mediawiki/` for all MediaWiki: namespace items/pages,
+* and `src/bucket/` for Bucket: namespace items
 
 Under any of these folders are three types of sub-folders:
 

@@ -4,7 +4,7 @@ import globals from 'globals'
 export default [
 	js.configs.recommended,
 	{
-		files: ['mediawiki/**/*.js'],
+		files: ['src/mediawiki/**/*.js'],
 		languageOptions: {
 			ecmaVersion: 2022,
 			sourceType: 'script',
