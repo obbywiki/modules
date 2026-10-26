@@ -44,6 +44,23 @@ local function format_with_total(value, total)
 	return value or ''
 end
 
+local placeholder_image_16_9 = 'standard169placeholder.webp'
+
+local function is_16_9_placeholder(filename)
+	if type(filename) ~= 'string' then
+		return false
+	end
+
+	local name = mw.text.trim(filename)
+	local parts = mw.text.split(name, ':', true)
+	if #parts > 1 then
+		table.remove(parts, 1)
+		name = table.concat(parts, ':')
+	end
+
+	return string.lower(name) == placeholder_image_16_9
+end
+
 local apiunto = mw.ext.Apiunto
 
 local function fetch_json(source, uri, args)
@@ -353,6 +370,10 @@ function ObbyGameInfobox.main( frame )
 	local obby_tier = args.tier or '0'
 	
 	local thumb = args.image or args.thumbnail or args.thumb
+	local thumb_is_placeholder = is_16_9_placeholder(thumb)
+	if thumb_is_placeholder or thumb == '' then
+		thumb = nil
+	end
 
 	-- edge aggregates all infobox Roblox data in typescript/node
 	local s, obby_wiki_edge_res = pcall(fetch_json, 'ObbyEdge', 'v1/get-obby/' .. obby_starter_place_id)
@@ -455,6 +476,8 @@ function ObbyGameInfobox.main( frame )
 			-- test:renderImage( thumbs[1] ) -- todo cant support external images yet
 			if thumb then
 				test:renderImage( thumb )
+			elseif thumb_is_placeholder then
+				test:renderImage()
 			end
 		else
 			if thumb then
@@ -465,11 +488,7 @@ function ObbyGameInfobox.main( frame )
 		end
 
 	else
-		if thumb and thumb ~= '' then
-			test:renderImage( thumb )
-		else
-			test:renderImage( 'Standard169placeholder.webp' )
-		end
+		test:renderImage( thumb )
 	end
 
 	local obby_status_key = args.unreleased == 'true' and 'status_unreleased' or obby_is_public and 'status_public' or 'status_private'
