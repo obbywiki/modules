@@ -847,7 +847,9 @@ function ObbyGameInfobox.main( frame )
 	end
 
 	if obby_subgenre == 'Tiered Obby' then
-		table.insert(append_categories, `[[Category:{obby_subgenre}/{obby_tier == '0' and 'Unrated' or obby_tier}]]`)
+		-- table.insert(append_categories, `[[Category:{obby_subgenre}/{obby_tier == '0' and 'Unrated' or obby_tier}]]`)
+		table.insert(append_categories, `[[Category:Tier Obby/{obby_tier == '0' and 'Unrated' or obby_tier}]]`)
+		table.insert(append_categories, `[[Category:Tier Obby]]`)
 	end
 
 	if not obby_stats_visits_raw then
