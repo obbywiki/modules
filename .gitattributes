@@ -1,10 +1,10 @@
 # technically not lingust-vendored, but it's cleaner to ignore
 scripts/** linguist-vendored
 # dont count imported or legacy modules towards language statistics
-modules/shared/_imported/** linguist-vendored
+src/modules/shared/_imported/** linguist-vendored
 **/i:*/** linguist-vendored
 **/w:*/** linguist-vendored
 **/scw:*/** linguist-vendored
 **/utgw:*/** linguist-vendored
-modules/_legacy/** linguist-vendored
+src/modules/_legacy/** linguist-vendored
 **/**Legacy.lua linguist-vendored
