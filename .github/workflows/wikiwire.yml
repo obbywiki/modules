@@ -9,14 +9,14 @@ on:
   push:
     branches: [main]
     paths:
-      - 'modules/**'
-      - 'modules/*'
-      - 'templates/**'
-      - 'templates/*'
-      - 'mediawiki/**'
-      - 'mediawiki/*'
-      - 'bucket/**'
-      - 'bucket/*'
+      - 'src/modules/**'
+      - 'src/modules/*'
+      - 'src/templates/**'
+      - 'src/templates/*'
+      - 'src/mediawiki/**'
+      - 'src/mediawiki/*'
+      - 'src/bucket/**'
+      - 'src/bucket/*'
 
 jobs:
   wikiwire:
