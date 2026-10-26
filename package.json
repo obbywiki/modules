@@ -9,7 +9,7 @@
     "lint:wikitext": "wikilint --config enwiki --recursive --ext .wikitext --no-color .",
     "lint:css": "stylelint \"**/*.css\"",
     "lint:i18n": "node scripts/check-i18n-keys.js",
-    "lint:js": "eslint \"mediawiki/**/*.js\""
+    "lint:js": "eslint \"src/mediawiki/**/*.js\""
   },
   "keywords": [],
   "author": "",
