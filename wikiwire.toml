@@ -6,6 +6,7 @@ shared = true
 common = true
 ignore_content_model_errors = true
 delete_removed = true
+src = true
 
 [[sites]]
 id = "obbywiki"
