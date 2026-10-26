@@ -1,14 +1,14 @@
 std = "luau+mw"
 exclude = [
-  "modules/_legacy/**",
-  "modules/shared/_imported/**",
+  "src/modules/_legacy/**",
+  "src/modules/shared/_imported/**",
   "*.d.lua",
   "*.d.luau",
-  "modules/**/scw:*",
-  "modules/**/w:*",
-  "modules/**/runescape:*",
-  "modules/**/utgw:*",
-  "modules/**/i:*",
+  "src/modules/**/scw:*",
+  "src/modules/**/w:*",
+  "src/modules/**/runescape:*",
+  "src/modules/**/utgw:*",
+  "src/modules/**/i:*",
 ]
 
 [lints]
