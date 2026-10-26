@@ -10,7 +10,7 @@ on:
   #     - '.github/workflows/darklua.yml'
   pull_request:
     paths:
-      - 'modules/**/*.module.luau'
+      - 'src/modules/**/*.module.luau'
       - '.darklua.json5'
       - 'scripts/polyfill.js'
       - 'scripts/compatibility.js'
