@@ -2,12 +2,12 @@ name: Luacheck
 on:
   push:
     paths:
-      - 'modules/**'
+      - 'src/modules/**'
       - '.luacheckrc'
       - '.github/workflows/luacheck.yml'
   pull_request:
     paths:
-      - 'modules/**'
+      - 'src/modules/**'
       - '.luacheckrc'
       - '.github/workflows/luacheck.yml'
 
