@@ -4,7 +4,7 @@ gitRepoUrl = "https://github.com/obbywiki/modules"
 gitSourceBranch = "main"
 changelog = false
 classOrder = []
-autoSectionPath = "modules/obbywiki.com"
+autoSectionPath = "src/modules/obbywiki.com"
 apiCategories = ["invoked"]
 
 [docusaurus]
