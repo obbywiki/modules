@@ -4,14 +4,14 @@ name: Selene
 on:
   push:
     paths:
-      - 'modules/**'
+      - 'src/modules/**'
       - 'selene.toml'
       - 'mw.yml'
       - 'aftman.toml'
       - '.github/workflows/selene.yml'
   pull_request:
     paths:
-      - 'modules/**'
+      - 'src/modules/**'
       - 'selene.toml'
       - 'mw.yml'
       - 'aftman.toml'
@@ -26,4 +26,4 @@ jobs:
       - name: Setup Aftman
         uses: ok-nick/setup-aftman@v0.4.2
       - name: Lint with Selene
-        run: selene modules --allow-warnings
+        run: selene src/modules --allow-warnings
