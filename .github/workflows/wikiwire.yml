@@ -59,7 +59,7 @@ jobs:
 
           while IFS= read -r path; do
             [[ -n "$path" ]] || continue
-            [[ "$path" == modules/* ]] || continue
+            [[ "$path" == src/modules/* ]] || continue
             [[ "$path" =~ \.module\.luau$ ]] || continue
 
             out_path="${path%.module.luau}.module.lua"
