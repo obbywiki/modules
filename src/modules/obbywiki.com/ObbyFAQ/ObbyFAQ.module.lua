@@ -35,7 +35,7 @@ function p.main(frame)
     
     local results = mw.ext.cargo.query(
         'Obbies',
-        'name, creator, developers, stages, tier, subgenre, avatar_type, year, month, day, is_public',
+        'name, creator, developers, stages, tier, subgenre, avatar_type, year, month, day, is_public, root_place_id',
         {
             where = '_pageName="' .. pageName .. '"',
             limit = 1
@@ -89,7 +89,16 @@ function p.main(frame)
 
     -- Question 2: How to play
     local is_public = data.is_public == '1' or data.is_public == true or data.is_public == 'yes'
-    local play_answer = string.format('You can play \'\'\'%s\'\'\' for free on Roblox. The game is %s to the public, meaning anyone with a Roblox account can join and start playing. Simply search for the game title on the Roblox website or mobile app to start playing. Alternatively, you can directly click %s to reach the Roblox page.', obby_name, is_public and 'currently open' or 'currently set to private or unlisted', (data.root_place_id and '[https://roblox.com/games/' .. data.root_place_id .. '/ this link]' or ''))
+    local play_link = (data.root_place_id and data.root_place_id ~= '') and ('[https://roblox.com/games/' .. data.root_place_id .. '/ this link]') or nil
+    local play_answer
+    if is_public then
+        play_answer = string.format('You can play \'\'\'%s\'\'\' for free on Roblox. The game is currently open to the public, meaning anyone with a Roblox account can join and start playing. Simply search for the game title on the Roblox website or mobile app to start playing.', obby_name)
+    else
+        play_answer = string.format('You can play \'\'\'%s\'\'\' for free on Roblox. The game is currently set to private or unlisted, so it may not appear in public search results and not everyone can join.', obby_name)
+    end
+    if play_link then
+        play_answer = play_answer .. ' Alternatively, you can directly click ' .. play_link .. ' to reach the Roblox page.'
+    end
     
     table.insert(faqs, renderFAQ(frame,
         string.format('How do I play %s on Roblox?', obby_name),
