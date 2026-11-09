@@ -188,8 +188,8 @@ importers:
         specifier: ^40.0.0
         version: 40.0.0(stylelint@17.16.0(supports-color@10.2.2))
       wikilint:
-        specifier: ^2.48.1
-        version: 2.48.1(stylelint-config-recommended@18.0.0(stylelint@17.16.0(supports-color@10.2.2)))(stylelint@17.16.0(supports-color@10.2.2))
+        specifier: ^3.1.0
+        version: 3.1.0(stylelint-config-recommended@18.0.0(stylelint@17.16.0(supports-color@10.2.2)))
 
 packages:
 
@@ -225,11 +225,14 @@ packages:
       culori:
         optional: true
 
-  '@bhsd/stylelint-util@1.1.0':
-    resolution: {integrity: sha512-ZIvUYsWS6gU1tK2FxbUS/t73gGiCPjnnmOKKmi9jPgHb7B7OkDXk1l5ThTHv01q1c3xMbqEn89o+222WzFJBKg==}
-    engines: {node: ^20.19.0 || ^22.13.0 || >=24.11.0}
+  '@bhsd/stylelint-util@2.0.0':
+    resolution: {integrity: sha512-QmhHp1UNrLGTKkd2zRjwGXqPgjKKAWqBHiUyUUclmgatG84K9MoeWIsQ/jts4U0YZqKVf6lv+FcAHBeSsfzS3w==}
+    engines: {node: ^22.13.0 || >=24.11.0}
     peerDependencies:
       stylelint-config-recommended: '*'
+    peerDependenciesMeta:
+      stylelint-config-recommended:
+        optional: true
 
   '@cacheable/memory@2.2.0':
     resolution: {integrity: sha512-CTLKqLItRCEixEAewD3/j9DB3/o96gpTPD4eJ1v+DGOlxZRZncRQkGYqqnAGCscYd6RNeXfGeiuCphsPtqyIfQ==}
@@ -1189,8 +1192,8 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
-  vscode-languageserver-types@3.18.4:
-    resolution: {integrity: sha512-nQsacoiijvl0fRf2q28uFDrAVwRhdCa3QveiF7/CX0r18mLR5FU/1WskSsCKOjmEbtteKUnY8x8Yzxop+k0zwg==}
+  vscode-languageserver-types@3.18.5:
+    resolution: {integrity: sha512-kPd6+JQNz3HMJvjKlqUxERSlZHAntl/aGpsk7ImwIh0ewDKDcjgAEyVSYciPiOJD3ftbK9IrfiqUeTZLSbCizw==}
 
   web-streams-polyfill@3.3.3:
     resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
@@ -1205,20 +1208,20 @@ packages:
     engines: {node: '>= 8'}
     hasBin: true
 
-  wikilint@2.48.1:
-    resolution: {integrity: sha512-JNiWG+sv1P0KYs03SXb0BHiruwAxlQ27SJcpUxEU5LZVG032UN1VKv9+/uJ08rqAY+rKDNxstw2Ns5D2v4XPPw==}
-    engines: {node: ^20.19.0 || ^22.13.0 || >=24.11.0}
+  wikilint@3.1.0:
+    resolution: {integrity: sha512-2FG4bTS0nD35xC746JS4Ti028wCLxR1SXFdGpP9jCGdDkxG6XLqgQH2o+r+Y2m8bZ+Cn01N+MwDRK76vIKGy2w==}
+    engines: {node: ^22.13.0 || >=24.11.0}
     hasBin: true
     peerDependencies:
       mathoid-texvcjs: '>=0.4.0'
-      stylelint: '>=16.0.0'
+      stylelint-config-recommended: '>=14.0.0'
       vscode-css-languageservice: '>=3.0.0'
       vscode-html-languageservice: '>=3.1.0'
       vscode-json-languageservice: '>=3.2.0'
     peerDependenciesMeta:
       mathoid-texvcjs:
         optional: true
-      stylelint:
+      stylelint-config-recommended:
         optional: true
       vscode-css-languageservice:
         optional: true
@@ -1274,8 +1277,8 @@ snapshots:
     optionalDependencies:
       culori: 4.0.2
 
-  '@bhsd/stylelint-util@1.1.0(stylelint-config-recommended@18.0.0(stylelint@17.16.0(supports-color@10.2.2)))':
-    dependencies:
+  '@bhsd/stylelint-util@2.0.0(stylelint-config-recommended@18.0.0(stylelint@17.16.0(supports-color@10.2.2)))':
+    optionalDependencies:
       stylelint-config-recommended: 18.0.0(stylelint@17.16.0(supports-color@10.2.2))
 
   '@cacheable/memory@2.2.0':
@@ -2201,7 +2204,7 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vscode-languageserver-types@3.18.4: {}
+  vscode-languageserver-types@3.18.5: {}
 
   web-streams-polyfill@3.3.3: {}
 
@@ -2213,21 +2216,20 @@ snapshots:
     dependencies:
       isexe: 2.0.0
 
-  wikilint@2.48.1(stylelint-config-recommended@18.0.0(stylelint@17.16.0(supports-color@10.2.2)))(stylelint@17.16.0(supports-color@10.2.2)):
+  wikilint@3.1.0(stylelint-config-recommended@18.0.0(stylelint@17.16.0(supports-color@10.2.2))):
     dependencies:
       '@bhsd/cm-util': 2.4.2
       '@bhsd/common': 4.1.0(culori@4.0.2)
-      '@bhsd/stylelint-util': 1.1.0(stylelint-config-recommended@18.0.0(stylelint@17.16.0(supports-color@10.2.2)))
+      '@bhsd/stylelint-util': 2.0.0(stylelint-config-recommended@18.0.0(stylelint@17.16.0(supports-color@10.2.2)))
       culori: 4.0.2
       entities: 8.1.0
-      vscode-languageserver-types: 3.18.4
+      vscode-languageserver-types: 3.18.5
     optionalDependencies:
-      stylelint: 17.16.0(supports-color@10.2.2)
+      stylelint-config-recommended: 18.0.0(stylelint@17.16.0(supports-color@10.2.2))
     transitivePeerDependencies:
       - '@codemirror/state'
       - '@codemirror/view'
       - monaco-editor
-      - stylelint-config-recommended
 
   word-wrap@1.2.5: {}
 
