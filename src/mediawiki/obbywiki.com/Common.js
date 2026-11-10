@@ -358,6 +358,8 @@ $( document ).on( 'pointerdown keydown focusin', '.ow-returnto a, a.ow-returnto'
 	var u = new URL( this.href, location.href );
 	u.searchParams.set( 'returnto', page );
 
+    document.cookie = 'ow_h=1; path=/; domain=.obby.wiki; max-age=1800; secure; samesite=lax';
+
 	this.href = u.toString();
 	this.dataset.owDone = '1';
 } );
