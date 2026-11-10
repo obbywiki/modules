@@ -342,3 +342,22 @@ mw.loader.using(['mediawiki.util'], function () {
         subtree: true
     });
 });
+
+/**
+ * Inject returnto parameters on click via JS, so that crawlers don't find infinite URLs and DDOS the site, requesting the same page infinitely because Smart
+*/
+
+$( document ).on( 'pointerdown keydown focusin', '.ow-returnto a, a.ow-returnto', function () {
+	if ( this.dataset.owDone ) { return; }
+
+	var page = mw.config.get( 'wgRelevantPageName' );
+	var sp = mw.config.get( 'wgCanonicalSpecialPageName' );
+
+	if ( !page || sp === 'Userlogin' || sp === 'CreateAccount' || sp === 'Auth' ) { return; }
+
+	var u = new URL( this.href, location.href );
+	u.searchParams.set( 'returnto', page );
+
+	this.href = u.toString();
+	this.dataset.owDone = '1';
+} );
